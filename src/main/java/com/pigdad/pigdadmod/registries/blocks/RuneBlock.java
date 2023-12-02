@@ -1,4 +1,9 @@
 package com.pigdad.pigdadmod.registries.blocks;
 
-public class RuneBlock {
+import net.minecraft.world.level.block.Block;
+
+public class RuneBlock extends Block {
+    public RuneBlock(Properties properties) {
+        super(properties);
+    }
 }
