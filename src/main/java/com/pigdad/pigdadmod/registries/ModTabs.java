@@ -13,7 +13,7 @@ public class ModTabs {
     public static final RegistryObject<CreativeModeTab> MAIN = CREATIVE_MODE_TABS.register("main", () -> CreativeModeTab.builder()
             .title(Component.translatable("tab.pigdadmod.main"))
             .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(() -> ModItems.RUNE.get().getDefaultInstance())
+            .icon(() -> ModBlocks.IMBUING_CAULDRON.get().asItem().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.accept(ModItems.RUNE.get());
                 output.accept(ModBlocks.IMBUING_CAULDRON.get());

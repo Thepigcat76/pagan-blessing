@@ -396,9 +396,5 @@
 			"children": [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
 		},
 		27
-	],
-	"loader": "forge:obj",
-	"model": "conquest:models/obj/empty_round_barrel.obj",
-	"ambientToFullbright": true,
-	"flip-v": true
+	]
 }

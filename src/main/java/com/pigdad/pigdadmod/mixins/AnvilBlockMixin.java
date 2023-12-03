@@ -52,10 +52,14 @@ public class AnvilBlockMixin {
         if (optionalRecipe.isPresent()) {
             AnvilSmashingRecipe recipe = optionalRecipe.get();
             ItemStack resultItem = recipe.getResultItem(level.registryAccess());
-            itemEntities.get(0).remove(Entity.RemovalReason.DISCARDED);
+            for (int i = 0; i < recipe.getInputItems().size(); i++) {
+                itemEntities.get(i).getItem().shrink(recipe.getInputItems().get(i).getItems()[0].getCount());
+            }
             level.addFreshEntity(new ItemEntity(level, blockPos.getX(), blockPos.getY(), blockPos.getZ(), resultItem));
         }
-        PigDadMod.LOGGER.info("Ingredients: " + container.getItem(0));
+        for (int i = 0; i < container.getContainerSize(); i++) {
+            PigDadMod.LOGGER.info("Ingredients: " + container.getItem(i));
+        }
         PigDadMod.LOGGER.info("Recipe: " + optionalRecipe);
     }
 

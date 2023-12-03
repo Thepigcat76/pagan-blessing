@@ -1,6 +1,7 @@
 package com.pigdad.pigdadmod.registries;
 
 import com.pigdad.pigdadmod.PigDadMod;
+import com.pigdad.pigdadmod.registries.blocks.ImbuingCauldronBlock;
 import com.pigdad.pigdadmod.registries.blocks.RuneBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -20,7 +21,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> RUNE = BLOCKS.register("rune",
             () -> new RuneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
     public static final RegistryObject<Block> IMBUING_CAULDRON = registerBlockAndItem("imbuing_cauldron",
-            () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.METAL)));
+            () -> new ImbuingCauldronBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).noOcclusion()));
 
     private static RegistryObject<Block> registerBlockAndItem(String name, Supplier<Block> block) {
         RegistryObject<Block> toReturn = BLOCKS.register(name, block);

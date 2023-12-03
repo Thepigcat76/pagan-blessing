@@ -12,32 +12,50 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
     public static final String NAME = "anvil_smashing";
-    private final NonNullList<Ingredient> inputItems;
+    private final List<Ingredient> inputItems;
     private final ItemStack output;
     private final ResourceLocation id;
 
-    public AnvilSmashingRecipe(ResourceLocation id, ItemStack output, NonNullList<Ingredient> inputItems) {
+    public AnvilSmashingRecipe(ResourceLocation id, ItemStack output, List<Ingredient> inputItems) {
         this.inputItems = inputItems;
         this.output = output;
         this.id = id;
+        PigDadMod.LOGGER.info("Constructor for anvil recipe, size: " + inputItems.size());
+        for (Ingredient ingredient : inputItems) {
+            if (ingredient instanceof IngredientWithCount) {
+                PigDadMod.LOGGER.info("Counted ingredient for constructor");
+            }
+            PigDadMod.LOGGER.info(Arrays.toString(ingredient.getItems()));
+        }
     }
 
     @Override
     public boolean matches(SimpleContainer container, Level level) {
-        if(level.isClientSide()) {
+        if (level.isClientSide()) {
             return false;
         }
 
-        PigDadMod.LOGGER.info("Inputs: "+inputItems+", ingredients: "+container.getItem(0));
+        PigDadMod.LOGGER.info("Inputs: " + Arrays.toString(inputItems.get(0).getItems()) + ", ingredients: " + container.getItem(0));
 
-        return inputItems.get(0).test(container.getItem(0));
+        for (int i = 0; i < inputItems.size(); i++) {
+            if (!inputItems.get(i).test(container.getItem(i))) {
+                PigDadMod.LOGGER.info("Test failed!!!");
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer p_44001_, RegistryAccess p_267165_) {
+    public @NotNull ItemStack assemble(SimpleContainer p_44001_, RegistryAccess p_267165_) {
         return output.copy();
     }
 
@@ -47,32 +65,33 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess p_267052_) {
+    public @NotNull ItemStack getResultItem(RegistryAccess p_267052_) {
         return output.copy();
     }
 
-    @Override
-    public NonNullList<Ingredient> getIngredients() {
-        return this.inputItems;
+    public List<Ingredient> getInputItems() {
+        return inputItems;
     }
 
     @Override
-    public ResourceLocation getId() {
+    public @NotNull ResourceLocation getId() {
         return id;
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<?> getSerializer() {
         return Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public @NotNull RecipeType<?> getType() {
         return Type.INSTANCE;
     }
 
     public static class Type implements RecipeType<AnvilSmashingRecipe> {
-        private Type() { }
+        private Type() {
+        }
+
         public static final Type INSTANCE = new Type();
         public static final String ID = NAME;
     }
@@ -80,17 +99,19 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
     public static class Serializer implements RecipeSerializer<AnvilSmashingRecipe> {
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID =
-                new ResourceLocation(PigDadMod.MODID,NAME);
+                new ResourceLocation(PigDadMod.MODID, NAME);
 
         @Override
-        public AnvilSmashingRecipe fromJson(ResourceLocation id, JsonObject json) {
+        public @NotNull AnvilSmashingRecipe fromJson(ResourceLocation id, JsonObject json) {
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
 
             JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
-            NonNullList<Ingredient> inputs = NonNullList.withSize(1, Ingredient.EMPTY);
-
-            for (int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
+            List<Ingredient> inputs = new ArrayList<>();
+            RecipeUtils.parseInputs(inputs, json.get("ingredients"));
+            for (Ingredient ingredient : inputs) {
+                if (ingredient instanceof IngredientWithCount) {
+                    PigDadMod.LOGGER.info("Ingredient with count: " + Arrays.toString(ingredient.getItems()));
+                }
             }
 
             return new AnvilSmashingRecipe(id, output, inputs);
@@ -98,10 +119,17 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
 
         @Override
         public AnvilSmashingRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
-            NonNullList<Ingredient> inputs = NonNullList.withSize(buf.readInt(), Ingredient.EMPTY);
+            PigDadMod.LOGGER.info("From network");
+            List<Ingredient> inputs = NonNullList.withSize(buf.readInt(), Ingredient.EMPTY);
 
             for (int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromNetwork(buf));
+                inputs.add(Ingredient.fromNetwork(buf));
+            }
+
+            for (Ingredient ingredient : inputs) {
+                if (ingredient instanceof IngredientWithCount) {
+                    PigDadMod.LOGGER.info("Instance of counted ingredient");
+                }
             }
 
             ItemStack output = buf.readItem();
@@ -110,11 +138,12 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
 
         @Override
         public void toNetwork(FriendlyByteBuf buf, AnvilSmashingRecipe recipe) {
-            buf.writeInt(recipe.getIngredients().size());
+            buf.writeInt(recipe.getInputItems().size());
 
-            for (Ingredient ing : recipe.getIngredients()) {
+            for (Ingredient ing : recipe.getInputItems()) {
                 ing.toNetwork(buf);
             }
+
             buf.writeItemStack(recipe.getResultItem(null), false);
         }
     }

@@ -2,6 +2,7 @@
   "type": "pigdadmod:anvil_smashing",
   "ingredients": [
     {
+      "count": 7,
       "item": "minecraft:coal"
     }
   ],
