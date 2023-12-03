@@ -15,7 +15,7 @@ public class ModTabs {
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> ModBlocks.IMBUING_CAULDRON.get().asItem().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.accept(ModItems.RUNE.get());
+                output.accept(ModItems.RUNE_SLAB.get());
                 output.accept(ModBlocks.IMBUING_CAULDRON.get());
             }).build());
 }

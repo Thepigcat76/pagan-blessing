@@ -2,7 +2,7 @@ package com.pigdad.pigdadmod.registries;
 
 import com.pigdad.pigdadmod.PigDadMod;
 import com.pigdad.pigdadmod.registries.blocks.ImbuingCauldronBlock;
-import com.pigdad.pigdadmod.registries.blocks.RuneBlock;
+import com.pigdad.pigdadmod.registries.blocks.RuneSlabBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -14,14 +14,12 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
-import static com.pigdad.pigdadmod.registries.ModItems.ITEMS;
-
 public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, PigDadMod.MODID);
-    public static final RegistryObject<Block> RUNE = BLOCKS.register("rune",
-            () -> new RuneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
     public static final RegistryObject<Block> IMBUING_CAULDRON = registerBlockAndItem("imbuing_cauldron",
             () -> new ImbuingCauldronBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).noOcclusion()));
+    public static final RegistryObject<Block> RUNE_SLAB = registerBlock("rune_slab",
+            () -> new RuneSlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).noOcclusion()));
 
     private static RegistryObject<Block> registerBlockAndItem(String name, Supplier<Block> block) {
         RegistryObject<Block> toReturn = BLOCKS.register(name, block);
@@ -29,7 +27,7 @@ public class ModBlocks {
         return toReturn;
     }
 
-    private static Supplier<Block> registerBlock(String name, Supplier<Block> block) {
+    private static RegistryObject<Block> registerBlock(String name, Supplier<Block> block) {
         return BLOCKS.register(name, block);
     }
 

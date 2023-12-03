@@ -3,6 +3,8 @@ package com.pigdad.pigdadmod.registries.recipes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.pigdad.pigdadmod.PigDadMod;
+import com.pigdad.pigdadmod.utils.IngredientWithCount;
+import com.pigdad.pigdadmod.utils.RecipeUtils;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;

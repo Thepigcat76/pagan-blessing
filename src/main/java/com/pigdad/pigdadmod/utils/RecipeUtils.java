@@ -1,8 +1,9 @@
-package com.pigdad.pigdadmod.registries.recipes;
+package com.pigdad.pigdadmod.utils;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.pigdad.pigdadmod.PigDadMod;
+import com.pigdad.pigdadmod.utils.IngredientWithCount;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 

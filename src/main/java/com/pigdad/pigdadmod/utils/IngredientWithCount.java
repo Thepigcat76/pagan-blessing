@@ -1,4 +1,4 @@
-package com.pigdad.pigdadmod.registries.recipes;
+package com.pigdad.pigdadmod.utils;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
