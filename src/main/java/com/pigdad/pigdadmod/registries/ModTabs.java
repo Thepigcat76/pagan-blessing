@@ -11,10 +11,11 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, PigDadMod.MODID);
     public static final RegistryObject<CreativeModeTab> MAIN = CREATIVE_MODE_TABS.register("main", () -> CreativeModeTab.builder()
-            .title(Component.translatable("pigdadmod.tab.main"))
+            .title(Component.translatable("tab.pigdadmod.main"))
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> ModItems.RUNE.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.accept(ModItems.RUNE.get());
+                output.accept(ModBlocks.IMBUING_CAULDRON.get());
             }).build());
 }

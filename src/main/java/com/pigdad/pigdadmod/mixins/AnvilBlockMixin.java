@@ -1,7 +1,9 @@
 package com.pigdad.pigdadmod.mixins;
 
 import com.pigdad.pigdadmod.PigDadMod;
+import com.pigdad.pigdadmod.registries.recipes.AnvilSmashingRecipe;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -9,6 +11,7 @@ import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AnvilBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -18,7 +21,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Mixin(AnvilBlock.class)
 public class AnvilBlockMixin {
@@ -28,13 +34,32 @@ public class AnvilBlockMixin {
     )
     public void anvilLanding(Level level, BlockPos blockPos, BlockState blockState, BlockState oldBlockState, FallingBlockEntity fallingBlockEntity, CallbackInfo callbackInfoLevel) {
         List<Entity> entities = level.getEntities(EntityType.ITEM.create(level), new AABB(blockPos));
+        List<ItemEntity> itemEntities = new ArrayList<>();
         for (Entity entity : entities) {
             if (entity instanceof ItemEntity itemEntity) {
-                if (itemEntity.getItem().is(Items.DIAMOND)) {
-                    entity.remove(Entity.RemovalReason.DISCARDED);
-                    level.addFreshEntity(new ItemEntity(level, blockPos.getX(), blockPos.getY(), blockPos.getZ(), new ItemStack(Items.EMERALD)));
-                }
+                itemEntities.add(itemEntity);
             }
         }
+        craftItem(level, itemEntities, blockPos);
+    }
+
+    private static void craftItem(Level level, List<ItemEntity> itemEntities, BlockPos blockPos) {
+        SimpleContainer container = new SimpleContainer(itemEntities.size());
+        for (int i = 0; i < itemEntities.size(); i++) {
+            container.setItem(i, itemEntities.get(i).getItem());
+        }
+        Optional<AnvilSmashingRecipe> optionalRecipe = getCurrentRecipe(level, container);
+        if (optionalRecipe.isPresent()) {
+            AnvilSmashingRecipe recipe = optionalRecipe.get();
+            ItemStack resultItem = recipe.getResultItem(level.registryAccess());
+            itemEntities.get(0).remove(Entity.RemovalReason.DISCARDED);
+            level.addFreshEntity(new ItemEntity(level, blockPos.getX(), blockPos.getY(), blockPos.getZ(), resultItem));
+        }
+        PigDadMod.LOGGER.info("Ingredients: " + container.getItem(0));
+        PigDadMod.LOGGER.info("Recipe: " + optionalRecipe);
+    }
+
+    private static Optional<AnvilSmashingRecipe> getCurrentRecipe(Level level, SimpleContainer container) {
+        return level.getRecipeManager().getRecipeFor(AnvilSmashingRecipe.Type.INSTANCE, container, level);
     }
 }
