@@ -14,6 +14,8 @@ public class ModItems {
 
     public static final RegistryObject<Item> RUNE_SLAB = registerItem("rune_slab",
             () -> new RuneSlabItem(ModBlocks.RUNE_SLAB.get(), new Item.Properties()));
+    public static final RegistryObject<Item> RUE = registerItem("rue",
+            () -> new Item(new Item.Properties()));
 
     private static RegistryObject<Item> registerItem(String name, Supplier<Item> item) {
         return ITEMS.register(name, item);

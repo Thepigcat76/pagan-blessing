@@ -1,5 +1,7 @@
 package com.pigdad.pigdadmod.registries.blocks;
 
+import com.pigdad.pigdadmod.registries.ModBlockEntities;
+import com.pigdad.pigdadmod.registries.ModBlocks;
 import com.pigdad.pigdadmod.registries.blockentities.ImbuingCauldronBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -13,6 +15,8 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
@@ -46,7 +50,14 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
         ).reduce(Shapes::or).get();
     }
 
-    ;
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
+        if (level.isClientSide()) return null;
+
+        return createTickerHelper(blockEntityType, ModBlockEntities.IMBUING_CAULDRON.get(),
+                (pLevel1, pPos, pState1, pBlockEntity) -> pBlockEntity.tick(pLevel1, pPos, pState1));
+    }
 
     @Nullable
     @Override

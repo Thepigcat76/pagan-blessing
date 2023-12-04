@@ -17,5 +17,7 @@ public class ModTabs {
             .displayItems((parameters, output) -> {
                 output.accept(ModItems.RUNE_SLAB.get());
                 output.accept(ModBlocks.IMBUING_CAULDRON.get());
+                output.accept(ModBlocks.RUE_PLANT.get());
+                output.accept(ModItems.RUE.get());
             }).build());
 }

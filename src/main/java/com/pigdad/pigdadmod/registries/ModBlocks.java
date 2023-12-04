@@ -27,14 +27,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> RUNE_SLAB = registerBlock("rune_slab",
             () -> new RuneSlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).noOcclusion()));
     public static final RegistryObject<Block> RUE_PLANT = registerBlockAndItem("rue_plant",
-            () -> new HerbPlantBlock(5,
-                    BlockBehaviour.Properties.of()
-                            .mapColor(MapColor.PLANT)
-                            .noCollission()
-                            .instabreak()
-                            .sound(SoundType.GRASS)
-                            .offsetType(BlockBehaviour.OffsetType.XZ)
-                            .pushReaction(PushReaction.DESTROY)));
+            () -> new HerbPlantBlock(5, BlockBehaviour.Properties.of()));
 
     private static RegistryObject<Block> registerBlockAndItem(String name, Supplier<Block> block) {
         RegistryObject<Block> toReturn = BLOCKS.register(name, block);
