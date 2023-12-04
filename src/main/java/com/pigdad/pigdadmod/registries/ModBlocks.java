@@ -1,13 +1,19 @@
 package com.pigdad.pigdadmod.registries;
 
 import com.pigdad.pigdadmod.PigDadMod;
+import com.pigdad.pigdadmod.registries.blocks.HerbPlantBlock;
 import com.pigdad.pigdadmod.registries.blocks.ImbuingCauldronBlock;
 import com.pigdad.pigdadmod.registries.blocks.RuneSlabBlock;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -20,6 +26,15 @@ public class ModBlocks {
             () -> new ImbuingCauldronBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).noOcclusion()));
     public static final RegistryObject<Block> RUNE_SLAB = registerBlock("rune_slab",
             () -> new RuneSlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).noOcclusion()));
+    public static final RegistryObject<Block> RUE_PLANT = registerBlockAndItem("rue_plant",
+            () -> new HerbPlantBlock(5,
+                    BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.PLANT)
+                            .noCollission()
+                            .instabreak()
+                            .sound(SoundType.GRASS)
+                            .offsetType(BlockBehaviour.OffsetType.XZ)
+                            .pushReaction(PushReaction.DESTROY)));
 
     private static RegistryObject<Block> registerBlockAndItem(String name, Supplier<Block> block) {
         RegistryObject<Block> toReturn = BLOCKS.register(name, block);

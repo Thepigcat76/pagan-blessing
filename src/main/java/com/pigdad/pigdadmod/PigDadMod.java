@@ -1,10 +1,7 @@
 package com.pigdad.pigdadmod;
 
 import com.mojang.logging.LogUtils;
-import com.pigdad.pigdadmod.registries.ModBlocks;
-import com.pigdad.pigdadmod.registries.ModItems;
-import com.pigdad.pigdadmod.registries.ModRecipes;
-import com.pigdad.pigdadmod.registries.ModTabs;
+import com.pigdad.pigdadmod.registries.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.food.FoodProperties;
@@ -51,6 +48,7 @@ public class PigDadMod {
         // Register the Deferred Register to the mod event bus so tabs get registered
         ModTabs.CREATIVE_MODE_TABS.register(modEventBus);
         ModRecipes.SERIALIZERS.register(modEventBus);
+        ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);

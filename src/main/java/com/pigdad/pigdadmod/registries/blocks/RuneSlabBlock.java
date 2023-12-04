@@ -56,6 +56,13 @@ public class RuneSlabBlock extends Block {
 
     @Override
     public VoxelShape getShape(BlockState p_60555_, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
+        if (p_60555_.getValue(IS_TOP)) {
+            return Stream.of(
+                    Block.box(3, -16, 3, 13, -14, 13),
+                    Block.box(4, -14, 4, 12, -4, 12),
+                    Block.box(4.5, -4, 4.5, 11.5, 8, 11.5)
+            ).reduce(Shapes::or).get();
+        }
         return Stream.of(
                 Block.box(3, 0, 3, 13, 2, 13),
                 Block.box(4, 2, 4, 12, 12, 12),

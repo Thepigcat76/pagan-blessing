@@ -1,15 +1,27 @@
 package com.pigdad.pigdadmod.registries.blocks;
 
+import com.pigdad.pigdadmod.registries.blockentities.ImbuingCauldronBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
@@ -32,11 +44,25 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
                 Block.box(2, 7.5, 2, 14, 9.5, 14),
                 Block.box(2, 1.5, 2, 14, 2.5, 14)
         ).reduce(Shapes::or).get();
-    };
+    }
+
+    ;
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos p_153215_, BlockState p_153216_) {
-        return null;
+        return new ImbuingCauldronBlockEntity(p_153215_, p_153216_);
+    }
+
+    @Override
+    public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if (blockEntity instanceof ImbuingCauldronBlockEntity) {
+            blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER)
+                    .ifPresent(iFluidHandler -> iFluidHandler.fill(new FluidStack(Fluids.WATER, 100), IFluidHandler.FluidAction.EXECUTE));
+            blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER)
+                    .ifPresent(iItemHandler -> iItemHandler.insertItem(0, new ItemStack(Items.EMERALD), false));
+        }
+        return InteractionResult.FAIL;
     }
 }
