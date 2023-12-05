@@ -4,6 +4,7 @@ import com.pigdad.pigdadmod.registries.ModBlockEntities;
 import com.pigdad.pigdadmod.registries.ModBlocks;
 import com.pigdad.pigdadmod.registries.blockentities.ImbuingCauldronBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -68,12 +69,13 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if (blockEntity instanceof ImbuingCauldronBlockEntity) {
+        if (!level.isClientSide()) {
             blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER)
                     .ifPresent(iFluidHandler -> iFluidHandler.fill(new FluidStack(Fluids.WATER, 100), IFluidHandler.FluidAction.EXECUTE));
             blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER)
-                    .ifPresent(iItemHandler -> iItemHandler.insertItem(0, new ItemStack(Items.EMERALD), false));
+                    .ifPresent(iItemHandler -> iItemHandler.insertItem(0, new ItemStack(Items.COAL), false));
+            player.sendSystemMessage(Component.literal("inserting"));
         }
-        return InteractionResult.FAIL;
+        return InteractionResult.SUCCESS;
     }
 }

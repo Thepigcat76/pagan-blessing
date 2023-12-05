@@ -15,6 +15,6 @@ public class ModRecipes {
     public static final RegistryObject<RecipeSerializer<AnvilSmashingRecipe>> ANVIL_SMASHING_SERIALIZER =
             SERIALIZERS.register(AnvilSmashingRecipe.NAME, () -> AnvilSmashingRecipe.Serializer.INSTANCE);
 
-    public static final RegistryObject<RecipeSerializer<AnvilSmashingRecipe>> IMBUING_CAULDRON_SERIALIZER =
-            SERIALIZERS.register(ImbuingCauldronRecipe.NAME, () -> AnvilSmashingRecipe.Serializer.INSTANCE);
+    public static final RegistryObject<RecipeSerializer<ImbuingCauldronRecipe>> IMBUING_CAULDRON_SERIALIZER =
+            SERIALIZERS.register(ImbuingCauldronRecipe.NAME, () -> ImbuingCauldronRecipe.Serializer.INSTANCE);
 }

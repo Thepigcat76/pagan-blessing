@@ -1,5 +1,6 @@
 package com.pigdad.pigdadmod.registries.blockentities;
 
+import com.pigdad.pigdadmod.PigDadMod;
 import com.pigdad.pigdadmod.registries.ModBlockEntities;
 import com.pigdad.pigdadmod.registries.recipes.ImbuingCauldronRecipe;
 import net.minecraft.core.BlockPos;
@@ -133,6 +134,8 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
 
     public boolean hasRecipe() {
         Optional<ImbuingCauldronRecipe> recipe = getCurrentRecipe();
+
+        PigDadMod.LOGGER.info("Recipe for cauldron: "+recipe);
 
         if(recipe.isEmpty()) {
             return false;

@@ -43,14 +43,14 @@ public class ImbuingCauldronRecipe implements Recipe<SimpleContainer> {
         List<ItemStack> containerItems = new ArrayList<>();
 
         for (int i = 0; i < container.getContainerSize(); i++) {
-            containerItems.set(i, container.getItem(i));
+            containerItems.add(container.getItem(i));
         }
 
         List<Boolean> checked = new ArrayList<>();
 
-        for (int i = 0; i < 5; i++) {
+        for (Ingredient inputItem : inputItems) {
             for (ItemStack item : containerItems) {
-                if (inputItems.get(i).test(item)) {
+                if (inputItem.test(item)) {
                     checked.add(true);
                     break;
                 }
