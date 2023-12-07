@@ -101,7 +101,7 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
             }
             blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER)
                     .ifPresent(iFluidHandler ->
-                            iFluidHandler.fill(new FluidStack(Fluids.WATER, 1000), IFluidHandler.FluidAction.EXECUTE));
+                            iFluidHandler.fill(new FluidStack(Fluids.LAVA, 1000), IFluidHandler.FluidAction.EXECUTE));
         }
         return InteractionResult.SUCCESS;
     }

@@ -31,8 +31,10 @@ import java.util.Map;
 
 public class ImbuingCauldronBERenderer implements BlockEntityRenderer<ImbuingCauldronBlockEntity> {
     private float rotation = 0;
-    private static final float SIDE_MARGIN = (float) ImbuingCauldronBlock.SHAPE.bounds().min(Direction.Axis.X) + 0.01f, MIN_Y = 1 / 16f, MAX_Y = 1 - MIN_Y;
-
+    private static final float SIDE_MARGIN = (float) ImbuingCauldronBlock.SHAPE.min(Direction.Axis.X) + 0.1f,
+            MIN_Y = 2 / 16f,
+            MAX_Y = 1 - MIN_Y;
+    float x = 0;
 
     public ImbuingCauldronBERenderer(BlockEntityRendererProvider.Context ignored) {
     }
@@ -150,5 +152,6 @@ public class ImbuingCauldronBERenderer implements BlockEntityRenderer<ImbuingCau
             buffer.vertex(matrix, 1 - SIDE_MARGIN, height, 1 - SIDE_MARGIN).color(r, g, b, alpha).uv(maxU, maxV).uv2(light).normal(0, 1, 0).endVertex();
             buffer.vertex(matrix, 1 - SIDE_MARGIN, height, SIDE_MARGIN).color(r, g, b, alpha).uv(maxU, minV).uv2(light).normal(0, 1, 0).endVertex();
         }
+
     }
 }
