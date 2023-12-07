@@ -99,9 +99,11 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
                             }
                         });
             }
-            blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER)
-                    .ifPresent(iFluidHandler ->
-                            iFluidHandler.fill(new FluidStack(Fluids.LAVA, 1000), IFluidHandler.FluidAction.EXECUTE));
+            if (player.getItemInHand(interactionHand).is(Items.WATER_BUCKET)) {
+                blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER)
+                        .ifPresent(iFluidHandler ->
+                                iFluidHandler.fill(new FluidStack(Fluids.LAVA, 1000), IFluidHandler.FluidAction.EXECUTE));
+            }
         }
         return InteractionResult.SUCCESS;
     }

@@ -19,5 +19,6 @@ public class ModTabs {
                 output.accept(ModBlocks.IMBUING_CAULDRON.get());
                 output.accept(ModBlocks.RUE_PLANT.get());
                 output.accept(ModItems.RUE.get());
+                output.accept(ModItems.WINTER_BERRIES.get());
             }).build());
 }

@@ -3,6 +3,7 @@ package com.pigdad.pigdadmod.registries.blockentities.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
+import com.pigdad.pigdadmod.PigDadMod;
 import com.pigdad.pigdadmod.registries.blockentities.ImbuingCauldronBlockEntity;
 import com.pigdad.pigdadmod.registries.blocks.ImbuingCauldronBlock;
 import net.minecraft.client.Minecraft;
@@ -87,17 +88,21 @@ public class ImbuingCauldronBERenderer implements BlockEntityRenderer<ImbuingCau
             rotation = 0;
         }
 
-        IFluidHandler fluidHandler = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER).orElseThrow(NullPointerException::new);
-        FluidStack fluidStack = fluidHandler.getFluidInTank(0);
-        int fluidCapacity = fluidHandler.getTankCapacity(0);
-        if (fluidStack.isEmpty())
-            return;
+        try {
+            IFluidHandler fluidHandler = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER).orElseThrow(NullPointerException::new);
+            FluidStack fluidStack = fluidHandler.getFluidInTank(0);
+            int fluidCapacity = fluidHandler.getTankCapacity(0);
+            if (fluidStack.isEmpty())
+                return;
 
-        float fillPercentage = Math.min(1, (float) fluidStack.getAmount() / fluidCapacity) / 2;
-        if (fluidStack.getFluid().getFluidType().isLighterThanAir())
-            renderFluid(poseStack, pBufferSource, fluidStack, fillPercentage, 1, combinedLight);
-        else
-            renderFluid(poseStack, pBufferSource, fluidStack, 1, fillPercentage, combinedLight);
+            float fillPercentage = Math.min(1, (float) fluidStack.getAmount() / fluidCapacity) / 2;
+            if (fluidStack.getFluid().getFluidType().isLighterThanAir())
+                renderFluid(poseStack, pBufferSource, fluidStack, fillPercentage, 1, combinedLight);
+            else
+                renderFluid(poseStack, pBufferSource, fluidStack, 1, fillPercentage, combinedLight);
+        } catch (Exception ignored) {
+            PigDadMod.LOGGER.info("AMOGUS");
+        }
     }
 
     private int getLightLevel(Level level, BlockPos pos) {
