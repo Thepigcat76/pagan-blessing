@@ -2,9 +2,14 @@ package com.pigdad.pigdadmod.registries.blockentities;
 
 import com.pigdad.pigdadmod.PigDadMod;
 import com.pigdad.pigdadmod.registries.ModBlockEntities;
+import com.pigdad.pigdadmod.registries.ModItems;
 import com.pigdad.pigdadmod.registries.recipes.ImbuingCauldronRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.Item;
@@ -22,8 +27,9 @@ import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
+import java.util.*;
 
 public class ImbuingCauldronBlockEntity extends BlockEntity {
     private static final int INPUT0 = 0;
@@ -42,7 +48,7 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
     private final ItemStackHandler itemHandler = new ItemStackHandler(6) {
         @Override
         public int getSlots() {
-            return 1;
+            return 6;
         }
 
         @Override
@@ -50,6 +56,7 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
             setChanged();
             if (!level.isClientSide()) {
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+                PigDadMod.LOGGER.info("Updating");
             }
         }
 
@@ -58,6 +65,17 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
             return slot != OUTPUT;
         }
     };
+
+    public Map<Integer, ItemStack> getRenderStack() {
+        Map<Integer, ItemStack> toReturn = new HashMap<>();
+        for (int i = 0; i < itemHandler.getSlots(); i++) {
+            ItemStack itemStack = itemHandler.getStackInSlot(i);
+            if (!itemStack.isEmpty()) {
+                toReturn.put(i, itemStack);
+            }
+        }
+        return toReturn;
+    }
 
     private final FluidTank fluidTank = new FluidTank(2000) {
         @Override
@@ -124,6 +142,7 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
             for (int i = 0; i < itemHandler.getSlots(); i++) {
                 if (itemHandler.getStackInSlot(i).is(itemStack.getItem()) && itemHandler.getStackInSlot(i).getCount() >= itemStack.getCount()) {
                     itemHandler.extractItem(i, itemStack.getCount(), false);
+                    break;
                 }
             }
         }
@@ -134,8 +153,6 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
 
     public boolean hasRecipe() {
         Optional<ImbuingCauldronRecipe> recipe = getCurrentRecipe();
-
-        PigDadMod.LOGGER.info("Recipe for cauldron: "+recipe);
 
         if(recipe.isEmpty()) {
             return false;
@@ -216,5 +233,19 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
         progress = pTag.getInt("imbuing_cauldron_progress");
     }
 
+    @Nullable
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
 
+    @Override
+    public CompoundTag getUpdateTag() {
+        return saveWithoutMetadata();
+    }
+
+    @Override
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+        super.onDataPacket(net, pkt);
+    }
 }

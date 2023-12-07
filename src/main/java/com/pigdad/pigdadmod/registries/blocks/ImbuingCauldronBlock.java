@@ -1,5 +1,6 @@
 package com.pigdad.pigdadmod.registries.blocks;
 
+import com.pigdad.pigdadmod.PigDadMod;
 import com.pigdad.pigdadmod.registries.ModBlockEntities;
 import com.pigdad.pigdadmod.registries.ModBlocks;
 import com.pigdad.pigdadmod.registries.blockentities.ImbuingCauldronBlockEntity;
@@ -27,11 +28,19 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
 
 public class ImbuingCauldronBlock extends BaseEntityBlock {
+    public static final VoxelShape SHAPE = Stream.of(
+            Block.box(1, 2.5, 1, 15, 7.5, 15),
+            Block.box(3, 0, 3, 13, 2, 13),
+            Block.box(2, 7.5, 2, 14, 9.5, 14),
+            Block.box(2, 1.5, 2, 14, 2.5, 14)
+    ).reduce(Shapes::or).get();
+
     public ImbuingCauldronBlock(Properties p_49224_) {
         super(p_49224_);
     }
@@ -43,12 +52,7 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
 
     @Override
     public VoxelShape getShape(BlockState p_60555_, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
-        return Stream.of(
-                Block.box(1, 2.5, 1, 15, 7.5, 15),
-                Block.box(3, 0, 3, 13, 2, 13),
-                Block.box(2, 7.5, 2, 14, 9.5, 14),
-                Block.box(2, 1.5, 2, 14, 2.5, 14)
-        ).reduce(Shapes::or).get();
+        return SHAPE;
     }
 
     @Nullable
@@ -70,11 +74,34 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
     public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if (!level.isClientSide()) {
+            if (!player.getItemInHand(interactionHand).isEmpty()) {
+                blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER)
+                        .ifPresent(iItemHandler -> {
+                            for (int i = 0; i < iItemHandler.getSlots(); i++) {
+                                if (iItemHandler.getStackInSlot(i).isEmpty() ||
+                                        (player.getItemInHand(interactionHand).is(iItemHandler.getStackInSlot(i).getItem()))
+                                                && iItemHandler.getStackInSlot(i).getCount() + player.getItemInHand(interactionHand).getCount() < iItemHandler.getSlotLimit(i)) {
+                                    iItemHandler.insertItem(i, player.getItemInHand(interactionHand).copy(), false);
+                                    player.getItemInHand(interactionHand).shrink(player.getItemInHand(interactionHand).getCount());
+                                    break;
+                                }
+                            }
+                        });
+            } else {
+                blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER)
+                        .ifPresent(iItemHandler -> {
+                            for (int i = 0; i < iItemHandler.getSlots(); i++) {
+                                if (!iItemHandler.getStackInSlot(i).isEmpty()) {
+                                    ItemHandlerHelper.giveItemToPlayer(player, iItemHandler.getStackInSlot(i).copy());
+                                    iItemHandler.extractItem(i, 64, false);
+                                    break;
+                                }
+                            }
+                        });
+            }
             blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER)
-                    .ifPresent(iFluidHandler -> iFluidHandler.fill(new FluidStack(Fluids.WATER, 100), IFluidHandler.FluidAction.EXECUTE));
-            blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER)
-                    .ifPresent(iItemHandler -> iItemHandler.insertItem(0, new ItemStack(Items.COAL), false));
-            player.sendSystemMessage(Component.literal("inserting"));
+                    .ifPresent(iFluidHandler ->
+                            iFluidHandler.fill(new FluidStack(Fluids.WATER, 1000), IFluidHandler.FluidAction.EXECUTE));
         }
         return InteractionResult.SUCCESS;
     }

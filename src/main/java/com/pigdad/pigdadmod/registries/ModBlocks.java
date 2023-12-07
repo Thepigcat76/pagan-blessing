@@ -4,6 +4,7 @@ import com.pigdad.pigdadmod.PigDadMod;
 import com.pigdad.pigdadmod.registries.blocks.HerbPlantBlock;
 import com.pigdad.pigdadmod.registries.blocks.ImbuingCauldronBlock;
 import com.pigdad.pigdadmod.registries.blocks.RuneSlabBlock;
+import com.pigdad.pigdadmod.registries.blocks.WinterBerryBushBlock;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
@@ -28,6 +29,8 @@ public class ModBlocks {
             () -> new RuneSlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).noOcclusion()));
     public static final RegistryObject<Block> RUE_PLANT = registerBlockAndItem("rue_plant",
             () -> new HerbPlantBlock(5, BlockBehaviour.Properties.of()));
+    public static final RegistryObject<Block> WINTER_BERRY_BUSH = registerBlock("winter_berry_bush",
+            () -> new WinterBerryBushBlock(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.SWEET_BERRY_BUSH)));
 
     private static RegistryObject<Block> registerBlockAndItem(String name, Supplier<Block> block) {
         RegistryObject<Block> toReturn = BLOCKS.register(name, block);
