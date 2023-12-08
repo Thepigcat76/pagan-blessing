@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, PigDadMod.MODID);
 
-    public static final RegistryObject<Item> RUNE_SLAB = registerItem("rune_slab",
+    public static final RegistryObject<Item> RUNE_SLAB = registerItem("rune_slab_amethyst",
             () -> new RuneSlabItem(ModBlocks.RUNE_SLAB.get(), new Item.Properties()));
     public static final RegistryObject<Item> RUE = registerItem("rue",
             () -> new Item(new Item.Properties()));

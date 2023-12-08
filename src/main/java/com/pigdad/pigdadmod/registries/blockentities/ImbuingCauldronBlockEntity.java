@@ -2,7 +2,6 @@ package com.pigdad.pigdadmod.registries.blockentities;
 
 import com.pigdad.pigdadmod.PigDadMod;
 import com.pigdad.pigdadmod.registries.ModBlockEntities;
-import com.pigdad.pigdadmod.registries.ModItems;
 import com.pigdad.pigdadmod.registries.recipes.ImbuingCauldronRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -10,6 +9,7 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.Item;
@@ -82,7 +82,7 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
         protected void onContentsChanged() {
             setChanged();
             if (!level.isClientSide()) {
-                // IRPackets.sendToClients(new FluidSyncS2CPacket(this.fluid, worldPosition));
+                level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
             }
         }
     };
@@ -114,8 +114,17 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
         };
     }
 
+    public void drops() {
+        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
+        for (int i = 0; i < itemHandler.getSlots(); i++) {
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
+        }
+
+        Containers.dropContents(this.level, this.worldPosition, inventory);
+    }
+
     public void tick(Level level, BlockPos blockPos, BlockState blockState) {
-        if (hasRecipe()) {
+        if (hasRecipe() && fluidMatches()) {
             increaseCraftingProgress();
             setChanged(level, blockPos, blockState);
 
@@ -136,7 +145,6 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
         Optional<ImbuingCauldronRecipe> recipe = getCurrentRecipe();
         ItemStack result = recipe.get().getResultItem(null);
 
-        // TODO: See if this is slow and try optimizing
         for (Ingredient ingredient : recipe.get().getInputItems()) {
             ItemStack itemStack = ingredient.getItems()[0];
             for (int i = 0; i < itemHandler.getSlots(); i++) {
@@ -154,17 +162,24 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
     public boolean hasRecipe() {
         Optional<ImbuingCauldronRecipe> recipe = getCurrentRecipe();
 
-        if(recipe.isEmpty()) {
+        if (recipe.isEmpty()) {
             return false;
         }
+
         ItemStack result = recipe.get().getResultItem(getLevel().registryAccess());
 
         return canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
     }
 
+    public boolean fluidMatches() {
+        Optional<ImbuingCauldronRecipe> recipe = getCurrentRecipe();
+
+        return recipe.map(imbuingCauldronRecipe -> imbuingCauldronRecipe.matchesFluid(fluidTank.getFluidInTank(0), level)).orElse(false);
+    }
+
     private Optional<ImbuingCauldronRecipe> getCurrentRecipe() {
         SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
-        for(int i = 0; i < itemHandler.getSlots(); i++) {
+        for (int i = 0; i < itemHandler.getSlots(); i++) {
             inventory.setItem(i, this.itemHandler.getStackInSlot(i));
         }
 

@@ -25,7 +25,7 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, PigDadMod.MODID);
     public static final RegistryObject<Block> IMBUING_CAULDRON = registerBlockAndItem("imbuing_cauldron",
             () -> new ImbuingCauldronBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).noOcclusion()));
-    public static final RegistryObject<Block> RUNE_SLAB = registerBlock("rune_slab",
+    public static final RegistryObject<Block> RUNE_SLAB = registerBlock("rune_slab_amethyst",
             () -> new RuneSlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).noOcclusion()));
     public static final RegistryObject<Block> RUE_PLANT = registerBlockAndItem("rue_plant",
             () -> new HerbPlantBlock(5, BlockBehaviour.Properties.of()));

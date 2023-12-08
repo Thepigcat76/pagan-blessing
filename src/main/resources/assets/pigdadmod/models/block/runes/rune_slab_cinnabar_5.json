@@ -1,0 +1,10 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "pigdadmod:block/rune_slab_cinnabar",
+	"render_type": "cutout",
+	"textures": {
+		"0": "pigdadmod:block/runes_cinnabar_5",
+		"1": "pigdadmod:block/rune_bottom",
+		"particle": "pigdadmod:block/runes_cinnabar_5"
+	}
+}

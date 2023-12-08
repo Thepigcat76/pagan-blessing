@@ -2,10 +2,8 @@ package com.pigdad.pigdadmod.registries.blocks;
 
 import com.pigdad.pigdadmod.PigDadMod;
 import com.pigdad.pigdadmod.registries.ModBlockEntities;
-import com.pigdad.pigdadmod.registries.ModBlocks;
 import com.pigdad.pigdadmod.registries.blockentities.ImbuingCauldronBlockEntity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -20,14 +18,14 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.Nullable;
 
@@ -43,6 +41,18 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
 
     public ImbuingCauldronBlock(Properties p_49224_) {
         super(p_49224_);
+    }
+
+    @Override
+    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
+        if (pState.getBlock() != pNewState.getBlock()) {
+            BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+            if (blockEntity instanceof ImbuingCauldronBlockEntity) {
+                ((ImbuingCauldronBlockEntity) blockEntity).drops();
+            }
+        }
+
+        super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
     }
 
     @Override
@@ -73,20 +83,42 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        LazyOptional<IFluidHandlerItem> fluidHandlerItem = player.getItemInHand(interactionHand).getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM);
         if (!level.isClientSide()) {
-            if (!player.getItemInHand(interactionHand).isEmpty()) {
+            // items except for fluid containers and air
+            if (!player.getItemInHand(interactionHand).isEmpty() && !fluidHandlerItem.isPresent()) {
                 blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER)
                         .ifPresent(iItemHandler -> {
-                            for (int i = 0; i < iItemHandler.getSlots(); i++) {
+                            for (int i = 0; i < iItemHandler.getSlots()-1; i++) {
                                 if (iItemHandler.getStackInSlot(i).isEmpty() ||
                                         (player.getItemInHand(interactionHand).is(iItemHandler.getStackInSlot(i).getItem()))
                                                 && iItemHandler.getStackInSlot(i).getCount() + player.getItemInHand(interactionHand).getCount() < iItemHandler.getSlotLimit(i)) {
                                     iItemHandler.insertItem(i, player.getItemInHand(interactionHand).copy(), false);
                                     player.getItemInHand(interactionHand).shrink(player.getItemInHand(interactionHand).getCount());
+                                    PigDadMod.LOGGER.info("Inserting 1, slot: {}", i);
                                     break;
                                 }
                             }
                         });
+                // Empty fluid containers
+            } else if (!player.getItemInHand(interactionHand).isEmpty() && fluidHandlerItem.isPresent()) {
+                IFluidHandlerItem fluidItem = fluidHandlerItem.orElseThrow(NullPointerException::new);
+                if (fluidItem.getFluidInTank(0).getAmount() <= 0) {
+                    blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER)
+                            .ifPresent(iItemHandler -> {
+                                for (int i = 0; i < iItemHandler.getSlots()-1; i++) {
+                                    if (iItemHandler.getStackInSlot(i).isEmpty() ||
+                                            (player.getItemInHand(interactionHand).is(iItemHandler.getStackInSlot(i).getItem()))
+                                                    && iItemHandler.getStackInSlot(i).getCount() + player.getItemInHand(interactionHand).getCount() < iItemHandler.getSlotLimit(i)) {
+                                        iItemHandler.insertItem(i, player.getItemInHand(interactionHand).copy(), false);
+                                        player.getItemInHand(interactionHand).shrink(player.getItemInHand(interactionHand).getCount());
+                                        PigDadMod.LOGGER.info("Inserting 2");
+                                        break;
+                                    }
+                                }
+                            });
+                }
+                // no item in hand
             } else {
                 blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER)
                         .ifPresent(iItemHandler -> {
@@ -99,10 +131,18 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
                             }
                         });
             }
-            if (player.getItemInHand(interactionHand).is(Items.WATER_BUCKET)) {
+        }
+        if (fluidHandlerItem.isPresent()) {
+            IFluidHandlerItem fluidItem = fluidHandlerItem.orElseThrow(NullPointerException::new);
+            if (fluidItem.getFluidInTank(0).getAmount() > 0) {
                 blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER)
                         .ifPresent(iFluidHandler ->
-                                iFluidHandler.fill(new FluidStack(Fluids.LAVA, 1000), IFluidHandler.FluidAction.EXECUTE));
+                        {
+                            iFluidHandler.fill(fluidItem.getFluidInTank(0).copy(), IFluidHandler.FluidAction.EXECUTE);
+                            fluidItem.drain(fluidItem.getFluidInTank(0).copy().getAmount(), IFluidHandler.FluidAction.EXECUTE);
+                            player.getInventory().removeItem(player.getItemInHand(interactionHand));
+                            ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(Items.BUCKET));
+                        });
             }
         }
         return InteractionResult.SUCCESS;

@@ -4,12 +4,30 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.pigdad.pigdadmod.PigDadMod;
 import com.pigdad.pigdadmod.utils.IngredientWithCount;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class RecipeUtils {
+
+    @Nullable
+    public static Fluid parseFluid(JsonElement jsonElement) {
+        for (Map.Entry<ResourceKey<Fluid>,Fluid> fluid1 : ForgeRegistries.FLUIDS.getEntries()) {
+            if (jsonElement.getAsString().equals(fluid1.getValue().getFluidType().toString())) {
+                return fluid1.getValue();
+
+            }
+        }
+        return null;
+    }
 
     public static void parseInputs(List<Ingredient> ingredients, JsonElement element) {
         PigDadMod.LOGGER.info("Parsing input");

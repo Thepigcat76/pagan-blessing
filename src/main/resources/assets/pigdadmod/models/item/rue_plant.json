@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "pigdadmod:block/rue_plant"
+    "layer0": "pigdadmod:block/plants/rue_plant"
   }
 }

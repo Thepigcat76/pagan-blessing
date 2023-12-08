@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cross",
   "render_type": "cutout",
   "textures": {
-    "cross": "pigdadmod:block/winter_berry_bush_stage2"
+    "cross": "pigdadmod:block/plants/winter_berry_bush_stage2"
   }
 }

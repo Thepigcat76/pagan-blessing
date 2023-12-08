@@ -35,7 +35,6 @@ public class ImbuingCauldronBERenderer implements BlockEntityRenderer<ImbuingCau
     private static final float SIDE_MARGIN = (float) ImbuingCauldronBlock.SHAPE.min(Direction.Axis.X) + 0.1f,
             MIN_Y = 2 / 16f,
             MAX_Y = 1 - MIN_Y;
-    float x = 0;
 
     public ImbuingCauldronBERenderer(BlockEntityRendererProvider.Context ignored) {
     }

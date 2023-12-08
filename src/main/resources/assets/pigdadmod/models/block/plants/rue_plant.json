@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cross",
   "render_type": "cutout",
   "textures": {
-    "cross": "pigdadmod:block/rue_plant"
+    "cross": "pigdadmod:block/plants/rue_plant"
   }
 }
