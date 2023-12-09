@@ -4,6 +4,14 @@
     {
       "count": 7,
       "item": "minecraft:coal"
+    },
+    {
+      "count": 3,
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "count": 5,
+      "item": "minecraft:iron_block"
     }
   ],
   "output": {

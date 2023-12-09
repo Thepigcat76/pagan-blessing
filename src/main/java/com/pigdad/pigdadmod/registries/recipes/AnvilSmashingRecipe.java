@@ -66,6 +66,13 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
+    public NonNullList<Ingredient> getIngredients() {
+        NonNullList<Ingredient> toReturn = NonNullList.create();
+        toReturn.addAll(inputItems);
+        return toReturn;
+    }
+
+    @Override
     public @NotNull ResourceLocation getId() {
         return id;
     }

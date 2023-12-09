@@ -14,6 +14,7 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeManager;
 
 import java.util.List;
@@ -32,6 +33,9 @@ public class ModJEIPlugin implements IModPlugin {
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new ImbuingCauldronRecipeCategory(
                 registration.getJeiHelpers().getGuiHelper()));
+
+        registration.addRecipeCategories(new AnvilSmashingRecipeCategory(
+                registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -40,10 +44,15 @@ public class ModJEIPlugin implements IModPlugin {
 
         List<ImbuingCauldronRecipe> imbuingRecipe = recipeManager.getAllRecipesFor(ImbuingCauldronRecipe.Type.INSTANCE);
         registration.addRecipes(ImbuingCauldronRecipeCategory.IMBUING_CAULDRON_TYPE, imbuingRecipe);
+
+
+        List<AnvilSmashingRecipe> anvilSmashingRecipe = recipeManager.getAllRecipesFor(AnvilSmashingRecipe.Type.INSTANCE);
+        registration.addRecipes(AnvilSmashingRecipeCategory.ANVIL_SMASHING_RECIPE_TYPE, anvilSmashingRecipe);
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(new ItemStack(ModBlocks.IMBUING_CAULDRON.get()), IMBUING_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.IMBUING_CAULDRON.get()), ImbuingCauldronRecipeCategory.IMBUING_CAULDRON_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(Items.ANVIL), AnvilSmashingRecipeCategory.ANVIL_SMASHING_RECIPE_TYPE);
     }
 }

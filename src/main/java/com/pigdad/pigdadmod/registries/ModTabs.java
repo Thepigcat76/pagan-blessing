@@ -20,5 +20,6 @@ public class ModTabs {
                 output.accept(ModBlocks.RUE_PLANT.get());
                 output.accept(ModItems.RUE.get());
                 output.accept(ModItems.WINTER_BERRIES.get());
+                output.accept(ModItems.CINNABAR.get());
             }).build());
 }

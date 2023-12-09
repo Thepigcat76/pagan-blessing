@@ -18,6 +18,8 @@ public class ModItems {
             () -> new RuneSlabItem(ModBlocks.RUNE_SLAB.get(), new Item.Properties()));
     public static final RegistryObject<Item> RUE = registerItem("rue",
             () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> CINNABAR = registerItem("cinnabar",
+            () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> WINTER_BERRIES = registerItem("winter_berries",
             () -> new ItemNameBlockItem(ModBlocks.WINTER_BERRY_BUSH.get(), new Item.Properties()
                     .food(new FoodProperties.Builder()

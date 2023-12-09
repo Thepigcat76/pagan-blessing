@@ -1,8 +1,8 @@
 package com.pigdad.pigdadmod.compat;
 
-import com.mojang.datafixers.util.Pair;
 import com.pigdad.pigdadmod.PigDadMod;
 import com.pigdad.pigdadmod.registries.ModBlocks;
+import com.pigdad.pigdadmod.registries.recipes.AnvilSmashingRecipe;
 import com.pigdad.pigdadmod.registries.recipes.ImbuingCauldronRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -15,36 +15,37 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.phys.Vec2;
 
 import java.util.List;
 
-public class ImbuingCauldronRecipeCategory implements IRecipeCategory<ImbuingCauldronRecipe> {
-    public static final ResourceLocation UID = new ResourceLocation(PigDadMod.MODID, "cauldron_imbuing");
+public class AnvilSmashingRecipeCategory implements IRecipeCategory<AnvilSmashingRecipe> {
+    public static final ResourceLocation UID = new ResourceLocation(PigDadMod.MODID, "anvil_smashing");
     public static final ResourceLocation TEXTURE = new ResourceLocation(PigDadMod.MODID,
             "textures/gui/gem_empowering_station_gui.png");
 
-    public static final RecipeType<ImbuingCauldronRecipe> IMBUING_CAULDRON_TYPE =
-            new RecipeType<>(UID, ImbuingCauldronRecipe.class);
+    public static final RecipeType<AnvilSmashingRecipe> ANVIL_SMASHING_RECIPE_TYPE =
+            new RecipeType<>(UID, AnvilSmashingRecipe.class);
 
     private final IDrawable background;
     private final IDrawable icon;
 
-    public ImbuingCauldronRecipeCategory(IGuiHelper helper) {
+    public AnvilSmashingRecipeCategory(IGuiHelper helper) {
         this.background = helper.createDrawable(TEXTURE, 0, 0, 176, 85);
-        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.IMBUING_CAULDRON.get()));
+        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(Items.ANVIL));
     }
 
 
     @Override
-    public RecipeType<ImbuingCauldronRecipe> getRecipeType() {
-        return IMBUING_CAULDRON_TYPE;
+    public RecipeType<AnvilSmashingRecipe> getRecipeType() {
+        return ANVIL_SMASHING_RECIPE_TYPE;
     }
 
     @Override
     public Component getTitle() {
-        return Component.literal("Imbuing Cauldron");
+        return Component.literal("Anvil Smashing");
     }
 
     @Override
@@ -58,7 +59,7 @@ public class ImbuingCauldronRecipeCategory implements IRecipeCategory<ImbuingCau
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, ImbuingCauldronRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, AnvilSmashingRecipe recipe, IFocusGroup focuses) {
         List<Vec2> coordinates = List.of(
                 new Vec2(80, 11),
                 new Vec2(100, 11),
@@ -67,7 +68,7 @@ public class ImbuingCauldronRecipeCategory implements IRecipeCategory<ImbuingCau
                 new Vec2(160, 11)
         );
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < recipe.getInputItems().size(); i++) {
             try {
                 builder.addSlot(RecipeIngredientRole.INPUT, (int) coordinates.get(i).x, (int) coordinates.get(i).y)
                         .addIngredients(recipe.getIngredients().get(i));
