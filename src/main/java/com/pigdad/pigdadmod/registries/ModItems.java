@@ -13,12 +13,17 @@ import java.util.function.Supplier;
 
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, PigDadMod.MODID);
-
-    public static final RegistryObject<Item> RUNE_SLAB = registerItem("rune_slab_amethyst",
-            () -> new RuneSlabItem(ModBlocks.RUNE_SLAB.get(), new Item.Properties()));
     public static final RegistryObject<Item> RUE = registerItem("rue",
             () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> CINNABAR = registerItem("cinnabar",
+    public static final RegistryObject<Item> BELLADONNA = registerItem("belladonna",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> HAG_TAPER = registerItem("hag_taper",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> LAVENDER = registerItem("lavender",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MANDRAKE_ROOT = registerItem("mandrake_root",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MUGWORT = registerItem("mugwort",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> WINTER_BERRIES = registerItem("winter_berries",
             () -> new ItemNameBlockItem(ModBlocks.WINTER_BERRY_BUSH.get(), new Item.Properties()
@@ -26,6 +31,8 @@ public class ModItems {
                             .nutrition(2)
                             .saturationMod(0.1F)
                             .build())));
+    public static final RegistryObject<Item> CINNABAR = registerItem("cinnabar",
+            () -> new Item(new Item.Properties()));
 
     private static RegistryObject<Item> registerItem(String name, Supplier<Item> item) {
         return ITEMS.register(name, item);

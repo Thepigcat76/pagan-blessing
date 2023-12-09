@@ -23,7 +23,7 @@ import java.util.List;
 public class ImbuingCauldronRecipeCategory implements IRecipeCategory<ImbuingCauldronRecipe> {
     public static final ResourceLocation UID = new ResourceLocation(PigDadMod.MODID, "cauldron_imbuing");
     public static final ResourceLocation TEXTURE = new ResourceLocation(PigDadMod.MODID,
-            "textures/gui/gem_empowering_station_gui.png");
+            "textures/gui/imbuing_cauldron.png");
 
     public static final RecipeType<ImbuingCauldronRecipe> IMBUING_CAULDRON_TYPE =
             new RecipeType<>(UID, ImbuingCauldronRecipe.class);
@@ -44,7 +44,7 @@ public class ImbuingCauldronRecipeCategory implements IRecipeCategory<ImbuingCau
 
     @Override
     public Component getTitle() {
-        return Component.literal("Imbuing Cauldron");
+        return Component.literal("Cauldron Imbuing");
     }
 
     @Override
@@ -60,7 +60,7 @@ public class ImbuingCauldronRecipeCategory implements IRecipeCategory<ImbuingCau
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, ImbuingCauldronRecipe recipe, IFocusGroup focuses) {
         List<Vec2> coordinates = List.of(
-                new Vec2(80, 11),
+                new Vec2(80, 5),
                 new Vec2(100, 11),
                 new Vec2(120, 11),
                 new Vec2(140, 11),
@@ -77,6 +77,6 @@ public class ImbuingCauldronRecipeCategory implements IRecipeCategory<ImbuingCau
             }
         }
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 59).addItemStack(recipe.getResultItem(null));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 36).addItemStack(recipe.getResultItem(null));
     }
 }

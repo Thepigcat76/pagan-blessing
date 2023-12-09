@@ -1,0 +1,10 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "pigdadmod:block/runes/rune_slab_amethyst",
+	"render_type": "cutout",
+	"textures": {
+		"0": "pigdadmod:block/runes/runes_lapis_4",
+		"1": "pigdadmod:block/runes/rune_bottom",
+		"particle": "pigdadmod:block/runes/runes_lapis_4"
+	}
+}

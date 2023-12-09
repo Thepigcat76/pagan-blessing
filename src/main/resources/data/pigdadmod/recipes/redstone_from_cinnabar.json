@@ -1,0 +1,13 @@
+{
+  "type": "pigdadmod:anvil_smashing",
+  "ingredients": [
+    {
+      "count": 5,
+      "item": "pigdadmod:cinnabar"
+    }
+  ],
+  "output": {
+    "count": 15,
+    "item": "minecraft:redstone"
+  }
+}

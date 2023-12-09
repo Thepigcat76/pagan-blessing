@@ -69,13 +69,8 @@ public class AnvilSmashingRecipeCategory implements IRecipeCategory<AnvilSmashin
         );
 
         for (int i = 0; i < recipe.getInputItems().size(); i++) {
-            try {
-                builder.addSlot(RecipeIngredientRole.INPUT, (int) coordinates.get(i).x, (int) coordinates.get(i).y)
-                        .addIngredients(recipe.getIngredients().get(i));
-            } catch (Exception ignored) {
-                builder.addSlot(RecipeIngredientRole.INPUT, (int) coordinates.get(i).x, (int) coordinates.get(i).y)
-                        .addIngredients(Ingredient.EMPTY);
-            }
+            builder.addSlot(RecipeIngredientRole.INPUT, (int) coordinates.get(i).x, (int) coordinates.get(i).y)
+                    .addIngredients(recipe.getIngredients().get(i));
         }
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 59).addItemStack(recipe.getResultItem(null));
