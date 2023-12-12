@@ -6,12 +6,16 @@ import com.pigdad.pigdadmod.registries.blocks.ImbuingCauldronBlock;
 import com.pigdad.pigdadmod.registries.blocks.RuneSlabBlock;
 import com.pigdad.pigdadmod.registries.blocks.WinterBerryBushBlock;
 import com.pigdad.pigdadmod.registries.items.RuneSlabItem;
+import com.pigdad.pigdadmod.registries.worldgen.BlackThornTreeGrower;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
+import net.minecraftforge.common.data.SoundDefinition;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -42,6 +46,12 @@ public class ModBlocks {
             () -> new HerbPlantBlock(5, BlockBehaviour.Properties.of()));
     public static final RegistryObject<Block> WINTER_BERRY_BUSH = registerBlock("winter_berry_bush",
             () -> new WinterBerryBushBlock(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.SWEET_BERRY_BUSH)));
+    public static final RegistryObject<Block> BLACK_THORN_LOG = registerBlockAndItem("black_thorn_log",
+            () -> log(MapColor.WOOD, MapColor.COLOR_BLACK));
+    public static final RegistryObject<Block> BLACK_THORN_LEAVES = registerBlockAndItem("black_thorn_leaves",
+            () -> leaves(SoundType.GRASS));
+    public static final RegistryObject<Block> BLACK_THORN_SAPLING = registerBlockAndItem("black_thorn_sapling",
+            () -> new SaplingBlock(new BlackThornTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
 
     private static RegistryObject<Block> registerBlockAndItem(String name, Supplier<Block> block) {
         RegistryObject<Block> toReturn = BLOCKS.register(name, block);
@@ -61,5 +71,25 @@ public class ModBlocks {
         RegistryObject<Block> toReturn = BLOCKS.register(name, () -> new RuneSlabBlock(BlockBehaviour.Properties.of()));
         ModItems.ITEMS.register(name, () -> new RuneSlabItem(toReturn.get(), new Item.Properties()));
         return toReturn;
+    }
+
+    private static RotatedPillarBlock log(MapColor p_285370_, MapColor p_285126_) {
+        return new RotatedPillarBlock(BlockBehaviour.Properties.of()
+                .mapColor((p_152624_) -> p_152624_.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? p_285370_ : p_285126_)
+                .instrument(NoteBlockInstrument.BASS)
+                .strength(2.0F)
+                .sound(SoundType.WOOD)
+                .ignitedByLava());
+    }
+
+    private static LeavesBlock leaves(SoundType p_152615_) {
+        return new LeavesBlock(BlockBehaviour.Properties.of()
+                .mapColor(MapColor.PLANT)
+                .strength(0.2F)
+                .randomTicks()
+                .sound(p_152615_)
+                .noOcclusion()
+                .ignitedByLava()
+                .pushReaction(PushReaction.DESTROY));
     }
 }

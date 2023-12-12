@@ -101,6 +101,7 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
                             }
                         });
                 // Empty fluid containers
+                // FIXME: cauldron can be filled infinitely
             } else if (!player.getItemInHand(interactionHand).isEmpty() && fluidHandlerItem.isPresent()) {
                 IFluidHandlerItem fluidItem = fluidHandlerItem.orElseThrow(NullPointerException::new);
                 if (fluidItem.getFluidInTank(0).getAmount() <= 0) {

@@ -49,6 +49,8 @@ public class PigDadMod {
         ModTabs.CREATIVE_MODE_TABS.register(modEventBus);
         ModRecipes.SERIALIZERS.register(modEventBus);
         ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);
+        ModPlacerTypes.FOLIAGE_PLACERS.register(modEventBus);
+        ModPlacerTypes.TRUNK_PLACERS.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);

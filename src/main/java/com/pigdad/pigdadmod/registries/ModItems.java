@@ -33,6 +33,18 @@ public class ModItems {
                             .build())));
     public static final RegistryObject<Item> CINNABAR = registerItem("cinnabar",
             () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> WAND = registerItem("wand",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PENTACLE = registerItem("pentacle",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> CHALICE = registerItem("chalice",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> ATHAME = registerItem("athame",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> WICAN_WARD = registerItem("wican_ward",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> ETERNAL_SNOWBALL = registerItem("eternal_snowball",
+            () -> new Item(new Item.Properties()));
 
     private static RegistryObject<Item> registerItem(String name, Supplier<Item> item) {
         return ITEMS.register(name, item);

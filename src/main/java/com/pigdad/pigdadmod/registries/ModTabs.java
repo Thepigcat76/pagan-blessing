@@ -15,13 +15,13 @@ public class ModTabs {
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> ModBlocks.IMBUING_CAULDRON.get().asItem().getDefaultInstance())
             .displayItems((parameters, output) -> {
+                output.accept(ModBlocks.IMBUING_CAULDRON.get());
                 output.accept(ModBlocks.RUNE_SLAB_AMETHYST.get());
                 output.accept(ModBlocks.RUNE_SLAB_CINNABAR.get());
                 output.accept(ModBlocks.RUNE_SLAB_DIAMOND.get());
                 output.accept(ModBlocks.RUNE_SLAB_EMERALD.get());
                 output.accept(ModBlocks.RUNE_SLAB_QUARTZ.get());
                 output.accept(ModBlocks.RUNE_SLAB_LAPIS.get());
-                output.accept(ModBlocks.IMBUING_CAULDRON.get());
                 output.accept(ModBlocks.BELLADONNA_PLANT.get());
                 output.accept(ModBlocks.HAGS_TAPER_PLANT.get());
                 output.accept(ModBlocks.LAVENDER_PLANT.get());
@@ -36,5 +36,14 @@ public class ModTabs {
                 output.accept(ModItems.RUE.get());
                 output.accept(ModItems.WINTER_BERRIES.get());
                 output.accept(ModItems.CINNABAR.get());
+                output.accept(ModItems.ATHAME.get());
+                output.accept(ModItems.CHALICE.get());
+                output.accept(ModItems.ETERNAL_SNOWBALL.get());
+                output.accept(ModItems.PENTACLE.get());
+                output.accept(ModItems.WAND.get());
+                output.accept(ModItems.WICAN_WARD.get());
+                output.accept(ModBlocks.BLACK_THORN_LOG.get());
+                output.accept(ModBlocks.BLACK_THORN_LEAVES.get());
+                output.accept(ModBlocks.BLACK_THORN_SAPLING.get());
             }).build());
 }

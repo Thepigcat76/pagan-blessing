@@ -1,5 +1,5 @@
 {
-  "feature": "indref:rubber_tree",
+  "feature": "pigdadmod:black_thorn_tree",
   "placement": [
     {
       "type": "minecraft:count",
@@ -24,7 +24,7 @@
       "predicate": {
         "type": "minecraft:would_survive",
         "state": {
-          "Name": "indref:rubber_tree_sapling",
+          "Name": "pigdadmod:black_thorn_sapling",
           "Properties": {
             "stage": "0"
           }

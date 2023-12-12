@@ -24,7 +24,7 @@ import java.util.List;
 public class AnvilSmashingRecipeCategory implements IRecipeCategory<AnvilSmashingRecipe> {
     public static final ResourceLocation UID = new ResourceLocation(PigDadMod.MODID, "anvil_smashing");
     public static final ResourceLocation TEXTURE = new ResourceLocation(PigDadMod.MODID,
-            "textures/gui/gem_empowering_station_gui.png");
+            "textures/gui/anvil_smashing.png");
 
     public static final RecipeType<AnvilSmashingRecipe> ANVIL_SMASHING_RECIPE_TYPE =
             new RecipeType<>(UID, AnvilSmashingRecipe.class);
@@ -33,7 +33,7 @@ public class AnvilSmashingRecipeCategory implements IRecipeCategory<AnvilSmashin
     private final IDrawable icon;
 
     public AnvilSmashingRecipeCategory(IGuiHelper helper) {
-        this.background = helper.createDrawable(TEXTURE, 0, 0, 176, 85);
+        this.background = helper.createDrawable(TEXTURE, 0, 0, 500, 400);
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(Items.ANVIL));
     }
 
