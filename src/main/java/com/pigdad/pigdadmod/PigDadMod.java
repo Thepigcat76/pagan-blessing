@@ -2,6 +2,7 @@ package com.pigdad.pigdadmod;
 
 import com.mojang.logging.LogUtils;
 import com.pigdad.pigdadmod.registries.*;
+import com.pigdad.pigdadmod.registries.entities.ModEntities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.food.FoodProperties;
@@ -51,6 +52,7 @@ public class PigDadMod {
         ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);
         ModPlacerTypes.FOLIAGE_PLACERS.register(modEventBus);
         ModPlacerTypes.TRUNK_PLACERS.register(modEventBus);
+        ModEntities.ENTITY_TYPES.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
