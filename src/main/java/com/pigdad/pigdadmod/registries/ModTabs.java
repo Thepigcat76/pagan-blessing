@@ -39,7 +39,7 @@ public class ModTabs {
                 output.accept(ModItems.ATHAME.get());
                 output.accept(ModItems.CHALICE.get());
                 output.accept(ModItems.ETERNAL_SNOWBALL.get());
-                output.accept(ModItems.PENTACLE.get());
+                output.accept(ModBlocks.PENTACLE.get());
                 output.accept(ModItems.WAND.get());
                 output.accept(ModItems.WICAN_WARD.get());
                 output.accept(ModBlocks.BLACK_THORN_LOG.get());

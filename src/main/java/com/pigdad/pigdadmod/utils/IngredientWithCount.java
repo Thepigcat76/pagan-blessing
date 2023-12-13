@@ -1,5 +1,9 @@
 package com.pigdad.pigdadmod.utils;
 
+/*
+ * From CofhCore with modifications. Credits to the CoFH Team for this.
+ */
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;

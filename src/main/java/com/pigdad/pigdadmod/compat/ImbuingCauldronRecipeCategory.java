@@ -1,6 +1,5 @@
 package com.pigdad.pigdadmod.compat;
 
-import com.mojang.datafixers.util.Pair;
 import com.pigdad.pigdadmod.PigDadMod;
 import com.pigdad.pigdadmod.registries.ModBlocks;
 import com.pigdad.pigdadmod.registries.recipes.ImbuingCauldronRecipe;

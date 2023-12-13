@@ -2,7 +2,6 @@ package com.pigdad.pigdadmod.compat;
 
 import com.pigdad.pigdadmod.PigDadMod;
 import com.pigdad.pigdadmod.registries.ModBlocks;
-import com.pigdad.pigdadmod.registries.ModItems;
 import com.pigdad.pigdadmod.registries.recipes.AnvilSmashingRecipe;
 import com.pigdad.pigdadmod.registries.recipes.ImbuingCauldronRecipe;
 import mezz.jei.api.IModPlugin;

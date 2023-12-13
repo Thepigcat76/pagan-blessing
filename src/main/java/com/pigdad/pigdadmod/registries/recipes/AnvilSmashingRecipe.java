@@ -3,7 +3,6 @@ package com.pigdad.pigdadmod.registries.recipes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.pigdad.pigdadmod.PigDadMod;
-import com.pigdad.pigdadmod.utils.IngredientWithCount;
 import com.pigdad.pigdadmod.utils.RecipeUtils;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
@@ -17,7 +16,6 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {

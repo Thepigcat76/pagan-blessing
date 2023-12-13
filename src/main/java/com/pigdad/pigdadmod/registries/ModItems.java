@@ -1,7 +1,10 @@
 package com.pigdad.pigdadmod.registries;
 
 import com.pigdad.pigdadmod.PigDadMod;
-import com.pigdad.pigdadmod.registries.items.RuneSlabItem;
+import com.pigdad.pigdadmod.registries.items.AthameItem;
+import com.pigdad.pigdadmod.registries.items.ChaliceItem;
+import com.pigdad.pigdadmod.registries.items.EternalSnowBallItem;
+import com.pigdad.pigdadmod.registries.items.WandItem;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
@@ -34,17 +37,15 @@ public class ModItems {
     public static final RegistryObject<Item> CINNABAR = registerItem("cinnabar",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> WAND = registerItem("wand",
-            () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> PENTACLE = registerItem("pentacle",
-            () -> new Item(new Item.Properties()));
+            () -> new WandItem(new Item.Properties()));
     public static final RegistryObject<Item> CHALICE = registerItem("chalice",
-            () -> new Item(new Item.Properties()));
+            () -> new ChaliceItem(new Item.Properties()));
     public static final RegistryObject<Item> ATHAME = registerItem("athame",
-            () -> new Item(new Item.Properties()));
+            () -> new AthameItem(new Item.Properties()));
     public static final RegistryObject<Item> WICAN_WARD = registerItem("wican_ward",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ETERNAL_SNOWBALL = registerItem("eternal_snowball",
-            () -> new Item(new Item.Properties()));
+            () -> new EternalSnowBallItem(new Item.Properties()));
 
     private static RegistryObject<Item> registerItem(String name, Supplier<Item> item) {
         return ITEMS.register(name, item);

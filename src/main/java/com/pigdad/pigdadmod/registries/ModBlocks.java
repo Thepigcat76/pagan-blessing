@@ -15,7 +15,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraftforge.common.data.SoundDefinition;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -52,6 +51,11 @@ public class ModBlocks {
             () -> leaves(SoundType.GRASS));
     public static final RegistryObject<Block> BLACK_THORN_SAPLING = registerBlockAndItem("black_thorn_sapling",
             () -> new SaplingBlock(new BlackThornTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
+    public static final RegistryObject<Block> PENTACLE = registerBlockAndItem("pentacle",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .noCollission()
+                    .noOcclusion()
+                    .instabreak()));
 
     private static RegistryObject<Block> registerBlockAndItem(String name, Supplier<Block> block) {
         RegistryObject<Block> toReturn = BLOCKS.register(name, block);

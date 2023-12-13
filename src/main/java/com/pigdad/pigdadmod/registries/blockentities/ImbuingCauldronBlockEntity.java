@@ -29,7 +29,9 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 public class ImbuingCauldronBlockEntity extends BlockEntity {
     private static final int INPUT0 = 0;

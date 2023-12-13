@@ -1,9 +1,7 @@
 package com.pigdad.pigdadmod.compat;
 
 import com.pigdad.pigdadmod.PigDadMod;
-import com.pigdad.pigdadmod.registries.ModBlocks;
 import com.pigdad.pigdadmod.registries.recipes.AnvilSmashingRecipe;
-import com.pigdad.pigdadmod.registries.recipes.ImbuingCauldronRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -16,7 +14,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.phys.Vec2;
 
 import java.util.List;

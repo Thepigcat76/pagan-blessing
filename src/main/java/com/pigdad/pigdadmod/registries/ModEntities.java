@@ -1,6 +1,7 @@
-package com.pigdad.pigdadmod.registries.entities;
+package com.pigdad.pigdadmod.registries;
 
 import com.pigdad.pigdadmod.PigDadMod;
+import com.pigdad.pigdadmod.registries.entities.EternalSnowballEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.registries.DeferredRegister;

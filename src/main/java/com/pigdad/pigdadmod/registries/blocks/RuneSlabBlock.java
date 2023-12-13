@@ -1,6 +1,5 @@
 package com.pigdad.pigdadmod.registries.blocks;
 
-import com.pigdad.pigdadmod.PigDadMod;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -31,7 +30,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 public class RuneSlabBlock extends Block {
@@ -95,7 +93,7 @@ public class RuneSlabBlock extends Block {
 
     @Override
     public void appendHoverText(ItemStack p_49816_, @Nullable BlockGetter p_49817_, List<Component> tooltip, TooltipFlag p_49819_) {
-        tooltip.add(Component.translatable("tooltip.pigdadmod.rune_slab").withStyle(ChatFormatting.DARK_GRAY));
+        tooltip.add(Component.translatable("desc.pigdadmod.rune_slab").withStyle(ChatFormatting.DARK_GRAY));
     }
 
     @Override

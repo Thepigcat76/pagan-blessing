@@ -1,4 +1,8 @@
 {
   "tab.pigdadmod.main": "Pig dad mod",
-  "tooltip.pigdadmod.rune_slab": "Right-click with a pickaxe to change the rune's state"
+  "desc.pigdadmod.rune_slab": "Right-click with a pickaxe to change the rune's state",
+  "desc.pigdadmod.athame": "Biggest fear of the undead! Become a zombie slayer",
+  "desc.pigdadmod.eternal_snowball": "An ever-lasting snowball that deals damage. It is quite cold tho",
+  "desc.pigdadmod.chalice": "A never ending milk bucket. What would you use this for?",
+  "desc.pigdadmod.wand": "The dream of any Gardener! Grow your crops infinitely."
 }
