@@ -1,10 +1,7 @@
 package com.pigdad.pigdadmod.registries;
 
 import com.pigdad.pigdadmod.PigDadMod;
-import com.pigdad.pigdadmod.registries.blocks.HerbPlantBlock;
-import com.pigdad.pigdadmod.registries.blocks.ImbuingCauldronBlock;
-import com.pigdad.pigdadmod.registries.blocks.RuneSlabBlock;
-import com.pigdad.pigdadmod.registries.blocks.WinterBerryBushBlock;
+import com.pigdad.pigdadmod.registries.blocks.*;
 import com.pigdad.pigdadmod.registries.items.RuneSlabItem;
 import com.pigdad.pigdadmod.registries.worldgen.BlackThornTreeGrower;
 import net.minecraft.core.Direction;
@@ -31,6 +28,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> RUNE_SLAB_EMERALD = registerRuneSlab("rune_slab_emerald");
     public static final RegistryObject<Block> RUNE_SLAB_QUARTZ = registerRuneSlab("rune_slab_quartz");
     public static final RegistryObject<Block> RUNE_SLAB_LAPIS = registerRuneSlab("rune_slab_lapis");
+    public static final RegistryObject<Block> RUNE_SLAB_INERT = registerRuneSlab("rune_slab_inert");
     public static final RegistryObject<Block> RUE_PLANT = registerBlockAndItem("rue_plant",
             () -> new HerbPlantBlock(5, BlockBehaviour.Properties.of()));
     public static final RegistryObject<Block> BELLADONNA_PLANT = registerBlockAndItem("belladonna_plant",
@@ -51,11 +49,13 @@ public class ModBlocks {
             () -> leaves(SoundType.GRASS));
     public static final RegistryObject<Block> BLACK_THORN_SAPLING = registerBlockAndItem("black_thorn_sapling",
             () -> new SaplingBlock(new BlackThornTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
-    public static final RegistryObject<Block> PENTACLE = registerBlockAndItem("pentacle",
-            () -> new Block(BlockBehaviour.Properties.of()
+    public static final RegistryObject<Block> PENTACLE = registerBlock("pentacle",
+            () -> new PentacleBlock(BlockBehaviour.Properties.of()
                     .noCollission()
                     .noOcclusion()
                     .instabreak()));
+    public static final RegistryObject<Block> RUNIC_CORE = registerBlockAndItem("runic_core",
+            () -> new RunicCoreBlock(BlockBehaviour.Properties.of().noOcclusion()));
 
     private static RegistryObject<Block> registerBlockAndItem(String name, Supplier<Block> block) {
         RegistryObject<Block> toReturn = BLOCKS.register(name, block);

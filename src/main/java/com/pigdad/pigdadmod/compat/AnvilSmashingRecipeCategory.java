@@ -14,6 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.phys.Vec2;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class AnvilSmashingRecipeCategory implements IRecipeCategory<AnvilSmashin
     private final IDrawable icon;
 
     public AnvilSmashingRecipeCategory(IGuiHelper helper) {
-        this.background = helper.createDrawable(TEXTURE, 0, 0, 500, 400);
+        this.background = helper.createDrawable(TEXTURE, 0, 0, 176, 85);
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(Items.ANVIL));
     }
 
@@ -57,19 +58,23 @@ public class AnvilSmashingRecipeCategory implements IRecipeCategory<AnvilSmashin
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, AnvilSmashingRecipe recipe, IFocusGroup focuses) {
-        List<Vec2> coordinates = List.of(
-                new Vec2(80, 11),
-                new Vec2(100, 11),
-                new Vec2(120, 11),
-                new Vec2(140, 11),
-                new Vec2(160, 11)
-        );
+        Vec2[] coordinates = {
+                new Vec2(80, 6),
+                new Vec2(53, 9),
+                new Vec2(106, 9),
+        };
 
-        for (int i = 0; i < recipe.getInputItems().size(); i++) {
-            builder.addSlot(RecipeIngredientRole.INPUT, (int) coordinates.get(i).x, (int) coordinates.get(i).y)
-                    .addIngredients(recipe.getIngredients().get(i));
+        for (int i = 0; i < 3; i++) {
+            try {
+                builder.addSlot(RecipeIngredientRole.INPUT, (int) coordinates[i].x, (int) coordinates[i].y)
+                        .addIngredients(recipe.getIngredients().get(i));
+            } catch (Exception ignored) {
+                builder.addSlot(RecipeIngredientRole.INPUT, (int) coordinates[i].x, (int) coordinates[i].y)
+                        .addIngredients(Ingredient.EMPTY);
+            }
         }
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 59).addItemStack(recipe.getResultItem(null));
+
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 58).addItemStack(recipe.getResultItem(null));
     }
 }

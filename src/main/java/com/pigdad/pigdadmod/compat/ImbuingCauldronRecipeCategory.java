@@ -59,11 +59,11 @@ public class ImbuingCauldronRecipeCategory implements IRecipeCategory<ImbuingCau
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, ImbuingCauldronRecipe recipe, IFocusGroup focuses) {
         List<Vec2> coordinates = List.of(
-                new Vec2(80, 5),
-                new Vec2(100, 11),
-                new Vec2(120, 11),
-                new Vec2(140, 11),
-                new Vec2(160, 11)
+                new Vec2(76, 5),
+                new Vec2(118, 21),
+                new Vec2(100, 59),
+                new Vec2(49, 59),
+                new Vec2(33, 21)
         );
 
         for (int i = 0; i < 5; i++) {
@@ -76,6 +76,6 @@ public class ImbuingCauldronRecipeCategory implements IRecipeCategory<ImbuingCau
             }
         }
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 36).addItemStack(recipe.getResultItem(null));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 76, 38).addItemStack(recipe.getResultItem(null));
     }
 }

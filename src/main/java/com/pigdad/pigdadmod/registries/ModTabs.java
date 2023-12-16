@@ -16,6 +16,8 @@ public class ModTabs {
             .icon(() -> ModBlocks.IMBUING_CAULDRON.get().asItem().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.accept(ModBlocks.IMBUING_CAULDRON.get());
+                output.accept(ModBlocks.RUNIC_CORE.get());
+                output.accept(ModBlocks.RUNE_SLAB_INERT.get());
                 output.accept(ModBlocks.RUNE_SLAB_AMETHYST.get());
                 output.accept(ModBlocks.RUNE_SLAB_CINNABAR.get());
                 output.accept(ModBlocks.RUNE_SLAB_DIAMOND.get());
@@ -39,7 +41,7 @@ public class ModTabs {
                 output.accept(ModItems.ATHAME.get());
                 output.accept(ModItems.CHALICE.get());
                 output.accept(ModItems.ETERNAL_SNOWBALL.get());
-                output.accept(ModBlocks.PENTACLE.get());
+                output.accept(ModItems.PENTACLE.get());
                 output.accept(ModItems.WAND.get());
                 output.accept(ModItems.WICAN_WARD.get());
                 output.accept(ModBlocks.BLACK_THORN_LOG.get());

@@ -1,6 +1,6 @@
 {
   "credit": "Made with Blockbench",
-  "render_type": "cutout",
+  "render_type": "translucent",
   "textures": {
     "0": "pigdadmod:block/star",
     "1": "pigdadmod:block/pentacle_2",
@@ -232,14 +232,10 @@
       }
     },
     {
-      "from": [-13, 0.5, -15.75],
-      "to": [29, 0.5, 26],
+      "from": [-15, 0.5, -15.925],
+      "to": [31, 0.5, 29],
       "rotation": {"angle": 0, "axis": "y", "origin": [0, 0.5, 0]},
       "faces": {
-        "north": {"uv": [0, 0, 16, 0], "texture": "#missing"},
-        "east": {"uv": [0, 0, 16, 0], "texture": "#missing"},
-        "south": {"uv": [0, 0, 16, 0], "texture": "#missing"},
-        "west": {"uv": [0, 0, 16, 0], "texture": "#missing"},
         "up": {"uv": [0, 0, 16, 16], "texture": "#0"},
         "down": {"uv": [0, 16, 16, 0], "texture": "#0"}
       }
