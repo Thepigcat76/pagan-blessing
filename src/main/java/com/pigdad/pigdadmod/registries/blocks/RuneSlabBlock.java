@@ -1,5 +1,7 @@
 package com.pigdad.pigdadmod.registries.blocks;
 
+import com.pigdad.pigdadmod.registries.RuneType;
+import com.pigdad.pigdadmod.registries.RuneTypes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -36,8 +38,15 @@ public class RuneSlabBlock extends Block {
     public static final BooleanProperty IS_TOP = BooleanProperty.create("is_top");
     public static final EnumProperty<RuneState> RUNE_STATE = EnumProperty.create("rune_state", RuneState.class);
 
-    public RuneSlabBlock(Properties properties) {
+    private final RuneType runeType;
+
+    public RuneSlabBlock(Properties properties, RuneType runeType) {
         super(properties.mapColor(MapColor.STONE).noOcclusion());
+        this.runeType = runeType;
+    }
+
+    public RuneType getRuneType() {
+        return runeType;
     }
 
     @Override

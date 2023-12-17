@@ -15,6 +15,7 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
@@ -22,13 +23,13 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, PigDadMod.MODID);
     public static final RegistryObject<Block> IMBUING_CAULDRON = registerBlockAndItem("imbuing_cauldron",
             () -> new ImbuingCauldronBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).noOcclusion()));
-    public static final RegistryObject<Block> RUNE_SLAB_AMETHYST = registerRuneSlab("rune_slab_amethyst");
-    public static final RegistryObject<Block> RUNE_SLAB_CINNABAR = registerRuneSlab("rune_slab_cinnabar");
-    public static final RegistryObject<Block> RUNE_SLAB_DIAMOND = registerRuneSlab("rune_slab_diamond");
-    public static final RegistryObject<Block> RUNE_SLAB_EMERALD = registerRuneSlab("rune_slab_emerald");
-    public static final RegistryObject<Block> RUNE_SLAB_QUARTZ = registerRuneSlab("rune_slab_quartz");
-    public static final RegistryObject<Block> RUNE_SLAB_LAPIS = registerRuneSlab("rune_slab_lapis");
-    public static final RegistryObject<Block> RUNE_SLAB_INERT = registerRuneSlab("rune_slab_inert");
+    public static final RegistryObject<Block> RUNE_SLAB_AMETHYST = registerRuneSlab("rune_slab_amethyst", RuneTypes.AMETHYST);
+    public static final RegistryObject<Block> RUNE_SLAB_CINNABAR = registerRuneSlab("rune_slab_cinnabar", RuneTypes.CINNABAR);
+    public static final RegistryObject<Block> RUNE_SLAB_DIAMOND = registerRuneSlab("rune_slab_diamond", RuneTypes.DIAMOND);
+    public static final RegistryObject<Block> RUNE_SLAB_EMERALD = registerRuneSlab("rune_slab_emerald", RuneTypes.EMERALD);
+    public static final RegistryObject<Block> RUNE_SLAB_QUARTZ = registerRuneSlab("rune_slab_quartz", RuneTypes.QUARTZ);
+    public static final RegistryObject<Block> RUNE_SLAB_LAPIS = registerRuneSlab("rune_slab_lapis", RuneTypes.LAPIS);
+    public static final RegistryObject<Block> RUNE_SLAB_INERT = registerRuneSlab("rune_slab_inert", null);
     public static final RegistryObject<Block> RUE_PLANT = registerBlockAndItem("rue_plant",
             () -> new HerbPlantBlock(5, BlockBehaviour.Properties.of()));
     public static final RegistryObject<Block> BELLADONNA_PLANT = registerBlockAndItem("belladonna_plant",
@@ -71,8 +72,8 @@ public class ModBlocks {
         ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
-    private static RegistryObject<Block> registerRuneSlab(String name) {
-        RegistryObject<Block> toReturn = BLOCKS.register(name, () -> new RuneSlabBlock(BlockBehaviour.Properties.of()));
+    private static RegistryObject<Block> registerRuneSlab(String name, RuneType runeType) {
+        RegistryObject<Block> toReturn = BLOCKS.register(name, () -> new RuneSlabBlock(BlockBehaviour.Properties.of(), runeType));
         ModItems.ITEMS.register(name, () -> new RuneSlabItem(toReturn.get(), new Item.Properties()));
         return toReturn;
     }

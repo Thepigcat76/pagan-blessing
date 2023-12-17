@@ -2,7 +2,9 @@ package com.pigdad.pigdadmod.registries.blocks;
 
 import com.mojang.datafixers.util.Pair;
 import com.pigdad.pigdadmod.PigDadMod;
+import com.pigdad.pigdadmod.registries.RuneType;
 import com.pigdad.pigdadmod.registries.blockentities.RunicCoreBlockEntity;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
@@ -130,7 +132,6 @@ public class RunicCoreBlock extends BaseEntityBlock {
             }
             finalPositions.add(firstPos1);
             finalPositions.add(firstPos2);
-            validIndex = 0;
         } else if (level.getBlockState(secPos1).getBlock() instanceof RuneSlabBlock &&
                 level.getBlockState(secPos2).getBlock() instanceof RuneSlabBlock) {
             for (Vec3i offSetPos : otherPositions2) {
@@ -142,7 +143,6 @@ public class RunicCoreBlock extends BaseEntityBlock {
             }
             finalPositions.add(secPos1);
             finalPositions.add(secPos2);
-            validIndex = 1;
         } else {
             return null;
         }
@@ -164,19 +164,24 @@ public class RunicCoreBlock extends BaseEntityBlock {
 
         runeStates = runeStates.stream().sorted().toList();
 
-        if (runeStates.equals(expectedStates)) {
-            PigDadMod.LOGGER.info("true");
+        if (!runeStates.equals(expectedStates)) {
+            return null;
         }
 
-        return RuneType.AMETHYST;
-    }
+        RuneType runeType = null;
 
-    public enum RuneType {
-        CINNABAR,
-        DIAMOND,
-        EMERALD,
-        QUARTZ,
-        AMETHYST,
-        LAPIS,
+        for (BlockPos blockPos : finalPositions) {
+            BlockState testBlock = level.getBlockState(blockPos);
+            if (runeType == null) {
+                if (testBlock.getBlock() instanceof RuneSlabBlock runeSlabBlock) runeType = runeSlabBlock.getRuneType();
+            }
+
+            if (testBlock.getBlock() instanceof RuneSlabBlock runeSlabBlock) {
+                if (runeSlabBlock.getRuneType() != runeType)
+                    return null;
+            }
+        }
+
+        return runeType;
     }
 }
