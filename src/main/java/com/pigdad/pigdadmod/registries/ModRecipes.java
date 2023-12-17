@@ -3,6 +3,7 @@ package com.pigdad.pigdadmod.registries;
 import com.pigdad.pigdadmod.PigDadMod;
 import com.pigdad.pigdadmod.registries.recipes.AnvilSmashingRecipe;
 import com.pigdad.pigdadmod.registries.recipes.ImbuingCauldronRecipe;
+import com.pigdad.pigdadmod.registries.recipes.RunicRitualRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -17,4 +18,7 @@ public class ModRecipes {
 
     public static final RegistryObject<RecipeSerializer<ImbuingCauldronRecipe>> IMBUING_CAULDRON_SERIALIZER =
             SERIALIZERS.register(ImbuingCauldronRecipe.NAME, () -> ImbuingCauldronRecipe.Serializer.INSTANCE);
+
+    public static final RegistryObject<RecipeSerializer<RunicRitualRecipe>> RUNIC_RITUAL_SERIALIZER =
+            SERIALIZERS.register(RunicRitualRecipe.NAME, () -> RunicRitualRecipe.Serializer.INSTANCE);
 }

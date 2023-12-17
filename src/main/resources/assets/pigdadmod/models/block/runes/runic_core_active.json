@@ -6,7 +6,7 @@
     "1": "pigdadmod:block/black_thorn_log_top",
     "2": "pigdadmod:block/skeleton",
     "3": "block/brown_candle_lit",
-    "5": "particle/flame",
+    "5": "pigdadmod:particle/flame",
     "particle": "pigdadmod:block/black_thorn_log_top"
   },
   "elements": [

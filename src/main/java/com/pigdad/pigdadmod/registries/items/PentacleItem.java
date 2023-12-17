@@ -30,24 +30,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 
-public class PentacleItem extends Item {
+public class PentacleItem extends Item implements CaptureSacrificeItem {
     public PentacleItem(Properties p_40566_) {
         super(p_40566_);
-    }
-
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand p_41434_) {
-        HitResult hitResult = Minecraft.getInstance().hitResult;
-        if (hitResult.getType().equals(HitResult.Type.ENTITY)) {
-            EntityHitResult eHitResult = (EntityHitResult) hitResult;
-            Entity entity = eHitResult.getEntity();
-            ItemStack itemStack = player.getItemInHand(p_41434_);
-            itemStack.getOrCreateTag().put("entity", entity.serializeNBT());
-            CompoundTag tag = itemStack.getOrCreateTag().getCompound("entity");
-            tag.remove("Pos");
-            tag.remove("UUID");
-        }
-        return InteractionResultHolder.fail(player.getItemInHand(p_41434_));
     }
 
     @Override

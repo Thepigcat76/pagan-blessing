@@ -1,0 +1,7 @@
+{
+  "type": "pigdadmod:runic_ritual",
+  "runeType": "cinnabar",
+  "output": {
+    "item": "pigdadmod:pentacle"
+  }
+}

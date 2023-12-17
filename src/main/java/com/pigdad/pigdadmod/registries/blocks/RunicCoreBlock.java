@@ -2,15 +2,19 @@ package com.pigdad.pigdadmod.registries.blocks;
 
 import com.mojang.datafixers.util.Pair;
 import com.pigdad.pigdadmod.PigDadMod;
+import com.pigdad.pigdadmod.registries.ModBlockEntities;
+import com.pigdad.pigdadmod.registries.ModBlocks;
 import com.pigdad.pigdadmod.registries.RuneType;
 import com.pigdad.pigdadmod.registries.blockentities.RunicCoreBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -18,22 +22,22 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec2;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector2f;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 
 public class RunicCoreBlock extends BaseEntityBlock {
@@ -74,15 +78,24 @@ public class RunicCoreBlock extends BaseEntityBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState p_60503_, Level p_60504_, BlockPos p_60505_, Player p_60506_, InteractionHand p_60507_, BlockHitResult p_60508_) {
-        p_60506_.sendSystemMessage(Component.literal("Type: " + getRuneType(p_60504_, p_60505_)));
+    public InteractionResult use(BlockState p_60503_, Level p_60504_, BlockPos p_60505_, Player player, InteractionHand p_60507_, BlockHitResult p_60508_) {
+        if ((!player.getItemInHand(p_60507_).is(Items.FLINT_AND_STEEL) && !player.getItemInHand(p_60507_).is(Items.FIRE_CHARGE)) && getRuneType(p_60504_, p_60505_) != null) {
+            player.sendSystemMessage(Component.literal("Ritual is valid"));
+        } else if ((!player.getItemInHand(p_60507_).is(Items.FLINT_AND_STEEL) && !player.getItemInHand(p_60507_).is(Items.FIRE_CHARGE))) {
+            player.sendSystemMessage(Component.literal("Ritual is incomplete"));
+        } else if (player.getItemInHand(p_60507_).is(Items.FLINT_AND_STEEL) || player.getItemInHand(p_60507_).is(Items.FIRE_CHARGE)) {
+            p_60504_.setBlockAndUpdate(p_60505_, p_60503_.setValue(ACTIVE, true));
+        }
         return InteractionResult.SUCCESS;
     }
 
-    // TODO: Add error message for player?
+    @Override
+    public void animateTick(BlockState p_220827_, Level p_220828_, BlockPos p_220829_, RandomSource p_220830_) {
+        // TODO: Add particles
+    }
+
     @Nullable
-    public static RuneType getRuneType(Level level, BlockPos corePos) {
-        int validIndex = -1;
+    public static Pair<RuneType, Set<BlockPos>> getRuneType(Level level, BlockPos corePos) {
         // ritual shape
         //   x
         // y   y
@@ -119,7 +132,7 @@ public class RunicCoreBlock extends BaseEntityBlock {
         BlockPos secPos1 = corePos.offset(possibleFirstPositions.get(1).getFirst());
         BlockPos secPos2 = corePos.offset(possibleFirstPositions.get(1).getSecond());
 
-        List<BlockPos> finalPositions = new ArrayList<>();
+        Set<BlockPos> finalPositions = new HashSet<>();
 
         if (level.getBlockState(firstPos1).getBlock() instanceof RuneSlabBlock &&
                 level.getBlockState(firstPos2).getBlock() instanceof RuneSlabBlock) {
@@ -182,6 +195,20 @@ public class RunicCoreBlock extends BaseEntityBlock {
             }
         }
 
-        return runeType;
+        return Pair.of(runeType, finalPositions);
+    }
+
+    public static void resetPillars(Level level, Set<BlockPos> positions) {
+        for (BlockPos blockPos : positions) {
+            BlockState blockState = level.getBlockState(blockPos);
+            RuneSlabBlock.RuneState runeState = blockState.getValue(RuneSlabBlock.RUNE_STATE);
+            level.setBlockAndUpdate(blockPos, ModBlocks.RUNE_SLAB_INERT.get().defaultBlockState()
+                    .setValue(RuneSlabBlock.RUNE_STATE, runeState)
+                    .setValue(RuneSlabBlock.IS_TOP, false));
+
+            level.setBlockAndUpdate(blockPos.above(), ModBlocks.RUNE_SLAB_INERT.get().defaultBlockState()
+                    .setValue(RuneSlabBlock.RUNE_STATE, runeState)
+                    .setValue(RuneSlabBlock.IS_TOP, true));
+        }
     }
 }

@@ -3,15 +3,25 @@ package com.pigdad.pigdadmod.utils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.pigdad.pigdadmod.PigDadMod;
+import com.pigdad.pigdadmod.registries.ModRecipes;
+import com.pigdad.pigdadmod.registries.recipes.RunicRitualRecipe;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /*
  * From CofhCore with modifications. Credits to the CoFH Team for this.
@@ -79,5 +89,9 @@ public class RecipeUtils {
             }
         }
         return ingredient;
+    }
+
+    public static List<RunicRitualRecipe> getAllRitualRecipes(RecipeManager recipeManager) {
+        return recipeManager.getAllRecipesFor(RunicRitualRecipe.Type.INSTANCE);
     }
 }
