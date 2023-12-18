@@ -6,15 +6,19 @@ import com.pigdad.pigdadmod.registries.ModBlockEntities;
 import com.pigdad.pigdadmod.registries.ModBlocks;
 import com.pigdad.pigdadmod.registries.RuneType;
 import com.pigdad.pigdadmod.registries.blockentities.RunicCoreBlockEntity;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -91,7 +95,9 @@ public class RunicCoreBlock extends BaseEntityBlock {
 
     @Override
     public void animateTick(BlockState p_220827_, Level p_220828_, BlockPos p_220829_, RandomSource p_220830_) {
-        // TODO: Add particles
+        if (p_220827_.getValue(ACTIVE)) {
+            p_220828_.addParticle(ParticleTypes.SMALL_FLAME, p_220829_.getX(), p_220829_.getY()+1, p_220829_.getZ(), 1.0, 1.0, 1.0);
+        }
     }
 
     @Nullable
@@ -210,5 +216,10 @@ public class RunicCoreBlock extends BaseEntityBlock {
                     .setValue(RuneSlabBlock.RUNE_STATE, runeState)
                     .setValue(RuneSlabBlock.IS_TOP, true));
         }
+    }
+
+    @Override
+    public void appendHoverText(ItemStack p_49816_, @Nullable BlockGetter p_49817_, List<Component> p_49818_, TooltipFlag p_49819_) {
+        p_49818_.add(Component.translatable("desc.pigdadmod.runic_core").withStyle(ChatFormatting.GRAY));
     }
 }
