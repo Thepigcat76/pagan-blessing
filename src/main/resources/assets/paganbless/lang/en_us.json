@@ -1,0 +1,46 @@
+{
+  "tab.paganbless.main": "Pagan's bless",
+
+  "desc.paganbless.rune_slab": "Right-click with a pickaxe to change the rune's state",
+  "desc.paganbless.athame": "Biggest fear of the undead! Become a zombie slayer",
+  "desc.paganbless.eternal_snowball": "An ever-lasting snowball that deals damage. It is quite cold tho",
+  "desc.paganbless.chalice": "A never ending milk bucket. What would you use this for?",
+  "desc.paganbless.wand": "The dream of any Gardener! Grow your crops infinitely.",
+  "desc.paganbless.runic_core": "Light with a flint and steal or fire charge",
+
+  "item.paganbless.athame": "Athame",
+  "item.paganbless.chalice": "Chalice",
+  "item.paganbless.eternal_snowball": "Eternal Snowball",
+  "item.paganbless.pentacle": "Pentacle",
+  "item.paganbless.wand": "Wand",
+  "block.paganbless.wican_ward": "Wican Ward",
+  "item.paganbless.cinnabar": "Cinnabar",
+  "item.paganbless.winter_berries": "Winter berries",
+  "item.paganbless.rue": "Rue",
+  "item.paganbless.mugwort": "Mugwort",
+  "item.paganbless.mandrake_root": "Mandrake root",
+  "item.paganbless.lavender": "Lavender",
+  "item.paganbless.hag_taper": "Hag Taper",
+  "item.paganbless.belladonna": "Belladonna",
+
+  "block.paganbless.imbuing_cauldron": "Imbuing Cauldron",
+  "block.paganbless.runic_core": "Runic Core",
+  "block.paganbless.rune_slab_inert": "Rune Slab Inert",
+  "block.paganbless.rune_slab_amethyst": "Rune Slab Amethyst",
+  "block.paganbless.rune_slab_cinnabar": "Rune Slab Cinnabar",
+  "block.paganbless.rune_slab_diamond": "Rune Slab Diamond",
+  "block.paganbless.rune_slab_emerald": "Rune Slab Emerald",
+  "block.paganbless.rune_slab_quartz": "Rune Slab Quartz",
+  "block.paganbless.rune_slab_lapis": "Rune Slab Lapis",
+
+  "block.paganbless.belladonna_plant": "Belladonna Plant",
+  "block.paganbless.hags_taper_plant": "Hags Taper",
+  "block.paganbless.lavender_plant": "Lavender Plant",
+  "block.paganbless.mandrake_root_plant": "Mandrake Root Plant",
+  "block.paganbless.mugwort_plant": "Mugwort Plant",
+  "block.paganbless.rue_plant": "Rue Plant",
+
+  "block.paganbless.black_thorn_log": "Black Thorn Log",
+  "block.paganbless.black_thorn_leaves": "Black Thorn Leaves",
+  "block.paganbless.black_thorn_sapling": "Black Thorn Sapling"
+}

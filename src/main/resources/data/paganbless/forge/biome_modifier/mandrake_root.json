@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#paganbless:can_mandrake_root_spawn",
+  "features": "paganbless:mandrake_root_placed",
+  "step": "vegetal_decoration"
+}

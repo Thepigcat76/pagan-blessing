@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "rune_state=variant0": {
+      "model": "paganbless:block/runes/rune_slab_lapis"
+    },
+    "rune_state=variant1": {
+      "model": "paganbless:block/runes/rune_slab_lapis_5"
+    },
+    "rune_state=variant2": {
+      "model": "paganbless:block/runes/rune_slab_lapis_6"
+    },
+    "rune_state=variant3": {
+      "model": "paganbless:block/runes/rune_slab_lapis_2"
+    },
+    "rune_state=variant4": {
+      "model": "paganbless:block/runes/rune_slab_lapis_3"
+    },
+    "rune_state=variant5": {
+      "model": "paganbless:block/runes/rune_slab_lapis_4"
+    }
+  }
+}

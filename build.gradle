@@ -87,8 +87,8 @@ dependencies {
 
 mixin {
     // MixinGradle Settings
-    add sourceSets.main, 'mixins.pigdadmod.refmap.json'
-    config 'mixins.pigdadmod.json'
+    add sourceSets.main, 'mixins.paganbless.refmap.json'
+    config 'mixins.paganbless.json'
 }
 
 tasks.withType(ProcessResources).configureEach {

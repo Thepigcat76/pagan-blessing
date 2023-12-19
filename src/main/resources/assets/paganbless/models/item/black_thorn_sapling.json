@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "paganbless:block/black_thorn_sapling"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "type": "paganbless:cauldron_imbuing",
+  "fluidType": "minecraft:water",
+  "fluidAmount": 1000,
+  "ingredients": [
+    {
+      "count": 2,
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "count": 2,
+      "item": "minecraft:dirt"
+    },
+    {
+      "count": 2,
+      "item": "minecraft:coal"
+    },
+    {
+      "count": 2,
+      "item": "minecraft:stone"
+    },
+    {
+      "count": 3,
+      "item": "minecraft:diamond"
+    }
+  ],
+  "output": {
+    "count": 7,
+    "item": "minecraft:diamond"
+  }
+}

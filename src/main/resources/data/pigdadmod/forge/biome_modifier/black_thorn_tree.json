@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#pigdadmod:can_black_thorn_tree_spawn",
-  "features": "pigdadmod:black_thorn_tree",
-  "step": "vegetal_decoration"
-}

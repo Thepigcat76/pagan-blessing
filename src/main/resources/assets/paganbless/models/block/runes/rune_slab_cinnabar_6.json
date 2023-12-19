@@ -1,0 +1,10 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "paganbless:block/runes/rune_slab_amethyst",
+	"render_type": "cutout",
+	"textures": {
+		"0": "paganbless:block/runes/runes_cinnabar_6",
+		"1": "paganbless:block/runes/rune_bottom",
+		"particle": "paganbless:block/runes/runes_cinnabar_6"
+	}
+}

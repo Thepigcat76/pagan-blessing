@@ -1,0 +1,50 @@
+{
+  "type": "minecraft:tree",
+  "config": {
+    "decorators": [],
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:dirt"
+      }
+    },
+    "foliage_placer": {
+      "type": "paganbless:black_thorn_foliage_placer",
+      "height": 2,
+      "offset": 2,
+      "radius": 2
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "paganbless:black_thorn_leaves",
+        "Properties": {
+          "distance": "5",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "minimum_size": {
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 5,
+      "lower_size": 0,
+      "upper_size": 5
+    },
+    "trunk_placer": {
+      "type": "paganbless:black_thorn_trunk_placer",
+      "base_height": 2,
+      "height_rand_a": 0,
+      "height_rand_b": 0
+    },
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "paganbless:black_thorn_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    }
+  }
+}

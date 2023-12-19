@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#pigdadmod:can_hags_taper_spawn",
-  "features": "pigdadmod:hags_taper_placed",
-  "step": "vegetal_decoration"
-}

@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#pigdadmod:can_mandrake_root_spawn",
-  "features": "pigdadmod:mandrake_root_placed",
-  "step": "vegetal_decoration"
-}
