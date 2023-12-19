@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
   "biomes": "#forge:is_snowy",
-  "features": "pigdadmod:winter_berry_placed",
+  "features": "pigdadmod:winter_berry_bush_placed",
   "step": "vegetal_decoration"
 }

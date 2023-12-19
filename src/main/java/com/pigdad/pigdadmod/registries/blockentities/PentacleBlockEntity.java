@@ -8,6 +8,7 @@ import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.goal.LandOnOwnersShoulderGoal;
 import net.minecraft.world.level.BaseSpawner;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.SpawnData;
@@ -48,7 +49,11 @@ public class PentacleBlockEntity extends BlockEntity {
 
     public void spawnEntity() {
         if (entityTag != null){
-            level.addFreshEntity(EntityType.create(entityTag, level).get());
+            try {
+                level.addFreshEntity(EntityType.create(entityTag, level).get());
+            } catch (Exception ignored) {
+                PigDadMod.LOGGER.warn("Failed to spawn entity");
+            }
         } else {
             PigDadMod.LOGGER.info("Entity tag is null");
         }

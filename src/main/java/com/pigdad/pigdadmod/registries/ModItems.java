@@ -3,6 +3,7 @@ package com.pigdad.pigdadmod.registries;
 import com.pigdad.pigdadmod.PigDadMod;
 import com.pigdad.pigdadmod.registries.items.*;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraftforge.registries.DeferredRegister;
@@ -40,7 +41,7 @@ public class ModItems {
     public static final RegistryObject<Item> ATHAME = registerItem("athame",
             () -> new AthameItem(new Item.Properties()));
     public static final RegistryObject<Item> WICAN_WARD = registerItem("wican_ward",
-            () -> new Item(new Item.Properties()));
+            () -> new BlockItem(ModBlocks.WICAN_WARD.get(), new Item.Properties()));
     public static final RegistryObject<Item> ETERNAL_SNOWBALL = registerItem("eternal_snowball",
             () -> new EternalSnowBallItem(new Item.Properties()));
     public static final RegistryObject<Item> PENTACLE = registerItem("pentacle",

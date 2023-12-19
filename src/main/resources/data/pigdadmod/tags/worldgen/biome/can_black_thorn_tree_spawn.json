@@ -1,6 +1,6 @@
 {
   "values": [
     "#forge:is_swamp",
-    "#forge:is_plains"
+    "#minecraft:is_forest"
   ]
 }
