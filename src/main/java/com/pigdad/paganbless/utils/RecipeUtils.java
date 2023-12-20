@@ -5,9 +5,12 @@ import com.google.gson.JsonObject;
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.recipes.RunicRitualRecipe;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
@@ -81,6 +84,18 @@ public class RecipeUtils {
             }
         }
         return ingredient;
+    }
+
+    public static Item parseItem(JsonElement jsonElement) {
+        try {
+            String[] rawBlock = jsonElement.getAsString().split(":");
+            for (String string : rawBlock) {
+                PaganBless.LOGGER.info("Raw block: "+string);
+            }
+            return ForgeRegistries.ITEMS.getValue(new ResourceLocation(rawBlock[0], rawBlock[1]));
+        } catch (Exception ignored) {
+            throw new NullPointerException("Runeblock is null");
+        }
     }
 
     public static List<RunicRitualRecipe> getAllRitualRecipes(RecipeManager recipeManager) {

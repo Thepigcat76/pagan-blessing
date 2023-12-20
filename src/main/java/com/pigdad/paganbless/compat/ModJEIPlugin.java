@@ -4,6 +4,7 @@ import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.recipes.AnvilSmashingRecipe;
 import com.pigdad.paganbless.registries.recipes.ImbuingCauldronRecipe;
+import com.pigdad.paganbless.registries.recipes.RunicRitualRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.recipe.RecipeType;
@@ -35,6 +36,9 @@ public class ModJEIPlugin implements IModPlugin {
 
         registration.addRecipeCategories(new AnvilSmashingRecipeCategory(
                 registration.getJeiHelpers().getGuiHelper()));
+
+        registration.addRecipeCategories(new RunicRitualRecipeCategory(
+                registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -44,9 +48,11 @@ public class ModJEIPlugin implements IModPlugin {
         List<ImbuingCauldronRecipe> imbuingRecipe = recipeManager.getAllRecipesFor(ImbuingCauldronRecipe.Type.INSTANCE);
         registration.addRecipes(ImbuingCauldronRecipeCategory.IMBUING_CAULDRON_TYPE, imbuingRecipe);
 
-
         List<AnvilSmashingRecipe> anvilSmashingRecipe = recipeManager.getAllRecipesFor(AnvilSmashingRecipe.Type.INSTANCE);
         registration.addRecipes(AnvilSmashingRecipeCategory.ANVIL_SMASHING_RECIPE_TYPE, anvilSmashingRecipe);
+
+        List<RunicRitualRecipe> runicRitualRecipe = recipeManager.getAllRecipesFor(RunicRitualRecipe.Type.INSTANCE);
+        registration.addRecipes(RunicRitualRecipeCategory.RUNIC_RITUAL_RECIPE_TYPE, runicRitualRecipe);
     }
 
     @Override

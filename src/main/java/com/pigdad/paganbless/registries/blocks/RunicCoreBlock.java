@@ -2,7 +2,6 @@ package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.datafixers.util.Pair;
 import com.pigdad.paganbless.registries.PBBlocks;
-import com.pigdad.paganbless.registries.RuneType;
 import com.pigdad.paganbless.registries.blockentities.RunicCoreBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -92,12 +91,12 @@ public class RunicCoreBlock extends BaseEntityBlock {
     @Override
     public void animateTick(BlockState p_220827_, Level p_220828_, BlockPos p_220829_, RandomSource p_220830_) {
         if (p_220827_.getValue(ACTIVE)) {
-            p_220828_.addParticle(ParticleTypes.SMALL_FLAME, p_220829_.getX(), p_220829_.getY()+1, p_220829_.getZ(), 1.0, 1.0, 1.0);
+            p_220828_.addParticle(ParticleTypes.SMALL_FLAME, p_220829_.getX(), p_220829_.getY() + 1, p_220829_.getZ(), 1.0, 1.0, 1.0);
         }
     }
 
     @Nullable
-    public static Pair<RuneType, Set<BlockPos>> getRuneType(Level level, BlockPos corePos) {
+    public static Set<BlockPos> getRuneType(Level level, BlockPos corePos) {
         // ritual shape
         //   x
         // y   y
@@ -136,6 +135,7 @@ public class RunicCoreBlock extends BaseEntityBlock {
 
         Set<BlockPos> finalPositions = new HashSet<>();
 
+        // check if all the blocks are rune slabs and determine which layout to use
         if (level.getBlockState(firstPos1).getBlock() instanceof RuneSlabBlock &&
                 level.getBlockState(firstPos2).getBlock() instanceof RuneSlabBlock) {
             for (Vec3i offSetPos : otherPositions1) {
@@ -179,25 +179,23 @@ public class RunicCoreBlock extends BaseEntityBlock {
 
         runeStates = runeStates.stream().sorted().toList();
 
+        // check if all blockstates are correct
         if (!runeStates.equals(expectedStates)) {
             return null;
         }
 
-        RuneType runeType = null;
+        Block runeType = level.getBlockState(finalPositions.stream().toList().get(0)).getBlock();
 
+        // check if all blocks have the same rune state
         for (BlockPos blockPos : finalPositions) {
             BlockState testBlock = level.getBlockState(blockPos);
-            if (runeType == null) {
-                if (testBlock.getBlock() instanceof RuneSlabBlock runeSlabBlock) runeType = runeSlabBlock.getRuneType();
-            }
 
-            if (testBlock.getBlock() instanceof RuneSlabBlock runeSlabBlock) {
-                if (runeSlabBlock.getRuneType() != runeType)
-                    return null;
+            if (!testBlock.getBlock().equals(runeType)) {
+                return null;
             }
         }
 
-        return Pair.of(runeType, finalPositions);
+        return finalPositions;
     }
 
     public static void resetPillars(Level level, Set<BlockPos> positions) {

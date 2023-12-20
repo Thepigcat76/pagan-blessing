@@ -1,7 +1,0 @@
-{
-  "type": "paganbless:runic_ritual",
-  "runeType": "cinnabar",
-  "output": {
-    "item": "paganbless:pentacle"
-  }
-}

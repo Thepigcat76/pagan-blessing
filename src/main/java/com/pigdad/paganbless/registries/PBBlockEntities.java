@@ -14,7 +14,7 @@ public class PBBlockEntities {
             DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, PaganBless.MODID);
 
     public static final RegistryObject<BlockEntityType<ImbuingCauldronBlockEntity>> IMBUING_CAULDRON =
-            BLOCK_ENTITIES.register("imbuing_cauldron", () ->
+            BLOCK_ENTITIES.register("imbuing_cauldron.json", () ->
                     BlockEntityType.Builder.of(ImbuingCauldronBlockEntity::new,
                             PBBlocks.IMBUING_CAULDRON.get()).build(null));
     public static final RegistryObject<BlockEntityType<PentacleBlockEntity>> PENTACLE =

@@ -14,7 +14,7 @@
           "children": [
             {
               "type": "minecraft:item",
-              "name": "minecraft:redstone_ore",
+              "name": "minecraft:deepslate_redstone_ore",
               "conditions": [
                 {
                   "condition": "minecraft:match_tool",
@@ -77,5 +77,5 @@
       ]
     }
   ],
-  "random_sequence": "minecraft:blocks/redstone_ore"
+  "random_sequence": "minecraft:blocks/deepslate_redstone_ore"
 }

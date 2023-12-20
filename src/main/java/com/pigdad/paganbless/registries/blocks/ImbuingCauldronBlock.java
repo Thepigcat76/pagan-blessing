@@ -102,8 +102,6 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
                                 }
                             }
                         });
-                // Empty fluid containers
-                // FIXME: cauldron can be filled infinitely
             } else if (!player.getItemInHand(interactionHand).isEmpty() && fluidHandlerItem.isPresent()) {
                 IFluidHandlerItem fluidItem = fluidHandlerItem.orElseThrow(NullPointerException::new);
                 if (fluidItem.getFluidInTank(0).getAmount() <= 0) {
@@ -141,11 +139,14 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
                     blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER)
                             .ifPresent(iFluidHandler -> {
                                 if (iFluidHandler.getFluidInTank(0).getAmount() + fluidItem.getFluidInTank(0).getAmount() <= iFluidHandler.getTankCapacity(0)) {
-                                    iFluidHandler.fill(fluidItem.getFluidInTank(0).copy(), IFluidHandler.FluidAction.EXECUTE);
-                                    fluidItem.drain(fluidItem.getFluidInTank(0).copy().getAmount(), IFluidHandler.FluidAction.EXECUTE);
-                                    player.getInventory().removeItem(player.getItemInHand(interactionHand));
-                                    ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(Items.BUCKET));
-                                    ret.set(InteractionResult.SUCCESS);
+                                    if (iFluidHandler.getFluidInTank(0).isEmpty()
+                                            || iFluidHandler.getFluidInTank(0).getFluid().isSame(fluidItem.getFluidInTank(0).getFluid())) {
+                                        iFluidHandler.fill(fluidItem.getFluidInTank(0).copy(), IFluidHandler.FluidAction.EXECUTE);
+                                        fluidItem.drain(fluidItem.getFluidInTank(0).copy().getAmount(), IFluidHandler.FluidAction.EXECUTE);
+                                        player.getInventory().removeItem(player.getItemInHand(interactionHand));
+                                        ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(Items.BUCKET));
+                                        ret.set(InteractionResult.SUCCESS);
+                                    }
                                 }
                             });
                 }

@@ -1,0 +1,14 @@
+{
+  "type": "paganbless:anvil_smashing",
+  "ingredients": [
+    {
+      "item": "paganbless:rune_slab_inert"
+    },
+    {
+      "item": "minecraft:amethyst_shard"
+    }
+  ],
+  "output": {
+    "item": "paganbless:rune_slab_amethyst"
+  }
+}

@@ -2,26 +2,31 @@ package com.pigdad.paganbless.registries.recipes;
 
 import com.google.gson.JsonObject;
 import com.pigdad.paganbless.PaganBless;
-import com.pigdad.paganbless.registries.RuneType;
+import com.pigdad.paganbless.utils.RecipeUtils;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 public class RunicRitualRecipe implements Recipe<SimpleContainer> {
     public static final String NAME = "runic_ritual";
     private final ItemStack output;
-    private final String runeType;
+    private final Item runeBlock;
     private final ResourceLocation id;
 
-    public RunicRitualRecipe(ResourceLocation id, ItemStack output, String runeType) {
+    public RunicRitualRecipe(ResourceLocation id, ItemStack output, @NotNull Item runeBlock) {
         this.output = output;
-        this.runeType = runeType;
+        this.runeBlock = runeBlock;
         this.id = id;
     }
 
@@ -30,15 +35,19 @@ public class RunicRitualRecipe implements Recipe<SimpleContainer> {
         return true;
     }
 
-    public boolean matchesRunes(RuneType runeType, Level level) {
+    public boolean matchesRunes(Item block, Level level) {
         if (level.isClientSide()) return false;
 
-        return runeType.getName().equals(this.runeType);
+        return runeBlock.equals(block);
     }
 
     @Override
     public ItemStack assemble(SimpleContainer p_44001_, RegistryAccess p_267165_) {
         return output.copy();
+    }
+
+    public Item getRuneBlock() {
+        return runeBlock;
     }
 
     @Override
@@ -49,10 +58,6 @@ public class RunicRitualRecipe implements Recipe<SimpleContainer> {
     @Override
     public ItemStack getResultItem(RegistryAccess p_267052_) {
         return output.copy();
-    }
-
-    public String getRuneType() {
-        return runeType;
     }
 
     @Override
@@ -86,23 +91,23 @@ public class RunicRitualRecipe implements Recipe<SimpleContainer> {
         @Override
         public @NotNull RunicRitualRecipe fromJson(ResourceLocation id, JsonObject json) {
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
-            String runeType = json.get("runeType").getAsString();
+            Item runeItem = RecipeUtils.parseItem(json.get("runeBlock"));
 
-            return new RunicRitualRecipe(id, output, runeType);
+            PaganBless.LOGGER.debug("rune item: {}", runeItem);
+
+            return new RunicRitualRecipe(id, output, runeItem);
         }
 
         @Override
         public RunicRitualRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
-            byte[] bytes = new byte[buf.readableBytes()];
-            buf.readBytes(bytes);
-            String runeType = new String(bytes);
+            Item runeBlock = buf.readItem().getItem();
             ItemStack output = buf.readItem();
-            return new RunicRitualRecipe(id, output, runeType);
+            return new RunicRitualRecipe(id, output, runeBlock);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buf, RunicRitualRecipe recipe) {
-            buf.writeBytes(recipe.getRuneType().getBytes());
+            buf.writeItem(recipe.runeBlock.getDefaultInstance());
 
             buf.writeItemStack(recipe.getResultItem(null), false);
         }

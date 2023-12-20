@@ -1,0 +1,21 @@
+{
+  "type": "paganbless:anvil_smashing",
+  "ingredients": [
+    {
+      "count": 1,
+      "item": "paganbless:black_thorn_log"
+    },
+    {
+      "count": 3,
+      "tag": "forge:bones"
+    },
+    {
+      "count": 3,
+      "tag": "minecraft:candles"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "paganbless:runic_core"
+  }
+}
