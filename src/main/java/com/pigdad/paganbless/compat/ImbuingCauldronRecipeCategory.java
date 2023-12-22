@@ -2,6 +2,7 @@ package com.pigdad.paganbless.compat;
 
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlocks;
+import com.pigdad.paganbless.registries.blockentities.ImbuingCauldronBlockEntity;
 import com.pigdad.paganbless.registries.recipes.ImbuingCauldronRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -61,10 +62,17 @@ public class ImbuingCauldronRecipeCategory implements IRecipeCategory<ImbuingCau
         List<Vec2> coordinates = List.of(
                 new Vec2(76, 5),
                 new Vec2(118, 21),
-                new Vec2(100, 59),
-                new Vec2(49, 59),
+                new Vec2(101, 60),
+                new Vec2(50, 60),
                 new Vec2(33, 21)
         );
+
+        float scale = 34f / ImbuingCauldronBlockEntity.getCapacity();
+        int scaledAmount = (int) (recipe.getFluidStack().getAmount() * scale);
+
+        builder.addSlot(RecipeIngredientRole.INPUT, 24, 3 + (34 - scaledAmount))
+                .addFluidStack(recipe.getFluidStack().getFluid(), recipe.getFluidStack().getAmount())
+                .setFluidRenderer(recipe.getFluidStack().getAmount(), true, 16, scaledAmount);
 
         for (int i = 0; i < 5; i++) {
             try {

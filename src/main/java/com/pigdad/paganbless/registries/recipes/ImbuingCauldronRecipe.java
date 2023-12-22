@@ -67,6 +67,10 @@ public class ImbuingCauldronRecipe implements Recipe<SimpleContainer> {
         return (fluidStack.getAmount() >= this.fluidStack.getAmount() && fluidStack.getFluid().isSame(this.fluidStack.getFluid()));
     }
 
+    public FluidStack getFluidStack() {
+        return fluidStack;
+    }
+
     @Override
     public @NotNull ItemStack assemble(SimpleContainer p_44001_, RegistryAccess p_267165_) {
         return output.copy();

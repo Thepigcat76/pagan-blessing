@@ -8,10 +8,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class RunicChargeItem extends Item {
@@ -54,6 +57,8 @@ public class RunicChargeItem extends Item {
                             .setValue(RuneSlabBlock.IS_TOP, false)
                             .setValue(RuneSlabBlock.RUNE_STATE, runeState));
                 }
+                ctx.getPlayer().getItemInHand(ctx.getHand()).setCount(0);
+                ItemHandlerHelper.giveItemToPlayer(ctx.getPlayer(), Items.GLASS_BOTTLE.getDefaultInstance());
                 return InteractionResult.SUCCESS;
             }
         }

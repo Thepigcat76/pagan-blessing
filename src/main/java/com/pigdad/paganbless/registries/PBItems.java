@@ -1,5 +1,6 @@
 package com.pigdad.paganbless.registries;
 
+import com.klikli_dev.modonomicon.item.ModonomiconItem;
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.items.*;
 import net.minecraft.world.food.FoodProperties;
@@ -48,6 +49,8 @@ public class PBItems {
             () -> new EternalSnowBallItem(new Item.Properties()));
     public static final RegistryObject<Item> PENTACLE = registerItem("pentacle",
             () -> new PentacleItem(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> PAGAN_GUIDE = registerItem("pagan_guide",
+            () -> new ModonomiconItem(new Item.Properties().stacksTo(1)));
 
     private static RegistryObject<Item> registerItem(String name, Supplier<Item> item) {
         return ITEMS.register(name, item);

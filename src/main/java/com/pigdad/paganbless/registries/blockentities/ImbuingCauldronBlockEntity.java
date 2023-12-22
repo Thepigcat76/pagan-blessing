@@ -89,6 +89,10 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
         }
     };
 
+    public static int getCapacity() {
+        return 2000;
+    }
+
     public ImbuingCauldronBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(PBBlockEntities.IMBUING_CAULDRON.get(), blockPos, blockState);
         this.data = new ContainerData() {
