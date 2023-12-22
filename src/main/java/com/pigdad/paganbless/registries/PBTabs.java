@@ -37,6 +37,7 @@ public class PBTabs {
                 output.accept(PBItems.MUGWORT.get());
                 output.accept(PBItems.RUE.get());
                 output.accept(PBItems.WINTER_BERRIES.get());
+                output.accept(PBItems.RUNIC_CHARGE.get());
                 output.accept(PBItems.CINNABAR.get());
                 output.accept(PBItems.ATHAME.get());
                 output.accept(PBItems.CHALICE.get());

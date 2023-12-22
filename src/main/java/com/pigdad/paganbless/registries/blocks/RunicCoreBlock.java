@@ -2,6 +2,7 @@ package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.datafixers.util.Pair;
 import com.pigdad.paganbless.registries.PBBlocks;
+import com.pigdad.paganbless.registries.blockentities.RuneSlabBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.RunicCoreBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -30,6 +31,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -205,6 +207,8 @@ public class RunicCoreBlock extends BaseEntityBlock {
             level.setBlockAndUpdate(blockPos, PBBlocks.RUNE_SLAB_INERT.get().defaultBlockState()
                     .setValue(RuneSlabBlock.RUNE_STATE, runeState)
                     .setValue(RuneSlabBlock.IS_TOP, false));
+
+            ((RuneSlabBlockEntity) level.getBlockEntity(blockPos)).setPrevBlock(ForgeRegistries.BLOCKS.getKey(blockState.getBlock()).toString());
 
             level.setBlockAndUpdate(blockPos.above(), PBBlocks.RUNE_SLAB_INERT.get().defaultBlockState()
                     .setValue(RuneSlabBlock.RUNE_STATE, runeState)

@@ -45,7 +45,6 @@ public class RunicCoreBlockEntity extends BlockEntity {
 
             if (recipe.isPresent() && runeBlock != Items.AIR) {
                 if (recipe.get().matchesRunes(runeBlock, level) && level.getBlockState(worldPosition).getValue(RunicCoreBlock.ACTIVE)) {
-                    Minecraft.getInstance().player.sendSystemMessage(Component.literal("AMOGUS!"));
                     ItemStack itemStack = recipe.get().getResultItem(level.registryAccess());
 
                     if (itemStack.getItem() instanceof CaptureSacrificeItem captureSacrificeItem) {

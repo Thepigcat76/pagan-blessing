@@ -13,8 +13,8 @@
   "item.paganbless.eternal_snowball": "Eternal Snowball",
   "item.paganbless.pentacle": "Pentacle",
   "item.paganbless.wand": "Wand",
-  "block.paganbless.wican_ward": "Wican Ward",
   "item.paganbless.cinnabar": "Cinnabar",
+  "item.paganbless.runic_charge": "Runic Charge",
   "item.paganbless.winter_berries": "Winter berries",
   "item.paganbless.rue": "Rue",
   "item.paganbless.mugwort": "Mugwort",
@@ -22,6 +22,7 @@
   "item.paganbless.lavender": "Lavender",
   "item.paganbless.hag_taper": "Hag Taper",
   "item.paganbless.belladonna": "Belladonna",
+  "book.paganbless.pagan_guide.name": "Pagan Guide",
 
   "block.paganbless.imbuing_cauldron": "Imbuing Cauldron",
   "block.paganbless.runic_core": "Runic Core",
@@ -32,6 +33,7 @@
   "block.paganbless.rune_slab_emerald": "Rune Slab Emerald",
   "block.paganbless.rune_slab_quartz": "Rune Slab Quartz",
   "block.paganbless.rune_slab_lapis": "Rune Slab Lapis",
+  "block.paganbless.wican_ward": "Wican Ward",
 
   "block.paganbless.belladonna_plant": "Belladonna Plant",
   "block.paganbless.hags_taper_plant": "Hags Taper",

@@ -1,5 +1,6 @@
 package com.pigdad.paganbless.registries.blocks;
 
+import com.pigdad.paganbless.registries.blockentities.RuneSlabBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -14,8 +15,10 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -32,12 +35,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class RuneSlabBlock extends Block {
+public class RuneSlabBlock extends BaseEntityBlock {
     public static final BooleanProperty IS_TOP = BooleanProperty.create("is_top");
     public static final EnumProperty<RuneState> RUNE_STATE = EnumProperty.create("rune_state", RuneState.class);
 
     public RuneSlabBlock(Properties properties) {
         super(properties.mapColor(MapColor.STONE).noOcclusion());
+        registerDefaultState(this.defaultBlockState().setValue(IS_TOP, false));
     }
 
     @Override
@@ -58,12 +62,6 @@ public class RuneSlabBlock extends Block {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(IS_TOP, RUNE_STATE);
-    }
-
-    @Nullable
-    @Override
-    public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(IS_TOP, false);
     }
 
     @Override
@@ -134,6 +132,15 @@ public class RuneSlabBlock extends Block {
                     level.getBlockState(blockPos.offset(0, 1, 0))
                             .setValue(RUNE_STATE, RuneState.getByIndex(blockState.getValue(RUNE_STATE).ordinal() + 1)));
         }
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos p_153215_, BlockState p_153216_) {
+        if (!p_153216_.getValue(IS_TOP)) {
+            return new RuneSlabBlockEntity(p_153215_, p_153216_);
+        }
+        return null;
     }
 
     public enum RuneState implements StringRepresentable {

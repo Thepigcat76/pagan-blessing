@@ -17,7 +17,7 @@ import java.util.List;
 
 public class AthameItem extends SwordItem {
     public AthameItem(Properties p_43272_) {
-        super(Tiers.DIAMOND, 3, 0F, p_43272_);
+        super(Tiers.DIAMOND, 3, -1.5F, p_43272_);
     }
 
     @Override

@@ -34,6 +34,8 @@ public class PBItems {
                             .build())));
     public static final RegistryObject<Item> CINNABAR = registerItem("cinnabar",
             () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> RUNIC_CHARGE = registerItem("runic_charge",
+            () -> new RunicChargeItem(new Item.Properties()));
     public static final RegistryObject<Item> WAND = registerItem("wand",
             () -> new WandItem(new Item.Properties()));
     public static final RegistryObject<Item> CHALICE = registerItem("chalice",
