@@ -84,7 +84,6 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        AtomicReference<InteractionResult> ret = new AtomicReference<>(InteractionResult.FAIL);
         LazyOptional<IFluidHandlerItem> fluidHandlerItem = player.getItemInHand(interactionHand).getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM);
         if (!level.isClientSide()) {
             // items except for fluid containers and air
@@ -97,7 +96,6 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
                                                 && iItemHandler.getStackInSlot(i).getCount() + player.getItemInHand(interactionHand).getCount() < iItemHandler.getSlotLimit(i)) {
                                     iItemHandler.insertItem(i, player.getItemInHand(interactionHand).copy(), false);
                                     player.getItemInHand(interactionHand).shrink(player.getItemInHand(interactionHand).getCount());
-                                    ret.set(InteractionResult.SUCCESS);
                                     break;
                                 }
                             }
@@ -113,7 +111,6 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
                                                     && iItemHandler.getStackInSlot(i).getCount() + player.getItemInHand(interactionHand).getCount() < iItemHandler.getSlotLimit(i)) {
                                         iItemHandler.insertItem(i, player.getItemInHand(interactionHand).copy(), false);
                                         player.getItemInHand(interactionHand).shrink(player.getItemInHand(interactionHand).getCount());
-                                        ret.set(InteractionResult.SUCCESS);
                                         break;
                                     }
                                 }
@@ -127,7 +124,6 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
                                 if (!iItemHandler.getStackInSlot(i).isEmpty()) {
                                     ItemHandlerHelper.giveItemToPlayer(player, iItemHandler.getStackInSlot(i).copy());
                                     iItemHandler.extractItem(i, 64, false);
-                                    ret.set(InteractionResult.SUCCESS);
                                     break;
                                 }
                             }
@@ -145,13 +141,12 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
                                         fluidItem.drain(fluidItem.getFluidInTank(0).copy().getAmount(), IFluidHandler.FluidAction.EXECUTE);
                                         player.getInventory().removeItem(player.getItemInHand(interactionHand));
                                         ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(Items.BUCKET));
-                                        ret.set(InteractionResult.SUCCESS);
                                     }
                                 }
                             });
                 }
             }
         }
-        return ret.get();
+        return InteractionResult.SUCCESS;
     }
 }

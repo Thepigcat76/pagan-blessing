@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -14,7 +15,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nullable;
 
 public class PentacleBlockEntity extends BlockEntity {
-    @Nullable private CompoundTag entityTag;
+    @Nullable
+    private CompoundTag entityTag;
     private int timer = 0;
 
     public PentacleBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
@@ -30,6 +32,7 @@ public class PentacleBlockEntity extends BlockEntity {
     public void load(CompoundTag tag) {
         super.load(tag);
         this.entityTag = tag.getCompound("entity");
+        this.timer = tag.getInt("timer");
     }
 
     @Override
@@ -37,11 +40,12 @@ public class PentacleBlockEntity extends BlockEntity {
         super.saveAdditional(tag);
         if (entityTag != null) {
             tag.put("entity", entityTag);
+            tag.putInt("timer", timer);
         }
     }
 
     public void spawnEntity() {
-        if (entityTag != null){
+        if (entityTag != null) {
             try {
                 level.addFreshEntity(EntityType.create(entityTag, level).get());
             } catch (Exception ignored) {
@@ -53,13 +57,20 @@ public class PentacleBlockEntity extends BlockEntity {
     }
 
     public void tick(Level level, BlockPos blockPos, BlockState blockState) {
-
+        RandomSource randomSource = level.getRandom();
+        timer++;
+        if (timer > 600 + randomSource.nextInt(0, 300)) {
+            timer = 0;
+            for (int i = 0; i < randomSource.nextInt(1, 4); i++) {
+                spawnEntity();
+            }
+        }
     }
 
     protected ListTag newDoubleList(double... p_20064_) {
         ListTag listtag = new ListTag();
 
-        for(double d0 : p_20064_) {
+        for (double d0 : p_20064_) {
             listtag.add(DoubleTag.valueOf(d0));
         }
 

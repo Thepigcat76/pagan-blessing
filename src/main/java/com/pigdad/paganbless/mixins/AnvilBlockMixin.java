@@ -48,8 +48,8 @@ public class AnvilBlockMixin {
         if (optionalRecipe.isPresent()) {
             AnvilSmashingRecipe recipe = optionalRecipe.get();
             ItemStack resultItem = recipe.getResultItem(level.registryAccess());
-            for (int i = 0; i < recipe.getInputItems().size(); i++) {
-                itemEntities.get(i).getItem().shrink(recipe.getInputItems().get(i).getItems()[0].getCount());
+            for (int i = 0; i < recipe.getIngredients().size(); i++) {
+                itemEntities.get(i).getItem().shrink(recipe.getIngredients().get(i).getItems()[0].getCount());
             }
             level.addFreshEntity(new ItemEntity(level, blockPos.getX(), blockPos.getY(), blockPos.getZ(), resultItem));
         }

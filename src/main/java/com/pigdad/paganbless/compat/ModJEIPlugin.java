@@ -2,6 +2,7 @@ package com.pigdad.paganbless.compat;
 
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlocks;
+import com.pigdad.paganbless.registries.blocks.RuneSlabBlock;
 import com.pigdad.paganbless.registries.recipes.AnvilSmashingRecipe;
 import com.pigdad.paganbless.registries.recipes.ImbuingCauldronRecipe;
 import com.pigdad.paganbless.registries.recipes.RunicRitualRecipe;
@@ -13,9 +14,12 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 
@@ -59,5 +63,12 @@ public class ModJEIPlugin implements IModPlugin {
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(PBBlocks.IMBUING_CAULDRON.get()), ImbuingCauldronRecipeCategory.IMBUING_CAULDRON_TYPE);
         registration.addRecipeCatalyst(new ItemStack(Items.ANVIL), AnvilSmashingRecipeCategory.ANVIL_SMASHING_RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(PBBlocks.RUNIC_CORE.get()), RunicRitualRecipeCategory.RUNIC_RITUAL_RECIPE_TYPE);
+
+        for (Item item : ForgeRegistries.ITEMS.getValues()) {
+            if (Block.byItem(item) instanceof RuneSlabBlock runeSlabBlock && !runeSlabBlock.equals(PBBlocks.RUNE_SLAB_INERT.get())) {
+                registration.addRecipeCatalyst(new ItemStack(item), RunicRitualRecipeCategory.RUNIC_RITUAL_RECIPE_TYPE);
+            }
+        }
     }
 }

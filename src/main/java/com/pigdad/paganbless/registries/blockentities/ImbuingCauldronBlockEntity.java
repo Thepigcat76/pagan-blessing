@@ -147,7 +147,7 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
         Optional<ImbuingCauldronRecipe> recipe = getCurrentRecipe();
         ItemStack result = recipe.get().getResultItem(null);
 
-        for (Ingredient ingredient : recipe.get().getInputItems()) {
+        for (Ingredient ingredient : recipe.get().getIngredients()) {
             ItemStack itemStack = ingredient.getItems()[0];
             for (int i = 0; i < itemHandler.getSlots(); i++) {
                 if (itemHandler.getStackInSlot(i).is(itemStack.getItem()) && itemHandler.getStackInSlot(i).getCount() >= itemStack.getCount()) {

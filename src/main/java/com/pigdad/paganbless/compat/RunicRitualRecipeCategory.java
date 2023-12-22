@@ -19,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.phys.Vec2;
+import org.jetbrains.annotations.NotNull;
 
 public class RunicRitualRecipeCategory implements IRecipeCategory<RunicRitualRecipe> {
     public static final ResourceLocation UID = new ResourceLocation(PaganBless.MODID, "runic_ritual");
@@ -58,8 +59,8 @@ public class RunicRitualRecipeCategory implements IRecipeCategory<RunicRitualRec
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, RunicRitualRecipe recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 80, 0)
+    public void setRecipe(IRecipeLayoutBuilder builder, RunicRitualRecipe recipe, @NotNull IFocusGroup focuses) {
+        builder.addSlot(RecipeIngredientRole.INPUT, 80, 10)
                 .addIngredients(Ingredient.of(recipe.getRuneBlock()));
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 60).addItemStack(recipe.getResultItem(null));

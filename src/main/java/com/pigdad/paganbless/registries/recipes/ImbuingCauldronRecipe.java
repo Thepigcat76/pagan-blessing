@@ -21,12 +21,12 @@ import java.util.List;
 
 public class ImbuingCauldronRecipe implements Recipe<SimpleContainer> {
     public static final String NAME = "cauldron_imbuing";
-    private final List<Ingredient> inputItems;
+    private final NonNullList<Ingredient> inputItems;
     private final ItemStack output;
     private final FluidStack fluidStack;
     private final ResourceLocation id;
 
-    public ImbuingCauldronRecipe(ResourceLocation id, ItemStack output, List<Ingredient> inputItems, FluidStack fluidStack) {
+    public ImbuingCauldronRecipe(ResourceLocation id, ItemStack output, NonNullList<Ingredient> inputItems, FluidStack fluidStack) {
         this.inputItems = inputItems;
         this.output = output;
         this.fluidStack = fluidStack;
@@ -82,15 +82,9 @@ public class ImbuingCauldronRecipe implements Recipe<SimpleContainer> {
         return output.copy();
     }
 
-    public List<Ingredient> getInputItems() {
-        return inputItems;
-    }
-
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        NonNullList<Ingredient> toReturn = NonNullList.create();
-        toReturn.addAll(inputItems);
-        return toReturn;
+        return inputItems;
     }
 
     @Override
@@ -127,7 +121,7 @@ public class ImbuingCauldronRecipe implements Recipe<SimpleContainer> {
             FluidStack fluidStack = new FluidStack(ForgeRegistries.FLUIDS.getValue(new ResourceLocation(json.get("fluidType").getAsString())),
                     json.get("fluidAmount").getAsInt());
 
-            List<Ingredient> inputs = new ArrayList<>();
+            NonNullList<Ingredient> inputs = NonNullList.create();
             RecipeUtils.parseInputs(inputs, json.get("ingredients"));
 
             return new ImbuingCauldronRecipe(id, output, inputs, fluidStack);
@@ -135,23 +129,28 @@ public class ImbuingCauldronRecipe implements Recipe<SimpleContainer> {
 
         @Override
         public ImbuingCauldronRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
-            List<Ingredient> inputs = NonNullList.withSize(buf.readInt(), Ingredient.EMPTY);
+            int inputSize = buf.readInt();
+            List<Ingredient> inputs = new ArrayList<>();
             FluidStack fluidStack = buf.readFluidStack();
 
-            for (int i = 0; i < inputs.size(); i++) {
+            for (int i = 0; i < inputSize; i++) {
+                PaganBless.LOGGER.info("Buffer: {}", buf);
                 inputs.add(Ingredient.fromNetwork(buf));
             }
 
+            NonNullList<Ingredient> ingredients = NonNullList.create();
+            ingredients.addAll(inputs);
+
             ItemStack output = buf.readItem();
-            return new ImbuingCauldronRecipe(id, output, inputs, fluidStack);
+            return new ImbuingCauldronRecipe(id, output, ingredients, fluidStack);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buf, ImbuingCauldronRecipe recipe) {
-            buf.writeInt(recipe.getInputItems().size());
+            buf.writeInt(recipe.getIngredients().size());
             buf.writeFluidStack(recipe.fluidStack);
 
-            for (Ingredient ing : recipe.getInputItems()) {
+            for (Ingredient ing : recipe.getIngredients()) {
                 ing.toNetwork(buf);
             }
 

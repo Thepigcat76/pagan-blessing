@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.recipes.RunicRitualRecipe;
+import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -33,18 +34,19 @@ public class RecipeUtils {
         return null;
     }
 
-    public static void parseInputs(List<Ingredient> ingredients, JsonElement element) {
+    public static void parseInputs(NonNullList<Ingredient> ingredients, JsonElement element) {
         PaganBless.LOGGER.info("Parsing input");
         if (element.isJsonArray()) {
-            for (JsonElement arrayElement : element.getAsJsonArray()) {
+            for (int i = 0; i < element.getAsJsonArray().size(); i++) {
+                JsonElement arrayElement = element.getAsJsonArray().get(i);
                 if (arrayElement.isJsonArray()) {
-                    ingredients.add(parseIngredient(arrayElement.getAsJsonArray()));
+                    ingredients.add(i, parseIngredient(arrayElement.getAsJsonArray()));
                 } else if (arrayElement.isJsonObject()) {
-                    ingredients.add(parseIngredient(arrayElement.getAsJsonObject()));
+                    ingredients.add(i, parseIngredient(arrayElement.getAsJsonObject()));
                 }
             }
         } else {
-            ingredients.add(parseIngredient(element.getAsJsonObject()));
+            ingredients.add(ingredients.size()-1, parseIngredient(element.getAsJsonObject()));
         }
     }
 

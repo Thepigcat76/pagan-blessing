@@ -20,11 +20,11 @@ import java.util.List;
 
 public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
     public static final String NAME = "anvil_smashing";
-    private final List<Ingredient> inputItems;
+    private final NonNullList<Ingredient> inputItems;
     private final ItemStack output;
     private final ResourceLocation id;
 
-    public AnvilSmashingRecipe(ResourceLocation id, ItemStack output, List<Ingredient> inputItems) {
+    public AnvilSmashingRecipe(ResourceLocation id, ItemStack output, NonNullList<Ingredient> inputItems) {
         this.inputItems = inputItems;
         this.output = output;
         this.id = id;
@@ -59,15 +59,9 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
         return output.copy();
     }
 
-    public List<Ingredient> getInputItems() {
-        return inputItems;
-    }
-
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        NonNullList<Ingredient> toReturn = NonNullList.create();
-        toReturn.addAll(inputItems);
-        return toReturn;
+        return inputItems;
     }
 
     @Override
@@ -103,7 +97,7 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
 
             JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
-            List<Ingredient> inputs = new ArrayList<>();
+            NonNullList<Ingredient> inputs = NonNullList.create();
             RecipeUtils.parseInputs(inputs, json.get("ingredients"));
 
             return new AnvilSmashingRecipe(id, output, inputs);
@@ -111,21 +105,25 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
 
         @Override
         public AnvilSmashingRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
-            List<Ingredient> inputs = NonNullList.withSize(buf.readInt(), Ingredient.EMPTY);
+            int inputSize = buf.readInt();
+            List<Ingredient> inputs = new ArrayList<>();
 
-            for (int i = 0; i < inputs.size(); i++) {
+            for (int i = 0; i < inputSize; i++) {
                 inputs.add(Ingredient.fromNetwork(buf));
             }
 
+            NonNullList<Ingredient> ingredients = NonNullList.create();
+            ingredients.addAll(inputs);
+
             ItemStack output = buf.readItem();
-            return new AnvilSmashingRecipe(id, output, inputs);
+            return new AnvilSmashingRecipe(id, output, ingredients);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buf, AnvilSmashingRecipe recipe) {
-            buf.writeInt(recipe.getInputItems().size());
+            buf.writeInt(recipe.getIngredients().size());
 
-            for (Ingredient ing : recipe.getInputItems()) {
+            for (Ingredient ing : recipe.getIngredients()) {
                 ing.toNetwork(buf);
             }
 

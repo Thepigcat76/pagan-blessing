@@ -4,11 +4,14 @@ import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.blocks.*;
 import com.pigdad.paganbless.registries.items.RuneSlabItem;
 import com.pigdad.paganbless.registries.worldgen.BlackThornTreeGrower;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -44,9 +47,24 @@ public class PBBlocks {
     public static final RegistryObject<Block> WINTER_BERRY_BUSH = registerBlock("winter_berry_bush",
             () -> new WinterBerryBushBlock(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.SWEET_BERRY_BUSH)));
     public static final RegistryObject<Block> BLACK_THORN_LOG = registerBlockAndItem("black_thorn_log",
-            () -> log(MapColor.WOOD, MapColor.COLOR_BLACK));
+            () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
     public static final RegistryObject<Block> BLACK_THORN_LEAVES = registerBlockAndItem("black_thorn_leaves",
-            () -> leaves(SoundType.GRASS));
+            () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 60;
+                }
+
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 30;
+                }
+            });
     public static final RegistryObject<Block> BLACK_THORN_SAPLING = registerBlockAndItem("black_thorn_sapling",
             () -> new SaplingBlock(new BlackThornTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
     public static final RegistryObject<Block> PENTACLE = registerBlock("pentacle",
