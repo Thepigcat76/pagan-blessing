@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=north": {
+      "model": "paganbless:block/wican_ward",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "paganbless:block/wican_ward",
+      "y": 270
+    },
+    "facing=south": {
       "model": "paganbless:block/wican_ward"
+    },
+    "facing=west": {
+      "model": "paganbless:block/wican_ward",
+      "y": 90
     }
   }
 }

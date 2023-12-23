@@ -2,6 +2,7 @@ package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.datafixers.util.Pair;
 import com.pigdad.paganbless.registries.PBBlocks;
+import com.pigdad.paganbless.registries.PBItems;
 import com.pigdad.paganbless.registries.blockentities.RuneSlabBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.RunicCoreBlockEntity;
 import net.minecraft.ChatFormatting;
@@ -79,13 +80,19 @@ public class RunicCoreBlock extends BaseEntityBlock {
 
     @Override
     public InteractionResult use(BlockState p_60503_, Level p_60504_, BlockPos p_60505_, Player player, InteractionHand p_60507_, BlockHitResult p_60508_) {
-        // TODO: Give more precise feedback
-        if ((!player.getItemInHand(p_60507_).is(Items.FLINT_AND_STEEL) && !player.getItemInHand(p_60507_).is(Items.FIRE_CHARGE)) && getRuneType(p_60504_, p_60505_) != null) {
-            player.sendSystemMessage(Component.literal("Ritual is valid"));
-        } else if ((!player.getItemInHand(p_60507_).is(Items.FLINT_AND_STEEL) && !player.getItemInHand(p_60507_).is(Items.FIRE_CHARGE))) {
-            player.sendSystemMessage(Component.literal("Ritual is incomplete"));
-        } else if (player.getItemInHand(p_60507_).is(Items.FLINT_AND_STEEL) || player.getItemInHand(p_60507_).is(Items.FIRE_CHARGE)) {
-            p_60504_.setBlockAndUpdate(p_60505_, p_60503_.setValue(ACTIVE, true));
+        if (!p_60504_.isClientSide()) {
+            // TODO: Give more precise feedback
+            if (!player.getItemInHand(p_60507_).is(PBItems.BLACK_THORN_STAFF.get()) && getRuneType(p_60504_, p_60505_).getSecond() == null) {
+                player.sendSystemMessage(Component.literal("Ritual is valid"));
+            } else if (!player.getItemInHand(p_60507_).is(PBItems.BLACK_THORN_STAFF.get())) {
+                player.sendSystemMessage(Component.literal("Ritual is incomplete"));
+                player.sendSystemMessage(Component.literal(getRuneType(p_60504_, p_60505_).getSecond()));
+                if (!p_60503_.getValue(ACTIVE)) {
+                    player.sendSystemMessage(Component.literal("Runic core is not activated"));
+                }
+            } else if (player.getItemInHand(p_60507_).is(PBItems.BLACK_THORN_STAFF.get())) {
+                p_60504_.setBlockAndUpdate(p_60505_, p_60503_.setValue(ACTIVE, true));
+            }
         }
         return InteractionResult.SUCCESS;
     }
@@ -97,8 +104,12 @@ public class RunicCoreBlock extends BaseEntityBlock {
         }
     }
 
-    @Nullable
-    public static Set<BlockPos> getRuneType(Level level, BlockPos corePos) {
+    /**
+     * @return first pair entry returns block positions of rune slabs, second returns error message or null
+     */
+    public static @Nullable Pair<@Nullable Set<BlockPos>, @Nullable String> getRuneType(Level level, BlockPos corePos) {
+        if (level.isClientSide()) return null;
+
         // ritual shape
         //   x
         // y   y
@@ -142,7 +153,11 @@ public class RunicCoreBlock extends BaseEntityBlock {
                 level.getBlockState(firstPos2).getBlock() instanceof RuneSlabBlock) {
             for (Vec3i offSetPos : otherPositions1) {
                 if (!(level.getBlockState(corePos.offset(offSetPos)).getBlock() instanceof RuneSlabBlock)) {
-                    return null;
+                    return errorFromString(String.format("Block at %d, %d, %d is not a rune slab but a %s",
+                            corePos.offset(offSetPos).getX(),
+                            corePos.offset(offSetPos).getY(),
+                            corePos.offset(offSetPos).getZ(),
+                            level.getBlockState(corePos.offset(offSetPos)).getBlock().getName()));
                 } else {
                     finalPositions.add(corePos.offset(offSetPos));
                 }
@@ -153,7 +168,11 @@ public class RunicCoreBlock extends BaseEntityBlock {
                 level.getBlockState(secPos2).getBlock() instanceof RuneSlabBlock) {
             for (Vec3i offSetPos : otherPositions2) {
                 if (!(level.getBlockState(corePos.offset(offSetPos)).getBlock() instanceof RuneSlabBlock)) {
-                    return null;
+                    return errorFromString(String.format("Block at %d, %d, %d is not a rune slab but a %s",
+                            corePos.offset(offSetPos).getX(),
+                            corePos.offset(offSetPos).getY(),
+                            corePos.offset(offSetPos).getZ(),
+                            level.getBlockState(corePos.offset(offSetPos)).getBlock().getName()));
                 } else {
                     finalPositions.add(corePos.offset(offSetPos));
                 }
@@ -161,7 +180,13 @@ public class RunicCoreBlock extends BaseEntityBlock {
             finalPositions.add(secPos1);
             finalPositions.add(secPos2);
         } else {
-            return null;
+            return errorFromString(String.format("Neither the block at %d, %d, %d nor block at %d, %d, %d are rune slabs",
+                    corePos.offset(firstPos1).getX(),
+                    corePos.offset(firstPos1).getY(),
+                    corePos.offset(firstPos1).getZ(),
+                    corePos.offset(secPos1).getX(),
+                    corePos.offset(secPos1).getY(),
+                    corePos.offset(secPos1).getZ()));
         }
 
         List<RuneSlabBlock.RuneState> expectedStates = Stream.of(
@@ -183,7 +208,7 @@ public class RunicCoreBlock extends BaseEntityBlock {
 
         // check if all blockstates are correct
         if (!runeStates.equals(expectedStates)) {
-            return null;
+            return errorFromString("A rune state is not correct. When performing the runic ritual, every block needs a different state. States can be changed with a pickaxe");
         }
 
         Block runeType = level.getBlockState(finalPositions.stream().toList().get(0)).getBlock();
@@ -193,11 +218,15 @@ public class RunicCoreBlock extends BaseEntityBlock {
             BlockState testBlock = level.getBlockState(blockPos);
 
             if (!testBlock.getBlock().equals(runeType)) {
-                return null;
+                return errorFromString(String.format("The block at %d, %d, %d is not a %s", blockPos.getX(), blockPos.getY(), blockPos.getZ(), runeType.getName()));
             }
         }
 
-        return finalPositions;
+        return Pair.of(finalPositions, null);
+    }
+
+    private static Pair<@Nullable Set<BlockPos>, String> errorFromString(String errorMessage) {
+        return Pair.of(null, errorMessage);
     }
 
     public static void resetPillars(Level level, Set<BlockPos> positions) {

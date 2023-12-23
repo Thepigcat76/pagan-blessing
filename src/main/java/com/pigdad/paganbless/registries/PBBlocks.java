@@ -73,7 +73,7 @@ public class PBBlocks {
                     .noOcclusion()
                     .instabreak()));
     public static final RegistryObject<Block> WICAN_WARD = registerBlock("wican_ward",
-            () -> new PentacleBlock(BlockBehaviour.Properties.of()
+            () -> new WicanWardBlock(BlockBehaviour.Properties.of()
                     .noOcclusion()));
     public static final RegistryObject<Block> RUNIC_CORE = registerBlockAndItem("runic_core",
             () -> new RunicCoreBlock(BlockBehaviour.Properties.of().noOcclusion()));

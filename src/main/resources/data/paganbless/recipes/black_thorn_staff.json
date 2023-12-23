@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "item": "paganbless:black_thorn_log"
+    },
+    "I": {
+      "item": "minecraft:ice"
+    }
+  },
+  "pattern": [
+    "  I",
+    " L ",
+    "L  "
+  ],
+  "result": {
+    "item": "paganbless:black_thorn_staff"
+  },
+  "show_notification": false
+}

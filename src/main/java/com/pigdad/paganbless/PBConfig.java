@@ -20,8 +20,8 @@ public class PBConfig {
 
     // a list of strings that are treated as resource locations for items
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> ENTITY_TYPES = BUILDER
-            .comment("A list of items to log on common setup.")
-            .defineListAllowEmpty("entity_types", List.of("minecraft:pig"), PBConfig::validateEntityName);
+            .comment("A blacklist for mobs that should not be captured by the pentacle on sacrifice")
+            .defineListAllowEmpty("pentacle_blacklisted", List.of("minecraft:wither", "minecraft:warden", "minecraft:ender_dragon"), PBConfig::validateEntityName);
 
     static final ForgeConfigSpec SPEC = BUILDER.build();
 

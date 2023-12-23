@@ -8,6 +8,7 @@ import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.BaseSpawner;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -18,6 +19,12 @@ public class PentacleBlockEntity extends BlockEntity {
     @Nullable
     private CompoundTag entityTag;
     private int timer = 0;
+    private BaseSpawner spawner = new BaseSpawner() {
+        @Override
+        public void broadcastEvent(Level p_151322_, BlockPos p_151323_, int p_151324_) {
+
+        }
+    };
 
     public PentacleBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
         super(PBBlockEntities.PENTACLE.get(), p_155229_, p_155230_);

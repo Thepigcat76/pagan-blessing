@@ -46,8 +46,8 @@ public class RunicRitualRecipe implements Recipe<SimpleContainer> {
         return output.copy();
     }
 
-    public Item getRuneBlock() {
-        return runeBlock;
+    public Block getRuneBlock() {
+        return Block.byItem(runeBlock);
     }
 
     @Override

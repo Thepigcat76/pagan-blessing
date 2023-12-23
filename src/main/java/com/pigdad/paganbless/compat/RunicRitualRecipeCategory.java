@@ -37,7 +37,6 @@ public class RunicRitualRecipeCategory implements IRecipeCategory<RunicRitualRec
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(PBBlocks.RUNIC_CORE.get()));
     }
 
-
     @Override
     public RecipeType<RunicRitualRecipe> getRecipeType() {
         return RUNIC_RITUAL_RECIPE_TYPE;
@@ -45,7 +44,7 @@ public class RunicRitualRecipeCategory implements IRecipeCategory<RunicRitualRec
 
     @Override
     public Component getTitle() {
-        return Component.literal("Anvil Smashing");
+        return Component.literal("Runic Ritual");
     }
 
     @Override
@@ -62,7 +61,6 @@ public class RunicRitualRecipeCategory implements IRecipeCategory<RunicRitualRec
     public void setRecipe(IRecipeLayoutBuilder builder, RunicRitualRecipe recipe, @NotNull IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 80, 10)
                 .addIngredients(Ingredient.of(recipe.getRuneBlock()));
-
         builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 60).addItemStack(recipe.getResultItem(null));
     }
 }

@@ -29,10 +29,10 @@ public class RunicCoreBlockEntity extends BlockEntity {
     }
 
     public void craftItem(Entity sacrificedEntity) {
-        Set<BlockPos> runes = RunicCoreBlock.getRuneType(level, getBlockPos());
+        Set<BlockPos> runes = RunicCoreBlock.getRuneType(level, getBlockPos()).getFirst();
         if (runes != null) {
             Item runeBlock = level.getBlockState(runes.stream().toList().get(0)).getBlock().asItem();
-            Set<BlockPos> positions = RunicCoreBlock.getRuneType(level, getBlockPos());
+            Set<BlockPos> positions = RunicCoreBlock.getRuneType(level, getBlockPos()).getFirst();
 
             Optional<RunicRitualRecipe> recipe = Optional.empty();
 
@@ -44,24 +44,29 @@ public class RunicCoreBlockEntity extends BlockEntity {
             }
 
             if (recipe.isPresent() && runeBlock != Items.AIR) {
-                if (recipe.get().matchesRunes(runeBlock, level) && level.getBlockState(worldPosition).getValue(RunicCoreBlock.ACTIVE)) {
-                    ItemStack itemStack = recipe.get().getResultItem(level.registryAccess());
+                if (recipe.get().matchesRunes(runeBlock, level)) {
+                    if (level.getBlockState(worldPosition).getValue(RunicCoreBlock.ACTIVE)) {
+                        ItemStack itemStack = recipe.get().getResultItem(level.registryAccess());
 
-                    if (itemStack.getItem() instanceof CaptureSacrificeItem captureSacrificeItem) {
-                        captureSacrificeItem.setEntity(sacrificedEntity, itemStack);
+                        if (itemStack.getItem() instanceof CaptureSacrificeItem captureSacrificeItem) {
+                            captureSacrificeItem.setEntity(sacrificedEntity, itemStack);
+                        }
+
+                        level.explode(sacrificedEntity, getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), 2.0F, Level.ExplosionInteraction.NONE);
+
+                        level.addFreshEntity(new ItemEntity(level, getBlockPos().getX(), getBlockPos().getY() + 10, getBlockPos().getZ(),
+                                itemStack));
+
+                        RunicCoreBlock.resetPillars(level, positions);
+                    } else {
+                        Minecraft.getInstance().player.sendSystemMessage(Component.literal("Runic core is not activated, do so with a black thorn staff"));
                     }
-
-                    level.explode(sacrificedEntity, getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), 2.0F, Level.ExplosionInteraction.NONE);
-
-                    level.addFreshEntity(new ItemEntity(level, getBlockPos().getX(), getBlockPos().getY() + 10, getBlockPos().getZ(),
-                            itemStack));
-
-                    RunicCoreBlock.resetPillars(level, positions);
                 } else {
-                    // TODO: Improve this
-                    Minecraft.getInstance().player.sendSystemMessage(Component.translatable("info.paganbless.incomplete_ritual"));
+                    Minecraft.getInstance().player.sendSystemMessage(Component.literal("Rune layout does not match any recipes"));
                 }
             }
+        } else {
+            Minecraft.getInstance().player.sendSystemMessage(Component.literal(RunicCoreBlock.getRuneType(level, getBlockPos()).getSecond()));
         }
     }
 }

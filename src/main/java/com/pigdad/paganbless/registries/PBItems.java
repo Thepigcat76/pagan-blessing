@@ -1,12 +1,16 @@
 package com.pigdad.paganbless.registries;
 
+import com.klikli_dev.modonomicon.Modonomicon;
 import com.klikli_dev.modonomicon.item.ModonomiconItem;
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.items.*;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -15,6 +19,7 @@ import java.util.function.Supplier;
 
 public class PBItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, PaganBless.MODID);
+    public static RegistryObject<Item> PAGAN_GUIDE;
     public static final RegistryObject<Item> RUE = registerItem("rue",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> BELLADONNA = registerItem("belladonna",
@@ -49,8 +54,19 @@ public class PBItems {
             () -> new EternalSnowBallItem(new Item.Properties()));
     public static final RegistryObject<Item> PENTACLE = registerItem("pentacle",
             () -> new PentacleItem(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> PAGAN_GUIDE = registerItem("pagan_guide",
-            () -> new ModonomiconItem(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> BLACK_THORN_STAFF = registerItem("black_thorn_staff",
+            () -> new ToolTipItem(new Item.Properties().stacksTo(1), Component.translatable("desc.paganbless.black_thorn_staff")
+                    .withStyle(ChatFormatting.GRAY)));
+
+    static {
+        try {
+            if (ModList.get().isLoaded(Modonomicon.MOD_ID)) {
+                PAGAN_GUIDE = registerItem("pagan_guide", () -> new PaganGuideItem(new Item.Properties().stacksTo(1)));
+            }
+        } catch (Exception ignored) {
+            PaganBless.LOGGER.info("Failed to load modonomicon. Consider installing it");
+        }
+    }
 
     private static RegistryObject<Item> registerItem(String name, Supplier<Item> item) {
         return ITEMS.register(name, item);

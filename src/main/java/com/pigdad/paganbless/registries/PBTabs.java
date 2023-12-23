@@ -7,6 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -41,10 +42,8 @@ public class PBTabs {
                 output.accept(PBItems.RUE.get());
                 output.accept(PBItems.WINTER_BERRIES.get());
                 output.accept(PBItems.RUNIC_CHARGE.get());
-                ResourceLocation id = BookDataManager.get().getBook(new ResourceLocation("paganbless:pagan_guide")).getId();
-                ItemStack itemStack = new ItemStack(PBItems.PAGAN_GUIDE.get());
-                itemStack.getOrCreateTag().putString("modonomicon:book_id", id.toString());
-                output.accept(itemStack);
+                output.accept(PBItems.BLACK_THORN_STAFF.get());
+                addBook(output, PBItems.PAGAN_GUIDE.get());
                 output.accept(PBItems.CINNABAR.get());
                 output.accept(PBItems.ATHAME.get());
                 output.accept(PBItems.CHALICE.get());
@@ -56,4 +55,14 @@ public class PBTabs {
                 output.accept(PBBlocks.BLACK_THORN_LEAVES.get());
                 output.accept(PBBlocks.BLACK_THORN_SAPLING.get());
             }).build());
+
+    public static void addBook(CreativeModeTab.Output output, Item item) {
+        try {
+            ResourceLocation id = BookDataManager.get().getBook(new ResourceLocation("paganbless:pagan_guide")).getId();
+            ItemStack itemStack = new ItemStack(item);
+            itemStack.getOrCreateTag().putString("modonomicon:book_id", id.toString());
+            output.accept(itemStack);
+        } catch (Exception ignored) {
+        }
+    }
 }

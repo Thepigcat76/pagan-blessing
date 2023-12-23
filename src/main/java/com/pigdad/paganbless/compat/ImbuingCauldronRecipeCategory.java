@@ -70,9 +70,11 @@ public class ImbuingCauldronRecipeCategory implements IRecipeCategory<ImbuingCau
         float scale = 34f / ImbuingCauldronBlockEntity.getCapacity();
         int scaledAmount = (int) (recipe.getFluidStack().getAmount() * scale);
 
-        builder.addSlot(RecipeIngredientRole.INPUT, 24, 3 + (34 - scaledAmount))
-                .addFluidStack(recipe.getFluidStack().getFluid(), recipe.getFluidStack().getAmount())
-                .setFluidRenderer(recipe.getFluidStack().getAmount(), true, 16, scaledAmount);
+        if (!recipe.getFluidStack().isEmpty()) {
+            builder.addSlot(RecipeIngredientRole.INPUT, 148, 34 + (34 - scaledAmount))
+                    .addFluidStack(recipe.getFluidStack().getFluid(), recipe.getFluidStack().getAmount())
+                    .setFluidRenderer(recipe.getFluidStack().getAmount(), true, 16, scaledAmount);
+        }
 
         for (int i = 0; i < 5; i++) {
             try {
