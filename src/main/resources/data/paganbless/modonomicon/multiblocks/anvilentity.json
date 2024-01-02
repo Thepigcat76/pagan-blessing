@@ -1,0 +1,63 @@
+{
+  "type": "modonomicon:dense",
+  "pattern": [
+    [
+      "NNNNN",
+      "NNSNN",
+      "NN0NN",
+      "NNNNN",
+      "NNNNN"
+    ],
+    [
+      "NNNNN",
+      "NNNNN",
+      "NNNNN",
+      "NNNNN",
+      "NNNNN"
+    ],
+    [
+      "NNNNN",
+      "NNNNN",
+      "NNNNN",
+      "NNNNN",
+      "NNNNN"
+    ],
+    [
+      "NNNNN",
+      "NNNNN",
+      "NNNNN",
+      "NNNNN",
+      "NNNNN"
+    ],
+    [
+      "DDDDD",
+      "DDTDD",
+      "DDDDD",
+      "DDDDD",
+      "DDDDD"
+    ]
+  ],
+  "mapping": {
+
+    "N": {
+      "type": "modonomicon:blockstate",
+      "block": "minecraft:air"
+    },
+    "S": {
+      "type": "modonomicon:blockstate",
+      "block": "minecraft:anvil"
+    },
+    "D": {
+      "type": "modonomicon:display",
+      "display": "minecraft:stone"
+    },
+    "T": {
+      "type": "modonomicon:display",
+      "display": "minecraft:red_wool"
+    },
+    "0": {
+      "type": "modonomicon:block",
+      "block": "minecraft:air"
+    }
+  }
+}

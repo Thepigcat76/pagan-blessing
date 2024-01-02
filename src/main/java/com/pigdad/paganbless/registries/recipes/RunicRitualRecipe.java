@@ -93,8 +93,6 @@ public class RunicRitualRecipe implements Recipe<SimpleContainer> {
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
             Item runeItem = RecipeUtils.parseItem(json.get("runeBlock"));
 
-            PaganBless.LOGGER.debug("rune item: {}", runeItem);
-
             return new RunicRitualRecipe(id, output, runeItem);
         }
 

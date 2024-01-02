@@ -1,7 +1,7 @@
 {
   "tab.paganbless.main": "Pagan's Blessing",
 
-  "desc.paganbless.rune_slab": "Right-click with a pickaxe to change the rune's state",
+  "desc.paganbless.rune_slab": "Right-click with a black thorn staff to change the rune's state",
   "desc.paganbless.athame": "Biggest fear of the undead! Become a zombie slayer",
   "desc.paganbless.eternal_snowball": "An ever-lasting snowball that deals damage. It is quite cold tho",
   "desc.paganbless.chalice": "A never ending milk bucket. What would you use this for?",
@@ -26,6 +26,8 @@
   "item.paganbless.hag_taper": "Hag Taper",
   "item.paganbless.belladonna": "Belladonna",
   "book.paganbless.pagan_guide.name": "Pagan Guide",
+  "item.paganbless.herb_pouch": "Herb Pouch",
+  "item.paganbless.glazed_berries": "Glazed Berries",
 
   "block.paganbless.imbuing_cauldron": "Imbuing Cauldron",
   "block.paganbless.runic_core": "Runic Core",

@@ -1,0 +1,34 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "paganbless:features",
+  "description": "the plants you can discover",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "paganbless:mandrake_root_plant"
+  },
+  "name": "Flora",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "Examples of the plants you will find in the world.   \\
+They spawn in different biomes and climates and any of them can be used in the Imbuing Cauldron to make Inert Runic Pillars.   \\
+The plants can be picked up with shears to transport them home and bonemealed.
+",
+      "title": "Flora",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "multiblock_id": "paganbless:plantentity",
+      "multiblock_name": "Plants to Discover",
+      "show_visualize_button": true,
+      "text": "Collect all the plants!"
+    }
+  ],
+  "x": -9,
+  "y": -2
+}

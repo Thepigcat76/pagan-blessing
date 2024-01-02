@@ -1,0 +1,33 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "paganbless:features",
+  "description": "mixing concoctions!",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "paganbless:imbuing_cauldron"
+  },
+  "name": "Imbuing Cauldron",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "The Imbuing Cauldron is a key tool you will need to make your Runic Pillars   \\
+	\\
+	3x deepslate and 2x Pagan's Blessings plants mixed with lava will give you the Inert Runic Pillar, check JEI for other/future recipes.",
+      "title": "Imbuing Cauldron",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "multiblock_id": "paganbless:imbuingentity",
+      "multiblock_name": "Brewing Time!",
+      "show_visualize_button": true,
+      "text": "Don't spill it"
+    }
+  ],
+  "x": -8,
+  "y": -2
+}

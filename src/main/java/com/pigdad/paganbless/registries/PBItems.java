@@ -6,6 +6,8 @@ import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.items.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -21,7 +23,7 @@ public class PBItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, PaganBless.MODID);
     public static RegistryObject<Item> PAGAN_GUIDE;
     public static final RegistryObject<Item> RUE = registerItem("rue",
-            () -> new Item(new Item.Properties()));
+            () -> new Item(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> BELLADONNA = registerItem("belladonna",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> HAG_TAPER = registerItem("hag_taper",
@@ -38,25 +40,34 @@ public class PBItems {
                             .nutrition(2)
                             .saturationMod(0.1F)
                             .build())));
+    public static final RegistryObject<Item> GLAZED_BERRIES = registerItem("glazed_berries",
+            () -> new Item(new Item.Properties()
+                    .food(new FoodProperties.Builder()
+                            .nutrition(5)
+                            .saturationMod(0.4F)
+                            .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED), 1.0F)
+                            .build())));
     public static final RegistryObject<Item> CINNABAR = registerItem("cinnabar",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> RUNIC_CHARGE = registerItem("runic_charge",
-            () -> new RunicChargeItem(new Item.Properties()));
+            () -> new RunicChargeItem(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> WAND = registerItem("wand",
-            () -> new WandItem(new Item.Properties()));
+            () -> new WandItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> CHALICE = registerItem("chalice",
-            () -> new ChaliceItem(new Item.Properties()));
+            () -> new ChaliceItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> ATHAME = registerItem("athame",
-            () -> new AthameItem(new Item.Properties()));
+            () -> new AthameItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> WICAN_WARD = registerItem("wican_ward",
             () -> new BlockItem(PBBlocks.WICAN_WARD.get(), new Item.Properties()));
     public static final RegistryObject<Item> ETERNAL_SNOWBALL = registerItem("eternal_snowball",
-            () -> new EternalSnowBallItem(new Item.Properties()));
+            () -> new EternalSnowBallItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> PENTACLE = registerItem("pentacle",
             () -> new PentacleItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> BLACK_THORN_STAFF = registerItem("black_thorn_staff",
             () -> new ToolTipItem(new Item.Properties().stacksTo(1), Component.translatable("desc.paganbless.black_thorn_staff")
                     .withStyle(ChatFormatting.GRAY)));
+    public static final RegistryObject<Item> HERB_POUCH = registerItem("herb_pouch",
+            () -> new HerbPouchItem(new Item.Properties().stacksTo(1)));
 
     static {
         try {

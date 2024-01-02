@@ -1,0 +1,58 @@
+{
+  "type": "modonomicon:dense",
+  "pattern": [
+    [
+      "NNVNN",
+      "WNNNU",
+      "NN0NN",
+      "XNNNT",
+      "NNSNN"
+    ],
+    [
+      "DDDDD",
+      "DDDDD",
+      "DDDDD",
+      "DDDDD",
+      "DDDDD"
+    ]
+  ],
+  "mapping": {
+
+    "N": {
+      "type": "modonomicon:blockstate",
+      "block": "minecraft:air"
+    },
+    "S": {
+      "type": "modonomicon:blockstate",
+      "block": "paganbless:rune_slab_cinnabar[rune_state=variant0]"
+    },
+    "T": {
+      "type": "modonomicon:blockstate",
+      "block": "paganbless:rune_slab_cinnabar[rune_state=variant1]"
+    },
+    "U": {
+      "type": "modonomicon:blockstate",
+      "block": "paganbless:rune_slab_cinnabar[rune_state=variant2]"
+    },
+    "V": {
+      "type": "modonomicon:blockstate",
+      "block": "paganbless:rune_slab_cinnabar[rune_state=variant3]"
+    },
+    "W": {
+      "type": "modonomicon:blockstate",
+      "block": "paganbless:rune_slab_cinnabar[rune_state=variant4]"
+    },
+    "X": {
+      "type": "modonomicon:blockstate",
+      "block": "paganbless:rune_slab_cinnabar[rune_state=variant5]"
+    },
+    "D": {
+      "type": "modonomicon:display",
+      "display": "minecraft:stone"
+    },
+    "0": {
+      "type": "modonomicon:block",
+      "block": "paganbless:runic_core"
+    }
+  }
+}

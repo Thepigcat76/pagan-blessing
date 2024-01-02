@@ -6,12 +6,17 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.BaseSpawner;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.SpawnData;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -19,10 +24,22 @@ public class PentacleBlockEntity extends BlockEntity {
     @Nullable
     private CompoundTag entityTag;
     private int timer = 0;
-    private BaseSpawner spawner = new BaseSpawner() {
-        @Override
-        public void broadcastEvent(Level p_151322_, BlockPos p_151323_, int p_151324_) {
+    public BaseSpawner spawner = new BaseSpawner() {
+        public void broadcastEvent(Level p_155767_, BlockPos p_155768_, int p_155769_) {
+            p_155767_.blockEvent(p_155768_, Blocks.SPAWNER, p_155769_, 0);
+        }
 
+        public void setNextSpawnData(@Nullable Level p_155771_, BlockPos p_155772_, SpawnData p_155773_) {
+            super.setNextSpawnData(p_155771_, p_155772_, p_155773_);
+            if (p_155771_ != null) {
+                BlockState blockstate = p_155771_.getBlockState(p_155772_);
+                p_155771_.sendBlockUpdated(p_155772_, blockstate, blockstate, 4);
+            }
+
+        }
+
+        public @NotNull BlockEntity getSpawnerBlockEntity() {
+            return PentacleBlockEntity.this;
         }
     };
 
@@ -30,57 +47,19 @@ public class PentacleBlockEntity extends BlockEntity {
         super(PBBlockEntities.PENTACLE.get(), p_155229_, p_155230_);
     }
 
-    public void setEntityTag(CompoundTag entityTag) {
-        entityTag.put("Pos", newDoubleList(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
-        this.entityTag = entityTag;
-    }
-
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
-        this.entityTag = tag.getCompound("entity");
-        this.timer = tag.getInt("timer");
+        this.spawner.load(level, getBlockPos(), tag);
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
-        if (entityTag != null) {
-            tag.put("entity", entityTag);
-            tag.putInt("timer", timer);
-        }
-    }
-
-    public void spawnEntity() {
-        if (entityTag != null) {
-            try {
-                level.addFreshEntity(EntityType.create(entityTag, level).get());
-            } catch (Exception ignored) {
-                PaganBless.LOGGER.warn("Failed to spawn entity");
-            }
-        } else {
-            PaganBless.LOGGER.info("Entity tag is null");
-        }
+        this.spawner.save(tag);
     }
 
     public void tick(Level level, BlockPos blockPos, BlockState blockState) {
-        RandomSource randomSource = level.getRandom();
-        timer++;
-        if (timer > 600 + randomSource.nextInt(0, 300)) {
-            timer = 0;
-            for (int i = 0; i < randomSource.nextInt(1, 4); i++) {
-                spawnEntity();
-            }
-        }
-    }
-
-    protected ListTag newDoubleList(double... p_20064_) {
-        ListTag listtag = new ListTag();
-
-        for (double d0 : p_20064_) {
-            listtag.add(DoubleTag.valueOf(d0));
-        }
-
-        return listtag;
+        spawner.serverTick((ServerLevel) level, blockPos);
     }
 }

@@ -35,7 +35,6 @@ public class RecipeUtils {
     }
 
     public static void parseInputs(NonNullList<Ingredient> ingredients, JsonElement element) {
-        PaganBless.LOGGER.info("Parsing input");
         if (element.isJsonArray()) {
             for (int i = 0; i < element.getAsJsonArray().size(); i++) {
                 JsonElement arrayElement = element.getAsJsonArray().get(i);
@@ -58,7 +57,6 @@ public class RecipeUtils {
         Ingredient ingredient;
 
         if (element.isJsonArray()) {
-            PaganBless.LOGGER.info("element is array");
             try {
                 ingredient = Ingredient.fromJson(element);
             } catch (Throwable t) {
@@ -70,15 +68,12 @@ public class RecipeUtils {
                 JsonObject object = subElement.getAsJsonObject();
                 ingredient = Ingredient.fromJson(subElement);
                 int count;
-                PaganBless.LOGGER.info("Testing for count");
                 if (object.has("count")) {
                     count = object.get("count").getAsInt();
-                    PaganBless.LOGGER.info("Count: "+count);
                 } else {
                     count = 1;
                 }
                 if (count > 1) {
-                    PaganBless.LOGGER.info("Returning ingredient with count");
                     return new IngredientWithCount(ingredient, count);
                 }
             } catch (Throwable t) {
@@ -91,9 +86,6 @@ public class RecipeUtils {
     public static Item parseItem(JsonElement jsonElement) {
         try {
             String[] rawBlock = jsonElement.getAsString().split(":");
-            for (String string : rawBlock) {
-                PaganBless.LOGGER.info("Raw block: "+string);
-            }
             return ForgeRegistries.ITEMS.getValue(new ResourceLocation(rawBlock[0], rawBlock[1]));
         } catch (Exception ignored) {
             throw new NullPointerException("Runeblock is null");

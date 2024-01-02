@@ -138,7 +138,6 @@ public class ImbuingCauldronRecipe implements Recipe<SimpleContainer> {
             FluidStack fluidStack = buf.readFluidStack();
 
             for (int i = 0; i < inputSize; i++) {
-                PaganBless.LOGGER.info("Buffer: {}", buf);
                 inputs.add(Ingredient.fromNetwork(buf));
             }
 

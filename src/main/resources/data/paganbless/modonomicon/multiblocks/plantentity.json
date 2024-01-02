@@ -1,0 +1,58 @@
+{
+  "type": "modonomicon:dense",
+  "pattern": [
+    [
+      "AASAA",
+      "NAAAG",
+      "AA0AA",
+      "HAAAF",
+      "AACAA"
+    ],
+    [
+      "DDDDD",
+      "DDDDD",
+      "DDDDD",
+      "DDDDD",
+      "DDDDD"
+    ]
+  ],
+  "mapping": {
+
+    "N": {
+      "type": "modonomicon:blockstate",
+      "block": "paganbless:mugwort_plant"
+    },
+    "S": {
+      "type": "modonomicon:blockstate",
+      "block": "paganbless:rue_plant"
+    },
+    "G": {
+      "type": "modonomicon:block",
+      "block": "paganbless:lavender_plant"
+    },
+    "D": {
+      "type": "modonomicon:display",
+      "display": "minecraft:grass_block"
+    },
+    "0": {
+      "type": "modonomicon:block",
+      "block": "paganbless:belladonna_plant"
+    },
+    "H": {
+      "type": "modonomicon:block",
+      "block": "paganbless:hags_taper_plant"
+    },
+    "A": {
+      "type": "modonomicon:block",
+      "block": "minecraft:air"
+    },
+    "F": {
+      "type": "modonomicon:block",
+      "block": "paganbless:winter_berry_bush"
+    },
+    "C": {
+      "type": "modonomicon:blockstateproperty",
+      "block": "paganbless:mandrake_root_plant"
+    }
+  }
+}

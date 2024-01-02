@@ -1,0 +1,58 @@
+{
+  "type": "modonomicon:dense",
+  "pattern": [
+    [
+      "NNNNN",
+      "NNNNN",
+      "NN0NN",
+      "NNNNN",
+      "NNNNN"
+    ],
+    [
+      "NGGGN",
+      "FSTSE",
+      "FTSTE",
+      "FSTSE",
+      "NHHHN"
+    ]
+  ],
+  "mapping": {
+
+    "N": {
+      "type": "modonomicon:blockstate",
+      "block": "minecraft:air"
+    },
+    "S": {
+      "type": "modonomicon:blockstate",
+      "block": "paganbless:black_thorn_log[axis=x]"
+    },
+    "T": {
+      "type": "modonomicon:blockstate",
+      "block": "paganbless:black_thorn_log[axis=z]"
+    },
+    "D": {
+      "type": "modonomicon:display",
+      "display": "minecraft:stone"
+    },
+    "E": {
+      "type": "modonomicon:display",
+      "display": "minecraft:deepslate_brick_stairs[facing=north]"
+    },
+    "F": {
+      "type": "modonomicon:display",
+      "display": "minecraft:deepslate_brick_stairs[facing=south]"
+    },
+    "G": {
+      "type": "modonomicon:display",
+      "display": "minecraft:deepslate_brick_stairs[facing=east]"
+    },
+    "H": {
+      "type": "modonomicon:display",
+      "display": "minecraft:deepslate_brick_stairs[facing=west]"
+    },
+    "0": {
+      "type": "modonomicon:block",
+      "block": "paganbless:imbuing_cauldron"
+    }
+  }
+}

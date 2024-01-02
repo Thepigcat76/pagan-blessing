@@ -1,0 +1,34 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "paganbless:features",
+  "description": "the layout for your runic pillars",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "paganbless:rune_slab_inert"
+  },
+  "name": "Runic Ritual",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "The Pillars must be set out as pictured with all the same colours.\\
+\\
+The pillars must have a different runic pattern on each of them. 
+This can be achieved by right clicking with your Blackthorn Staff.",
+      "title": "Runic Sacrifice",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "multiblock_id": "paganbless:runicentity",
+      "multiblock_name": "Runic Sacrifice Layout",
+      "show_visualize_button": true,
+      "text": "Killing a hostile mob on top of the runic core will complete the ritual."
+    }
+  ],
+  "x": -6,
+  "y": -2
+}

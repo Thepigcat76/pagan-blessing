@@ -1,0 +1,33 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "paganbless:features",
+  "description": "between an Anvil and a hard place",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "minecraft:anvil"
+  },
+  "name": "Anvil Crushing",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "Crushing gems with Inert Runic Pillars will charge them with that gem.   \\
+\\
+Just drop the items on the ground, place an anvil a few blocks above and let gravity take care of the rest.",
+      "title": "Anvil Crushing",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "multiblock_id": "paganbless:anvilentity",
+      "multiblock_name": "Steve Smash!",
+      "show_visualize_button": true,
+      "text": "Mind your head."
+    }
+  ],
+  "x": -7,
+  "y": -2
+}

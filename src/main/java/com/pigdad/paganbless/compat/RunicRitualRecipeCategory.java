@@ -59,8 +59,18 @@ public class RunicRitualRecipeCategory implements IRecipeCategory<RunicRitualRec
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RunicRitualRecipe recipe, @NotNull IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 80, 10)
+        builder.addSlot(RecipeIngredientRole.INPUT, 104, 8)
                 .addIngredients(Ingredient.of(recipe.getRuneBlock()));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 60).addItemStack(recipe.getResultItem(null));
+        builder.addSlot(RecipeIngredientRole.INPUT, 55, 8)
+                .addIngredients(Ingredient.of(recipe.getRuneBlock()));
+        builder.addSlot(RecipeIngredientRole.INPUT, 123, 33)
+                .addIngredients(Ingredient.of(recipe.getRuneBlock()));
+        builder.addSlot(RecipeIngredientRole.INPUT, 37, 33)
+                .addIngredients(Ingredient.of(recipe.getRuneBlock()));
+        builder.addSlot(RecipeIngredientRole.INPUT, 105, 57)
+                .addIngredients(Ingredient.of(recipe.getRuneBlock()));
+        builder.addSlot(RecipeIngredientRole.INPUT, 55, 57)
+                .addIngredients(Ingredient.of(recipe.getRuneBlock()));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 37).addItemStack(recipe.getResultItem(null));
     }
 }

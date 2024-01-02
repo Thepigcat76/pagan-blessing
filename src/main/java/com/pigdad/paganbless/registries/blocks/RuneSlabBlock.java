@@ -1,5 +1,6 @@
 package com.pigdad.paganbless.registries.blocks;
 
+import com.pigdad.paganbless.registries.PBItems;
 import com.pigdad.paganbless.registries.blockentities.RuneSlabBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -96,7 +97,7 @@ public class RuneSlabBlock extends BaseEntityBlock {
 
     @Override
     public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
-        if (player.getItemInHand(interactionHand).is(ItemTags.PICKAXES)) {
+        if (player.getItemInHand(interactionHand).is(PBItems.BLACK_THORN_STAFF.get())) {
             incrementRuneState(level, blockPos);
             return InteractionResult.SUCCESS;
         }

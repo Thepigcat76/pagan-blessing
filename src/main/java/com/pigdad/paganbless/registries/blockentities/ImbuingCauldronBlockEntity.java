@@ -2,6 +2,7 @@ package com.pigdad.paganbless.registries.blockentities;
 
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlockEntities;
+import com.pigdad.paganbless.registries.PBTags;
 import com.pigdad.paganbless.registries.recipes.ImbuingCauldronRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -79,6 +80,10 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
         return toReturn;
     }
 
+    public boolean isActive() {
+        return progress > 0;
+    }
+
     private final FluidTank fluidTank = new FluidTank(2000) {
         @Override
         protected void onContentsChanged() {
@@ -153,13 +158,18 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
 
         for (Ingredient ingredient : recipe.get().getIngredients()) {
             ItemStack itemStack = ingredient.getItems()[0];
+            PaganBless.LOGGER.debug("Item: {}", itemStack);
             for (int i = 0; i < itemHandler.getSlots(); i++) {
                 if (itemHandler.getStackInSlot(i).is(itemStack.getItem()) && itemHandler.getStackInSlot(i).getCount() >= itemStack.getCount()) {
+                    itemHandler.extractItem(i, itemStack.getCount(), false);
+                    break;
+                } else if (itemHandler.getStackInSlot(i).is(PBTags.Item.HERBS) && itemHandler.getStackInSlot(i).getCount() >= itemStack.getCount()) {
                     itemHandler.extractItem(i, itemStack.getCount(), false);
                     break;
                 }
             }
         }
+        fluidTank.drain(recipe.get().getFluidStack().getAmount(), IFluidHandler.FluidAction.EXECUTE);
 
         this.itemHandler.setStackInSlot(OUTPUT, new ItemStack(result.getItem(),
                 this.itemHandler.getStackInSlot(OUTPUT).getCount() + result.getCount()));

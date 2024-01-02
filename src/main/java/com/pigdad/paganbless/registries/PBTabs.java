@@ -41,10 +41,12 @@ public class PBTabs {
                 output.accept(PBItems.MUGWORT.get());
                 output.accept(PBItems.RUE.get());
                 output.accept(PBItems.WINTER_BERRIES.get());
+                output.accept(PBItems.GLAZED_BERRIES.get());
                 output.accept(PBItems.RUNIC_CHARGE.get());
                 output.accept(PBItems.BLACK_THORN_STAFF.get());
                 addBook(output, PBItems.PAGAN_GUIDE.get());
                 output.accept(PBItems.CINNABAR.get());
+                output.accept(PBItems.HERB_POUCH.get());
                 output.accept(PBItems.ATHAME.get());
                 output.accept(PBItems.CHALICE.get());
                 output.accept(PBItems.ETERNAL_SNOWBALL.get());
