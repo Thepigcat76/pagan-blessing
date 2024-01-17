@@ -1,18 +1,16 @@
 package com.pigdad.paganbless.registries.blocks;
 
+import com.mojang.serialization.MapCodec;
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.blockentities.ImbuingCauldronBlockEntity;
+import com.pigdad.paganbless.utils.Utils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
@@ -29,14 +27,15 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
 
 public class ImbuingCauldronBlock extends BaseEntityBlock {
@@ -49,6 +48,11 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
 
     public ImbuingCauldronBlock(Properties p_49224_) {
         super(p_49224_);
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return simpleCodec(ImbuingCauldronBlock::new);
     }
 
     @Override
@@ -94,7 +98,7 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
 
         if (blockEntity.isActive()) {
             if (randomSource.nextFloat() < 0.11F) {
-                for(int i = 0; i < randomSource.nextInt(2) + 2; ++i) {
+                for (int i = 0; i < randomSource.nextInt(2) + 2; ++i) {
                     CampfireBlock.makeParticles(level, blockPos, false, false);
                 }
             }
@@ -104,69 +108,60 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        LazyOptional<IFluidHandlerItem> fluidHandlerItem = player.getItemInHand(interactionHand).getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM);
+        IFluidHandlerItem fluidHandlerItem = player.getItemInHand(interactionHand).getCapability(Capabilities.FluidHandler.ITEM);
+        IItemHandler itemHandler = Utils.getCapability(Capabilities.ItemHandler.BLOCK, blockEntity);
+        IFluidHandler fluidHandler = Utils.getCapability(Capabilities.FluidHandler.BLOCK, blockEntity);
         if (!level.isClientSide()) {
-            // items except for fluid containers and air
-            if (!player.getItemInHand(interactionHand).isEmpty() && !fluidHandlerItem.isPresent()) {
-                blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER)
-                        .ifPresent(iItemHandler -> {
-                            for (int i = 0; i < iItemHandler.getSlots() - 1; i++) {
-                                if (iItemHandler.getStackInSlot(i).isEmpty() ||
-                                        (player.getItemInHand(interactionHand).is(iItemHandler.getStackInSlot(i).getItem()))
-                                                && iItemHandler.getStackInSlot(i).getCount() + player.getItemInHand(interactionHand).getCount() < iItemHandler.getSlotLimit(i)) {
-                                    iItemHandler.insertItem(i, player.getItemInHand(interactionHand).copy(), false);
-                                    player.getItemInHand(interactionHand).shrink(player.getItemInHand(interactionHand).getCount());
-                                    break;
-                                }
-                            }
-                        });
-            } else if (!player.getItemInHand(interactionHand).isEmpty() && fluidHandlerItem.isPresent()) {
-                IFluidHandlerItem fluidItem = fluidHandlerItem.orElseThrow(NullPointerException::new);
-                if (fluidItem.getFluidInTank(0).getAmount() <= 0) {
-                    blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER)
-                            .ifPresent(iItemHandler -> {
-                                for (int i = 0; i < iItemHandler.getSlots() - 1; i++) {
-                                    if (iItemHandler.getStackInSlot(i).isEmpty() ||
-                                            (player.getItemInHand(interactionHand).is(iItemHandler.getStackInSlot(i).getItem()))
-                                                    && iItemHandler.getStackInSlot(i).getCount() + player.getItemInHand(interactionHand).getCount() < iItemHandler.getSlotLimit(i)) {
-                                        iItemHandler.insertItem(i, player.getItemInHand(interactionHand).copy(), false);
-                                        player.getItemInHand(interactionHand).shrink(player.getItemInHand(interactionHand).getCount());
-                                        break;
-                                    }
-                                }
-                            });
+            if (!player.getItemInHand(interactionHand).isEmpty() && fluidHandlerItem == null) {
+                int insertIndex = getFirstForInsert(itemHandler, player.getItemInHand(interactionHand));
+                if (insertIndex != -1) {
+                    itemHandler.insertItem(insertIndex, player.getItemInHand(interactionHand).copy(), false);
+                    player.getItemInHand(interactionHand).setCount(0);
                 }
-                // no item in hand
-            } else {
-                blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER)
-                        .ifPresent(iItemHandler -> {
-                            for (int i = 0; i < iItemHandler.getSlots(); i++) {
-                                if (!iItemHandler.getStackInSlot(i).isEmpty()) {
-                                    ItemHandlerHelper.giveItemToPlayer(player, iItemHandler.getStackInSlot(i).copy());
-                                    iItemHandler.extractItem(i, 64, false);
-                                    break;
-                                }
-                            }
-                        });
+            } else if (player.getItemInHand(interactionHand).isEmpty()) {
+                int extractIndex = getFirstForExtract(itemHandler);
+                if (extractIndex != -1) {
+                    ItemHandlerHelper.giveItemToPlayer(player, itemHandler.getStackInSlot(extractIndex).copy());
+                    itemHandler.extractItem(extractIndex, itemHandler.getStackInSlot(extractIndex).getCount(), false);
+                }
             }
-            if (fluidHandlerItem.isPresent()) {
-                IFluidHandlerItem fluidItem = fluidHandlerItem.orElseThrow(NullPointerException::new);
-                if (fluidItem.getFluidInTank(0).getAmount() > 0) {
-                    blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER)
-                            .ifPresent(iFluidHandler -> {
-                                if (iFluidHandler.getFluidInTank(0).getAmount() + fluidItem.getFluidInTank(0).getAmount() <= iFluidHandler.getTankCapacity(0)) {
-                                    if (iFluidHandler.getFluidInTank(0).isEmpty()
-                                            || iFluidHandler.getFluidInTank(0).getFluid().isSame(fluidItem.getFluidInTank(0).getFluid())) {
-                                        iFluidHandler.fill(fluidItem.getFluidInTank(0).copy(), IFluidHandler.FluidAction.EXECUTE);
-                                        fluidItem.drain(fluidItem.getFluidInTank(0).copy().getAmount(), IFluidHandler.FluidAction.EXECUTE);
-                                        player.getInventory().removeItem(player.getItemInHand(interactionHand));
-                                        ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(Items.BUCKET));
-                                    }
-                                }
-                            });
+
+            if (fluidHandlerItem != null && fluidHandlerItem.getFluidInTank(0).getAmount() > 0) {
+                int filled = fluidHandler.fill(fluidHandlerItem.getFluidInTank(0).copy(), IFluidHandler.FluidAction.EXECUTE);
+                fluidHandlerItem.drain(filled, IFluidHandler.FluidAction.EXECUTE);
+                if (player.getItemInHand(interactionHand).getItem() instanceof BucketItem) {
+                    player.getItemInHand(interactionHand).setCount(0);
+                    ItemHandlerHelper.giveItemToPlayer(player, Items.BUCKET.getDefaultInstance());
+                }
+            } else if (fluidHandlerItem != null && fluidHandlerItem.getFluidInTank(0).getAmount() == 0) {
+                if (player.getItemInHand(interactionHand).is(Items.BUCKET)) {
+                    player.getItemInHand(interactionHand).shrink(1);
+                    ItemHandlerHelper.giveItemToPlayer(player, fluidHandler.getFluidInTank(0).getFluid().getBucket().getDefaultInstance());
+                    fluidHandler.drain(1000, IFluidHandler.FluidAction.EXECUTE);
+                } else {
+                    FluidStack fluidStack = fluidHandler.drain(1000, IFluidHandler.FluidAction.EXECUTE);
+                    fluidHandlerItem.fill(fluidStack, IFluidHandler.FluidAction.EXECUTE);
                 }
             }
         }
         return InteractionResult.SUCCESS;
+    }
+
+    private static int getFirstForInsert(IItemHandler itemHandler, ItemStack toInsert) {
+        for (int i = 0; i < itemHandler.getSlots() - 1; i++) {
+            if (itemHandler.getStackInSlot(i).isEmpty() || (itemHandler.getStackInSlot(i).is(toInsert.getItem()) && itemHandler.getStackInSlot(i).getCount() + toInsert.getCount() <= toInsert.getMaxStackSize())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private static int getFirstForExtract(IItemHandler itemHandler) {
+        for (int i = itemHandler.getSlots()-1; i >= 0 ; i--) {
+            if (!itemHandler.getStackInSlot(i).isEmpty()) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

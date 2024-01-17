@@ -1,11 +1,13 @@
 package com.pigdad.paganbless.registries.blocks;
 
+import com.mojang.serialization.MapCodec;
+import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBItems;
 import com.pigdad.paganbless.registries.blockentities.RuneSlabBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -13,7 +15,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -43,6 +44,11 @@ public class RuneSlabBlock extends BaseEntityBlock {
     public RuneSlabBlock(Properties properties) {
         super(properties.mapColor(MapColor.STONE).noOcclusion());
         registerDefaultState(this.defaultBlockState().setValue(IS_TOP, false));
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return simpleCodec(RuneSlabBlock::new);
     }
 
     @Override
@@ -101,6 +107,8 @@ public class RuneSlabBlock extends BaseEntityBlock {
             incrementRuneState(level, blockPos);
             return InteractionResult.SUCCESS;
         }
+        // FIXME: REMOVE THIS
+        PaganBless.LOGGER.debug("Recipes: {}", BuiltInRegistries.RECIPE_SERIALIZER.entrySet());
         return InteractionResult.FAIL;
     }
 

@@ -6,6 +6,7 @@ import com.pigdad.paganbless.registries.blockentities.RuneSlabBlockEntity;
 import com.pigdad.paganbless.registries.blocks.RuneSlabBlock;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionResult;
@@ -17,9 +18,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -48,7 +47,7 @@ public class RunicChargeItem extends Item {
             PaganBless.LOGGER.info("Prev block: {}", prevBlock);
             if (prevBlock != null) {
                 ResourceLocation defaultStateLocation = new ResourceLocation(prevBlock);
-                BlockState defaultState = ForgeRegistries.BLOCKS.getValue(defaultStateLocation).defaultBlockState();
+                BlockState defaultState = BuiltInRegistries.BLOCK.get(defaultStateLocation).defaultBlockState();
                 if (blockState.getValue(RuneSlabBlock.IS_TOP)) {
                     level.setBlockAndUpdate(blockPos, defaultState
                             .setValue(RuneSlabBlock.IS_TOP, true)
@@ -65,7 +64,7 @@ public class RunicChargeItem extends Item {
                             .setValue(RuneSlabBlock.RUNE_STATE, runeState));
                 }
                 if (!ctx.getPlayer().isCreative()){
-                    ctx.getPlayer().getItemInHand(ctx.getHand()).setCount(0);
+                    ctx.getPlayer().getItemInHand(ctx.getHand()).shrink(1);
                     ItemHandlerHelper.giveItemToPlayer(ctx.getPlayer(), Items.GLASS_BOTTLE.getDefaultInstance());
                 }
                 return InteractionResult.SUCCESS;

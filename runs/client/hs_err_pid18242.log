@@ -1,0 +1,23 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007f82c90cfda1, pid=18242, tid=18243
+#
+# JRE version: OpenJDK Runtime Environment Temurin-17.0.9+9 (17.0.9+9) (build 17.0.9+9)
+# Java VM: OpenJDK 64-Bit Server VM Temurin-17.0.9+9 (17.0.9+9, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, linux-amd64)
+# Problematic frame:
+# C  0x00007f83451153d8
+#
+# Core dump will be written. Default location: Core dumps may be processed with "/usr/lib/systemd/systemd-coredump %P %u %g %s %t %c %h" (or dumping to /home/thepigcat/Programming/private/java/pigdadmod/runs/client/core.18242)
+#
+# If you would like to submit a bug report, please visit:
+#   https://github.com/adoptium/adoptium-support/issues
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Dfml.gameLayerLibraries=events-1.0.16.jar -Dfml.pluginLayerLibraries=core-1.0.16.jar,language-java-1.0.16.jar,language-lowcode-1.0.16.jar,language-minecraft-1.0.16.jar -Dforge.enabledGameTestNamespaces=paganbless -Dforge.logging.console.level=debug -Dforge.logging.markers=REGISTRIES -DignoreList=securejarhandler-2.1.24.jar,asm-9.5.jar,asm-commons-9.5.jar,asm-tree-9.5.jar,asm-util-9.5.jar,asm-analysis-9.5.jar,bootstraplauncher-1.1.2.jar,JarJarFileSystems-0.4.0.jar,events-1.0.16.jar,core-1.0.16.jar,language-java-1.0.16.jar,language-lowcode-1.0.16.jar,language-minecraft-1.0.16.jar,mixinextras-neoforge-0.3.1.jar,client-extra,neoforge- -Djava.net.preferIPv6Addresses=system -DlegacyClassPath.file=/home/thepigcat/Programming/private/java/pigdadmod/build/neoForm/neoFormJoined1.20.4-20231207.154220/steps/writeMinecraftClasspathClient/classpath.txt -DmergeModules=jna-5.10.0.jar,jna-platform-5.10.0.jar -Dneoforge.enableGameTest=true --module-path=/home/thepigcat/.gradle/caches/modules-2/files-2.1/cpw.mods/securejarhandler/2.1.24/21e16217c30688d99200796f5d828ad5b671141c/securejarhandler-2.1.24.jar:/home/thepigcat/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-commons/9.5/19ab5b5800a3910d30d3a3e64fdb00fd0cb42de0/asm-commons-9.5.jar:/home/thepigcat/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-util/9.5/64b5a1fc8c1b15ed2efd6a063e976bc8d3dc5ffe/asm-util-9.5.jar:/home/thepigcat/.gradle/caches/modules-2/files-2.1/net.neoforged/JarJarFileSystems/0.4.0/ef7e5716525bbe50c784a362f9393457a33e6daf/JarJarFileSystems-0.4.0.jar:/home/thepigcat/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/9.5/dc6ea1875f4d64fbc85e1691c95b96a3d8569c90/asm-9.5.jar:/home/thepigcat/.gradle/caches/modules-2/files-2.1/cpw.mods/bootstraplauncher/1.1.2/c546e00443d8432cda6baa1c860346980742628/bootstraplauncher-1.1.2.jar:/home/thepigcat/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-tree/9.5/fd33c8b6373abaa675be407082fdfda35021254a/asm-tree-9.5.jar:/home/thepigcat/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-analysis/9.5/490bacc77de7cbc0be1a30bb3471072d705be4a4/asm-analysis-9.5.jar --add-modules=ALL-MODULE-PATH --add-opens=java.base/java.util.jar=cpw.mods.securejarhandler --add-opens=java.base/java.lang.invoke=cpw.mods.securejarhandler --add-exports=java.base/sun.security.util=cpw.mods.securejarhandler --add-exports=jdk.naming.dns/com.sun.jndi.dns=java.naming -Dfile.encoding=UTF-8 -Duser.country=US -Duser.language=en -Duser.variant cpw.mods.bootstraplauncher.BootstrapLauncher --launchTarget forgeclientuserdev --version 20.4.0-beta --assetIndex asset-index --assetsDir /home/thepigcat/.gradle/caches/minecraft/assets/1.20.4 --gameDir . --fml.neoForgeVersion 20.4.0-beta --fml.fmlVersion 1.0.16 --fml.mcVersion 1.20.4 --fml.neoFormVersion 20231207.154220
+
+Host: 

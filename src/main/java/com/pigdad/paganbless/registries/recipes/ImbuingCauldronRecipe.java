@@ -1,10 +1,14 @@
 package com.pigdad.paganbless.registries.recipes;
 
 import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.utils.RecipeUtils;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -12,10 +16,10 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 
+import javax.print.attribute.standard.MediaSize;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,16 +28,18 @@ public class ImbuingCauldronRecipe implements Recipe<SimpleContainer> {
     private final NonNullList<Ingredient> inputItems;
     private final ItemStack output;
     private final FluidStack fluidStack;
-    private final ResourceLocation id;
 
-    public ImbuingCauldronRecipe(ResourceLocation id, ItemStack output, NonNullList<Ingredient> inputItems, FluidStack fluidStack) {
+    public ImbuingCauldronRecipe(ItemStack output, NonNullList<Ingredient> inputItems, FluidStack fluidStack) {
         this.inputItems = inputItems;
         this.output = output;
         this.fluidStack = fluidStack;
-        this.id = id;
         if (inputItems.size() > 5) {
-            throw new IllegalStateException("Amount of input items for " + id + " is too high. Maximum: 5, found: " + inputItems.size());
+            throw new IllegalStateException("Amount of input items for Imbuing cauldron recipe is too high. Maximum: 5, found: " + inputItems.size());
         }
+    }
+
+    public ImbuingCauldronRecipe(ItemStack output, NonNullList<Ingredient> ingredients, String fluidType, int fluidAmount) {
+        this(output, ingredients, new FluidStack(BuiltInRegistries.FLUID.get(new ResourceLocation(fluidType)), fluidAmount));
     }
 
     @Override
@@ -92,18 +98,13 @@ public class ImbuingCauldronRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public @NotNull ResourceLocation getId() {
-        return id;
-    }
-
-    @Override
     public @NotNull RecipeSerializer<?> getSerializer() {
         return Serializer.INSTANCE;
     }
 
     @Override
     public @NotNull RecipeType<?> getType() {
-        return Type.INSTANCE;
+        return AnvilSmashingRecipe.Type.INSTANCE;
     }
 
     public static class Type implements RecipeType<ImbuingCauldronRecipe> {
@@ -116,23 +117,17 @@ public class ImbuingCauldronRecipe implements Recipe<SimpleContainer> {
 
     public static class Serializer implements RecipeSerializer<ImbuingCauldronRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID =
-                new ResourceLocation(PaganBless.MODID, NAME);
+        private static final Codec<ImbuingCauldronRecipe> CODEC = RecordCodecBuilder.create((p_300831_) -> p_300831_.group(
+                ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter((p_300827_) -> p_300827_.getResultItem(null)),
+                Ingredient.CODEC_NONEMPTY.listOf().fieldOf("ingredients").flatXmap((p_301021_)
+                                -> DataResult.success(NonNullList.of(Ingredient.EMPTY, p_301021_.toArray(Ingredient[]::new))), DataResult::success)
+                        .forGetter(ImbuingCauldronRecipe::getIngredients),
+                Codec.STRING.fieldOf("fluidType").forGetter((recipe) -> recipe.getFluidStack().getFluid().getFluidType().toString()),
+                Codec.INT.fieldOf("fluidAmount").forGetter((recipe) -> recipe.getFluidStack().getAmount())
+        ).apply(p_300831_, ImbuingCauldronRecipe::new));
 
         @Override
-        public @NotNull ImbuingCauldronRecipe fromJson(ResourceLocation id, JsonObject json) {
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
-            FluidStack fluidStack = new FluidStack(ForgeRegistries.FLUIDS.getValue(new ResourceLocation(json.get("fluidType").getAsString())),
-                    json.get("fluidAmount").getAsInt());
-
-            NonNullList<Ingredient> inputs = NonNullList.create();
-            RecipeUtils.parseInputs(inputs, json.get("ingredients"));
-
-            return new ImbuingCauldronRecipe(id, output, inputs, fluidStack);
-        }
-
-        @Override
-        public ImbuingCauldronRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
+        public ImbuingCauldronRecipe fromNetwork(FriendlyByteBuf buf) {
             int inputSize = buf.readInt();
             List<Ingredient> inputs = new ArrayList<>();
             FluidStack fluidStack = buf.readFluidStack();
@@ -145,7 +140,12 @@ public class ImbuingCauldronRecipe implements Recipe<SimpleContainer> {
             ingredients.addAll(inputs);
 
             ItemStack output = buf.readItem();
-            return new ImbuingCauldronRecipe(id, output, ingredients, fluidStack);
+            return new ImbuingCauldronRecipe(output, ingredients, fluidStack);
+        }
+
+        @Override
+        public Codec<ImbuingCauldronRecipe> codec() {
+            return CODEC;
         }
 
         @Override
@@ -157,7 +157,7 @@ public class ImbuingCauldronRecipe implements Recipe<SimpleContainer> {
                 ing.toNetwork(buf);
             }
 
-            buf.writeItemStack(recipe.getResultItem(null), false);
+            buf.writeItem(recipe.getResultItem(null));
         }
     }
 }

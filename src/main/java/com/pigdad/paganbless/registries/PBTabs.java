@@ -1,20 +1,17 @@
 package com.pigdad.paganbless.registries;
 
-import com.klikli_dev.modonomicon.data.BookDataManager;
 import com.pigdad.paganbless.PaganBless;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.function.Supplier;
 
 public class PBTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, PaganBless.MODID);
-    public static final RegistryObject<CreativeModeTab> MAIN_TAB = CREATIVE_MODE_TABS.register("main", () -> CreativeModeTab.builder()
+    public static final Supplier<CreativeModeTab> MAIN_TAB = CREATIVE_MODE_TABS.register("main", () -> CreativeModeTab.builder()
             .title(Component.translatable("tab.paganbless.main"))
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> PBBlocks.IMBUING_CAULDRON.get().asItem().getDefaultInstance())
@@ -44,7 +41,7 @@ public class PBTabs {
                 output.accept(PBItems.GLAZED_BERRIES.get());
                 output.accept(PBItems.RUNIC_CHARGE.get());
                 output.accept(PBItems.BLACK_THORN_STAFF.get());
-                addBook(output, PBItems.PAGAN_GUIDE.get());
+                // addBook(output, PBItems.PAGAN_GUIDE.get());
                 output.accept(PBItems.CINNABAR.get());
                 output.accept(PBItems.HERB_POUCH.get());
                 output.accept(PBItems.ATHAME.get());
@@ -55,9 +52,10 @@ public class PBTabs {
                 output.accept(PBItems.WICAN_WARD.get());
                 output.accept(PBBlocks.BLACK_THORN_LOG.get());
                 output.accept(PBBlocks.BLACK_THORN_LEAVES.get());
-                output.accept(PBBlocks.BLACK_THORN_SAPLING.get());
+                // output.accept(PBBlocks.BLACK_THORN_SAPLING.get());
             }).build());
 
+    /*
     public static void addBook(CreativeModeTab.Output output, Item item) {
         try {
             ResourceLocation id = BookDataManager.get().getBook(new ResourceLocation("paganbless:pagan_guide")).getId();
@@ -67,4 +65,5 @@ public class PBTabs {
         } catch (Exception ignored) {
         }
     }
+     */
 }

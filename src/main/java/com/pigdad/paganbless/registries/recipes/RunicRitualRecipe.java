@@ -1,11 +1,13 @@
 package com.pigdad.paganbless.registries.recipes;
 
 import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.utils.RecipeUtils;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -15,19 +17,20 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 public class RunicRitualRecipe implements Recipe<SimpleContainer> {
     public static final String NAME = "runic_ritual";
     private final ItemStack output;
     private final Item runeBlock;
-    private final ResourceLocation id;
 
-    public RunicRitualRecipe(ResourceLocation id, ItemStack output, @NotNull Item runeBlock) {
+    public RunicRitualRecipe(ItemStack output, @NotNull Item runeBlock) {
         this.output = output;
         this.runeBlock = runeBlock;
-        this.id = id;
+    }
+
+    public RunicRitualRecipe(ItemStack output, @NotNull ItemStack runeBlock) {
+        this(output, runeBlock.getItem());
     }
 
     @Override
@@ -61,11 +64,6 @@ public class RunicRitualRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ResourceLocation getId() {
-        return id;
-    }
-
-    @Override
     public RecipeSerializer<?> getSerializer() {
         return Serializer.INSTANCE;
     }
@@ -85,29 +83,28 @@ public class RunicRitualRecipe implements Recipe<SimpleContainer> {
 
     public static class Serializer implements RecipeSerializer<RunicRitualRecipe> {
         public static final RunicRitualRecipe.Serializer INSTANCE = new RunicRitualRecipe.Serializer();
-        public static final ResourceLocation ID =
-                new ResourceLocation(PaganBless.MODID, NAME);
+        private static final Codec<RunicRitualRecipe> CODEC = RecordCodecBuilder.create((p_300831_) -> p_300831_.group(
+                ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter((p_300827_) -> p_300827_.getResultItem(null)),
+                ItemStack.CODEC.fieldOf("runeBlock").forGetter((recipe) -> recipe.getRuneBlock().asItem().getDefaultInstance())
+        ).apply(p_300831_, RunicRitualRecipe::new));
 
         @Override
-        public @NotNull RunicRitualRecipe fromJson(ResourceLocation id, JsonObject json) {
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
-            Item runeItem = RecipeUtils.parseItem(json.get("runeBlock"));
-
-            return new RunicRitualRecipe(id, output, runeItem);
+        public Codec<RunicRitualRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public RunicRitualRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
+        public @NotNull RunicRitualRecipe fromNetwork(FriendlyByteBuf buf) {
             Item runeBlock = buf.readItem().getItem();
             ItemStack output = buf.readItem();
-            return new RunicRitualRecipe(id, output, runeBlock);
+            return new RunicRitualRecipe(output, runeBlock);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buf, RunicRitualRecipe recipe) {
             buf.writeItem(recipe.runeBlock.getDefaultInstance());
 
-            buf.writeItemStack(recipe.getResultItem(null), false);
+            buf.writeItem(recipe.getResultItem(null));
         }
     }
 }

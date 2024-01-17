@@ -16,17 +16,14 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,8 +42,6 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
     protected final ContainerData data;
     private int progress = 0;
     private int maxProgress = 78;
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
-    private LazyOptional<IFluidHandler> lazyFluidHandler = LazyOptional.empty();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(6) {
         @Override
@@ -69,6 +64,24 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
         }
     };
 
+    private final FluidTank fluidTank = new FluidTank(2000) {
+        @Override
+        protected void onContentsChanged() {
+            setChanged();
+            if (!level.isClientSide()) {
+                level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+            }
+        }
+    };
+
+    public ItemStackHandler getItemHandler() {
+        return itemHandler;
+    }
+
+    public FluidTank getFluidTank() {
+        return fluidTank;
+    }
+
     public Map<Integer, ItemStack> getRenderStack() {
         Map<Integer, ItemStack> toReturn = new HashMap<>();
         for (int i = 0; i < itemHandler.getSlots(); i++) {
@@ -83,16 +96,6 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
     public boolean isActive() {
         return progress > 0;
     }
-
-    private final FluidTank fluidTank = new FluidTank(2000) {
-        @Override
-        protected void onContentsChanged() {
-            setChanged();
-            if (!level.isClientSide()) {
-                level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
-            }
-        }
-    };
 
     public static int getCapacity() {
         return 2000;
@@ -153,10 +156,10 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
     }
 
     private void craftItem() {
-        Optional<ImbuingCauldronRecipe> recipe = getCurrentRecipe();
-        ItemStack result = recipe.get().getResultItem(null);
+        Optional<RecipeHolder<ImbuingCauldronRecipe>> recipe = getCurrentRecipe();
+        ItemStack result = recipe.get().value().getResultItem(null);
 
-        for (Ingredient ingredient : recipe.get().getIngredients()) {
+        for (Ingredient ingredient : recipe.get().value().getIngredients()) {
             ItemStack itemStack = ingredient.getItems()[0];
             PaganBless.LOGGER.debug("Item: {}", itemStack);
             for (int i = 0; i < itemHandler.getSlots(); i++) {
@@ -169,31 +172,31 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
                 }
             }
         }
-        fluidTank.drain(recipe.get().getFluidStack().getAmount(), IFluidHandler.FluidAction.EXECUTE);
+        fluidTank.drain(recipe.get().value().getFluidStack().getAmount(), IFluidHandler.FluidAction.EXECUTE);
 
         this.itemHandler.setStackInSlot(OUTPUT, new ItemStack(result.getItem(),
                 this.itemHandler.getStackInSlot(OUTPUT).getCount() + result.getCount()));
     }
 
     public boolean hasRecipe() {
-        Optional<ImbuingCauldronRecipe> recipe = getCurrentRecipe();
+        Optional<RecipeHolder<ImbuingCauldronRecipe>> recipe = getCurrentRecipe();
 
         if (recipe.isEmpty()) {
             return false;
         }
 
-        ItemStack result = recipe.get().getResultItem(getLevel().registryAccess());
+        ItemStack result = recipe.get().value().getResultItem(getLevel().registryAccess());
 
         return canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
     }
 
     public boolean fluidMatches() {
-        Optional<ImbuingCauldronRecipe> recipe = getCurrentRecipe();
+        Optional<RecipeHolder<ImbuingCauldronRecipe>> recipe = getCurrentRecipe();
 
-        return recipe.map(imbuingCauldronRecipe -> imbuingCauldronRecipe.matchesFluid(fluidTank.getFluidInTank(0), level)).orElse(false);
+        return recipe.map(imbuingCauldronRecipe -> imbuingCauldronRecipe.value().matchesFluid(fluidTank.getFluidInTank(0), level)).orElse(false);
     }
 
-    private Optional<ImbuingCauldronRecipe> getCurrentRecipe() {
+    private Optional<RecipeHolder<ImbuingCauldronRecipe>> getCurrentRecipe() {
         SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
         for (int i = 0; i < itemHandler.getSlots(); i++) {
             inventory.setItem(i, this.itemHandler.getStackInSlot(i));
@@ -216,32 +219,6 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
 
     private void increaseCraftingProgress() {
         progress++;
-    }
-
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
-        lazyFluidHandler = LazyOptional.of(() -> fluidTank);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        lazyItemHandler.invalidate();
-        lazyFluidHandler.invalidate();
-    }
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            return lazyItemHandler.cast();
-        } else if (cap == ForgeCapabilities.FLUID_HANDLER) {
-            return lazyFluidHandler.cast();
-        }
-
-        return super.getCapability(cap);
     }
 
     @Override

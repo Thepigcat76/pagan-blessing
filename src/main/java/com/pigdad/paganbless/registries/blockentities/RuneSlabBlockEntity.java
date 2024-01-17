@@ -3,10 +3,8 @@ package com.pigdad.paganbless.registries.blockentities;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 public class RuneSlabBlockEntity extends BlockEntity {

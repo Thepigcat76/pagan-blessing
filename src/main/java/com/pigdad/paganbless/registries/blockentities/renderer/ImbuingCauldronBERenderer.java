@@ -6,6 +6,7 @@ import com.mojang.math.Axis;
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.blockentities.ImbuingCauldronBlockEntity;
 import com.pigdad.paganbless.registries.blocks.ImbuingCauldronBlock;
+import com.pigdad.paganbless.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -22,10 +23,10 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
-import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.joml.Matrix4f;
 
 import java.util.Map;
@@ -88,7 +89,7 @@ public class ImbuingCauldronBERenderer implements BlockEntityRenderer<ImbuingCau
         }
 
         try {
-            IFluidHandler fluidHandler = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER).orElseThrow(NullPointerException::new);
+            IFluidHandler fluidHandler = Utils.getCapability(Capabilities.FluidHandler.BLOCK, blockEntity);
             FluidStack fluidStack = fluidHandler.getFluidInTank(0);
             int fluidCapacity = fluidHandler.getTankCapacity(0);
             if (fluidStack.isEmpty())
@@ -100,7 +101,6 @@ public class ImbuingCauldronBERenderer implements BlockEntityRenderer<ImbuingCau
             else
                 renderFluid(poseStack, pBufferSource, fluidStack, 1, fillPercentage, combinedLight);
         } catch (Exception ignored) {
-            PaganBless.LOGGER.info("AMOGUS");
         }
     }
 
@@ -125,8 +125,8 @@ public class ImbuingCauldronBERenderer implements BlockEntityRenderer<ImbuingCau
 
     private static void renderQuads(Matrix4f matrix, VertexConsumer buffer, TextureAtlasSprite sprite, float r, float g, float b, float alpha, float heightPercentage, int light) {
         float height = MIN_Y + (MAX_Y - MIN_Y) * heightPercentage;
-        float minU = sprite.getU(SIDE_MARGIN * 14), maxU = sprite.getU((1 - SIDE_MARGIN) * 16);
-        float minV = sprite.getV(MIN_Y * 16), maxV = sprite.getV(height * 16);
+        float minU = sprite.getU(SIDE_MARGIN), maxU = sprite.getU((1 - SIDE_MARGIN));
+        float minV = sprite.getV(MIN_Y), maxV = sprite.getV(height);
         // min z
         buffer.vertex(matrix, SIDE_MARGIN, MIN_Y, SIDE_MARGIN).color(r, g, b, alpha).uv(minU, minV).uv2(light).normal(0, 0, -1).endVertex();
         buffer.vertex(matrix, SIDE_MARGIN, height, SIDE_MARGIN).color(r, g, b, alpha).uv(minU, maxV).uv2(light).normal(0, 0, -1).endVertex();
@@ -149,13 +149,12 @@ public class ImbuingCauldronBERenderer implements BlockEntityRenderer<ImbuingCau
         buffer.vertex(matrix, 1 - SIDE_MARGIN, MIN_Y, 1 - SIDE_MARGIN).color(r, g, b, alpha).uv(maxU, minV).uv2(light).normal(1, 0, 0).endVertex();
         // top
         if (heightPercentage < 1) {
-            minV = sprite.getV(SIDE_MARGIN * 16);
-            maxV = sprite.getV((1 - SIDE_MARGIN) * 16);
+            minV = sprite.getV(SIDE_MARGIN);
+            maxV = sprite.getV(1 - SIDE_MARGIN);
             buffer.vertex(matrix, SIDE_MARGIN, height, SIDE_MARGIN).color(r, g, b, alpha).uv(minU, minV).uv2(light).normal(0, 1, 0).endVertex();
             buffer.vertex(matrix, SIDE_MARGIN, height, 1 - SIDE_MARGIN).color(r, g, b, alpha).uv(minU, maxV).uv2(light).normal(0, 1, 0).endVertex();
             buffer.vertex(matrix, 1 - SIDE_MARGIN, height, 1 - SIDE_MARGIN).color(r, g, b, alpha).uv(maxU, maxV).uv2(light).normal(0, 1, 0).endVertex();
             buffer.vertex(matrix, 1 - SIDE_MARGIN, height, SIDE_MARGIN).color(r, g, b, alpha).uv(maxU, minV).uv2(light).normal(0, 1, 0).endVertex();
         }
-
     }
 }

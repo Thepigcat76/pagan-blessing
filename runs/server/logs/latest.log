@@ -1,0 +1,391 @@
+[16Jan2024 22:20:34.031] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--nogui, --launchTarget, forgeserveruserdev, --gameDir, ., --fml.neoForgeVersion, 20.4.0-beta, --fml.fmlVersion, 1.0.16, --fml.mcVersion, 1.20.4, --fml.neoFormVersion, 20231207.154220]
+[16Jan2024 22:20:34.042] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.9 by Eclipse Adoptium; OS Linux arch amd64 version 6.6.9-200.fc39.x86_64
+[16Jan2024 22:20:34.369] [main/INFO] [net.neoforged.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgeserveruserdev
+[16Jan2024 22:20:34.565] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/home/thepigcat/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23146!/ Service=ModLauncher Env=SERVER
+[16Jan2024 22:20:35.190] [main/WARN] [net.neoforged.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file /home/thepigcat/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/language-lowcode/1.0.16/e627c78870d4286826c4b14c0137319ff03b4e0/language-lowcode-1.0.16.jar is missing mods.toml file
+[16Jan2024 22:20:35.194] [main/WARN] [net.neoforged.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file /home/thepigcat/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/language-minecraft/1.0.16/c1f7785ff7fc0b18aa6d2d4056dcff4fee1b32be/language-minecraft-1.0.16.jar is missing mods.toml file
+[16Jan2024 22:20:35.196] [main/WARN] [net.neoforged.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file /home/thepigcat/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/language-java/1.0.16/2ddedcd8a488fd73e3e92a59949845e9c3a7d9f2/language-java-1.0.16.jar is missing mods.toml file
+[16Jan2024 22:20:35.200] [main/WARN] [net.neoforged.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file /home/thepigcat/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/core/1.0.16/6bab0913ca1635a8e272ef89c17befb52115a3c2/core-1.0.16.jar is missing mods.toml file
+[16Jan2024 22:20:35.241] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "language-lowcode-1.0.16.jar" of type LANGPROVIDER with provider net.neoforged.fml.loading.moddiscovery.MinecraftLocator@6815c5f2
+[16Jan2024 22:20:35.242] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "language-minecraft-1.0.16.jar" of type LANGPROVIDER with provider net.neoforged.fml.loading.moddiscovery.MinecraftLocator@6815c5f2
+[16Jan2024 22:20:35.243] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "language-java-1.0.16.jar" of type LANGPROVIDER with provider net.neoforged.fml.loading.moddiscovery.MinecraftLocator@6815c5f2
+[16Jan2024 22:20:35.243] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "core-1.0.16.jar" of type LIBRARY with provider net.neoforged.fml.loading.moddiscovery.MinecraftLocator@6815c5f2
+[16Jan2024 22:20:35.244] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "neoforge-20.4.0-beta.jar" of type MOD with provider net.neoforged.fml.loading.moddiscovery.MinecraftLocator@6815c5f2
+[16Jan2024 22:20:35.247] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "main" of type MOD with provider net.neoforged.fml.loading.moddiscovery.MinecraftLocator@6815c5f2
+[16Jan2024 22:20:35.248] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "" of type MOD with provider net.neoforged.fml.loading.moddiscovery.MinecraftLocator@6815c5f2
+[16Jan2024 22:20:35.298] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "events-1.0.16.jar" of type GAMELIBRARY with provider net.neoforged.fml.loading.moddiscovery.BuiltinGameLibraryLocator@21680803
+[16Jan2024 22:20:35.629] [main/INFO] [net.neoforged.fml.loading.moddiscovery.JarInJarDependencyLocator/]: Found 1 dependencies adding them to mods collection
+[16Jan2024 22:20:35.631] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "mixinextras-neoforge-0.3.1.jar" of type GAMELIBRARY with provider net.neoforged.fml.loading.moddiscovery.JarInJarDependencyLocator@3c321bdb
+[16Jan2024 22:20:38.736] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeserveruserdev' with arguments [--gameDir, ., --nogui]
+[16Jan2024 22:20:57.040] [modloading-worker-0/INFO] [net.neoforged.neoforge.common.NeoForgeMod/NEOFORGE-MOD]: NeoForge mod loading, version 20.4.0-beta, for MC 1.20.4 with MCP 20231207.154220
+[16Jan2024 22:20:58.799] [modloading-worker-0/INFO] [com.pigdad.paganbless.PaganBless/]: HELLO FROM COMMON SETUP
+[16Jan2024 22:20:58.800] [modloading-worker-0/INFO] [com.pigdad.paganbless.PaganBless/]: Entity >> entity.minecraft.wither
+[16Jan2024 22:20:58.801] [modloading-worker-0/INFO] [com.pigdad.paganbless.PaganBless/]: Entity >> entity.minecraft.ender_dragon
+[16Jan2024 22:20:58.801] [modloading-worker-0/INFO] [com.pigdad.paganbless.PaganBless/]: Entity >> entity.minecraft.warden
+[16Jan2024 22:20:58.950] [main/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[16Jan2024 22:20:59.277] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/home/thepigcat/Programming/private/java/pigdadmod/.gradle/repositories/ng_dummy_ng/net/neoforged/neoforge/20.4.0-beta/neoforge-20.4.0-beta.jar%23183!/assets/.mcassetsroot' uses unexpected schema
+[16Jan2024 22:20:59.278] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/home/thepigcat/Programming/private/java/pigdadmod/.gradle/repositories/ng_dummy_ng/net/neoforged/neoforge/20.4.0-beta/neoforge-20.4.0-beta.jar%23183!/data/.mcassetsroot' uses unexpected schema
+[16Jan2024 22:21:03.306] [Worker-Main-1/ERROR] [net.minecraft.world.level.storage.loot.LootDataType/]: Couldn't parse element loot_tables:paganbless:blocks/black_thorn_leaves - Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: paganbless:black_thorn_sapling
+[16Jan2024 22:21:03.608] [Worker-Main-1/ERROR] [net.minecraft.world.level.storage.loot.LootDataType/]: Couldn't parse element loot_tables:paganbless:blocks/rune_slab_quartz - Not a valid resource location: paganbless:rune_slab_quartz  Non [a-z0-9/._-] character in path of location: paganbless:rune_slab_quartz 
+[16Jan2024 22:21:03.881] [Worker-Main-1/ERROR] [net.minecraft.world.level.storage.loot.LootDataType/]: Couldn't parse element loot_tables:paganbless:blocks/black_thorn_sapling - Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: paganbless:black_thorn_sapling
+[16Jan2024 22:21:04.137] [main/WARN] [net.minecraft.world.level.storage.loot.LootDataManager/]: Found loot table element validation problem in {loot_tables:minecraft:blocks/redstone_ore}.pools[0].entries[1].entry[1]: Unreachable entry!
+[16Jan2024 22:21:04.138] [main/WARN] [net.minecraft.world.level.storage.loot.LootDataManager/]: Found loot table element validation problem in {loot_tables:minecraft:blocks/deepslate_redstone_ore}.pools[0].entries[1].entry[1]: Unreachable entry!
+[16Jan2024 22:21:04.334] [main/ERROR] [net.minecraft.world.item.crafting.RecipeManager/]: Parsing error loading recipe paganbless:wand
+com.google.gson.JsonParseException: Not a JSON object: "paganbless:rune_slab_emerald"; No key result in MapLike[{"type":"paganbless:runic_ritual","runeBlock":"paganbless:rune_slab_emerald","output":{"item":"paganbless:wand"}}]
+	at net.minecraft.Util.getOrThrow(Util.java:841) ~[neoforge-20.4.0-beta.jar:?]
+	at net.neoforged.neoforge.common.conditions.ICondition.getWithWithConditionsCodec(ICondition.java:45) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.fromJson(RecipeManager.java:151) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:57) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:36) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:19) ~[neoforge-20.4.0-beta.jar:?]
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:718) ~[?:?]
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?]
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:79) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.Util.blockUntilDone(Util.java:789) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.Util.blockUntilDone(Util.java:778) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.Main.main(Main.java:192) ~[neoforge-20.4.0-beta.jar:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.serverService(CommonLaunchHandler.java:118) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.ForgeServerUserdevLaunchHandler.runService(ForgeServerUserdevLaunchHandler.java:16) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-1.0.16.jar:1.0]
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
+[16Jan2024 22:21:04.368] [main/ERROR] [net.minecraft.world.item.crafting.RecipeManager/]: Parsing error loading recipe paganbless:rune_slab_inert
+com.google.gson.JsonParseException: No key result in MapLike[{"type":"paganbless:cauldron_imbuing","fluidType":"minecraft:lava","fluidAmount":1000,"ingredients":[{"count":3,"item":"minecraft:cobbled_deepslate"},{"count":2,"tag":"paganbless:herbs"}],"output":{"item":"paganbless:rune_slab_inert"}}]
+	at net.minecraft.Util.getOrThrow(Util.java:841) ~[neoforge-20.4.0-beta.jar:?]
+	at net.neoforged.neoforge.common.conditions.ICondition.getWithWithConditionsCodec(ICondition.java:45) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.fromJson(RecipeManager.java:151) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:57) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:36) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:19) ~[neoforge-20.4.0-beta.jar:?]
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:718) ~[?:?]
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?]
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:79) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.Util.blockUntilDone(Util.java:789) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.Util.blockUntilDone(Util.java:778) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.Main.main(Main.java:192) ~[neoforge-20.4.0-beta.jar:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.serverService(CommonLaunchHandler.java:118) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.ForgeServerUserdevLaunchHandler.runService(ForgeServerUserdevLaunchHandler.java:16) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-1.0.16.jar:1.0]
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
+[16Jan2024 22:21:04.407] [main/ERROR] [net.minecraft.world.item.crafting.RecipeManager/]: Parsing error loading recipe paganbless:glazed_berries
+com.google.gson.JsonParseException: No key result in MapLike[{"type":"paganbless:cauldron_imbuing","fluidType":"minecraft:empty","fluidAmount":0,"ingredients":[{"count":2,"item":"minecraft:sugar"},{"item":"paganbless:winter_berries"}],"output":{"item":"paganbless:glazed_berries"}}]
+	at net.minecraft.Util.getOrThrow(Util.java:841) ~[neoforge-20.4.0-beta.jar:?]
+	at net.neoforged.neoforge.common.conditions.ICondition.getWithWithConditionsCodec(ICondition.java:45) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.fromJson(RecipeManager.java:151) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:57) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:36) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:19) ~[neoforge-20.4.0-beta.jar:?]
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:718) ~[?:?]
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?]
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:79) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.Util.blockUntilDone(Util.java:789) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.Util.blockUntilDone(Util.java:778) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.Main.main(Main.java:192) ~[neoforge-20.4.0-beta.jar:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.serverService(CommonLaunchHandler.java:118) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.ForgeServerUserdevLaunchHandler.runService(ForgeServerUserdevLaunchHandler.java:16) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-1.0.16.jar:1.0]
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
+[16Jan2024 22:21:04.548] [main/ERROR] [net.minecraft.world.item.crafting.RecipeManager/]: Parsing error loading recipe paganbless:chalice
+com.google.gson.JsonParseException: Not a JSON object: "paganbless:rune_slab_lapis"; No key result in MapLike[{"type":"paganbless:runic_ritual","runeBlock":"paganbless:rune_slab_lapis","output":{"item":"paganbless:chalice"}}]
+	at net.minecraft.Util.getOrThrow(Util.java:841) ~[neoforge-20.4.0-beta.jar:?]
+	at net.neoforged.neoforge.common.conditions.ICondition.getWithWithConditionsCodec(ICondition.java:45) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.fromJson(RecipeManager.java:151) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:57) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:36) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:19) ~[neoforge-20.4.0-beta.jar:?]
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:718) ~[?:?]
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?]
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:79) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.Util.blockUntilDone(Util.java:789) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.Util.blockUntilDone(Util.java:778) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.Main.main(Main.java:192) ~[neoforge-20.4.0-beta.jar:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.serverService(CommonLaunchHandler.java:118) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.ForgeServerUserdevLaunchHandler.runService(ForgeServerUserdevLaunchHandler.java:16) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-1.0.16.jar:1.0]
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
+[16Jan2024 22:21:04.558] [main/ERROR] [net.minecraft.world.item.crafting.RecipeManager/]: Parsing error loading recipe paganbless:pagan_guide
+com.google.gson.JsonParseException: Item must not be minecraft:air
+	at net.minecraft.Util.getOrThrow(Util.java:841) ~[neoforge-20.4.0-beta.jar:?]
+	at net.neoforged.neoforge.common.conditions.ICondition.getWithWithConditionsCodec(ICondition.java:45) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.fromJson(RecipeManager.java:151) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:57) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:36) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:19) ~[neoforge-20.4.0-beta.jar:?]
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:718) ~[?:?]
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?]
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:79) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.Util.blockUntilDone(Util.java:789) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.Util.blockUntilDone(Util.java:778) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.Main.main(Main.java:192) ~[neoforge-20.4.0-beta.jar:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.serverService(CommonLaunchHandler.java:118) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.ForgeServerUserdevLaunchHandler.runService(ForgeServerUserdevLaunchHandler.java:16) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-1.0.16.jar:1.0]
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
+[16Jan2024 22:21:04.670] [main/ERROR] [net.minecraft.world.item.crafting.RecipeManager/]: Parsing error loading recipe paganbless:eternal_snowball
+com.google.gson.JsonParseException: Not a JSON object: "paganbless:rune_slab_quartz"; No key result in MapLike[{"type":"paganbless:runic_ritual","runeBlock":"paganbless:rune_slab_quartz","output":{"item":"paganbless:eternal_snowball"}}]
+	at net.minecraft.Util.getOrThrow(Util.java:841) ~[neoforge-20.4.0-beta.jar:?]
+	at net.neoforged.neoforge.common.conditions.ICondition.getWithWithConditionsCodec(ICondition.java:45) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.fromJson(RecipeManager.java:151) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:57) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:36) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:19) ~[neoforge-20.4.0-beta.jar:?]
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:718) ~[?:?]
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?]
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:79) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.Util.blockUntilDone(Util.java:789) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.Util.blockUntilDone(Util.java:778) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.Main.main(Main.java:192) ~[neoforge-20.4.0-beta.jar:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.serverService(CommonLaunchHandler.java:118) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.ForgeServerUserdevLaunchHandler.runService(ForgeServerUserdevLaunchHandler.java:16) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-1.0.16.jar:1.0]
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
+[16Jan2024 22:21:04.682] [main/ERROR] [net.minecraft.world.item.crafting.RecipeManager/]: Parsing error loading recipe paganbless:athame
+com.google.gson.JsonParseException: Not a JSON object: "paganbless:rune_slab_diamond"; No key result in MapLike[{"type":"paganbless:runic_ritual","runeBlock":"paganbless:rune_slab_diamond","output":{"item":"paganbless:athame"}}]
+	at net.minecraft.Util.getOrThrow(Util.java:841) ~[neoforge-20.4.0-beta.jar:?]
+	at net.neoforged.neoforge.common.conditions.ICondition.getWithWithConditionsCodec(ICondition.java:45) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.fromJson(RecipeManager.java:151) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:57) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:36) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:19) ~[neoforge-20.4.0-beta.jar:?]
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:718) ~[?:?]
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?]
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:79) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.Util.blockUntilDone(Util.java:789) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.Util.blockUntilDone(Util.java:778) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.Main.main(Main.java:192) ~[neoforge-20.4.0-beta.jar:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.serverService(CommonLaunchHandler.java:118) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.ForgeServerUserdevLaunchHandler.runService(ForgeServerUserdevLaunchHandler.java:16) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-1.0.16.jar:1.0]
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
+[16Jan2024 22:21:04.719] [main/ERROR] [net.minecraft.world.item.crafting.RecipeManager/]: Parsing error loading recipe paganbless:pentacle
+com.google.gson.JsonParseException: Not a JSON object: "paganbless:rune_slab_cinnabar"; No key result in MapLike[{"type":"paganbless:runic_ritual","runeBlock":"paganbless:rune_slab_cinnabar","output":{"item":"paganbless:pentacle"}}]
+	at net.minecraft.Util.getOrThrow(Util.java:841) ~[neoforge-20.4.0-beta.jar:?]
+	at net.neoforged.neoforge.common.conditions.ICondition.getWithWithConditionsCodec(ICondition.java:45) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.fromJson(RecipeManager.java:151) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:57) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:36) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:19) ~[neoforge-20.4.0-beta.jar:?]
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:718) ~[?:?]
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?]
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:79) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.Util.blockUntilDone(Util.java:789) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.Util.blockUntilDone(Util.java:778) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.Main.main(Main.java:192) ~[neoforge-20.4.0-beta.jar:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.serverService(CommonLaunchHandler.java:118) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.ForgeServerUserdevLaunchHandler.runService(ForgeServerUserdevLaunchHandler.java:16) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-1.0.16.jar:1.0]
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
+[16Jan2024 22:21:04.741] [main/ERROR] [net.minecraft.world.item.crafting.RecipeManager/]: Parsing error loading recipe paganbless:runic_charge
+com.google.gson.JsonParseException: No key result in MapLike[{"type":"paganbless:cauldron_imbuing","fluidType":"minecraft:water","fluidAmount":1000,"ingredients":[{"item":"minecraft:glass_bottle"},{"count":2,"tag":"paganbless:herbs"},{"count":1,"item":"minecraft:amethyst_shard"},{"count":2,"item":"minecraft:glowstone_dust"}],"output":{"count":2,"item":"paganbless:runic_charge"}}]
+	at net.minecraft.Util.getOrThrow(Util.java:841) ~[neoforge-20.4.0-beta.jar:?]
+	at net.neoforged.neoforge.common.conditions.ICondition.getWithWithConditionsCodec(ICondition.java:45) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.fromJson(RecipeManager.java:151) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:57) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:36) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:19) ~[neoforge-20.4.0-beta.jar:?]
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:718) ~[?:?]
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?]
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:79) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.Util.blockUntilDone(Util.java:789) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.Util.blockUntilDone(Util.java:778) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.Main.main(Main.java:192) ~[neoforge-20.4.0-beta.jar:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.serverService(CommonLaunchHandler.java:118) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.ForgeServerUserdevLaunchHandler.runService(ForgeServerUserdevLaunchHandler.java:16) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-1.0.16.jar:1.0]
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
+[16Jan2024 22:21:04.758] [main/ERROR] [net.minecraft.world.item.crafting.RecipeManager/]: Parsing error loading recipe paganbless:wican_ward
+com.google.gson.JsonParseException: Not a JSON object: "paganbless:rune_slab_amethyst"; No key result in MapLike[{"type":"paganbless:runic_ritual","runeBlock":"paganbless:rune_slab_amethyst","output":{"item":"paganbless:wican_ward"}}]
+	at net.minecraft.Util.getOrThrow(Util.java:841) ~[neoforge-20.4.0-beta.jar:?]
+	at net.neoforged.neoforge.common.conditions.ICondition.getWithWithConditionsCodec(ICondition.java:45) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.fromJson(RecipeManager.java:151) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:57) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:36) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:19) ~[neoforge-20.4.0-beta.jar:?]
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:718) ~[?:?]
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?]
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:79) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.Util.blockUntilDone(Util.java:789) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.Util.blockUntilDone(Util.java:778) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.Main.main(Main.java:192) ~[neoforge-20.4.0-beta.jar:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.serverService(CommonLaunchHandler.java:118) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.ForgeServerUserdevLaunchHandler.runService(ForgeServerUserdevLaunchHandler.java:16) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-1.0.16.jar:1.0]
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
+[16Jan2024 22:21:04.794] [main/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 8 recipes
+[16Jan2024 22:21:06.245] [main/INFO] [net.minecraft.advancements.AdvancementTree/]: Loaded 1271 advancements
+[16Jan2024 22:21:09.145] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Starting minecraft server version 1.20.4
+[16Jan2024 22:21:09.151] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Loading properties
+[16Jan2024 22:21:09.152] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Default game type: SURVIVAL
+[16Jan2024 22:21:09.152] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Generating keypair
+[16Jan2024 22:21:09.603] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Starting Minecraft server on *:25565
+[16Jan2024 22:21:09.949] [Server thread/INFO] [net.minecraft.server.network.ServerConnectionListener/]: Using epoll channel type
+[16Jan2024 22:21:10.421] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[16Jan2024 22:21:10.422] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: The server will make no attempt to authenticate usernames. Beware.
+[16Jan2024 22:21:10.422] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[16Jan2024 22:21:10.422] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: To change this, set "online-mode" to "true" in the server.properties file.
+[16Jan2024 22:21:10.701] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Preparing level "world"
+[16Jan2024 22:21:17.187] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
+[16Jan2024 22:21:27.204] [Worker-Main-6/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:27.205] [Worker-Main-5/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:27.207] [Worker-Main-7/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:27.208] [Worker-Main-3/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:27.210] [Worker-Main-5/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:27.214] [Worker-Main-2/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:27.221] [Worker-Main-7/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:27.227] [Worker-Main-4/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:27.230] [Worker-Main-3/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:27.232] [Worker-Main-7/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:27.233] [Worker-Main-7/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:27.235] [Worker-Main-7/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:27.238] [Worker-Main-3/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:27.240] [Worker-Main-3/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:27.245] [Worker-Main-7/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:27.247] [Worker-Main-6/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:27.249] [Worker-Main-3/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:27.250] [Worker-Main-2/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:27.253] [Worker-Main-5/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:27.254] [Worker-Main-6/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:27.257] [Worker-Main-1/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:27.704] [Worker-Main-7/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:28.189] [Worker-Main-7/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:28.689] [Worker-Main-4/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[16Jan2024 22:21:29.189] [Worker-Main-3/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 5%
+[16Jan2024 22:21:29.689] [Worker-Main-2/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 14%
+[16Jan2024 22:21:30.189] [Worker-Main-6/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 27%
+[16Jan2024 22:21:30.688] [Worker-Main-6/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 47%
+[16Jan2024 22:21:31.188] [Worker-Main-6/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 76%
+[16Jan2024 22:21:31.689] [Worker-Main-1/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 98%
+[16Jan2024 22:21:31.707] [Server thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 14519 ms
+[16Jan2024 22:21:31.708] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Done (21.239s)! For help, type "help"
+[16Jan2024 22:21:31.777] [Server thread/INFO] [net.neoforged.neoforge.server.permission.PermissionAPI/]: Successfully initialized permission handler neoforge:default_handler
+[16Jan2024 22:21:31.777] [Server thread/INFO] [com.pigdad.paganbless.PaganBless/]: HELLO from server starting
+[16Jan2024 22:22:37.292] [Netty Epoll Server IO #1/WARN] [net.minecraft.server.network.ServerCommonPacketListenerImpl/]: Unknown custom packet payload: minecraft:brand
+[16Jan2024 22:22:38.101] [Server thread/INFO] [net.minecraft.server.players.PlayerList/]: Dev[/[2003:d3:7f0d:cb08:68d4:89c:a0d7:1ad9]:46952] logged in with entity id 87 at (6.5, 74.0, -39.5)
+[16Jan2024 22:22:38.240] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev joined the game
+[16Jan2024 22:23:04.221] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Dev lost connection: Disconnected
+[16Jan2024 22:23:04.222] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev left the game
+[16Jan2024 22:25:32.306] [LanServerPinger #1/WARN] [net.minecraft.client.server.LanServerPinger/]: LanServerPinger: Network is unreachable
+[16Jan2024 22:25:52.403] [Server thread/WARN] [net.minecraft.server.MinecraftServer/]: Can't keep up! Is the server overloaded? Running 20025ms or 400 ticks behind
+[16Jan2024 22:26:12.989] [Server thread/WARN] [net.minecraft.server.MinecraftServer/]: Can't keep up! Is the server overloaded? Running 5610ms or 112 ticks behind
+[16Jan2024 22:27:57.580] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping server
+[16Jan2024 22:27:57.584] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving players
+[16Jan2024 22:27:57.585] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving worlds

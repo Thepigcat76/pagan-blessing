@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.BaseCoralWallFanBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -59,11 +60,11 @@ public class WandItem extends BoneMealItem {
 
     public static boolean applyBonemeal(ItemStack p_40628_, Level p_40629_, BlockPos p_40630_, net.minecraft.world.entity.player.Player player) {
         BlockState blockstate = p_40629_.getBlockState(p_40630_);
-        int hook = net.minecraftforge.event.ForgeEventFactory.onApplyBonemeal(player, p_40629_, p_40630_, blockstate, p_40628_);
+        int hook = EventHooks.onApplyBonemeal(player, p_40629_, p_40630_, blockstate, p_40628_);
         if (hook != 0) return hook > 0;
         if (blockstate.getBlock() instanceof BonemealableBlock) {
             BonemealableBlock bonemealableblock = (BonemealableBlock)blockstate.getBlock();
-            if (bonemealableblock.isValidBonemealTarget(p_40629_, p_40630_, blockstate, p_40629_.isClientSide)) {
+            if (bonemealableblock.isValidBonemealTarget(p_40629_, p_40630_, blockstate)) {
                 if (p_40629_ instanceof ServerLevel) {
                     if (bonemealableblock.isBonemealSuccess(p_40629_, p_40629_.random, p_40630_, blockstate)) {
                         bonemealableblock.performBonemeal((ServerLevel)p_40629_, p_40629_.random, p_40630_, blockstate);

@@ -1,5 +1,6 @@
 package com.pigdad.paganbless.registries.blocks;
 
+import com.mojang.serialization.MapCodec;
 import com.pigdad.paganbless.registries.PBItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -31,6 +32,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.common.CommonHooks;
 import org.jetbrains.annotations.NotNull;
 
 public class WinterBerryBushBlock extends BushBlock implements BonemealableBlock {
@@ -41,6 +43,11 @@ public class WinterBerryBushBlock extends BushBlock implements BonemealableBlock
     public WinterBerryBushBlock(BlockBehaviour.Properties p_57249_) {
         super(p_57249_);
         this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
+    }
+
+    @Override
+    protected MapCodec<? extends BushBlock> codec() {
+        return simpleCodec(WinterBerryBushBlock::new);
     }
 
     public @NotNull ItemStack getCloneItemStack(BlockGetter p_57256_, BlockPos p_57257_, BlockState p_57258_) {
@@ -61,11 +68,11 @@ public class WinterBerryBushBlock extends BushBlock implements BonemealableBlock
 
     public void randomTick(BlockState p_222563_, ServerLevel p_222564_, BlockPos p_222565_, RandomSource p_222566_) {
         int i = p_222563_.getValue(AGE);
-        if (i < 3 && p_222564_.getRawBrightness(p_222565_.above(), 0) >= 9 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(p_222564_, p_222565_, p_222563_, p_222566_.nextInt(5) == 0)) {
+        if (i < 3 && p_222564_.getRawBrightness(p_222565_.above(), 0) >= 9 && CommonHooks.onCropsGrowPre(p_222564_, p_222565_, p_222563_, p_222566_.nextInt(5) == 0)) {
             BlockState blockstate = p_222563_.setValue(AGE, Integer.valueOf(i + 1));
             p_222564_.setBlock(p_222565_, blockstate, 2);
             p_222564_.gameEvent(GameEvent.BLOCK_CHANGE, p_222565_, GameEvent.Context.of(blockstate));
-            net.minecraftforge.common.ForgeHooks.onCropsGrowPost(p_222564_, p_222565_, p_222563_);
+            CommonHooks.onCropsGrowPost(p_222564_, p_222565_, p_222563_);
         }
 
     }
@@ -112,7 +119,7 @@ public class WinterBerryBushBlock extends BushBlock implements BonemealableBlock
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader p_256056_, BlockPos p_57261_, BlockState p_57262_, boolean p_57263_) {
+    public boolean isValidBonemealTarget(LevelReader p_256056_, BlockPos p_57261_, BlockState p_57262_) {
         return p_57262_.getValue(AGE) < 3;
     }
 

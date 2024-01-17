@@ -1,6 +1,7 @@
 package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.MapCodec;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.PBItems;
 import com.pigdad.paganbless.registries.blockentities.RuneSlabBlockEntity;
@@ -9,13 +10,13 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -32,7 +33,6 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -48,6 +48,11 @@ public class RunicCoreBlock extends BaseEntityBlock {
     public RunicCoreBlock(Properties p_49224_) {
         super(p_49224_);
         registerDefaultState(this.defaultBlockState().setValue(ACTIVE, false));
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return simpleCodec(RunicCoreBlock::new);
     }
 
     @Override
@@ -239,7 +244,7 @@ public class RunicCoreBlock extends BaseEntityBlock {
                     .setValue(RuneSlabBlock.RUNE_STATE, runeState)
                     .setValue(RuneSlabBlock.IS_TOP, false));
 
-            ((RuneSlabBlockEntity) level.getBlockEntity(blockPos)).setPrevBlock(ForgeRegistries.BLOCKS.getKey(blockState.getBlock()).toString());
+            ((RuneSlabBlockEntity) level.getBlockEntity(blockPos)).setPrevBlock(BuiltInRegistries.BLOCK.getKey(blockState.getBlock()).toString());
 
             level.setBlockAndUpdate(blockPos.above(), PBBlocks.RUNE_SLAB_INERT.get().defaultBlockState()
                     .setValue(RuneSlabBlock.RUNE_STATE, runeState)

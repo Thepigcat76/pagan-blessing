@@ -1,0 +1,710 @@
+[17Jan2024 11:10:48.828] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeclientuserdev, --version, 20.4.0-beta, --assetIndex, asset-index, --assetsDir, /home/thepigcat/.gradle/caches/minecraft/assets/1.20.4, --gameDir, ., --fml.neoForgeVersion, 20.4.0-beta, --fml.fmlVersion, 1.0.16, --fml.mcVersion, 1.20.4, --fml.neoFormVersion, 20231207.154220]
+[17Jan2024 11:10:48.833] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.9 by Eclipse Adoptium; OS Linux arch amd64 version 6.6.9-200.fc39.x86_64
+[17Jan2024 11:10:48.983] [main/INFO] [net.neoforged.fml.loading.ImmediateWindowHandler/]: Loading ImmediateWindowProvider fmlearlywindow
+[17Jan2024 11:10:49.118] [main/INFO] [EARLYDISPLAY/]: Trying GL version 4.6
+[17Jan2024 11:10:49.193] [main/INFO] [EARLYDISPLAY/]: Requested GL version 4.6 got version 4.6
+[17Jan2024 11:10:49.461] [pool-2-thread-1/INFO] [EARLYDISPLAY/]: GL info: Mesa Intel(R) UHD Graphics (ICL GT1) GL version 4.6 (Core Profile) Mesa 23.3.1, Intel
+[17Jan2024 11:10:49.465] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/home/thepigcat/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23146!/ Service=ModLauncher Env=CLIENT
+[17Jan2024 11:10:49.852] [main/WARN] [net.neoforged.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file /home/thepigcat/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/language-lowcode/1.0.16/e627c78870d4286826c4b14c0137319ff03b4e0/language-lowcode-1.0.16.jar is missing mods.toml file
+[17Jan2024 11:10:49.854] [main/WARN] [net.neoforged.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file /home/thepigcat/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/language-minecraft/1.0.16/c1f7785ff7fc0b18aa6d2d4056dcff4fee1b32be/language-minecraft-1.0.16.jar is missing mods.toml file
+[17Jan2024 11:10:49.856] [main/WARN] [net.neoforged.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file /home/thepigcat/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/language-java/1.0.16/2ddedcd8a488fd73e3e92a59949845e9c3a7d9f2/language-java-1.0.16.jar is missing mods.toml file
+[17Jan2024 11:10:49.858] [main/WARN] [net.neoforged.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file /home/thepigcat/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/core/1.0.16/6bab0913ca1635a8e272ef89c17befb52115a3c2/core-1.0.16.jar is missing mods.toml file
+[17Jan2024 11:10:49.877] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "language-lowcode-1.0.16.jar" of type LANGPROVIDER with provider net.neoforged.fml.loading.moddiscovery.MinecraftLocator@58a55449
+[17Jan2024 11:10:49.878] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "language-minecraft-1.0.16.jar" of type LANGPROVIDER with provider net.neoforged.fml.loading.moddiscovery.MinecraftLocator@58a55449
+[17Jan2024 11:10:49.878] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "language-java-1.0.16.jar" of type LANGPROVIDER with provider net.neoforged.fml.loading.moddiscovery.MinecraftLocator@58a55449
+[17Jan2024 11:10:49.878] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "core-1.0.16.jar" of type LIBRARY with provider net.neoforged.fml.loading.moddiscovery.MinecraftLocator@58a55449
+[17Jan2024 11:10:49.879] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "neoforge-20.4.0-beta.jar" of type MOD with provider net.neoforged.fml.loading.moddiscovery.MinecraftLocator@58a55449
+[17Jan2024 11:10:49.879] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "main" of type MOD with provider net.neoforged.fml.loading.moddiscovery.MinecraftLocator@58a55449
+[17Jan2024 11:10:49.879] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "" of type MOD with provider net.neoforged.fml.loading.moddiscovery.MinecraftLocator@58a55449
+[17Jan2024 11:10:49.901] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "events-1.0.16.jar" of type GAMELIBRARY with provider net.neoforged.fml.loading.moddiscovery.BuiltinGameLibraryLocator@3773862a
+[17Jan2024 11:10:50.115] [main/INFO] [net.neoforged.fml.loading.moddiscovery.JarInJarDependencyLocator/]: Found 1 dependencies adding them to mods collection
+[17Jan2024 11:10:50.120] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "mixinextras-neoforge-0.3.1.jar" of type GAMELIBRARY with provider net.neoforged.fml.loading.moddiscovery.JarInJarDependencyLocator@50b1f030
+[17Jan2024 11:10:52.795] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeclientuserdev' with arguments [--version, 20.4.0-beta, --gameDir, ., --assetsDir, /home/thepigcat/.gradle/caches/minecraft/assets/1.20.4, --assetIndex, asset-index]
+[17Jan2024 11:11:01.955] [Datafixer Bootstrap/INFO] [com.mojang.datafixers.DataFixerBuilder/]: 198 Datafixer optimizations took 524 milliseconds
+[17Jan2024 11:11:06.011] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/home/thepigcat/Programming/private/java/pigdadmod/.gradle/repositories/ng_dummy_ng/net/neoforged/neoforge/20.4.0-beta/neoforge-20.4.0-beta.jar%23183!/assets/.mcassetsroot' uses unexpected schema
+[17Jan2024 11:11:06.012] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/home/thepigcat/Programming/private/java/pigdadmod/.gradle/repositories/ng_dummy_ng/net/neoforged/neoforge/20.4.0-beta/neoforge-20.4.0-beta.jar%23183!/data/.mcassetsroot' uses unexpected schema
+[17Jan2024 11:11:06.076] [Render thread/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[17Jan2024 11:11:06.099] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Setting user: Dev
+[17Jan2024 11:11:06.297] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Backend library: LWJGL version 3.3.2+13
+[17Jan2024 11:11:06.897] [modloading-worker-0/INFO] [net.neoforged.neoforge.common.NeoForgeMod/NEOFORGE-MOD]: NeoForge mod loading, version 20.4.0-beta, for MC 1.20.4 with MCP 20231207.154220
+[17Jan2024 11:11:08.922] [Render thread/INFO] [net.neoforged.neoforge.gametest.GameTestHooks/]: Enabled Gametest Namespaces: []
+[17Jan2024 11:11:09.163] [Render thread/INFO] [net.minecraft.server.packs.resources.ReloadableResourceManager/]: Reloading ResourceManager: vanilla, mod_resources
+[17Jan2024 11:11:09.275] [Worker-Main-3/INFO] [com.pigdad.paganbless.PaganBless/]: HELLO FROM COMMON SETUP
+[17Jan2024 11:11:09.276] [Worker-Main-3/INFO] [com.pigdad.paganbless.PaganBless/]: Entity >> entity.minecraft.ender_dragon
+[17Jan2024 11:11:09.277] [Worker-Main-3/INFO] [com.pigdad.paganbless.PaganBless/]: Entity >> entity.minecraft.warden
+[17Jan2024 11:11:09.277] [Worker-Main-3/INFO] [com.pigdad.paganbless.PaganBless/]: Entity >> entity.minecraft.wither
+[17Jan2024 11:11:09.365] [Worker-Main-6/INFO] [net.minecraft.client.gui.font.providers.UnihexProvider/]: Found unifont_all_no_pua-15.1.04.hex, loading
+[17Jan2024 11:11:09.727] [Worker-Main-1/WARN] [net.minecraft.client.sounds.SoundManager/]: File minecraft:sounds/mob/wolf/armor_equip1.ogg does not exist, cannot add it to event minecraft:entity.wolf.armor_equip
+[17Jan2024 11:11:09.730] [Worker-Main-1/WARN] [net.minecraft.client.sounds.SoundManager/]: File minecraft:sounds/mob/wolf/armor_equip1.ogg does not exist, cannot add it to event minecraft:entity.wolf.armor_equip
+[17Jan2024 11:11:09.731] [Worker-Main-1/WARN] [net.minecraft.client.sounds.SoundManager/]: File minecraft:sounds/mob/wolf/armor_equip2.ogg does not exist, cannot add it to event minecraft:entity.wolf.armor_equip
+[17Jan2024 11:11:09.735] [Worker-Main-1/WARN] [net.minecraft.client.sounds.SoundManager/]: File minecraft:sounds/mob/wolf/armor_equip2.ogg does not exist, cannot add it to event minecraft:entity.wolf.armor_equip
+[17Jan2024 11:11:09.735] [Worker-Main-1/WARN] [net.minecraft.client.sounds.SoundManager/]: File minecraft:sounds/mob/wolf/armor_unequip1.ogg does not exist, cannot add it to event minecraft:entity.wolf.armor_unequip
+[17Jan2024 11:11:09.735] [Worker-Main-1/WARN] [net.minecraft.client.sounds.SoundManager/]: File minecraft:sounds/mob/wolf/armor_unequip2.ogg does not exist, cannot add it to event minecraft:entity.wolf.armor_unequip
+[17Jan2024 11:11:11.703] [Worker-Main-3/WARN] [net.minecraft.client.resources.model.ModelBakery/]: Exception loading blockstate definition: 'paganbless:blockstates/winter_berry_bush.json' missing model for variant: 'paganbless:winter_berry_bush#age=4'
+[17Jan2024 11:11:13.473] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: minecraft:item.goat_horn.play
+[17Jan2024 11:11:13.473] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[17Jan2024 11:11:13.671] [Render thread/INFO] [com.mojang.blaze3d.audio.Library/]: OpenAL initialized on device Built-in Audio Analog Stereo
+[17Jan2024 11:11:13.673] [Render thread/INFO] [net.minecraft.client.sounds.SoundEngine/SOUNDS]: Sound engine started
+[17Jan2024 11:11:13.995] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x512x4 minecraft:textures/atlas/blocks.png-atlas
+[17Jan2024 11:11:14.133] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[17Jan2024 11:11:14.136] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[17Jan2024 11:11:14.143] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[17Jan2024 11:11:14.149] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[17Jan2024 11:11:14.176] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[17Jan2024 11:11:14.178] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[17Jan2024 11:11:14.179] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[17Jan2024 11:11:14.180] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[17Jan2024 11:11:14.410] [Render thread/WARN] [net.minecraft.client.renderer.ShaderInstance/]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[17Jan2024 11:11:14.504] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[17Jan2024 11:11:14.511] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x0 minecraft:textures/atlas/paintings.png-atlas
+[17Jan2024 11:11:14.513] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 128x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[17Jan2024 11:11:14.514] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[17Jan2024 11:11:22.967] [Worker-Main-5/ERROR] [net.minecraft.world.level.storage.loot.LootDataType/]: Couldn't parse element loot_tables:paganbless:blocks/black_thorn_leaves - Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: paganbless:black_thorn_sapling
+[17Jan2024 11:11:23.027] [Worker-Main-5/ERROR] [net.minecraft.world.level.storage.loot.LootDataType/]: Couldn't parse element loot_tables:paganbless:blocks/rune_slab_quartz - Not a valid resource location: paganbless:rune_slab_quartz  Non [a-z0-9/._-] character in path of location: paganbless:rune_slab_quartz 
+[17Jan2024 11:11:23.082] [Worker-Main-5/ERROR] [net.minecraft.world.level.storage.loot.LootDataType/]: Couldn't parse element loot_tables:paganbless:blocks/black_thorn_sapling - Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: paganbless:black_thorn_sapling
+[17Jan2024 11:11:23.171] [Render thread/WARN] [net.minecraft.world.level.storage.loot.LootDataManager/]: Found loot table element validation problem in {loot_tables:minecraft:blocks/redstone_ore}.pools[0].entries[1].entry[1]: Unreachable entry!
+[17Jan2024 11:11:23.172] [Render thread/WARN] [net.minecraft.world.level.storage.loot.LootDataManager/]: Found loot table element validation problem in {loot_tables:minecraft:blocks/deepslate_redstone_ore}.pools[0].entries[1].entry[1]: Unreachable entry!
+[17Jan2024 11:11:23.233] [Render thread/ERROR] [net.minecraft.world.item.crafting.RecipeManager/]: Parsing error loading recipe paganbless:wand
+com.google.gson.JsonParseException: Not a JSON object: "paganbless:rune_slab_emerald"; No key result in MapLike[{"type":"paganbless:runic_ritual","runeBlock":"paganbless:rune_slab_emerald","output":{"item":"paganbless:wand"}}]
+	at net.minecraft.Util.getOrThrow(Util.java:841) ~[neoforge-20.4.0-beta.jar:?]
+	at net.neoforged.neoforge.common.conditions.ICondition.getWithWithConditionsCodec(ICondition.java:45) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.fromJson(RecipeManager.java:151) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:57) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:36) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:19) ~[neoforge-20.4.0-beta.jar:?]
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:718) ~[?:?]
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?]
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:79) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:146) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:24) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:120) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.managedBlock(BlockableEventLoop.java:130) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadWorldDataBlocking(WorldOpenFlows.java:199) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadWorldStem(WorldOpenFlows.java:141) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadLevel(WorldOpenFlows.java:351) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadLevel(WorldOpenFlows.java:342) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.checkForBackupAndLoad(WorldOpenFlows.java:323) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.checkForBackupAndLoad(WorldOpenFlows.java:256) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry.joinWorld(WorldSelectionList.java:504) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry.mouseClicked(WorldSelectionList.java:487) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.components.AbstractSelectionList.mouseClicked(AbstractSelectionList.java:276) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.components.events.ContainerEventHandler.mouseClicked(ContainerEventHandler.java:40) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$onPress$0(MouseHandler.java:93) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.Screen.wrapScreenError(Screen.java:425) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.onPress(MouseHandler.java:90) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$setup$4(MouseHandler.java:193) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:96) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$setup$5(MouseHandler.java:193) ~[neoforge-20.4.0-beta.jar:?]
+	at org.lwjgl.glfw.GLFWMouseButtonCallbackI.callback(GLFWMouseButtonCallbackI.java:43) ~[lwjgl-glfw-3.3.2.jar:build 13]
+	at org.lwjgl.system.JNI.invokeV(Native Method) ~[lwjgl-3.3.2.jar:build 13]
+	at org.lwjgl.glfw.GLFW.glfwPollEvents(GLFW.java:3438) ~[lwjgl-glfw-3.3.2.jar:build 13]
+	at com.mojang.blaze3d.systems.RenderSystem.pollEvents(RenderSystem.java:175) ~[neoforge-20.4.0-beta.jar:?]
+	at com.mojang.blaze3d.systems.RenderSystem.flipFrame(RenderSystem.java:184) ~[neoforge-20.4.0-beta.jar:?]
+	at com.mojang.blaze3d.platform.Window.updateDisplay(Window.java:278) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1274) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:807) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.main.Main.main(Main.java:244) ~[neoforge-20.4.0-beta.jar:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.clientService(CommonLaunchHandler.java:114) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.ForgeClientUserdevLaunchHandler.runService(ForgeClientUserdevLaunchHandler.java:19) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-1.0.16.jar:1.0]
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
+[17Jan2024 11:11:23.302] [Render thread/ERROR] [net.minecraft.world.item.crafting.RecipeManager/]: Parsing error loading recipe paganbless:rune_slab_inert
+com.google.gson.JsonParseException: No key result in MapLike[{"type":"paganbless:cauldron_imbuing","fluidType":"minecraft:lava","fluidAmount":1000,"ingredients":[{"count":3,"item":"minecraft:cobbled_deepslate"},{"count":2,"tag":"paganbless:herbs"}],"output":{"item":"paganbless:rune_slab_inert"}}]
+	at net.minecraft.Util.getOrThrow(Util.java:841) ~[neoforge-20.4.0-beta.jar:?]
+	at net.neoforged.neoforge.common.conditions.ICondition.getWithWithConditionsCodec(ICondition.java:45) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.fromJson(RecipeManager.java:151) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:57) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:36) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:19) ~[neoforge-20.4.0-beta.jar:?]
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:718) ~[?:?]
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?]
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:79) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:146) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:24) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:120) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.managedBlock(BlockableEventLoop.java:130) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadWorldDataBlocking(WorldOpenFlows.java:199) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadWorldStem(WorldOpenFlows.java:141) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadLevel(WorldOpenFlows.java:351) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadLevel(WorldOpenFlows.java:342) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.checkForBackupAndLoad(WorldOpenFlows.java:323) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.checkForBackupAndLoad(WorldOpenFlows.java:256) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry.joinWorld(WorldSelectionList.java:504) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry.mouseClicked(WorldSelectionList.java:487) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.components.AbstractSelectionList.mouseClicked(AbstractSelectionList.java:276) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.components.events.ContainerEventHandler.mouseClicked(ContainerEventHandler.java:40) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$onPress$0(MouseHandler.java:93) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.Screen.wrapScreenError(Screen.java:425) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.onPress(MouseHandler.java:90) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$setup$4(MouseHandler.java:193) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:96) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$setup$5(MouseHandler.java:193) ~[neoforge-20.4.0-beta.jar:?]
+	at org.lwjgl.glfw.GLFWMouseButtonCallbackI.callback(GLFWMouseButtonCallbackI.java:43) ~[lwjgl-glfw-3.3.2.jar:build 13]
+	at org.lwjgl.system.JNI.invokeV(Native Method) ~[lwjgl-3.3.2.jar:build 13]
+	at org.lwjgl.glfw.GLFW.glfwPollEvents(GLFW.java:3438) ~[lwjgl-glfw-3.3.2.jar:build 13]
+	at com.mojang.blaze3d.systems.RenderSystem.pollEvents(RenderSystem.java:175) ~[neoforge-20.4.0-beta.jar:?]
+	at com.mojang.blaze3d.systems.RenderSystem.flipFrame(RenderSystem.java:184) ~[neoforge-20.4.0-beta.jar:?]
+	at com.mojang.blaze3d.platform.Window.updateDisplay(Window.java:278) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1274) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:807) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.main.Main.main(Main.java:244) ~[neoforge-20.4.0-beta.jar:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.clientService(CommonLaunchHandler.java:114) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.ForgeClientUserdevLaunchHandler.runService(ForgeClientUserdevLaunchHandler.java:19) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-1.0.16.jar:1.0]
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
+[17Jan2024 11:11:23.328] [Render thread/ERROR] [net.minecraft.world.item.crafting.RecipeManager/]: Parsing error loading recipe paganbless:glazed_berries
+com.google.gson.JsonParseException: No key result in MapLike[{"type":"paganbless:cauldron_imbuing","fluidType":"minecraft:empty","fluidAmount":0,"ingredients":[{"count":2,"item":"minecraft:sugar"},{"item":"paganbless:winter_berries"}],"output":{"item":"paganbless:glazed_berries"}}]
+	at net.minecraft.Util.getOrThrow(Util.java:841) ~[neoforge-20.4.0-beta.jar:?]
+	at net.neoforged.neoforge.common.conditions.ICondition.getWithWithConditionsCodec(ICondition.java:45) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.fromJson(RecipeManager.java:151) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:57) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:36) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:19) ~[neoforge-20.4.0-beta.jar:?]
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:718) ~[?:?]
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?]
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:79) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:146) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:24) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:120) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.managedBlock(BlockableEventLoop.java:130) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadWorldDataBlocking(WorldOpenFlows.java:199) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadWorldStem(WorldOpenFlows.java:141) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadLevel(WorldOpenFlows.java:351) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadLevel(WorldOpenFlows.java:342) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.checkForBackupAndLoad(WorldOpenFlows.java:323) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.checkForBackupAndLoad(WorldOpenFlows.java:256) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry.joinWorld(WorldSelectionList.java:504) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry.mouseClicked(WorldSelectionList.java:487) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.components.AbstractSelectionList.mouseClicked(AbstractSelectionList.java:276) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.components.events.ContainerEventHandler.mouseClicked(ContainerEventHandler.java:40) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$onPress$0(MouseHandler.java:93) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.Screen.wrapScreenError(Screen.java:425) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.onPress(MouseHandler.java:90) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$setup$4(MouseHandler.java:193) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:96) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$setup$5(MouseHandler.java:193) ~[neoforge-20.4.0-beta.jar:?]
+	at org.lwjgl.glfw.GLFWMouseButtonCallbackI.callback(GLFWMouseButtonCallbackI.java:43) ~[lwjgl-glfw-3.3.2.jar:build 13]
+	at org.lwjgl.system.JNI.invokeV(Native Method) ~[lwjgl-3.3.2.jar:build 13]
+	at org.lwjgl.glfw.GLFW.glfwPollEvents(GLFW.java:3438) ~[lwjgl-glfw-3.3.2.jar:build 13]
+	at com.mojang.blaze3d.systems.RenderSystem.pollEvents(RenderSystem.java:175) ~[neoforge-20.4.0-beta.jar:?]
+	at com.mojang.blaze3d.systems.RenderSystem.flipFrame(RenderSystem.java:184) ~[neoforge-20.4.0-beta.jar:?]
+	at com.mojang.blaze3d.platform.Window.updateDisplay(Window.java:278) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1274) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:807) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.main.Main.main(Main.java:244) ~[neoforge-20.4.0-beta.jar:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.clientService(CommonLaunchHandler.java:114) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.ForgeClientUserdevLaunchHandler.runService(ForgeClientUserdevLaunchHandler.java:19) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-1.0.16.jar:1.0]
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
+[17Jan2024 11:11:23.389] [Render thread/ERROR] [net.minecraft.world.item.crafting.RecipeManager/]: Parsing error loading recipe paganbless:chalice
+com.google.gson.JsonParseException: Not a JSON object: "paganbless:rune_slab_lapis"; No key result in MapLike[{"type":"paganbless:runic_ritual","runeBlock":"paganbless:rune_slab_lapis","output":{"item":"paganbless:chalice"}}]
+	at net.minecraft.Util.getOrThrow(Util.java:841) ~[neoforge-20.4.0-beta.jar:?]
+	at net.neoforged.neoforge.common.conditions.ICondition.getWithWithConditionsCodec(ICondition.java:45) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.fromJson(RecipeManager.java:151) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:57) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:36) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:19) ~[neoforge-20.4.0-beta.jar:?]
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:718) ~[?:?]
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?]
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:79) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:146) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:24) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:120) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.managedBlock(BlockableEventLoop.java:130) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadWorldDataBlocking(WorldOpenFlows.java:199) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadWorldStem(WorldOpenFlows.java:141) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadLevel(WorldOpenFlows.java:351) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadLevel(WorldOpenFlows.java:342) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.checkForBackupAndLoad(WorldOpenFlows.java:323) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.checkForBackupAndLoad(WorldOpenFlows.java:256) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry.joinWorld(WorldSelectionList.java:504) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry.mouseClicked(WorldSelectionList.java:487) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.components.AbstractSelectionList.mouseClicked(AbstractSelectionList.java:276) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.components.events.ContainerEventHandler.mouseClicked(ContainerEventHandler.java:40) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$onPress$0(MouseHandler.java:93) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.Screen.wrapScreenError(Screen.java:425) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.onPress(MouseHandler.java:90) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$setup$4(MouseHandler.java:193) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:96) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$setup$5(MouseHandler.java:193) ~[neoforge-20.4.0-beta.jar:?]
+	at org.lwjgl.glfw.GLFWMouseButtonCallbackI.callback(GLFWMouseButtonCallbackI.java:43) ~[lwjgl-glfw-3.3.2.jar:build 13]
+	at org.lwjgl.system.JNI.invokeV(Native Method) ~[lwjgl-3.3.2.jar:build 13]
+	at org.lwjgl.glfw.GLFW.glfwPollEvents(GLFW.java:3438) ~[lwjgl-glfw-3.3.2.jar:build 13]
+	at com.mojang.blaze3d.systems.RenderSystem.pollEvents(RenderSystem.java:175) ~[neoforge-20.4.0-beta.jar:?]
+	at com.mojang.blaze3d.systems.RenderSystem.flipFrame(RenderSystem.java:184) ~[neoforge-20.4.0-beta.jar:?]
+	at com.mojang.blaze3d.platform.Window.updateDisplay(Window.java:278) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1274) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:807) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.main.Main.main(Main.java:244) ~[neoforge-20.4.0-beta.jar:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.clientService(CommonLaunchHandler.java:114) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.ForgeClientUserdevLaunchHandler.runService(ForgeClientUserdevLaunchHandler.java:19) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-1.0.16.jar:1.0]
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
+[17Jan2024 11:11:23.394] [Render thread/ERROR] [net.minecraft.world.item.crafting.RecipeManager/]: Parsing error loading recipe paganbless:pagan_guide
+com.google.gson.JsonParseException: Item must not be minecraft:air
+	at net.minecraft.Util.getOrThrow(Util.java:841) ~[neoforge-20.4.0-beta.jar:?]
+	at net.neoforged.neoforge.common.conditions.ICondition.getWithWithConditionsCodec(ICondition.java:45) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.fromJson(RecipeManager.java:151) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:57) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:36) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:19) ~[neoforge-20.4.0-beta.jar:?]
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:718) ~[?:?]
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?]
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:79) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:146) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:24) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:120) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.managedBlock(BlockableEventLoop.java:130) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadWorldDataBlocking(WorldOpenFlows.java:199) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadWorldStem(WorldOpenFlows.java:141) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadLevel(WorldOpenFlows.java:351) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadLevel(WorldOpenFlows.java:342) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.checkForBackupAndLoad(WorldOpenFlows.java:323) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.checkForBackupAndLoad(WorldOpenFlows.java:256) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry.joinWorld(WorldSelectionList.java:504) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry.mouseClicked(WorldSelectionList.java:487) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.components.AbstractSelectionList.mouseClicked(AbstractSelectionList.java:276) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.components.events.ContainerEventHandler.mouseClicked(ContainerEventHandler.java:40) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$onPress$0(MouseHandler.java:93) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.Screen.wrapScreenError(Screen.java:425) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.onPress(MouseHandler.java:90) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$setup$4(MouseHandler.java:193) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:96) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$setup$5(MouseHandler.java:193) ~[neoforge-20.4.0-beta.jar:?]
+	at org.lwjgl.glfw.GLFWMouseButtonCallbackI.callback(GLFWMouseButtonCallbackI.java:43) ~[lwjgl-glfw-3.3.2.jar:build 13]
+	at org.lwjgl.system.JNI.invokeV(Native Method) ~[lwjgl-3.3.2.jar:build 13]
+	at org.lwjgl.glfw.GLFW.glfwPollEvents(GLFW.java:3438) ~[lwjgl-glfw-3.3.2.jar:build 13]
+	at com.mojang.blaze3d.systems.RenderSystem.pollEvents(RenderSystem.java:175) ~[neoforge-20.4.0-beta.jar:?]
+	at com.mojang.blaze3d.systems.RenderSystem.flipFrame(RenderSystem.java:184) ~[neoforge-20.4.0-beta.jar:?]
+	at com.mojang.blaze3d.platform.Window.updateDisplay(Window.java:278) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1274) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:807) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.main.Main.main(Main.java:244) ~[neoforge-20.4.0-beta.jar:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.clientService(CommonLaunchHandler.java:114) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.ForgeClientUserdevLaunchHandler.runService(ForgeClientUserdevLaunchHandler.java:19) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-1.0.16.jar:1.0]
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
+[17Jan2024 11:11:23.441] [Render thread/ERROR] [net.minecraft.world.item.crafting.RecipeManager/]: Parsing error loading recipe paganbless:eternal_snowball
+com.google.gson.JsonParseException: Not a JSON object: "paganbless:rune_slab_quartz"; No key result in MapLike[{"type":"paganbless:runic_ritual","runeBlock":"paganbless:rune_slab_quartz","output":{"item":"paganbless:eternal_snowball"}}]
+	at net.minecraft.Util.getOrThrow(Util.java:841) ~[neoforge-20.4.0-beta.jar:?]
+	at net.neoforged.neoforge.common.conditions.ICondition.getWithWithConditionsCodec(ICondition.java:45) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.fromJson(RecipeManager.java:151) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:57) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:36) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:19) ~[neoforge-20.4.0-beta.jar:?]
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:718) ~[?:?]
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?]
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:79) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:146) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:24) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:120) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.managedBlock(BlockableEventLoop.java:130) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadWorldDataBlocking(WorldOpenFlows.java:199) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadWorldStem(WorldOpenFlows.java:141) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadLevel(WorldOpenFlows.java:351) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadLevel(WorldOpenFlows.java:342) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.checkForBackupAndLoad(WorldOpenFlows.java:323) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.checkForBackupAndLoad(WorldOpenFlows.java:256) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry.joinWorld(WorldSelectionList.java:504) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry.mouseClicked(WorldSelectionList.java:487) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.components.AbstractSelectionList.mouseClicked(AbstractSelectionList.java:276) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.components.events.ContainerEventHandler.mouseClicked(ContainerEventHandler.java:40) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$onPress$0(MouseHandler.java:93) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.Screen.wrapScreenError(Screen.java:425) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.onPress(MouseHandler.java:90) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$setup$4(MouseHandler.java:193) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:96) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$setup$5(MouseHandler.java:193) ~[neoforge-20.4.0-beta.jar:?]
+	at org.lwjgl.glfw.GLFWMouseButtonCallbackI.callback(GLFWMouseButtonCallbackI.java:43) ~[lwjgl-glfw-3.3.2.jar:build 13]
+	at org.lwjgl.system.JNI.invokeV(Native Method) ~[lwjgl-3.3.2.jar:build 13]
+	at org.lwjgl.glfw.GLFW.glfwPollEvents(GLFW.java:3438) ~[lwjgl-glfw-3.3.2.jar:build 13]
+	at com.mojang.blaze3d.systems.RenderSystem.pollEvents(RenderSystem.java:175) ~[neoforge-20.4.0-beta.jar:?]
+	at com.mojang.blaze3d.systems.RenderSystem.flipFrame(RenderSystem.java:184) ~[neoforge-20.4.0-beta.jar:?]
+	at com.mojang.blaze3d.platform.Window.updateDisplay(Window.java:278) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1274) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:807) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.main.Main.main(Main.java:244) ~[neoforge-20.4.0-beta.jar:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.clientService(CommonLaunchHandler.java:114) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.ForgeClientUserdevLaunchHandler.runService(ForgeClientUserdevLaunchHandler.java:19) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-1.0.16.jar:1.0]
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
+[17Jan2024 11:11:23.452] [Render thread/ERROR] [net.minecraft.world.item.crafting.RecipeManager/]: Parsing error loading recipe paganbless:athame
+com.google.gson.JsonParseException: Not a JSON object: "paganbless:rune_slab_diamond"; No key result in MapLike[{"type":"paganbless:runic_ritual","runeBlock":"paganbless:rune_slab_diamond","output":{"item":"paganbless:athame"}}]
+	at net.minecraft.Util.getOrThrow(Util.java:841) ~[neoforge-20.4.0-beta.jar:?]
+	at net.neoforged.neoforge.common.conditions.ICondition.getWithWithConditionsCodec(ICondition.java:45) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.fromJson(RecipeManager.java:151) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:57) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:36) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:19) ~[neoforge-20.4.0-beta.jar:?]
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:718) ~[?:?]
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?]
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:79) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:146) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:24) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:120) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.managedBlock(BlockableEventLoop.java:130) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadWorldDataBlocking(WorldOpenFlows.java:199) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadWorldStem(WorldOpenFlows.java:141) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadLevel(WorldOpenFlows.java:351) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadLevel(WorldOpenFlows.java:342) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.checkForBackupAndLoad(WorldOpenFlows.java:323) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.checkForBackupAndLoad(WorldOpenFlows.java:256) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry.joinWorld(WorldSelectionList.java:504) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry.mouseClicked(WorldSelectionList.java:487) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.components.AbstractSelectionList.mouseClicked(AbstractSelectionList.java:276) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.components.events.ContainerEventHandler.mouseClicked(ContainerEventHandler.java:40) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$onPress$0(MouseHandler.java:93) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.Screen.wrapScreenError(Screen.java:425) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.onPress(MouseHandler.java:90) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$setup$4(MouseHandler.java:193) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:96) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$setup$5(MouseHandler.java:193) ~[neoforge-20.4.0-beta.jar:?]
+	at org.lwjgl.glfw.GLFWMouseButtonCallbackI.callback(GLFWMouseButtonCallbackI.java:43) ~[lwjgl-glfw-3.3.2.jar:build 13]
+	at org.lwjgl.system.JNI.invokeV(Native Method) ~[lwjgl-3.3.2.jar:build 13]
+	at org.lwjgl.glfw.GLFW.glfwPollEvents(GLFW.java:3438) ~[lwjgl-glfw-3.3.2.jar:build 13]
+	at com.mojang.blaze3d.systems.RenderSystem.pollEvents(RenderSystem.java:175) ~[neoforge-20.4.0-beta.jar:?]
+	at com.mojang.blaze3d.systems.RenderSystem.flipFrame(RenderSystem.java:184) ~[neoforge-20.4.0-beta.jar:?]
+	at com.mojang.blaze3d.platform.Window.updateDisplay(Window.java:278) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1274) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:807) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.main.Main.main(Main.java:244) ~[neoforge-20.4.0-beta.jar:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.clientService(CommonLaunchHandler.java:114) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.ForgeClientUserdevLaunchHandler.runService(ForgeClientUserdevLaunchHandler.java:19) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-1.0.16.jar:1.0]
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
+[17Jan2024 11:11:23.479] [Render thread/ERROR] [net.minecraft.world.item.crafting.RecipeManager/]: Parsing error loading recipe paganbless:pentacle
+com.google.gson.JsonParseException: Not a JSON object: "paganbless:rune_slab_cinnabar"; No key result in MapLike[{"type":"paganbless:runic_ritual","runeBlock":"paganbless:rune_slab_cinnabar","output":{"item":"paganbless:pentacle"}}]
+	at net.minecraft.Util.getOrThrow(Util.java:841) ~[neoforge-20.4.0-beta.jar:?]
+	at net.neoforged.neoforge.common.conditions.ICondition.getWithWithConditionsCodec(ICondition.java:45) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.fromJson(RecipeManager.java:151) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:57) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:36) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:19) ~[neoforge-20.4.0-beta.jar:?]
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:718) ~[?:?]
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?]
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:79) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:146) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:24) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:120) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.managedBlock(BlockableEventLoop.java:130) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadWorldDataBlocking(WorldOpenFlows.java:199) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadWorldStem(WorldOpenFlows.java:141) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadLevel(WorldOpenFlows.java:351) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadLevel(WorldOpenFlows.java:342) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.checkForBackupAndLoad(WorldOpenFlows.java:323) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.checkForBackupAndLoad(WorldOpenFlows.java:256) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry.joinWorld(WorldSelectionList.java:504) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry.mouseClicked(WorldSelectionList.java:487) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.components.AbstractSelectionList.mouseClicked(AbstractSelectionList.java:276) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.components.events.ContainerEventHandler.mouseClicked(ContainerEventHandler.java:40) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$onPress$0(MouseHandler.java:93) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.Screen.wrapScreenError(Screen.java:425) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.onPress(MouseHandler.java:90) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$setup$4(MouseHandler.java:193) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:96) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$setup$5(MouseHandler.java:193) ~[neoforge-20.4.0-beta.jar:?]
+	at org.lwjgl.glfw.GLFWMouseButtonCallbackI.callback(GLFWMouseButtonCallbackI.java:43) ~[lwjgl-glfw-3.3.2.jar:build 13]
+	at org.lwjgl.system.JNI.invokeV(Native Method) ~[lwjgl-3.3.2.jar:build 13]
+	at org.lwjgl.glfw.GLFW.glfwPollEvents(GLFW.java:3438) ~[lwjgl-glfw-3.3.2.jar:build 13]
+	at com.mojang.blaze3d.systems.RenderSystem.pollEvents(RenderSystem.java:175) ~[neoforge-20.4.0-beta.jar:?]
+	at com.mojang.blaze3d.systems.RenderSystem.flipFrame(RenderSystem.java:184) ~[neoforge-20.4.0-beta.jar:?]
+	at com.mojang.blaze3d.platform.Window.updateDisplay(Window.java:278) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1274) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:807) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.main.Main.main(Main.java:244) ~[neoforge-20.4.0-beta.jar:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.clientService(CommonLaunchHandler.java:114) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.ForgeClientUserdevLaunchHandler.runService(ForgeClientUserdevLaunchHandler.java:19) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-1.0.16.jar:1.0]
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
+[17Jan2024 11:11:23.506] [Render thread/ERROR] [net.minecraft.world.item.crafting.RecipeManager/]: Parsing error loading recipe paganbless:runic_charge
+com.google.gson.JsonParseException: No key result in MapLike[{"type":"paganbless:cauldron_imbuing","fluidType":"minecraft:water","fluidAmount":1000,"ingredients":[{"item":"minecraft:glass_bottle"},{"count":2,"tag":"paganbless:herbs"},{"count":1,"item":"minecraft:amethyst_shard"},{"count":2,"item":"minecraft:glowstone_dust"}],"output":{"count":2,"item":"paganbless:runic_charge"}}]
+	at net.minecraft.Util.getOrThrow(Util.java:841) ~[neoforge-20.4.0-beta.jar:?]
+	at net.neoforged.neoforge.common.conditions.ICondition.getWithWithConditionsCodec(ICondition.java:45) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.fromJson(RecipeManager.java:151) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:57) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:36) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:19) ~[neoforge-20.4.0-beta.jar:?]
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:718) ~[?:?]
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?]
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:79) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:146) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:24) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:120) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.managedBlock(BlockableEventLoop.java:130) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadWorldDataBlocking(WorldOpenFlows.java:199) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadWorldStem(WorldOpenFlows.java:141) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadLevel(WorldOpenFlows.java:351) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadLevel(WorldOpenFlows.java:342) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.checkForBackupAndLoad(WorldOpenFlows.java:323) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.checkForBackupAndLoad(WorldOpenFlows.java:256) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry.joinWorld(WorldSelectionList.java:504) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry.mouseClicked(WorldSelectionList.java:487) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.components.AbstractSelectionList.mouseClicked(AbstractSelectionList.java:276) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.components.events.ContainerEventHandler.mouseClicked(ContainerEventHandler.java:40) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$onPress$0(MouseHandler.java:93) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.Screen.wrapScreenError(Screen.java:425) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.onPress(MouseHandler.java:90) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$setup$4(MouseHandler.java:193) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:96) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$setup$5(MouseHandler.java:193) ~[neoforge-20.4.0-beta.jar:?]
+	at org.lwjgl.glfw.GLFWMouseButtonCallbackI.callback(GLFWMouseButtonCallbackI.java:43) ~[lwjgl-glfw-3.3.2.jar:build 13]
+	at org.lwjgl.system.JNI.invokeV(Native Method) ~[lwjgl-3.3.2.jar:build 13]
+	at org.lwjgl.glfw.GLFW.glfwPollEvents(GLFW.java:3438) ~[lwjgl-glfw-3.3.2.jar:build 13]
+	at com.mojang.blaze3d.systems.RenderSystem.pollEvents(RenderSystem.java:175) ~[neoforge-20.4.0-beta.jar:?]
+	at com.mojang.blaze3d.systems.RenderSystem.flipFrame(RenderSystem.java:184) ~[neoforge-20.4.0-beta.jar:?]
+	at com.mojang.blaze3d.platform.Window.updateDisplay(Window.java:278) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1274) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:807) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.main.Main.main(Main.java:244) ~[neoforge-20.4.0-beta.jar:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.clientService(CommonLaunchHandler.java:114) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.ForgeClientUserdevLaunchHandler.runService(ForgeClientUserdevLaunchHandler.java:19) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-1.0.16.jar:1.0]
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
+[17Jan2024 11:11:23.530] [Render thread/ERROR] [net.minecraft.world.item.crafting.RecipeManager/]: Parsing error loading recipe paganbless:wican_ward
+com.google.gson.JsonParseException: Not a JSON object: "paganbless:rune_slab_amethyst"; No key result in MapLike[{"type":"paganbless:runic_ritual","runeBlock":"paganbless:rune_slab_amethyst","output":{"item":"paganbless:wican_ward"}}]
+	at net.minecraft.Util.getOrThrow(Util.java:841) ~[neoforge-20.4.0-beta.jar:?]
+	at net.neoforged.neoforge.common.conditions.ICondition.getWithWithConditionsCodec(ICondition.java:45) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.fromJson(RecipeManager.java:151) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:57) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.world.item.crafting.RecipeManager.apply(RecipeManager.java:36) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:19) ~[neoforge-20.4.0-beta.jar:?]
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:718) ~[?:?]
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?]
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:79) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:146) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:24) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:120) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.managedBlock(BlockableEventLoop.java:130) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadWorldDataBlocking(WorldOpenFlows.java:199) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadWorldStem(WorldOpenFlows.java:141) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadLevel(WorldOpenFlows.java:351) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.loadLevel(WorldOpenFlows.java:342) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.checkForBackupAndLoad(WorldOpenFlows.java:323) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldOpenFlows.checkForBackupAndLoad(WorldOpenFlows.java:256) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry.joinWorld(WorldSelectionList.java:504) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry.mouseClicked(WorldSelectionList.java:487) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.components.AbstractSelectionList.mouseClicked(AbstractSelectionList.java:276) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.components.events.ContainerEventHandler.mouseClicked(ContainerEventHandler.java:40) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$onPress$0(MouseHandler.java:93) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.gui.screens.Screen.wrapScreenError(Screen.java:425) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.onPress(MouseHandler.java:90) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$setup$4(MouseHandler.java:193) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:96) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.MouseHandler.lambda$setup$5(MouseHandler.java:193) ~[neoforge-20.4.0-beta.jar:?]
+	at org.lwjgl.glfw.GLFWMouseButtonCallbackI.callback(GLFWMouseButtonCallbackI.java:43) ~[lwjgl-glfw-3.3.2.jar:build 13]
+	at org.lwjgl.system.JNI.invokeV(Native Method) ~[lwjgl-3.3.2.jar:build 13]
+	at org.lwjgl.glfw.GLFW.glfwPollEvents(GLFW.java:3438) ~[lwjgl-glfw-3.3.2.jar:build 13]
+	at com.mojang.blaze3d.systems.RenderSystem.pollEvents(RenderSystem.java:175) ~[neoforge-20.4.0-beta.jar:?]
+	at com.mojang.blaze3d.systems.RenderSystem.flipFrame(RenderSystem.java:184) ~[neoforge-20.4.0-beta.jar:?]
+	at com.mojang.blaze3d.platform.Window.updateDisplay(Window.java:278) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1274) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:807) ~[neoforge-20.4.0-beta.jar:?]
+	at net.minecraft.client.main.Main.main(Main.java:244) ~[neoforge-20.4.0-beta.jar:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.clientService(CommonLaunchHandler.java:114) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.ForgeClientUserdevLaunchHandler.runService(ForgeClientUserdevLaunchHandler.java:19) ~[loader-1.0.16.jar:1.0]
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-1.0.16.jar:1.0]
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
+[17Jan2024 11:11:23.546] [Render thread/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 8 recipes
+[17Jan2024 11:11:24.094] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Loaded 1271 advancements
+[17Jan2024 11:11:25.170] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Starting integrated minecraft server version 1.20.4
+[17Jan2024 11:11:25.171] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Generating keypair
+[17Jan2024 11:11:29.435] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
+[17Jan2024 11:11:32.491] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[17Jan2024 11:11:32.492] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[17Jan2024 11:11:32.492] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[17Jan2024 11:11:32.492] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[17Jan2024 11:11:32.492] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[17Jan2024 11:11:32.492] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[17Jan2024 11:11:32.492] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[17Jan2024 11:11:33.016] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[17Jan2024 11:11:33.486] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[17Jan2024 11:11:33.966] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 15%
+[17Jan2024 11:11:34.462] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 32%
+[17Jan2024 11:11:34.961] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 54%
+[17Jan2024 11:11:35.452] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 59%
+[17Jan2024 11:11:36.603] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 68%
+[17Jan2024 11:11:36.640] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 68%
+[17Jan2024 11:11:37.001] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 68%
+[17Jan2024 11:11:37.605] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 68%
+[17Jan2024 11:11:38.025] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 68%
+[17Jan2024 11:11:38.514] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 68%
+[17Jan2024 11:11:38.949] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 68%
+[17Jan2024 11:11:39.456] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 69%
+[17Jan2024 11:11:39.965] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 69%
+[17Jan2024 11:11:40.459] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 70%
+[17Jan2024 11:11:40.979] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 71%
+[17Jan2024 11:11:41.464] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 72%
+[17Jan2024 11:11:41.983] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 72%
+[17Jan2024 11:11:42.483] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 74%
+[17Jan2024 11:11:42.977] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 74%
+[17Jan2024 11:11:43.492] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 75%
+[17Jan2024 11:11:43.959] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 75%
+[17Jan2024 11:11:44.494] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 75%
+[17Jan2024 11:11:44.974] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 76%
+[17Jan2024 11:11:45.460] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 78%
+[17Jan2024 11:11:45.968] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 79%
+[17Jan2024 11:11:46.463] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 82%
+[17Jan2024 11:11:46.962] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 83%
+[17Jan2024 11:11:47.452] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 83%
+[17Jan2024 11:11:47.949] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 83%
+[17Jan2024 11:11:48.448] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 84%
+[17Jan2024 11:11:48.957] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 85%
+[17Jan2024 11:11:49.466] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 86%
+[17Jan2024 11:11:50.048] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 87%
+[17Jan2024 11:11:50.480] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 88%
+[17Jan2024 11:11:50.982] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 89%
+[17Jan2024 11:11:51.461] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 90%
+[17Jan2024 11:11:51.976] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 91%
+[17Jan2024 11:11:52.449] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 92%
+[17Jan2024 11:11:52.952] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 93%
+[17Jan2024 11:11:53.464] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 95%
+[17Jan2024 11:11:53.965] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 96%
+[17Jan2024 11:11:54.459] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 98%
+[17Jan2024 11:11:54.948] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 99%
+[17Jan2024 11:11:55.090] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 25644 ms
+[17Jan2024 11:11:55.095] [Server thread/INFO] [net.neoforged.neoforge.server.permission.PermissionAPI/]: Successfully initialized permission handler neoforge:default_handler
+[17Jan2024 11:11:55.095] [Server thread/INFO] [com.pigdad.paganbless.PaganBless/]: HELLO from server starting
+[17Jan2024 11:11:55.360] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing view distance to 6, from 10
+[17Jan2024 11:11:55.361] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing simulation distance to 6, from 0
+[17Jan2024 11:11:56.416] [Netty Server IO #1/WARN] [net.minecraft.server.network.ServerCommonPacketListenerImpl/]: Unknown custom packet payload: minecraft:brand
+[17Jan2024 11:11:56.543] [Render thread/INFO] [net.neoforged.neoforge.network.NetworkHooks/]: Connected to a modded server.
+[17Jan2024 11:11:56.760] [Server thread/INFO] [net.minecraft.server.players.PlayerList/]: Dev[local:E:b6e47a30] logged in with entity id 188 at (27.856412142852225, 72.0, 29.2892733404231)
+[17Jan2024 11:11:56.902] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev joined the game
+[17Jan2024 11:11:57.085] [Render thread/WARN] [net.minecraft.client.ClientRecipeBook/]: Unknown recipe category: [!!!com.mojang.logging.LogUtils$1ToString@69e0d31d=>java.lang.NullPointerException:Cannot invoke "Object.toString()" because the return value of "java.util.function.Supplier.get()" is null!!!]/paganbless:runic_core
+[17Jan2024 11:11:57.091] [Render thread/WARN] [net.minecraft.client.ClientRecipeBook/]: Unknown recipe category: [!!!com.mojang.logging.LogUtils$1ToString@7424796c=>java.lang.NullPointerException:Cannot invoke "Object.toString()" because the return value of "java.util.function.Supplier.get()" is null!!!]/paganbless:redstone_from_cinnabar
+[17Jan2024 11:11:57.094] [Render thread/WARN] [net.minecraft.client.ClientRecipeBook/]: Unknown recipe category: [!!!com.mojang.logging.LogUtils$1ToString@1872c2d5=>java.lang.NullPointerException:Cannot invoke "Object.toString()" because the return value of "java.util.function.Supplier.get()" is null!!!]/paganbless:rune_slab_emerald
+[17Jan2024 11:11:57.103] [Render thread/WARN] [net.minecraft.client.ClientRecipeBook/]: Unknown recipe category: [!!!com.mojang.logging.LogUtils$1ToString@28a824a4=>java.lang.NullPointerException:Cannot invoke "Object.toString()" because the return value of "java.util.function.Supplier.get()" is null!!!]/paganbless:rune_slab_lapis
+[17Jan2024 11:11:57.106] [Render thread/WARN] [net.minecraft.client.ClientRecipeBook/]: Unknown recipe category: [!!!com.mojang.logging.LogUtils$1ToString@2a15b749=>java.lang.NullPointerException:Cannot invoke "Object.toString()" because the return value of "java.util.function.Supplier.get()" is null!!!]/paganbless:rune_slab_diamond
+[17Jan2024 11:11:57.112] [Render thread/WARN] [net.minecraft.client.ClientRecipeBook/]: Unknown recipe category: [!!!com.mojang.logging.LogUtils$1ToString@763a602=>java.lang.NullPointerException:Cannot invoke "Object.toString()" because the return value of "java.util.function.Supplier.get()" is null!!!]/paganbless:rune_slab_amethyst
+[17Jan2024 11:11:57.125] [Render thread/WARN] [net.minecraft.client.ClientRecipeBook/]: Unknown recipe category: [!!!com.mojang.logging.LogUtils$1ToString@4e9a832c=>java.lang.NullPointerException:Cannot invoke "Object.toString()" because the return value of "java.util.function.Supplier.get()" is null!!!]/paganbless:rune_slab_quartz
+[17Jan2024 11:11:57.131] [Render thread/WARN] [net.minecraft.client.ClientRecipeBook/]: Unknown recipe category: [!!!com.mojang.logging.LogUtils$1ToString@66b46edd=>java.lang.NullPointerException:Cannot invoke "Object.toString()" because the return value of "java.util.function.Supplier.get()" is null!!!]/paganbless:rune_slab_cinnabar
+[17Jan2024 11:11:57.405] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Loaded 2 advancements
+[17Jan2024 11:11:59.033] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[17Jan2024 11:11:59.122] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[17Jan2024 11:12:01.651] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[17Jan2024 11:12:01.668] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[17Jan2024 11:12:01.682] [Server thread/WARN] [net.minecraft.server.MinecraftServer/]: Can't keep up! Is the server overloaded? Running 3286ms or 65 ticks behind
+[17Jan2024 11:12:44.695] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[17Jan2024 11:12:44.743] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[17Jan2024 11:12:44.763] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[17Jan2024 11:12:44.768] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether

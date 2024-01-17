@@ -2,18 +2,17 @@ package com.pigdad.paganbless.utils;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.recipes.RunicRitualRecipe;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -26,7 +25,7 @@ import java.util.Map;
 public class RecipeUtils {
     @Nullable
     public static Fluid parseFluid(JsonElement jsonElement) {
-        for (Map.Entry<ResourceKey<Fluid>,Fluid> fluid1 : ForgeRegistries.FLUIDS.getEntries()) {
+        for (Map.Entry<ResourceKey<Fluid>, Fluid> fluid1 : BuiltInRegistries.FLUID.entrySet()) {
             if (jsonElement.getAsString().equals(fluid1.getValue().getFluidType().toString())) {
                 return fluid1.getValue();
             }
@@ -45,7 +44,7 @@ public class RecipeUtils {
                 }
             }
         } else {
-            ingredients.add(ingredients.size()-1, parseIngredient(element.getAsJsonObject()));
+            ingredients.add(ingredients.size() - 1, parseIngredient(element.getAsJsonObject()));
         }
     }
 
@@ -58,7 +57,7 @@ public class RecipeUtils {
 
         if (element.isJsonArray()) {
             try {
-                ingredient = Ingredient.fromJson(element);
+                ingredient = Ingredient.fromJson(element, true);
             } catch (Throwable t) {
                 ingredient = Ingredient.of(ItemStack.EMPTY);
             }
@@ -66,7 +65,7 @@ public class RecipeUtils {
             JsonElement subElement = element.getAsJsonObject();
             try {
                 JsonObject object = subElement.getAsJsonObject();
-                ingredient = Ingredient.fromJson(subElement);
+                ingredient = Ingredient.fromJson(subElement, true);
                 int count;
                 if (object.has("count")) {
                     count = object.get("count").getAsInt();
@@ -85,14 +84,13 @@ public class RecipeUtils {
 
     public static Item parseItem(JsonElement jsonElement) {
         try {
-            String[] rawBlock = jsonElement.getAsString().split(":");
-            return ForgeRegistries.ITEMS.getValue(new ResourceLocation(rawBlock[0], rawBlock[1]));
+            return BuiltInRegistries.ITEM.get(new ResourceLocation(jsonElement.getAsString()));
         } catch (Exception ignored) {
             throw new NullPointerException("Runeblock is null");
         }
     }
 
-    public static List<RunicRitualRecipe> getAllRitualRecipes(RecipeManager recipeManager) {
+    public static List<RecipeHolder<RunicRitualRecipe>> getAllRitualRecipes(RecipeManager recipeManager) {
         return recipeManager.getAllRecipesFor(RunicRitualRecipe.Type.INSTANCE);
     }
 }

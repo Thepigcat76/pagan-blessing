@@ -1,14 +1,11 @@
 package com.pigdad.paganbless.registries.recipes;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.pigdad.paganbless.PaganBless;
-import com.pigdad.paganbless.utils.RecipeUtils;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
@@ -22,12 +19,10 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
     public static final String NAME = "anvil_smashing";
     private final NonNullList<Ingredient> inputItems;
     private final ItemStack output;
-    private final ResourceLocation id;
 
-    public AnvilSmashingRecipe(ResourceLocation id, ItemStack output, NonNullList<Ingredient> inputItems) {
+    public AnvilSmashingRecipe(NonNullList<Ingredient> inputItems, ItemStack output) {
         this.inputItems = inputItems;
         this.output = output;
-        this.id = id;
     }
 
     @Override
@@ -65,11 +60,6 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public @NotNull ResourceLocation getId() {
-        return id;
-    }
-
-    @Override
     public @NotNull RecipeSerializer<?> getSerializer() {
         return Serializer.INSTANCE;
     }
@@ -84,27 +74,25 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
         }
 
         public static final Type INSTANCE = new Type();
-        public static final String ID = NAME;
     }
 
     public static class Serializer implements RecipeSerializer<AnvilSmashingRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID =
-                new ResourceLocation(PaganBless.MODID, NAME);
+        private static final Codec<AnvilSmashingRecipe> CODEC = RecordCodecBuilder.create((p_300831_) -> p_300831_.group(
+                Ingredient.CODEC_NONEMPTY.listOf().fieldOf("ingredients").flatXmap((p_301021_) -> {
+                    Ingredient[] aingredient = p_301021_.toArray(Ingredient[]::new);
+                    return DataResult.success(NonNullList.of(Ingredient.EMPTY, aingredient));
+                }, DataResult::success).forGetter(AnvilSmashingRecipe::getIngredients),
+                ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("output").forGetter((p_300827_) -> p_300827_.getResultItem(null))
+        ).apply(p_300831_, AnvilSmashingRecipe::new));
 
         @Override
-        public @NotNull AnvilSmashingRecipe fromJson(ResourceLocation id, JsonObject json) {
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
-
-            JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
-            NonNullList<Ingredient> inputs = NonNullList.create();
-            RecipeUtils.parseInputs(inputs, json.get("ingredients"));
-
-            return new AnvilSmashingRecipe(id, output, inputs);
+        public @NotNull Codec<AnvilSmashingRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public AnvilSmashingRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
+        public @NotNull AnvilSmashingRecipe fromNetwork(FriendlyByteBuf buf) {
             int inputSize = buf.readInt();
             List<Ingredient> inputs = new ArrayList<>();
 
@@ -116,7 +104,7 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
             ingredients.addAll(inputs);
 
             ItemStack output = buf.readItem();
-            return new AnvilSmashingRecipe(id, output, ingredients);
+            return new AnvilSmashingRecipe(ingredients, output);
         }
 
         @Override
@@ -127,7 +115,7 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
                 ing.toNetwork(buf);
             }
 
-            buf.writeItemStack(recipe.getResultItem(null), false);
+            buf.writeItem(recipe.getResultItem(null));
         }
     }
 }
