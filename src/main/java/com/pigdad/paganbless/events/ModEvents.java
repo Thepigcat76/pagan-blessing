@@ -14,6 +14,7 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.fluids.capability.wrappers.FluidBlockWrapper;
+import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
 public class ModEvents {
     @Mod.EventBusSubscriber(modid = PaganBless.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -32,7 +33,7 @@ public class ModEvents {
             BlockState block = event.getEntity().level().getBlockState(event.getEntity().getOnPos());
             if (block.is(PBBlocks.RUNIC_CORE.get())) {
                 if (event.getEntity().level().getBlockEntity(event.getEntity().getOnPos()) instanceof RunicCoreBlockEntity runicCoreBlockEntity) {
-                    // runicCoreBlockEntity.craftItem(event.getEntity());
+                    runicCoreBlockEntity.craftItem(event.getEntity());
                 }
             }
         }

@@ -3,6 +3,8 @@ package com.pigdad.paganbless.registries.blockentities;
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBTags;
+import com.pigdad.paganbless.registries.recipes.ImbuingCauldronRecipe;
+import com.pigdad.paganbless.utils.IngredientWithCount;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
@@ -137,42 +139,41 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
     }
 
     public void tick(Level level, BlockPos blockPos, BlockState blockState) {
-        //if (hasRecipe() && fluidMatches()) {
+        if (hasRecipe() && fluidMatches()) {
             increaseCraftingProgress();
             setChanged(level, blockPos, blockState);
 
             if (hasProgressFinished()) {
-                //craftItem();
+                craftItem();
                 resetProgress();
             }
-        //} else {
+        } else {
             resetProgress();
-        //}
+        }
     }
 
     private void resetProgress() {
         progress = 0;
     }
-    /*
+
     private void craftItem() {
         Optional<RecipeHolder<ImbuingCauldronRecipe>> recipe = getCurrentRecipe();
         ItemStack result = recipe.get().value().getResultItem(null);
 
-        for (Ingredient ingredient : recipe.get().value().getIngredients()) {
-            ItemStack itemStack = ingredient.getItems()[0];
+        for (IngredientWithCount ingredient : recipe.get().value().getIngredientsWithCount()) {
+            ItemStack itemStack = ingredient.ingredient().getItems()[0];
             PaganBless.LOGGER.debug("Item: {}", itemStack);
             for (int i = 0; i < itemHandler.getSlots(); i++) {
                 if (itemHandler.getStackInSlot(i).is(itemStack.getItem()) && itemHandler.getStackInSlot(i).getCount() >= itemStack.getCount()) {
-                    itemHandler.extractItem(i, itemStack.getCount(), false);
+                    itemHandler.extractItem(i, ingredient.count(), false);
                     break;
                 } else if (itemHandler.getStackInSlot(i).is(PBTags.Item.HERBS) && itemHandler.getStackInSlot(i).getCount() >= itemStack.getCount()) {
-                    itemHandler.extractItem(i, itemStack.getCount(), false);
+                    itemHandler.extractItem(i, ingredient.count(), false);
                     break;
                 }
             }
         }
-        fluidTank.drain(recipe.get().value().getFluidStack().getAmount(), IFluidHandler.FluidAction.EXECUTE);
-
+        fluidTank.drain(recipe.get().value().getFluid().getAmount(), IFluidHandler.FluidAction.EXECUTE);
         this.itemHandler.setStackInSlot(OUTPUT, new ItemStack(result.getItem(),
                 this.itemHandler.getStackInSlot(OUTPUT).getCount() + result.getCount()));
     }
@@ -203,7 +204,7 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
 
         return this.level.getRecipeManager().getRecipeFor(ImbuingCauldronRecipe.Type.INSTANCE, inventory, level);
     }
-     */
+
 
     private boolean canInsertItemIntoOutputSlot(Item item) {
         return this.itemHandler.getStackInSlot(OUTPUT).isEmpty() || this.itemHandler.getStackInSlot(OUTPUT).is(item);

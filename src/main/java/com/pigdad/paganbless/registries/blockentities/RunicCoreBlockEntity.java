@@ -1,18 +1,38 @@
 package com.pigdad.paganbless.registries.blockentities;
 
+import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlockEntities;
+import com.pigdad.paganbless.registries.blocks.RunicCoreBlock;
+import com.pigdad.paganbless.registries.items.CaptureSacrificeItem;
+import com.pigdad.paganbless.registries.recipes.RunicRitualRecipe;
+import com.pigdad.paganbless.utils.Utils;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import oshi.hardware.platform.windows.WindowsUsbDevice;
+
+import java.util.Optional;
+import java.util.Set;
 
 public class RunicCoreBlockEntity extends BlockEntity {
     public RunicCoreBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
         super(PBBlockEntities.RUNIC_CORE.get(), p_155229_, p_155230_);
     }
 
-    /*
     public void craftItem(Entity sacrificedEntity) {
         if (level.isClientSide()) return;
+
+        Player player = Minecraft.getInstance().player;
 
         Set<BlockPos> runes = RunicCoreBlock.getRuneType(level, getBlockPos()).getFirst();
         if (runes != null) {
@@ -21,9 +41,13 @@ public class RunicCoreBlockEntity extends BlockEntity {
 
             Optional<RunicRitualRecipe> recipe = Optional.empty();
 
-            for (RecipeHolder<RunicRitualRecipe> recipe1 : RecipeUtils.getAllRitualRecipes(level.getRecipeManager())) {
+            PaganBless.LOGGER.debug("Rune: {}", runeBlock);
+
+            for (RecipeHolder<RunicRitualRecipe> recipe1 : Utils.getAllRitualRecipes(level.getRecipeManager())) {
+                PaganBless.LOGGER.debug("Recipe: {}", recipe1.value().getResultItem(null));
                 if (recipe1.value().matchesRunes(runeBlock, level)) {
                     recipe = Optional.of(recipe1.value());
+                    PaganBless.LOGGER.debug("Matches: {}", recipe1.value().getResultItem(null));
                     break;
                 }
             }
@@ -39,20 +63,19 @@ public class RunicCoreBlockEntity extends BlockEntity {
 
                         level.explode(sacrificedEntity, getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), 2.0F, Level.ExplosionInteraction.NONE);
 
-                        level.addFreshEntity(new ItemEntity(level, getBlockPos().getX(), getBlockPos().getY() + 10, getBlockPos().getZ(),
+                        level.addFreshEntity(new ItemEntity(level, getBlockPos().getX(), getBlockPos().getY() + 1, getBlockPos().getZ(),
                                 itemStack));
 
                         RunicCoreBlock.resetPillars(level, positions);
                     } else {
-                        Minecraft.getInstance().player.sendSystemMessage(Component.literal("Runic core is not activated, do so with a black thorn staff"));
+                        player.sendSystemMessage(Component.literal("Runic core is not activated, do so with a black thorn staff"));
                     }
                 } else {
-                    Minecraft.getInstance().player.sendSystemMessage(Component.literal("Rune layout does not match any recipes"));
+                    player.sendSystemMessage(Component.literal("Rune layout does not match any recipes"));
                 }
             }
         } else {
-            Minecraft.getInstance().player.sendSystemMessage(Component.literal(RunicCoreBlock.getRuneType(level, getBlockPos()).getSecond()));
+            player.sendSystemMessage(Component.literal(RunicCoreBlock.getRuneType(level, getBlockPos()).getSecond()));
         }
     }
-     */
 }

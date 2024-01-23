@@ -1,7 +1,9 @@
 {
   "type": "paganbless:cauldron_imbuing",
-  "fluidType": "minecraft:empty",
-  "fluidAmount": 0,
+  "fluid": {
+    "FluidName": "minecraft:empty",
+    "Amount": 0
+  },
   "ingredients": [
     {
       "count": 2,
