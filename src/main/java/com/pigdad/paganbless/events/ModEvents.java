@@ -32,7 +32,7 @@ public class ModEvents {
             BlockState block = event.getEntity().level().getBlockState(event.getEntity().getOnPos());
             if (block.is(PBBlocks.RUNIC_CORE.get())) {
                 if (event.getEntity().level().getBlockEntity(event.getEntity().getOnPos()) instanceof RunicCoreBlockEntity runicCoreBlockEntity) {
-                    runicCoreBlockEntity.craftItem(event.getEntity());
+                    // runicCoreBlockEntity.craftItem(event.getEntity());
                 }
             }
         }

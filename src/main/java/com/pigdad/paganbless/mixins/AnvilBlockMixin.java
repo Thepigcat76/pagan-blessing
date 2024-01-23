@@ -2,6 +2,7 @@ package com.pigdad.paganbless.mixins;
 
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.recipes.AnvilSmashingRecipe;
+import com.pigdad.paganbless.utils.IngredientWithCount;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
@@ -50,14 +51,19 @@ public class AnvilBlockMixin {
             AnvilSmashingRecipe recipe = optionalRecipe.get().value();
             ItemStack resultItem = recipe.getResultItem(level.registryAccess());
             for (int i = 0; i < recipe.getIngredients().size(); i++) {
-                itemEntities.get(i).getItem().shrink(recipe.getIngredients().get(i).getItems()[0].getCount());
+                IngredientWithCount ingredient = null;
+                for (IngredientWithCount ingredient1 : recipe.getIngredientsWithCount()) {
+                    if (ingredient1.ingredient().getItems()[0].is(itemEntities.get(i).getItem().getItem()) && ingredient1.count() <= itemEntities.get(i).getItem().getCount()) {
+                        ingredient = ingredient1;
+                        break;
+                    }
+                }
+                if (ingredient != null) {
+                    itemEntities.get(i).getItem().shrink(ingredient.count());
+                }
             }
             level.addFreshEntity(new ItemEntity(level, blockPos.getX(), blockPos.getY(), blockPos.getZ(), resultItem));
         }
-        for (int i = 0; i < container.getContainerSize(); i++) {
-            PaganBless.LOGGER.info("Ingredients: " + container.getItem(i));
-        }
-        PaganBless.LOGGER.info("Recipe: " + optionalRecipe);
     }
 
     private static Optional<RecipeHolder<AnvilSmashingRecipe>> getCurrentRecipe(Level level, SimpleContainer container) {

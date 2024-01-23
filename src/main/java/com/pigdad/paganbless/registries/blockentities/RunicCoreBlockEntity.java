@@ -1,31 +1,16 @@
 package com.pigdad.paganbless.registries.blockentities;
 
 import com.pigdad.paganbless.registries.PBBlockEntities;
-import com.pigdad.paganbless.registries.blocks.RunicCoreBlock;
-import com.pigdad.paganbless.registries.items.CaptureSacrificeItem;
-import com.pigdad.paganbless.registries.recipes.RunicRitualRecipe;
-import com.pigdad.paganbless.utils.RecipeUtils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-
-import java.util.Optional;
-import java.util.Set;
 
 public class RunicCoreBlockEntity extends BlockEntity {
     public RunicCoreBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
         super(PBBlockEntities.RUNIC_CORE.get(), p_155229_, p_155230_);
     }
 
+    /*
     public void craftItem(Entity sacrificedEntity) {
         if (level.isClientSide()) return;
 
@@ -69,4 +54,5 @@ public class RunicCoreBlockEntity extends BlockEntity {
             Minecraft.getInstance().player.sendSystemMessage(Component.literal(RunicCoreBlock.getRuneType(level, getBlockPos()).getSecond()));
         }
     }
+     */
 }

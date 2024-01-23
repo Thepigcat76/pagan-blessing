@@ -1,52 +1,16 @@
 package com.pigdad.paganbless.utils;
 
-/*
- * From CofhCore with modifications. Credits to the CoFH Team for this.
- */
-
-import it.unimi.dsi.fastutil.ints.IntList;
-import net.minecraft.world.item.ItemStack;
+import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.Codec;
 import net.minecraft.world.item.crafting.Ingredient;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.stream.Stream;
+public record IngredientWithCount(Ingredient ingredient, int count) {
+    public static final IngredientWithCount EMPTY = new IngredientWithCount(Ingredient.EMPTY, -1);
+    //Note: for implementation reasons count has to be above ingredient, otherwise we will get a JSON Null issue thingy
+    private static final Codec<Pair<Integer, Ingredient>> PAIR_CODEC = Codec.pair(
+            Codec.INT.optionalFieldOf("count", 1).codec(),
+            Ingredient.CODEC
+    );
 
-public class IngredientWithCount extends Ingredient {
-    private final Ingredient ingredient;
-    private final int count;
-
-    public IngredientWithCount(Ingredient ingredient, int count) {
-        super(Stream.of(ingredient.getValues()));
-        this.ingredient = ingredient;
-        this.count = count;
-    }
-
-    @Override
-    public ItemStack @NotNull [] getItems() {
-        for (ItemStack stack : ingredient.getItems()) {
-            stack.setCount(count);
-        }
-        return ingredient.getItems();
-    }
-
-    @Override
-    public boolean test(@Nullable ItemStack itemStack) {
-        return itemStack != null && ingredient.test(itemStack) && itemStack.getCount() >= count;
-    }
-
-    @Override
-    public @NotNull IntList getStackingIds() {
-        return ingredient.getStackingIds();
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return ingredient.isEmpty();
-    }
-
-    @Override
-    public boolean isSimple() {
-        return ingredient.isSimple();
-    }
+    public static final Codec<IngredientWithCount> CODEC = PAIR_CODEC.xmap(pair -> new IngredientWithCount(pair.getSecond(), pair.getFirst()), iwc -> new Pair<>(iwc.count, iwc.ingredient));
 }
