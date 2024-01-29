@@ -1,10 +1,19 @@
 package com.pigdad.paganbless.registries;
 
+import com.klikli_dev.modonomicon.data.BookDataManager;
 import com.pigdad.paganbless.PaganBless;
+import com.pigdad.paganbless.registries.blocks.PentacleBlock;
+import com.pigdad.paganbless.registries.items.CaptureSacrificeItem;
+import com.pigdad.paganbless.registries.items.PentacleItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
@@ -41,13 +50,13 @@ public class PBTabs {
                 output.accept(PBItems.GLAZED_BERRIES.get());
                 output.accept(PBItems.RUNIC_CHARGE.get());
                 output.accept(PBItems.BLACK_THORN_STAFF.get());
-                // addBook(output, PBItems.PAGAN_GUIDE.get());
+                addBook(output, PBItems.PAGAN_GUIDE.get());
                 output.accept(PBItems.CINNABAR.get());
                 output.accept(PBItems.HERB_POUCH.get());
                 output.accept(PBItems.ATHAME.get());
                 output.accept(PBItems.CHALICE.get());
                 output.accept(PBItems.ETERNAL_SNOWBALL.get());
-                output.accept(PBItems.PENTACLE.get());
+                addPentacle(output);
                 output.accept(PBItems.WAND.get());
                 output.accept(PBItems.WICAN_WARD.get());
                 output.accept(PBBlocks.BLACK_THORN_LOG.get());
@@ -55,7 +64,6 @@ public class PBTabs {
                 // output.accept(PBBlocks.BLACK_THORN_SAPLING.get());
             }).build());
 
-    /*
     public static void addBook(CreativeModeTab.Output output, Item item) {
         try {
             ResourceLocation id = BookDataManager.get().getBook(new ResourceLocation("paganbless:pagan_guide")).getId();
@@ -65,5 +73,11 @@ public class PBTabs {
         } catch (Exception ignored) {
         }
     }
-     */
+
+    public static void addPentacle(CreativeModeTab.Output output) {
+        PentacleItem item = (PentacleItem) PBItems.PENTACLE.get();
+        ItemStack itemStack = item.getDefaultInstance();
+        ((CaptureSacrificeItem) itemStack.getItem()).setEntity(EntityType.PIG, itemStack);
+        output.accept(itemStack);
+    }
 }

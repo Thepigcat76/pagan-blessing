@@ -1,5 +1,5 @@
 {
-  "type": "forge:add_features",
+  "type": "neoforge:add_features",
   "biomes": "#paganbless:can_black_thorn_tree_spawn",
   "features": "paganbless:black_thorn_tree",
   "step": "vegetal_decoration"

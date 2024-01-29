@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
-public class Utils {
+public final class Utils {
     // Get capability of a block entity
     public static <T, C> @Nullable T getCapability(BlockCapability<T, C> cap, BlockEntity blockEntity) {
         return blockEntity.getLevel().getCapability(cap, blockEntity.getBlockPos(), null);

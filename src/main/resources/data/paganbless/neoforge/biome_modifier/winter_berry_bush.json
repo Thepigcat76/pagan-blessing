@@ -1,5 +1,5 @@
 {
-  "type": "forge:add_features",
+  "type": "neoforge:add_features",
   "biomes": "#forge:is_snowy",
   "features": "paganbless:winter_berry_bush_placed",
   "step": "vegetal_decoration"

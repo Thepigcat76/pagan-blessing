@@ -55,7 +55,6 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
             setChanged();
             if (!level.isClientSide()) {
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
-                PaganBless.LOGGER.info("Updating");
             }
         }
 
@@ -162,7 +161,6 @@ public class ImbuingCauldronBlockEntity extends BlockEntity {
 
         for (IngredientWithCount ingredient : recipe.get().value().getIngredientsWithCount()) {
             ItemStack itemStack = ingredient.ingredient().getItems()[0];
-            PaganBless.LOGGER.debug("Item: {}", itemStack);
             for (int i = 0; i < itemHandler.getSlots(); i++) {
                 if (itemHandler.getStackInSlot(i).is(itemStack.getItem()) && itemHandler.getStackInSlot(i).getCount() >= itemStack.getCount()) {
                     itemHandler.extractItem(i, ingredient.count(), false);

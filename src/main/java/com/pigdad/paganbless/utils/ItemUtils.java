@@ -1,4 +1,4 @@
 package com.pigdad.paganbless.utils;
 
-public class ItemUtils {
+public final class ItemUtils {
 }

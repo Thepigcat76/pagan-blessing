@@ -107,8 +107,6 @@ public class RuneSlabBlock extends BaseEntityBlock {
             incrementRuneState(level, blockPos);
             return InteractionResult.SUCCESS;
         }
-        // FIXME: REMOVE THIS
-        PaganBless.LOGGER.debug("Recipes: {}", BuiltInRegistries.RECIPE_SERIALIZER.entrySet());
         return InteractionResult.FAIL;
     }
 

@@ -1,7 +1,9 @@
 {
   "type": "paganbless:cauldron_imbuing",
-  "fluidType": "minecraft:lava",
-  "fluidAmount": 1000,
+  "fluid": {
+    "FluidName": "minecraft:lava",
+    "Amount": 0
+  },
   "ingredients": [
     {
       "count": 3,

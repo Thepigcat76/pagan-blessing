@@ -1,0 +1,86 @@
+{
+  "name": "Blessings",
+"description": "What the rituals will give you",
+"icon": "paganbless:chalice",
+"x": -7,
+"y": -3,
+"category": "paganbless:features",
+"pages": [
+{
+"type": "modonomicon:text",
+"title": "Ritual Items",
+"use_markdown_title": true,
+"text": "\\
+\\
+The following pages will guide you through the items can be obtained from the runic ritual.\\
+\\
+Each require a sacrifice but will the power you obtain be worth it?"
+},
+{
+"type": "modonomicon:spotlight",
+"anchor": "",
+"item": {
+"item": "paganbless:athame"
+},
+"text": "\\
+\\
+The Athame is a fast and deadly weapon and you will need to use the Diamond Ritual to obtain its power",
+"title": "Athame"
+},
+{
+"type": "modonomicon:spotlight",
+"anchor": "",
+"item": {
+"item": "paganbless:chalice"
+},
+"text": "\\
+\\
+The Chalice works like a bottomless milk bucket curing you whenever you require. The Lapis Lazuli Ritual will grant you this boon",
+"title": "Chalice"
+},
+{
+"type": "modonomicon:spotlight",
+"anchor": "",
+"item": {
+"item": "paganbless:wand"
+},
+"text": "\\
+\\
+The Wand grants growth to plants and can be obtained by using the Emerald Ritual",
+"title": "Wand"
+},
+{
+"type": "modonomicon:spotlight",
+"anchor": "",
+"item": {
+"item": "paganbless:eternal_snowball"
+},
+"text": "\\
+\\
+An inexhaustable barrage of snowballs can be obtained by performing the Quartz Ritual",
+"title": "Eternal Snowball"
+},
+{
+"type": "modonomicon:spotlight",
+"anchor": "",
+"item": {
+"item": "paganbless:wican_ward"
+},
+"text": "\\
+\\
+The Wican Ward will be granted to you if you complete the Amethyst Ritual and gifts you an item that will stop mobs from spawning in your area",
+"title": "Wican Ward"
+},
+{
+"type": "modonomicon:spotlight",
+"anchor": "",
+"item": {
+"item": "paganbless:pentacle"
+},
+"text": "\\
+\\
+Using the Cinnabar Ritual you can obtain the incredibly powerful Pentacle. Whatever mob is sacrificed to obtain it will result in the Pentacle spawing that mob for eternity",
+"title": "Pentacle"
+}
+]
+}

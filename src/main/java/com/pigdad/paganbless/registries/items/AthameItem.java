@@ -24,7 +24,6 @@ public class AthameItem extends SwordItem {
     public boolean hurtEnemy(ItemStack p_43278_, LivingEntity livingEntity, LivingEntity player) {
         if (livingEntity.getMobType().equals(MobType.UNDEAD)) {
             livingEntity.hurt(livingEntity.level().damageSources().playerAttack((Player) player), 11F);
-            PaganBless.LOGGER.info("Hurting the enemy");
         }
         return super.hurtEnemy(p_43278_, livingEntity, player);
     }

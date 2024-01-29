@@ -42,7 +42,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 public class RunicCoreBlock extends BaseEntityBlock {
-    public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
+    public static final BooleanProperty ACTIVE = com.pigdad.paganbless.utils.BlockStateProperties.ACTIVE;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public RunicCoreBlock(Properties p_49224_) {
@@ -86,8 +86,7 @@ public class RunicCoreBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(BlockState p_60503_, Level p_60504_, BlockPos p_60505_, Player player, InteractionHand p_60507_, BlockHitResult p_60508_) {
         if (!p_60504_.isClientSide()) {
-            // TODO: Give more precise feedback
-            if (!player.getItemInHand(p_60507_).is(PBItems.BLACK_THORN_STAFF.get()) && getRuneType(p_60504_, p_60505_).getSecond() == null) {
+            if (!player.getItemInHand(p_60507_).is(PBItems.BLACK_THORN_STAFF.get()) && getRuneType(p_60504_, p_60505_).getSecond() == null && p_60503_.getValue(ACTIVE)) {
                 player.sendSystemMessage(Component.literal("Ritual is valid"));
             } else if (!player.getItemInHand(p_60507_).is(PBItems.BLACK_THORN_STAFF.get())) {
                 player.sendSystemMessage(Component.literal("Ritual is incomplete"));
@@ -104,9 +103,9 @@ public class RunicCoreBlock extends BaseEntityBlock {
 
     @Override
     public void animateTick(BlockState p_220827_, Level level, BlockPos pos, RandomSource p_220830_) {
-        double d0 = (double)pos.getX() + 0.5f;
-        double d1 = (double)pos.getY() + 1.0f;
-        double d2 = (double)pos.getZ() + 0.5f;
+        double d0 = (double) pos.getX() + 0.5f;
+        double d1 = (double) pos.getY() + 1.0f;
+        double d2 = (double) pos.getZ() + 0.5f;
         level.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0f, 0.0f, 0.0f);
         level.addParticle(ParticleTypes.FLAME, d0, d1, d2, 0.0f, 0.0f, 0.0f);
     }

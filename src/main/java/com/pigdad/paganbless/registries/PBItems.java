@@ -1,5 +1,6 @@
 package com.pigdad.paganbless.registries;
 
+import com.klikli_dev.modonomicon.Modonomicon;
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.items.*;
 import net.minecraft.ChatFormatting;
@@ -11,6 +12,7 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
@@ -19,7 +21,7 @@ public class PBItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM, PaganBless.MODID);
     public static Supplier<Item> PAGAN_GUIDE;
     public static final Supplier<Item> RUE = registerItem("rue",
-            () -> new Item(new Item.Properties().stacksTo(1)));
+            () -> new Item(new Item.Properties()));
     public static final Supplier<Item> BELLADONNA = registerItem("belladonna",
             () -> new Item(new Item.Properties()));
     public static final Supplier<Item> HAG_TAPER = registerItem("hag_taper",
@@ -65,7 +67,6 @@ public class PBItems {
     public static final Supplier<Item> HERB_POUCH = registerItem("herb_pouch",
             () -> new HerbPouchItem(new Item.Properties().stacksTo(1)));
 
-    /*
     static {
         try {
             if (ModList.get().isLoaded(Modonomicon.MOD_ID)) {
@@ -75,7 +76,6 @@ public class PBItems {
             PaganBless.LOGGER.info("Failed to load modonomicon. Consider installing it");
         }
     }
-     */
 
     private static Supplier<Item> registerItem(String name, Supplier<Item> item) {
         return ITEMS.register(name, item);

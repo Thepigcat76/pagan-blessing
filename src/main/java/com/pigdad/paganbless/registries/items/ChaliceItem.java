@@ -8,6 +8,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MilkBucketItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.common.EffectCure;
+import net.neoforged.neoforge.common.EffectCures;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -20,7 +22,7 @@ public class ChaliceItem extends MilkBucketItem {
     @Override
     public ItemStack finishUsingItem(ItemStack p_42923_, Level p_42924_, LivingEntity p_42925_) {
         if (!p_42924_.isClientSide()) {
-            p_42925_.curePotionEffects(new ItemStack(Items.MILK_BUCKET));
+            p_42925_.removeEffectsCuredBy(EffectCures.MILK);
         }
         return p_42923_;
     }

@@ -41,13 +41,9 @@ public class RunicCoreBlockEntity extends BlockEntity {
 
             Optional<RunicRitualRecipe> recipe = Optional.empty();
 
-            PaganBless.LOGGER.debug("Rune: {}", runeBlock);
-
             for (RecipeHolder<RunicRitualRecipe> recipe1 : Utils.getAllRitualRecipes(level.getRecipeManager())) {
-                PaganBless.LOGGER.debug("Recipe: {}", recipe1.value().getResultItem(null));
                 if (recipe1.value().matchesRunes(runeBlock, level)) {
                     recipe = Optional.of(recipe1.value());
-                    PaganBless.LOGGER.debug("Matches: {}", recipe1.value().getResultItem(null));
                     break;
                 }
             }

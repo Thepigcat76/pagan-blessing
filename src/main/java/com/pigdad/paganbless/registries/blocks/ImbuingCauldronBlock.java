@@ -3,9 +3,11 @@ package com.pigdad.paganbless.registries.blocks;
 import com.mojang.serialization.MapCodec;
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlockEntities;
+import com.pigdad.paganbless.registries.PBTags;
 import com.pigdad.paganbless.registries.blockentities.ImbuingCauldronBlockEntity;
 import com.pigdad.paganbless.utils.Utils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -13,16 +15,17 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.CampfireBlock;
-import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -34,11 +37,14 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
 
+@SuppressWarnings("deprecation")
 public class ImbuingCauldronBlock extends BaseEntityBlock {
+    public static final BooleanProperty ACTIVE = com.pigdad.paganbless.utils.BlockStateProperties.ACTIVE;
     public static final VoxelShape SHAPE = Stream.of(
             Block.box(1, 2.5, 1, 15, 7.5, 15),
             Block.box(3, 0, 3, 13, 2, 13),
@@ -48,6 +54,7 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
 
     public ImbuingCauldronBlock(Properties p_49224_) {
         super(p_49224_);
+        registerDefaultState(this.defaultBlockState().setValue(ACTIVE, false));
     }
 
     @Override
@@ -65,6 +72,35 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
         }
 
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
+    }
+
+    @Nullable
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        if (ctx.getLevel().getBlockState(ctx.getClickedPos().below()).is(PBTags.Block.HEAT_SOURCE))
+            return super.getStateForPlacement(ctx).setValue(ACTIVE, true);
+        return super.getStateForPlacement(ctx);
+    }
+
+    @Override
+    public @NotNull BlockState updateShape(BlockState oldState, Direction direction, BlockState newState, LevelAccessor p_60544_, BlockPos basePos, BlockPos p_60546_) {
+        BlockState blockState = p_60544_.getBlockState(basePos);
+        if (newState.getBlock() != this) {
+            if (direction.equals(Direction.DOWN)) {
+                if (newState.is(PBTags.Block.HEAT_SOURCE)) {
+                    return blockState.setValue(ACTIVE, true);
+                } else if (blockState.getValue(ACTIVE) && !newState.is(PBTags.Block.HEAT_SOURCE)) {
+                    return blockState.setValue(ACTIVE, false);
+                }
+            }
+        }
+
+        return blockState;
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_49915_) {
+        p_49915_.add(ACTIVE);
     }
 
     @Override
@@ -97,10 +133,8 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
         ImbuingCauldronBlockEntity blockEntity = (ImbuingCauldronBlockEntity) level.getBlockEntity(blockPos);
 
         if (blockEntity.isActive()) {
-            if (randomSource.nextFloat() < 0.11F) {
-                for (int i = 0; i < randomSource.nextInt(2) + 2; ++i) {
-                    CampfireBlock.makeParticles(level, blockPos, false, false);
-                }
+            for (int i = 0; i < randomSource.nextInt(2) + 2; ++i) {
+                CampfireBlock.makeParticles(level, blockPos, false, false);
             }
         }
     }
@@ -112,39 +146,43 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
         IItemHandler itemHandler = Utils.getCapability(Capabilities.ItemHandler.BLOCK, blockEntity);
         IFluidHandler fluidHandler = Utils.getCapability(Capabilities.FluidHandler.BLOCK, blockEntity);
         if (!level.isClientSide()) {
-            if (!player.getItemInHand(interactionHand).isEmpty() && fluidHandlerItem == null) {
-                int insertIndex = getFirstForInsert(itemHandler, player.getItemInHand(interactionHand));
-                if (insertIndex != -1) {
-                    itemHandler.insertItem(insertIndex, player.getItemInHand(interactionHand).copy(), false);
-                    player.getItemInHand(interactionHand).setCount(0);
-                }
-            } else if (player.getItemInHand(interactionHand).isEmpty()) {
-                int extractIndex = getFirstForExtract(itemHandler);
-                if (extractIndex != -1) {
-                    ItemHandlerHelper.giveItemToPlayer(player, itemHandler.getStackInSlot(extractIndex).copy());
-                    itemHandler.extractItem(extractIndex, itemHandler.getStackInSlot(extractIndex).getCount(), false);
-                }
-            }
-
-            if (fluidHandlerItem != null && fluidHandlerItem.getFluidInTank(0).getAmount() > 0) {
-                int filled = fluidHandler.fill(fluidHandlerItem.getFluidInTank(0).copy(), IFluidHandler.FluidAction.EXECUTE);
-                fluidHandlerItem.drain(filled, IFluidHandler.FluidAction.EXECUTE);
-                if (player.getItemInHand(interactionHand).getItem() instanceof BucketItem) {
-                    player.getItemInHand(interactionHand).setCount(0);
-                    ItemHandlerHelper.giveItemToPlayer(player, Items.BUCKET.getDefaultInstance());
-                }
-            } else if (fluidHandlerItem != null && fluidHandlerItem.getFluidInTank(0).getAmount() == 0) {
-                if (player.getItemInHand(interactionHand).is(Items.BUCKET)) {
-                    player.getItemInHand(interactionHand).shrink(1);
-                    ItemHandlerHelper.giveItemToPlayer(player, fluidHandler.getFluidInTank(0).getFluid().getBucket().getDefaultInstance());
-                    fluidHandler.drain(1000, IFluidHandler.FluidAction.EXECUTE);
-                } else {
-                    FluidStack fluidStack = fluidHandler.drain(1000, IFluidHandler.FluidAction.EXECUTE);
-                    fluidHandlerItem.fill(fluidStack, IFluidHandler.FluidAction.EXECUTE);
-                }
-            }
+            insertAndExtract(player, interactionHand, itemHandler, fluidHandler, fluidHandlerItem);
         }
         return InteractionResult.SUCCESS;
+    }
+
+    private static void insertAndExtract(Player player, InteractionHand interactionHand, IItemHandler itemHandler, IFluidHandler fluidHandler, IFluidHandler fluidHandlerItem) {
+        if (!player.getItemInHand(interactionHand).isEmpty() && fluidHandlerItem == null) {
+            int insertIndex = getFirstForInsert(itemHandler, player.getItemInHand(interactionHand));
+            if (insertIndex != -1) {
+                itemHandler.insertItem(insertIndex, player.getItemInHand(interactionHand).copy(), false);
+                player.getItemInHand(interactionHand).setCount(0);
+            }
+        } else if (player.getItemInHand(interactionHand).isEmpty()) {
+            int extractIndex = getFirstForExtract(itemHandler);
+            if (extractIndex != -1) {
+                ItemHandlerHelper.giveItemToPlayer(player, itemHandler.getStackInSlot(extractIndex).copy());
+                itemHandler.extractItem(extractIndex, itemHandler.getStackInSlot(extractIndex).getCount(), false);
+            }
+        }
+
+        if (fluidHandlerItem != null && fluidHandlerItem.getFluidInTank(0).getAmount() > 0) {
+            int filled = fluidHandler.fill(fluidHandlerItem.getFluidInTank(0).copy(), IFluidHandler.FluidAction.EXECUTE);
+            fluidHandlerItem.drain(filled, IFluidHandler.FluidAction.EXECUTE);
+            if (player.getItemInHand(interactionHand).getItem() instanceof BucketItem) {
+                player.getItemInHand(interactionHand).setCount(0);
+                ItemHandlerHelper.giveItemToPlayer(player, Items.BUCKET.getDefaultInstance());
+            }
+        } else if (fluidHandlerItem != null && fluidHandlerItem.getFluidInTank(0).getAmount() == 0) {
+            if (player.getItemInHand(interactionHand).is(Items.BUCKET)) {
+                player.getItemInHand(interactionHand).shrink(1);
+                ItemHandlerHelper.giveItemToPlayer(player, fluidHandler.getFluidInTank(0).getFluid().getBucket().getDefaultInstance());
+                fluidHandler.drain(1000, IFluidHandler.FluidAction.EXECUTE);
+            } else {
+                FluidStack fluidStack = fluidHandler.drain(1000, IFluidHandler.FluidAction.EXECUTE);
+                fluidHandlerItem.fill(fluidStack, IFluidHandler.FluidAction.EXECUTE);
+            }
+        }
     }
 
     private static int getFirstForInsert(IItemHandler itemHandler, ItemStack toInsert) {
@@ -157,7 +195,7 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
     }
 
     private static int getFirstForExtract(IItemHandler itemHandler) {
-        for (int i = itemHandler.getSlots()-1; i >= 0 ; i--) {
+        for (int i = itemHandler.getSlots() - 1; i >= 0; i--) {
             if (!itemHandler.getStackInSlot(i).isEmpty()) {
                 return i;
             }

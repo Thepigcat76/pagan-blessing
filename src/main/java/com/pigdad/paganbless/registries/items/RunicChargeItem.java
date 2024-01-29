@@ -42,9 +42,7 @@ public class RunicChargeItem extends Item {
                 blockEntity = level.getBlockEntity(blockPos);
             }
             RuneSlabBlockEntity runeSlabBlockEntity = (RuneSlabBlockEntity) blockEntity;
-            PaganBless.LOGGER.info("Blockentity: {}", runeSlabBlockEntity);
             String prevBlock = runeSlabBlockEntity.getPrevBlock();
-            PaganBless.LOGGER.info("Prev block: {}", prevBlock);
             if (prevBlock != null) {
                 ResourceLocation defaultStateLocation = new ResourceLocation(prevBlock);
                 BlockState defaultState = BuiltInRegistries.BLOCK.get(defaultStateLocation).defaultBlockState();

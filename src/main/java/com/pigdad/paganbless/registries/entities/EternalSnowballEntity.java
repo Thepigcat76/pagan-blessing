@@ -19,10 +19,6 @@ public class EternalSnowballEntity extends Snowball {
         super(p_37399_, p_37400_);
     }
 
-    public EternalSnowballEntity(Level p_37394_, double p_37395_, double p_37396_, double p_37397_) {
-        super(p_37394_, p_37396_, p_37397_, p_37395_);
-    }
-
     protected Item getDefaultItem() {
         return PBItems.ETERNAL_SNOWBALL.get();
     }
