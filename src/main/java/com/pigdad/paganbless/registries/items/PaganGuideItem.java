@@ -1,6 +1,8 @@
 package com.pigdad.paganbless.registries.items;
 
+import com.klikli_dev.modonomicon.data.BookDataManager;
 import com.klikli_dev.modonomicon.item.ModonomiconItem;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -19,5 +21,11 @@ public class PaganGuideItem extends ModonomiconItem {
         } catch (Exception ignored) {
             return InteractionResultHolder.fail(pPlayer.getItemInHand(pUsedHand));
         }
+    }
+
+    @Override
+    public void onCraftedBy(ItemStack itemStack, Level p_41448_, Player p_41449_) {
+        ResourceLocation id = BookDataManager.get().getBook(new ResourceLocation("paganbless:pagan_guide")).getId();
+        itemStack.getOrCreateTag().putString("modonomicon:book_id", id.toString());
     }
 }

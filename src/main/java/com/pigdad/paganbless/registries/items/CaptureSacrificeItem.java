@@ -2,6 +2,7 @@ package com.pigdad.paganbless.registries.items;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
@@ -17,5 +18,11 @@ public interface CaptureSacrificeItem {
             tag.getCompound("entity").remove("HandItems");
             tag.getCompound("entity").remove("ArmorItems");
         }
+    }
+
+    default void setEntity(EntityType<?> entity, ItemStack itemStack) {
+        CompoundTag tag = itemStack.getOrCreateTag();
+        tag.put("entity", new CompoundTag());
+        tag.getCompound("entity").putString("id", EntityType.getKey(entity).toString());
     }
 }

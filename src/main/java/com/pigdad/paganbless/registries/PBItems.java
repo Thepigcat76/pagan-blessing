@@ -23,7 +23,7 @@ public class PBItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, PaganBless.MODID);
     public static RegistryObject<Item> PAGAN_GUIDE;
     public static final RegistryObject<Item> RUE = registerItem("rue",
-            () -> new Item(new Item.Properties().stacksTo(1)));
+            () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> BELLADONNA = registerItem("belladonna",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> HAG_TAPER = registerItem("hag_taper",

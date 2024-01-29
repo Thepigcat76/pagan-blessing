@@ -2,9 +2,12 @@ package com.pigdad.paganbless.registries;
 
 import com.klikli_dev.modonomicon.data.BookDataManager;
 import com.pigdad.paganbless.PaganBless;
+import com.pigdad.paganbless.registries.items.CaptureSacrificeItem;
+import com.pigdad.paganbless.registries.items.PentacleItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -50,7 +53,7 @@ public class PBTabs {
                 output.accept(PBItems.ATHAME.get());
                 output.accept(PBItems.CHALICE.get());
                 output.accept(PBItems.ETERNAL_SNOWBALL.get());
-                output.accept(PBItems.PENTACLE.get());
+                addPentacle(output);
                 output.accept(PBItems.WAND.get());
                 output.accept(PBItems.WICAN_WARD.get());
                 output.accept(PBBlocks.BLACK_THORN_LOG.get());
@@ -66,5 +69,12 @@ public class PBTabs {
             output.accept(itemStack);
         } catch (Exception ignored) {
         }
+    }
+
+    public static void addPentacle(CreativeModeTab.Output output) {
+        PentacleItem item = (PentacleItem) PBItems.PENTACLE.get();
+        ItemStack itemStack = item.getDefaultInstance();
+        ((CaptureSacrificeItem) itemStack.getItem()).setEntity(EntityType.PIG, itemStack);
+        output.accept(itemStack);
     }
 }
