@@ -1,10 +1,7 @@
 package com.pigdad.paganbless.registries;
 
 import com.pigdad.paganbless.PaganBless;
-import com.pigdad.paganbless.registries.blockentities.ImbuingCauldronBlockEntity;
-import com.pigdad.paganbless.registries.blockentities.PentacleBlockEntity;
-import com.pigdad.paganbless.registries.blockentities.RuneSlabBlockEntity;
-import com.pigdad.paganbless.registries.blockentities.RunicCoreBlockEntity;
+import com.pigdad.paganbless.registries.blockentities.*;
 import com.pigdad.paganbless.registries.blocks.RuneSlabBlock;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
@@ -35,6 +32,10 @@ public class PBBlockEntities {
             BLOCK_ENTITIES.register("rune_slab", () ->
                     BlockEntityType.Builder.of(RuneSlabBlockEntity::new,
                             getRuneSlabs()).build(null));
+    public static final Supplier<BlockEntityType<CrankBlockEntity>> CRANK =
+            BLOCK_ENTITIES.register("crank", () ->
+                    BlockEntityType.Builder.of(CrankBlockEntity::new,
+                            PBBlocks.CRANK.get()).build(null));
 
     private static Block[] getRuneSlabs() {
         List<Block> slabs = new ArrayList<>();

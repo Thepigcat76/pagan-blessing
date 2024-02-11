@@ -1,10 +1,13 @@
 package com.pigdad.paganbless.events;
 
 import com.pigdad.paganbless.PaganBless;
+import com.pigdad.paganbless.client.renderer.CrankRenderer;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.blockentities.RunicCoreBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.renderer.ImbuingCauldronBERenderer;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -15,6 +18,12 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.fluids.capability.wrappers.FluidBlockWrapper;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
+import software.bernie.example.GeckoLibMod;
+import software.bernie.example.client.renderer.block.FertilizerBlockRenderer;
+import software.bernie.example.client.renderer.block.GeckoHabitatBlockRenderer;
+import software.bernie.example.client.renderer.entity.*;
+import software.bernie.example.registry.BlockEntityRegistry;
+import software.bernie.example.registry.EntityRegistry;
 
 public class ModEvents {
     @Mod.EventBusSubscriber(modid = PaganBless.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -23,6 +32,7 @@ public class ModEvents {
         public static void registerBERenderer(EntityRenderersEvent.RegisterRenderers event) {
             event.registerBlockEntityRenderer(PBBlockEntities.IMBUING_CAULDRON.get(),
                     ImbuingCauldronBERenderer::new);
+            event.registerBlockEntityRenderer(PBBlockEntities.CRANK.get(), (context) -> new CrankRenderer());
         }
     }
 

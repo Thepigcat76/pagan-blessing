@@ -12,17 +12,24 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
 public class PBBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(BuiltInRegistries.BLOCK, PaganBless.MODID);
+
     public static final Supplier<Block> IMBUING_CAULDRON = registerBlockAndItem("imbuing_cauldron",
             () -> new ImbuingCauldronBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).noOcclusion()));
+    public static final Supplier<Block> CRANK = BLOCKS.register("crank",
+            () -> new CrankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noOcclusion()));
+    public static final Supplier<Block> JAR = registerBlockAndItem("jar",
+            () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).noOcclusion()));
+    public static final Supplier<Block> WINCH = registerBlockAndItem("winch",
+            () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).noOcclusion()));
+    public static final Supplier<Block> ROPE = registerBlockAndItem("rope",
+            () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noOcclusion().sound(SoundType.WOOL)));
     public static final Supplier<Block> RUNE_SLAB_AMETHYST = registerRuneSlab("rune_slab_amethyst");
     public static final Supplier<Block> RUNE_SLAB_CINNABAR = registerRuneSlab("rune_slab_cinnabar");
     public static final Supplier<Block> RUNE_SLAB_DIAMOND = registerRuneSlab("rune_slab_diamond");
@@ -46,6 +53,10 @@ public class PBBlocks {
             () -> new WinterBerryBushBlock(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.SWEET_BERRY_BUSH)));
     public static final Supplier<Block> BLACK_THORN_LOG = registerBlockAndItem("black_thorn_log",
             () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
+    public static final Supplier<Block> STRIPPED_BLACK_THORN_LOG = registerBlockAndItem("stripped_black_thorn_log",
+            () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG)));
+    public static final Supplier<Block> BLACK_THORN_PLANKS = registerBlockAndItem("black_thorn_planks",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
     public static final Supplier<Block> BLACK_THORN_LEAVES = registerBlockAndItem("black_thorn_leaves",
             () -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)) {
                 @Override
@@ -63,8 +74,8 @@ public class PBBlocks {
                     return 30;
                 }
             });
-    // public static final Supplier<Block> BLACK_THORN_SAPLING = registerBlockAndItem("black_thorn_sapling",
-    //        () -> new SaplingBlock(new BlackThornTreeGrower(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
+    public static final Supplier<Block> BLACK_THORN_SAPLING = registerBlockAndItem("black_thorn_sapling",
+            () -> new SaplingBlock(PBTreeGrowers.RUBBER, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
     public static final Supplier<Block> PENTACLE = registerBlock("pentacle",
             () -> new PentacleBlock(BlockBehaviour.Properties.of()
                     .noCollission()

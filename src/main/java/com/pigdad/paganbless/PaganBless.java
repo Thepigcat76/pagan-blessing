@@ -12,19 +12,17 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
+import software.bernie.geckolib.GeckoLib;
 
 @Mod(PaganBless.MODID)
 public class PaganBless {
     public static final String MODID = "paganbless";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public PaganBless() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
+    public PaganBless(IEventBus modEventBus) {
         modEventBus.addListener(this::commonSetup);
 
         PBBlocks.BLOCKS.register(modEventBus);
@@ -35,6 +33,8 @@ public class PaganBless {
         PBPlacerTypes.FOLIAGE_PLACERS.register(modEventBus);
         PBPlacerTypes.TRUNK_PLACERS.register(modEventBus);
         PBEntities.ENTITY_TYPES.register(modEventBus);
+
+        GeckoLib.initialize(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
 

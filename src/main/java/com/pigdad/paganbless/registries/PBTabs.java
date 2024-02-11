@@ -26,6 +26,7 @@ public class PBTabs {
             .icon(() -> PBBlocks.IMBUING_CAULDRON.get().asItem().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.accept(PBBlocks.IMBUING_CAULDRON.get());
+                output.accept(PBBlocks.JAR.get());
                 output.accept(PBBlocks.RUNIC_CORE.get());
                 output.accept(PBBlocks.RUNE_SLAB_INERT.get());
                 output.accept(PBBlocks.RUNE_SLAB_AMETHYST.get());
@@ -60,8 +61,10 @@ public class PBTabs {
                 output.accept(PBItems.WAND.get());
                 output.accept(PBItems.WICAN_WARD.get());
                 output.accept(PBBlocks.BLACK_THORN_LOG.get());
+                output.accept(PBBlocks.BLACK_THORN_PLANKS.get());
+                output.accept(PBBlocks.STRIPPED_BLACK_THORN_LOG.get());
                 output.accept(PBBlocks.BLACK_THORN_LEAVES.get());
-                // output.accept(PBBlocks.BLACK_THORN_SAPLING.get());
+                output.accept(PBBlocks.BLACK_THORN_SAPLING.get());
             }).build());
 
     public static void addBook(CreativeModeTab.Output output, Item item) {
