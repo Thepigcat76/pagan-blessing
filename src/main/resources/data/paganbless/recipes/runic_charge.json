@@ -1,7 +1,9 @@
 {
   "type": "paganbless:cauldron_imbuing",
-  "fluidType": "minecraft:water",
-  "fluidAmount": 1000,
+  "fluid": {
+    "FluidName": "minecraft:water",
+    "Amount": 1000
+  },
   "ingredients": [
     {
       "item": "minecraft:glass_bottle"

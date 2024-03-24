@@ -7,17 +7,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.animation.*;
 import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
-import software.bernie.geckolib.util.RenderUtils;
 
 public class CrankBlockEntity extends BlockEntity implements GeoBlockEntity {
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
-    private static final RawAnimation CRANK_ANIMS = RawAnimation.begin().thenLoop("crank.lift");
+    private static final RawAnimation CRANK_ANIMS = RawAnimation.begin().thenPlay("crank.lift");
+    private static final RawAnimation CRANK_DROP = RawAnimation.begin().thenLoop("crank.drop");
+    public boolean lifting = false;
 
     public CrankBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
         super(PBBlockEntities.CRANK.get(), p_155229_, p_155230_);
@@ -25,12 +22,8 @@ public class CrankBlockEntity extends BlockEntity implements GeoBlockEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));
-    }
-
-    private PlayState predicate(AnimationState<CrankBlockEntity> crankBlockEntityAnimationState) {
-        crankBlockEntityAnimationState.getController().setAnimation(CRANK_ANIMS);
-        return PlayState.CONTINUE;
+        controllerRegistrar.add(new AnimationController<>(this, "controller", 20, state -> PlayState.CONTINUE)
+                .triggerableAnim("lift_crank", CRANK_DROP));
     }
 
     @Override
@@ -38,8 +31,4 @@ public class CrankBlockEntity extends BlockEntity implements GeoBlockEntity {
         return cache;
     }
 
-    @Override
-    public double getTick(Object blockEntity) {
-        return RenderUtils.getCurrentTick();
-    }
 }

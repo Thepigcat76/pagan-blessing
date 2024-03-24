@@ -3,10 +3,15 @@ package com.pigdad.paganbless.registries.blocks;
 import com.mojang.serialization.MapCodec;
 import com.pigdad.paganbless.registries.blockentities.CrankBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class CrankBlock extends BaseEntityBlock {
@@ -28,5 +33,12 @@ public class CrankBlock extends BaseEntityBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
         return new CrankBlockEntity(blockPos, blockState);
+    }
+
+    @Override
+    public InteractionResult use(BlockState p_60503_, Level p_60504_, BlockPos p_60505_, Player p_60506_, InteractionHand p_60507_, BlockHitResult p_60508_) {
+        CrankBlockEntity blockEntity = (CrankBlockEntity) p_60504_.getBlockEntity(p_60505_);
+        blockEntity.triggerAnim("controller", "lift_crank");
+        return InteractionResult.SUCCESS;
     }
 }

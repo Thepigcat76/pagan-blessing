@@ -7,6 +7,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -38,6 +39,11 @@ public class HerbPlantBlock extends FlowerBlock implements BonemealableBlock {
         if (p_51028_.getBlock() == this) //Forge: This function is called during world gen and placement, before this block is set, so if we are not 'here' then assume it's the pre-check.
             return p_51029_.getBlockState(blockpos).canSustainPlant(p_51029_, blockpos, Direction.UP, this);
         return this.mayPlaceOn(p_51029_.getBlockState(blockpos), p_51029_, blockpos);
+    }
+
+    @Override
+    public boolean canBeReplaced(BlockState p_60470_, BlockPlaceContext p_60471_) {
+        return true;
     }
 
     @Override

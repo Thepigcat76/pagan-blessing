@@ -27,6 +27,8 @@ public class PBTabs {
             .displayItems((parameters, output) -> {
                 output.accept(PBBlocks.IMBUING_CAULDRON.get());
                 output.accept(PBBlocks.JAR.get());
+                output.accept(PBBlocks.WINCH.get());
+                output.accept(PBBlocks.CRANK.get());
                 output.accept(PBBlocks.RUNIC_CORE.get());
                 output.accept(PBBlocks.RUNE_SLAB_INERT.get());
                 output.accept(PBBlocks.RUNE_SLAB_AMETHYST.get());
@@ -54,17 +56,20 @@ public class PBTabs {
                 addBook(output, PBItems.PAGAN_GUIDE.get());
                 output.accept(PBItems.CINNABAR.get());
                 output.accept(PBItems.HERB_POUCH.get());
+                output.accept(PBBlocks.ROPE.get());
                 output.accept(PBItems.ATHAME.get());
                 output.accept(PBItems.CHALICE.get());
                 output.accept(PBItems.ETERNAL_SNOWBALL.get());
                 addPentacle(output);
                 output.accept(PBItems.WAND.get());
                 output.accept(PBItems.WICAN_WARD.get());
-                output.accept(PBBlocks.BLACK_THORN_LOG.get());
-                output.accept(PBBlocks.BLACK_THORN_PLANKS.get());
-                output.accept(PBBlocks.STRIPPED_BLACK_THORN_LOG.get());
                 output.accept(PBBlocks.BLACK_THORN_LEAVES.get());
                 output.accept(PBBlocks.BLACK_THORN_SAPLING.get());
+                output.accept(PBBlocks.BLACK_THORN_PLANKS.get());
+                output.accept(PBBlocks.BLACK_THORN_LOG.get());
+                output.accept(PBBlocks.STRIPPED_BLACK_THORN_LOG.get());
+                output.accept(PBBlocks.BLACK_THORN_WOOD.get());
+                output.accept(PBBlocks.STRIPPED_BLACK_THORN_WOOD.get());
             }).build());
 
     public static void addBook(CreativeModeTab.Output output, Item item) {

@@ -22,14 +22,14 @@ public class PBBlocks {
 
     public static final Supplier<Block> IMBUING_CAULDRON = registerBlockAndItem("imbuing_cauldron",
             () -> new ImbuingCauldronBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).noOcclusion()));
-    public static final Supplier<Block> CRANK = BLOCKS.register("crank",
+    public static final Supplier<Block> CRANK = registerBlockAndItem("crank",
             () -> new CrankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noOcclusion()));
     public static final Supplier<Block> JAR = registerBlockAndItem("jar",
             () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).noOcclusion()));
     public static final Supplier<Block> WINCH = registerBlockAndItem("winch",
-            () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).noOcclusion()));
+            () -> new WinchBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).noOcclusion()));
     public static final Supplier<Block> ROPE = registerBlockAndItem("rope",
-            () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noOcclusion().sound(SoundType.WOOL)));
+            () -> new RopeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noOcclusion().sound(SoundType.WOOL)));
     public static final Supplier<Block> RUNE_SLAB_AMETHYST = registerRuneSlab("rune_slab_amethyst");
     public static final Supplier<Block> RUNE_SLAB_CINNABAR = registerRuneSlab("rune_slab_cinnabar");
     public static final Supplier<Block> RUNE_SLAB_DIAMOND = registerRuneSlab("rune_slab_diamond");
@@ -55,6 +55,10 @@ public class PBBlocks {
             () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
     public static final Supplier<Block> STRIPPED_BLACK_THORN_LOG = registerBlockAndItem("stripped_black_thorn_log",
             () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG)));
+    public static final Supplier<Block> BLACK_THORN_WOOD = registerBlockAndItem("black_thorn_wood",
+        () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
+    public static final Supplier<Block> STRIPPED_BLACK_THORN_WOOD = registerBlockAndItem("stripped_black_thorn_wood",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
     public static final Supplier<Block> BLACK_THORN_PLANKS = registerBlockAndItem("black_thorn_planks",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
     public static final Supplier<Block> BLACK_THORN_LEAVES = registerBlockAndItem("black_thorn_leaves",

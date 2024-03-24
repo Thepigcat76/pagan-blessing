@@ -1,6 +1,24 @@
 {
   "variants": {
-    "": {
+    "facing=north": {
+      "model": "paganbless:block/rope_side_alt",
+      "y": 90
+    },
+    "facing=east": {
+      "model": "paganbless:block/rope_side",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "paganbless:block/rope_side"
+    },
+    "facing=west": {
+      "model": "paganbless:block/rope_side",
+      "y": 90
+    },
+    "facing=up": {
+      "model": "paganbless:block/rope"
+    },
+    "facing=down": {
       "model": "paganbless:block/rope"
     }
   }

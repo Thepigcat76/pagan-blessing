@@ -20,9 +20,11 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.checkerframework.checker.units.qual.C;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
+@SuppressWarnings("deprecation")
 public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
     public static final String NAME = "anvil_smashing";
 
@@ -43,30 +45,19 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public boolean matches(@NotNull SimpleContainer container, Level level) {
-        if (level.isClientSide())
-            return false;
+        if (level.isClientSide()) return false;
 
-        Map<Item, Integer> ingredients = new HashMap<>();
-        Map<Item, Integer> containerItems = new HashMap<>();
+        List<Item> items = container.getItems().stream().filter(item -> !item.isEmpty()).map(itemStack -> itemStack.getItem()).toList();
 
-        for (IngredientWithCount ingredient : this.ingredients) {
-            ingredients.put(ingredient.ingredient().getItems()[0].getItem(), ingredient.count());
-        }
+        if (items.size() < ingredients.size()) return false;
 
-        for (int i = 0; i < container.getContainerSize(); i++) {
-            containerItems.put(container.getItem(i).getItem(), container.getItem(i).getCount());
-        }
+        List<Item> expected = ingredients.stream().map(ingredient -> ingredient.ingredient().getItems()[0].getItem()).toList();
 
-        for (int i = 0; i < ingredients.size(); i++) {
-            Item expected = ingredients.keySet().stream().toList().get(i);
-            if (containerItems.containsKey(expected) && containerItems.get(expected) >= ingredients.get(expected)) {
-                containerItems.remove(expected);
-            } else {
-                return false;
-            }
-        }
+        if (new HashSet<>(items).containsAll(expected)) return true;
 
-        return true;
+        PaganBless.LOGGER.debug("Items: {}", items);
+
+        return false;
     }
 
     @Override
@@ -94,7 +85,7 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public @NotNull ItemStack getResultItem(@NotNull RegistryAccess registryAccess) {
+    public @NotNull ItemStack getResultItem(@Nullable RegistryAccess registryAccess) {
         return output.copy();
     }
 
@@ -125,12 +116,12 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
 
 
         @Override
-        public AnvilSmashingRecipe fromNetwork(FriendlyByteBuf pBuffer) {
+        public @NotNull AnvilSmashingRecipe fromNetwork(FriendlyByteBuf pBuffer) {
             return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, AnvilSmashingRecipe pRecipe) {
+        public void toNetwork(FriendlyByteBuf pBuffer, @NotNull AnvilSmashingRecipe pRecipe) {
             pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
         }
     }
