@@ -10,12 +10,14 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
@@ -32,15 +34,40 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public boolean matches(SimpleContainer container, Level level) {
-        if (level.isClientSide()) {
+        if (level.isClientSide()) return false;
+
+        List<ItemStack> containerItems = new ArrayList<>();
+
+        for (int i = 0; i < container.getContainerSize(); i++) {
+            containerItems.add(container.getItem(i));
+        }
+
+        List<Ingredient> expected = inputItems.stream().toList();
+
+        List<ItemStack> items = containerItems.stream()
+                .filter(item -> !item.isEmpty())
+                .filter(itemStack -> {
+                    for (Ingredient ingredient : inputItems) {
+                        if (ingredient.test(itemStack)) return true;
+                    }
+                    return false;
+                }).toList();
+
+        if (items.size() < inputItems.size()) return false;
+
+        PaganBless.LOGGER.debug("Items: {}, expected: {}", items, expected);
+
+        mainCheck:
+        for (ItemStack item : items) {
+            for (Ingredient expectedItem : expected) {
+                if (expectedItem.test(item)) {
+                    continue mainCheck;
+                }
+            }
+            // else branch, if none of the expected items match
             return false;
         }
 
-        for (int i = 0; i < inputItems.size(); i++) {
-            if (!inputItems.get(i).test(container.getItem(i))) {
-                return false;
-            }
-        }
         return true;
     }
 

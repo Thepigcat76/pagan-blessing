@@ -9,6 +9,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AnvilBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -44,15 +45,21 @@ public class AnvilBlockMixin {
         for (int i = 0; i < itemEntities.size(); i++) {
             container.setItem(i, itemEntities.get(i).getItem());
         }
+        PaganBless.LOGGER.debug("Container: {}", container);
         Optional<AnvilSmashingRecipe> optionalRecipe = getCurrentRecipe(level, container);
-        if (optionalRecipe.isPresent()) {
-            AnvilSmashingRecipe recipe = optionalRecipe.get();
-            ItemStack resultItem = recipe.getResultItem(level.registryAccess());
-            for (int i = 0; i < recipe.getIngredients().size(); i++) {
-                itemEntities.get(i).getItem().shrink(recipe.getIngredients().get(i).getItems()[0].getCount());
+        optionalRecipe.ifPresent(anvilSmashingRecipe -> {
+            PaganBless.LOGGER.debug("Has recipe!");
+            ItemStack resultItem = anvilSmashingRecipe.getResultItem(level.registryAccess());
+            for (ItemEntity itemEntity : itemEntities) {
+                for (Ingredient ingredient : anvilSmashingRecipe.getIngredients()) {
+                    if (ingredient.test(itemEntity.getItem())){
+                        int count = ingredient.getItems()[0].getCount();
+                        itemEntity.getItem().shrink(count);
+                    }
+                }
             }
             level.addFreshEntity(new ItemEntity(level, blockPos.getX(), blockPos.getY(), blockPos.getZ(), resultItem));
-        }
+        });
         for (int i = 0; i < container.getContainerSize(); i++) {
             PaganBless.LOGGER.info("Ingredients: " + container.getItem(i));
         }
