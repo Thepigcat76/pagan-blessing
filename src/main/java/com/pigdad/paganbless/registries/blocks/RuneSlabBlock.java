@@ -99,9 +99,10 @@ public class RuneSlabBlock extends BaseEntityBlock {
     public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
         if (player.getItemInHand(interactionHand).is(PBItems.BLACK_THORN_STAFF.get())) {
             incrementRuneState(level, blockPos);
-            return InteractionResult.SUCCESS;
+        } else {
+            player.displayClientMessage(Component.literal("Variant: "+blockState.getValue(RUNE_STATE).ordinal()), true);
         }
-        return InteractionResult.FAIL;
+        return InteractionResult.SUCCESS;
     }
 
     public static void incrementRuneState(Level level, BlockPos blockPos) {
