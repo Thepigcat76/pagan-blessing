@@ -47,17 +47,35 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
     public boolean matches(@NotNull SimpleContainer container, Level level) {
         if (level.isClientSide()) return false;
 
-        List<Item> items = container.getItems().stream().filter(item -> !item.isEmpty()).map(itemStack -> itemStack.getItem()).toList();
+        List<ItemStack> containerItems = container.getItems();
+
+        List<IngredientWithCount> expected = ingredients.stream().toList();
+
+        List<ItemStack> items = containerItems.stream()
+                .filter(item -> !item.isEmpty())
+                .filter(itemStack -> {
+                    for (IngredientWithCount ingredient : ingredients) {
+                        if (ingredient.ingredient().test(itemStack) && itemStack.getCount() >= ingredient.count()) return true;
+                    }
+                    return false;
+                }).toList();
 
         if (items.size() < ingredients.size()) return false;
 
-        List<Item> expected = ingredients.stream().map(ingredient -> ingredient.ingredient().getItems()[0].getItem()).toList();
+        PaganBless.LOGGER.debug("Items: {}, expected: {}", items, expected);
 
-        if (new HashSet<>(items).containsAll(expected)) return true;
+        mainCheck:
+        for (ItemStack item : items) {
+            for (IngredientWithCount expectedItem : expected) {
+                if (expectedItem.ingredient().test(item) && item.getCount() >= expectedItem.count()) {
+                    continue mainCheck;
+                }
+            }
+            // else branch, if none of the expected items match
+            return false;
+        }
 
-        PaganBless.LOGGER.debug("Items: {}", items);
-
-        return false;
+        return true;
     }
 
     @Override
@@ -65,7 +83,15 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
         NonNullList<Ingredient> ingredients1 = NonNullList.create();
         for (int i = 0; i < ingredients.size(); i++) {
             IngredientWithCount ingredient = ingredients.get(i);
+
             ingredients1.add(i, ingredient.ingredient());
+            ItemStack[] items = ingredient.ingredient().getItems();
+
+            for (int j = 0; j < items.length; j++) {
+                ItemStack itemStack = items[j];
+                itemStack.setCount(ingredient.count());
+                ingredients1.get(i).getItems()[j] = itemStack;
+            }
         }
         return ingredients1;
     }

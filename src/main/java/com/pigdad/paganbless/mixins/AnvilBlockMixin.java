@@ -42,26 +42,29 @@ public class AnvilBlockMixin {
     }
 
     private static void craftItem(Level level, List<ItemEntity> itemEntities, BlockPos blockPos) {
-        PaganBless.LOGGER.debug("Entities: {}, amount: {}", itemEntities, itemEntities.size());
         SimpleContainer container = new SimpleContainer(itemEntities.size());
         for (int i = 0; i < itemEntities.size(); i++) {
             container.setItem(i, itemEntities.get(i).getItem());
         }
+        PaganBless.LOGGER.debug("Container: {}", container);
         Optional<RecipeHolder<AnvilSmashingRecipe>> optionalRecipe = getCurrentRecipe(level, container);
-        optionalRecipe.ifPresent(recipe -> {
-            PaganBless.LOGGER.debug("Found recipe");
-            ItemStack resultItem = recipe.value().getResultItem(level.registryAccess());
-            for (Ingredient ingredient : recipe.value().getIngredients()) {
-                for (ItemEntity itemEntity : itemEntities) {
-                    if (ingredient.getItems()[0].getItem().equals(itemEntity.getItem().getItem())) {
-                        PaganBless.LOGGER.debug("Item: {}", ingredient.getItems()[0]);
-                        itemEntity.getItem().setCount(itemEntity.getItem().getCount()-1);
-                        break;
+        optionalRecipe.ifPresent(anvilSmashingRecipe -> {
+            PaganBless.LOGGER.debug("Has recipe!");
+            ItemStack resultItem = anvilSmashingRecipe.value().getResultItem(level.registryAccess());
+            for (ItemEntity itemEntity : itemEntities) {
+                for (Ingredient ingredient : anvilSmashingRecipe.value().getIngredients()) {
+                    if (ingredient.test(itemEntity.getItem())){
+                        int count = ingredient.getItems()[0].getCount();
+                        itemEntity.getItem().shrink(count);
                     }
                 }
             }
             level.addFreshEntity(new ItemEntity(level, blockPos.getX(), blockPos.getY(), blockPos.getZ(), resultItem));
         });
+        for (int i = 0; i < container.getContainerSize(); i++) {
+            PaganBless.LOGGER.info("Ingredients: " + container.getItem(i));
+        }
+        PaganBless.LOGGER.info("Recipe: " + optionalRecipe);
     }
 
     private static Optional<RecipeHolder<AnvilSmashingRecipe>> getCurrentRecipe(Level level, SimpleContainer container) {
