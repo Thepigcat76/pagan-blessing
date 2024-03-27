@@ -13,6 +13,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
+import javax.swing.text.html.Option;
+import java.util.Optional;
+
 public class PentacleItem extends Item implements CaptureSacrificeItem {
     public PentacleItem(Properties p_40566_) {
         super(p_40566_);
@@ -34,7 +37,11 @@ public class PentacleItem extends Item implements CaptureSacrificeItem {
             useOnContext.getItemInHand().shrink(1);
         }
 
-        blockEntity.spawner.setEntityId(EntityType.by(tag).get(), level, level.getRandom(), blockPos);
+        Optional<EntityType<?>> entityType = EntityType.by(tag);
+
+        if (blockEntity != null) {
+            entityType.ifPresent(type -> blockEntity.spawner.setEntityId(type, level, level.getRandom(), blockPos));
+        }
 
         // EntityType.create(tag, level);
         return InteractionResult.SUCCESS;
