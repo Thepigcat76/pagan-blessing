@@ -6,6 +6,7 @@ import com.pigdad.paganbless.registries.blockentities.PentacleBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -40,6 +41,26 @@ public class PentacleBlock extends BaseEntityBlock {
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
         return PBItems.PENTACLE.get().getDefaultInstance();
+    }
+
+    @Override
+    public void playerWillDestroy(Level level, BlockPos blockPos, BlockState blockState, Player player) {
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+
+        ItemStack itemStack = new ItemStack(PBItems.PENTACLE.get());
+
+        blockEntity.saveToItem(itemStack);
+
+        ItemEntity itementity = new ItemEntity(level, (double)blockPos.getX() + 0.5D, (double)blockPos.getY() + 0.5D, (double)blockPos.getZ() + 0.5D, itemStack);
+        itementity.setDefaultPickUpDelay();
+        level.addFreshEntity(itementity);
+
+        super.playerWillDestroy(level, blockPos, blockState, player);
+    }
+
+    @Override
+    public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
+        return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
     }
 
     @Nullable

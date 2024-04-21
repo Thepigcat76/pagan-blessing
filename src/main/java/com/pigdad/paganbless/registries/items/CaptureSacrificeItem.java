@@ -11,13 +11,7 @@ import net.minecraft.world.item.ItemStack;
  */
 public interface CaptureSacrificeItem {
     default void setEntity(Entity entity, ItemStack itemStack) {
-        if (entity instanceof LivingEntity livingEntity){
-            CompoundTag tag = itemStack.getOrCreateTag();
-            tag.put("entity", entity.serializeNBT());
-            tag.getCompound("entity").putFloat("Health", livingEntity.getMaxHealth());
-            tag.getCompound("entity").remove("HandItems");
-            tag.getCompound("entity").remove("ArmorItems");
-        }
+        setEntity(entity.getType(), itemStack);
     }
 
     default void setEntity(EntityType<?> entity, ItemStack itemStack) {
