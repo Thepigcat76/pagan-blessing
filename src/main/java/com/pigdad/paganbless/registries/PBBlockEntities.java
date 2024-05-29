@@ -32,10 +32,6 @@ public final class PBBlockEntities {
             BLOCK_ENTITIES.register("rune_slab", () ->
                     BlockEntityType.Builder.of(RuneSlabBlockEntity::new,
                             getRuneSlabs()).build(null));
-    public static final Supplier<BlockEntityType<CrankBlockEntity>> CRANK =
-            BLOCK_ENTITIES.register("crank", () ->
-                    BlockEntityType.Builder.of(CrankBlockEntity::new,
-                            PBBlocks.CRANK.get()).build(null));
     public static final Supplier<BlockEntityType<JarBlockEntity>> JAR =
             BLOCK_ENTITIES.register("jar", () ->
                     BlockEntityType.Builder.of(JarBlockEntity::new,

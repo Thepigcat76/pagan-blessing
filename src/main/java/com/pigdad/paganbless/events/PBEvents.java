@@ -1,7 +1,6 @@
 package com.pigdad.paganbless.events;
 
 import com.pigdad.paganbless.PaganBless;
-import com.pigdad.paganbless.client.renderer.CrankRenderer;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.blockentities.RunicCoreBlockEntity;
@@ -25,7 +24,6 @@ public class PBEvents {
                     ImbuingCauldronBERenderer::new);
             event.registerBlockEntityRenderer(PBBlockEntities.JAR.get(),
                     JarBERenderer::new);
-            event.registerBlockEntityRenderer(PBBlockEntities.CRANK.get(), (context) -> new CrankRenderer());
         }
     }
 

@@ -37,8 +37,8 @@ import java.util.stream.Stream;
 public class HerbPouchItem extends Item {
     private static final int BAR_COLOR = Mth.color(0.4F, 0.4F, 1.0F);
 
-    public HerbPouchItem(Properties p_41383_) {
-        super(p_41383_);
+    public HerbPouchItem(Properties properties) {
+        super(properties);
     }
 
     @Override

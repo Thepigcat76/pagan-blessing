@@ -23,7 +23,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@SuppressWarnings("deprecation")
 public record AnvilSmashingRecipe(NonNullList<IngredientWithCount> ingredients, ItemStack result) implements Recipe<SimpleContainer> {
     public static final String NAME = "anvil_smashing";
 

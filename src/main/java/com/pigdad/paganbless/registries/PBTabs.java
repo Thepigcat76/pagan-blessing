@@ -1,6 +1,7 @@
 package com.pigdad.paganbless.registries;
 
 import com.pigdad.paganbless.PaganBless;
+import com.pigdad.paganbless.compat.ModonomiconCompat;
 import com.pigdad.paganbless.registries.items.CaptureSacrificeItem;
 import com.pigdad.paganbless.registries.items.PentacleItem;
 import net.minecraft.core.registries.Registries;
@@ -22,8 +23,8 @@ public final class PBTabs {
             .displayItems((parameters, output) -> {
                 output.accept(PBBlocks.IMBUING_CAULDRON.get());
                 output.accept(PBItems.JAR.get());
-                //output.accept(PBBlocks.WINCH.get());
-                //output.accept(PBBlocks.CRANK.get());
+                output.accept(PBBlocks.WINCH.get());
+                output.accept(PBBlocks.CRANK.get());
                 output.accept(PBBlocks.RUNIC_CORE.get());
                 output.accept(PBBlocks.RUNE_SLAB_INERT.get());
                 output.accept(PBBlocks.RUNE_SLAB_AMETHYST.get());
@@ -48,10 +49,10 @@ public final class PBTabs {
                 output.accept(PBItems.GLAZED_BERRIES.get());
                 output.accept(PBItems.RUNIC_CHARGE.get());
                 output.accept(PBItems.BLACK_THORN_STAFF.get());
-                // addBook(output);
+                addBook(output);
                 output.accept(PBItems.CINNABAR.get());
                 output.accept(PBItems.HERB_POUCH.get());
-                //output.accept(PBBlocks.ROPE.get());
+                output.accept(PBBlocks.ROPE.get());
                 output.accept(PBItems.ATHAME.get());
                 output.accept(PBItems.CHALICE.get());
                 output.accept(PBItems.ETERNAL_SNOWBALL.get());
@@ -62,14 +63,14 @@ public final class PBTabs {
                 output.accept(PBBlocks.BLACK_THORN_SAPLING.get());
                 output.accept(PBBlocks.BLACK_THORN_PLANKS.get());
                 output.accept(PBBlocks.BLACK_THORN_LOG.get());
-                //output.accept(PBBlocks.STRIPPED_BLACK_THORN_LOG.get());
-                //output.accept(PBBlocks.BLACK_THORN_WOOD.get());
-                //output.accept(PBBlocks.STRIPPED_BLACK_THORN_WOOD.get());
+                output.accept(PBBlocks.STRIPPED_BLACK_THORN_LOG.get());
+                output.accept(PBBlocks.BLACK_THORN_WOOD.get());
+                output.accept(PBBlocks.STRIPPED_BLACK_THORN_WOOD.get());
             }).build());
 
     public static void addBook(CreativeModeTab.Output output) {
         if (PBItems.PAGAN_GUIDE != null) {
-            //output.accept(ModonomiconCompat.getStackForCreativeTab());
+            output.accept(ModonomiconCompat.getItemStack());
         }
     }
 

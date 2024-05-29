@@ -1,14 +1,11 @@
 package com.pigdad.paganbless.registries.recipes;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.pigdad.paganbless.utils.IngredientWithCount;
 import com.pigdad.paganbless.utils.RecipeUtils;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -75,7 +72,7 @@ public record ImbuingCauldronRecipe(List<IngredientWithCount> ingredients, ItemS
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer simpleContainer, HolderLookup.Provider provider) {
+    public @NotNull ItemStack assemble(@NotNull SimpleContainer simpleContainer, HolderLookup.@NotNull Provider provider) {
         return result.copy();
     }
 

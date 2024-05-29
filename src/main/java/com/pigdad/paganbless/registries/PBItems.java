@@ -1,6 +1,7 @@
 package com.pigdad.paganbless.registries;
 
 import com.pigdad.paganbless.PaganBless;
+import com.pigdad.paganbless.compat.ModonomiconCompat;
 import com.pigdad.paganbless.registries.data.AdvancedBundleContents;
 import com.pigdad.paganbless.registries.items.*;
 import net.minecraft.ChatFormatting;
@@ -73,11 +74,11 @@ public final class PBItems {
             () -> new HerbPouchItem(new Item.Properties().stacksTo(1).component(PBDataComponents.ADVANCED_BUNDLE_CONTENTS, AdvancedBundleContents.EMPTY)));
 
     static {
-        //if (ModList.get().isLoaded("modonomicon")) {
-            //PAGAN_GUIDE = ModonomiconCompat.registerItem();
-        //} else {
+        if (ModList.get().isLoaded("modonomicon")) {
+            PAGAN_GUIDE = ModonomiconCompat.registerItem();
+        } else {
             PAGAN_GUIDE = null;
-        //}
+        }
     }
 
     public static Supplier<Item> registerItem(String name, Supplier<Item> item) {
