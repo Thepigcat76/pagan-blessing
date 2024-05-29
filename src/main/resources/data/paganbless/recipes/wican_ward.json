@@ -1,7 +1,7 @@
 {
   "type": "paganbless:runic_ritual",
   "runeBlock": "paganbless:rune_slab_amethyst",
-  "output": {
-    "item": "paganbless:wican_ward"
+  "result": {
+    "id": "paganbless:wican_ward"
   }
 }

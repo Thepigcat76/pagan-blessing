@@ -7,7 +7,9 @@ import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
@@ -18,13 +20,11 @@ import org.slf4j.Logger;
 import software.bernie.geckolib.GeckoLib;
 
 @Mod(PaganBless.MODID)
-public class PaganBless {
+public final class PaganBless {
     public static final String MODID = "paganbless";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public PaganBless(IEventBus modEventBus) {
-        modEventBus.addListener(this::commonSetup);
-
+    public PaganBless(IEventBus modEventBus, ModContainer container) {
         PBBlocks.BLOCKS.register(modEventBus);
         PBItems.ITEMS.register(modEventBus);
         PBTabs.CREATIVE_MODE_TABS.register(modEventBus);
@@ -33,23 +33,18 @@ public class PaganBless {
         PBPlacerTypes.FOLIAGE_PLACERS.register(modEventBus);
         PBPlacerTypes.TRUNK_PLACERS.register(modEventBus);
         PBEntities.ENTITY_TYPES.register(modEventBus);
-
-        GeckoLib.initialize(modEventBus);
+        PBDataComponents.DATA_COMPONENT_TYPES.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PBConfig.SPEC);
-    }
-
-    private void commonSetup(final FMLCommonSetupEvent event) {
-        PBConfig.entityTypes.forEach((item) -> LOGGER.info("Entity >> {}", item.toString()));
+        container.registerConfig(ModConfig.Type.COMMON, PBConfig.SPEC);
     }
 
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
     }
 
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {

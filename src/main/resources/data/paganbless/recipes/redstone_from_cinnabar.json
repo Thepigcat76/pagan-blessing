@@ -6,8 +6,8 @@
       "item": "paganbless:cinnabar"
     }
   ],
-  "output": {
+  "result": {
     "count": 15,
-    "item": "minecraft:redstone"
+    "id": "minecraft:redstone"
   }
 }

@@ -6,37 +6,30 @@ import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.blockentities.RunicCoreBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.renderer.ImbuingCauldronBERenderer;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import com.pigdad.paganbless.registries.blockentities.renderer.JarBERenderer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
-import net.neoforged.neoforge.fluids.capability.wrappers.FluidBlockWrapper;
-import net.neoforged.neoforge.server.ServerLifecycleHooks;
-import software.bernie.example.GeckoLibMod;
-import software.bernie.example.client.renderer.block.FertilizerBlockRenderer;
-import software.bernie.example.client.renderer.block.GeckoHabitatBlockRenderer;
-import software.bernie.example.client.renderer.entity.*;
-import software.bernie.example.registry.BlockEntityRegistry;
-import software.bernie.example.registry.EntityRegistry;
 
-public class ModEvents {
-    @Mod.EventBusSubscriber(modid = PaganBless.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+public class PBEvents {
+    @EventBusSubscriber(modid = PaganBless.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
     public static class ClientBus {
         @SubscribeEvent
         public static void registerBERenderer(EntityRenderersEvent.RegisterRenderers event) {
             event.registerBlockEntityRenderer(PBBlockEntities.IMBUING_CAULDRON.get(),
                     ImbuingCauldronBERenderer::new);
+            event.registerBlockEntityRenderer(PBBlockEntities.JAR.get(),
+                    JarBERenderer::new);
             event.registerBlockEntityRenderer(PBBlockEntities.CRANK.get(), (context) -> new CrankRenderer());
         }
     }
 
-    @Mod.EventBusSubscriber(modid = PaganBless.MODID)
+    @EventBusSubscriber(modid = PaganBless.MODID)
     public static class ServerBus {
         @SubscribeEvent
         public static void onLivingDeath(LivingDeathEvent event) {
@@ -49,12 +42,13 @@ public class ModEvents {
         }
     }
 
-    @Mod.EventBusSubscriber(modid = PaganBless.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    @EventBusSubscriber(modid = PaganBless.MODID, bus = EventBusSubscriber.Bus.MOD)
     public static class ModBus {
         @SubscribeEvent
         public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PBBlockEntities.IMBUING_CAULDRON.get(), (be, ctx) -> be.getItemHandler());
-            event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, PBBlockEntities.IMBUING_CAULDRON.get(), (be, ctx) -> be.getFluidTank());
+            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PBBlockEntities.IMBUING_CAULDRON.get(), (be, ctx) -> be.getItemHandler().get());
+            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PBBlockEntities.JAR.get(), (be, ctx) -> be.getItemHandler().get());
+            event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, PBBlockEntities.IMBUING_CAULDRON.get(), (be, ctx) -> be.getFluidTank().get());
         }
     }
 }

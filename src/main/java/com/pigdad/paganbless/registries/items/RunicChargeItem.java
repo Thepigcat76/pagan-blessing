@@ -1,6 +1,5 @@
 package com.pigdad.paganbless.registries.items;
 
-import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.blockentities.RuneSlabBlockEntity;
 import com.pigdad.paganbless.registries.blocks.RuneSlabBlock;
@@ -72,7 +71,7 @@ public class RunicChargeItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
         components.add(Component.translatable("desc.paganbless.runic_charge").withStyle(ChatFormatting.GRAY));
     }
 }

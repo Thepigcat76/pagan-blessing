@@ -1,46 +1,34 @@
 package com.pigdad.paganbless.registries.recipes;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.RecordBuilder;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.utils.IngredientWithCount;
-import com.pigdad.paganbless.utils.Utils;
-import joptsimple.NonOptionArgumentSpec;
+import com.pigdad.paganbless.utils.RecipeUtils;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import org.checkerframework.checker.units.qual.C;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.List;
 
 @SuppressWarnings("deprecation")
-public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
+public record AnvilSmashingRecipe(NonNullList<IngredientWithCount> ingredients, ItemStack result) implements Recipe<SimpleContainer> {
     public static final String NAME = "anvil_smashing";
 
-    private final NonNullList<IngredientWithCount> ingredients;
-    private final ItemStack output;
-
-    // TODO: rename output to result
-    public AnvilSmashingRecipe(NonNullList<IngredientWithCount> ingredients, ItemStack output) {
-        this.ingredients = ingredients;
-        this.output = output;
-    }
-
-    public AnvilSmashingRecipe(List<IngredientWithCount> ingredients, ItemStack output) {
-        this.ingredients = NonNullList.create();
-        this.ingredients.addAll(ingredients);
-        this.output = output;
+    public AnvilSmashingRecipe(List<IngredientWithCount> ingredients, ItemStack result) {
+        this(RecipeUtils.listToNonNullList(ingredients), result);
     }
 
     @Override
@@ -101,8 +89,8 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public @NotNull ItemStack assemble(@NotNull SimpleContainer simpleContainer, @NotNull RegistryAccess registryAccess) {
-        return output.copy();
+    public @NotNull ItemStack assemble(SimpleContainer simpleContainer, HolderLookup.Provider provider) {
+        return result.copy();
     }
 
     @Override
@@ -111,8 +99,8 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public @NotNull ItemStack getResultItem(@Nullable RegistryAccess registryAccess) {
-        return output.copy();
+    public @NotNull ItemStack getResultItem(HolderLookup.Provider provider) {
+        return result.copy();
     }
 
     @Override
@@ -127,28 +115,29 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
 
     public static class Serializer implements RecipeSerializer<AnvilSmashingRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        private static final Codec<AnvilSmashingRecipe> CODEC = RecordCodecBuilder.create((builder) -> builder.group(
-                IngredientWithCount.CODEC.listOf().fieldOf("ingredients").forGetter((recipe) -> recipe.ingredients.stream().toList()),
-                ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("output").forGetter(recipe -> recipe.output)
+        private static final MapCodec<AnvilSmashingRecipe> MAP_CODEC = RecordCodecBuilder.mapCodec((builder) -> builder.group(
+                IngredientWithCount.CODEC.listOf().fieldOf("ingredients").forGetter(AnvilSmashingRecipe::ingredients),
+                ItemStack.CODEC.fieldOf("result").forGetter(AnvilSmashingRecipe::result)
         ).apply(builder, AnvilSmashingRecipe::new));
+        private static final StreamCodec<RegistryFriendlyByteBuf, AnvilSmashingRecipe> STREAM_CODEC = StreamCodec.composite(
+                IngredientWithCount.STREAM_CODEC.apply(ByteBufCodecs.list()),
+                AnvilSmashingRecipe::ingredients,
+                ItemStack.STREAM_CODEC,
+                AnvilSmashingRecipe::result,
+                AnvilSmashingRecipe::new
+        );
 
         private Serializer() {
         }
 
         @Override
-        public @NotNull Codec<AnvilSmashingRecipe> codec() {
-            return CODEC;
-        }
-
-
-        @Override
-        public @NotNull AnvilSmashingRecipe fromNetwork(FriendlyByteBuf pBuffer) {
-            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
+        public @NotNull MapCodec<AnvilSmashingRecipe> codec() {
+            return MAP_CODEC;
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, @NotNull AnvilSmashingRecipe pRecipe) {
-            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
+        public @NotNull StreamCodec<RegistryFriendlyByteBuf, AnvilSmashingRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 

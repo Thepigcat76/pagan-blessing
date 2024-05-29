@@ -1,6 +1,5 @@
 package com.pigdad.paganbless.registries.blockentities;
 
-import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.blocks.RunicCoreBlock;
 import com.pigdad.paganbless.registries.items.CaptureSacrificeItem;
@@ -19,7 +18,6 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import oshi.hardware.platform.windows.WindowsUsbDevice;
 
 import java.util.Optional;
 import java.util.Set;

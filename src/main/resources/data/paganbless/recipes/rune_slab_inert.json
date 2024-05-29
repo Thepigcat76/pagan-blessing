@@ -1,8 +1,8 @@
 {
   "type": "paganbless:cauldron_imbuing",
   "fluid": {
-    "FluidName": "minecraft:lava",
-    "Amount": 1000
+    "id": "minecraft:lava",
+    "amount": 1000
   },
   "ingredients": [
     {
@@ -14,7 +14,7 @@
       "tag": "paganbless:herbs"
     }
   ],
-  "output": {
-    "item": "paganbless:rune_slab_inert"
+  "result": {
+    "id": "paganbless:rune_slab_inert"
   }
 }

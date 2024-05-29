@@ -2,6 +2,7 @@ package com.pigdad.paganbless.registries.blockentities;
 
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,15 +24,15 @@ public class RuneSlabBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
+    protected void saveAdditional(CompoundTag nbt, HolderLookup.Provider provider) {
         if (prevBlock != null) {
             nbt.putString("prevBlock", prevBlock);
         }
     }
 
     @Override
-    public void load(CompoundTag nbt) {
-        super.load(nbt);
+    public void loadAdditional(CompoundTag nbt, HolderLookup.Provider provider) {
+        super.loadAdditional(nbt, provider);
         prevBlock = nbt.getString("prevBlock");
     }
 }

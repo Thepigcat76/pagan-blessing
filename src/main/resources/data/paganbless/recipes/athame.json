@@ -1,7 +1,7 @@
 {
   "type": "paganbless:runic_ritual",
   "runeBlock": "paganbless:rune_slab_diamond",
-  "output": {
-    "item": "paganbless:athame"
+  "result": {
+    "id": "paganbless:athame"
   }
 }

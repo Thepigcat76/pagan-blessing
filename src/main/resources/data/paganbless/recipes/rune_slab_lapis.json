@@ -8,7 +8,7 @@
       "item": "minecraft:lapis_lazuli"
     }
   ],
-  "output": {
-    "item": "paganbless:rune_slab_lapis"
+  "result": {
+    "id": "paganbless:rune_slab_lapis"
   }
 }

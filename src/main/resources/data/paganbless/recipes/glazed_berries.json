@@ -1,8 +1,8 @@
 {
   "type": "paganbless:cauldron_imbuing",
   "fluid": {
-    "FluidName": "minecraft:empty",
-    "Amount": 0
+    "id": "minecraft:empty",
+    "amount": 0
   },
   "ingredients": [
     {
@@ -13,7 +13,7 @@
       "item": "paganbless:winter_berries"
     }
   ],
-  "output": {
-    "item": "paganbless:glazed_berries"
+  "result": {
+    "id": "paganbless:glazed_berries"
   }
 }

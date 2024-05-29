@@ -8,7 +8,7 @@
       "item": "minecraft:diamond"
     }
   ],
-  "output": {
-    "item": "paganbless:rune_slab_diamond"
+  "result": {
+    "id": "paganbless:rune_slab_diamond"
   }
 }

@@ -12,7 +12,7 @@
       "tag": "minecraft:candles"
     }
   ],
-  "output": {
-    "item": "paganbless:runic_core"
+  "result": {
+    "id": "paganbless:runic_core"
   }
 }

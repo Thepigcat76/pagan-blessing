@@ -1,14 +1,18 @@
 package com.pigdad.paganbless.registries.recipes;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.pigdad.paganbless.utils.IngredientWithCount;
+import com.pigdad.paganbless.utils.RecipeUtils;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -17,32 +21,13 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class ImbuingCauldronRecipe implements Recipe<SimpleContainer> {
+public record ImbuingCauldronRecipe(List<IngredientWithCount> ingredients, ItemStack result, FluidStack fluidStack) implements Recipe<SimpleContainer> {
     public static final String NAME = "cauldron_imbuing";
-
-    private final NonNullList<IngredientWithCount> ingredients;
-    private final ItemStack output;
-    private final FluidStack fluid;
-
-    // TODO: rename output to result
-    public ImbuingCauldronRecipe(NonNullList<IngredientWithCount> ingredients, ItemStack output, FluidStack fluid) {
-        this.ingredients = ingredients;
-        this.output = output;
-        this.fluid = fluid;
-    }
-
-    public ImbuingCauldronRecipe(List<IngredientWithCount> ingredients, ItemStack output, FluidStack fluid) {
-        this.ingredients = NonNullList.create();
-        this.ingredients.addAll(ingredients);
-        this.output = output;
-        this.fluid = fluid;
-    }
 
     @Override
     public boolean matches(@NotNull SimpleContainer container, Level level) {
@@ -72,7 +57,7 @@ public class ImbuingCauldronRecipe implements Recipe<SimpleContainer> {
     public boolean matchesFluid(FluidStack fluidStack, Level level) {
         if (level.isClientSide()) return false;
 
-        return (fluidStack.getAmount() >= this.fluid.getAmount() && fluidStack.getFluid().isSame(this.fluid.getFluid()));
+        return (fluidStack.getAmount() >= this.fluidStack.getAmount() && fluidStack.getFluid().isSame(this.fluidStack.getFluid()));
     }
 
     @Override
@@ -85,17 +70,13 @@ public class ImbuingCauldronRecipe implements Recipe<SimpleContainer> {
         return ingredients1;
     }
 
-    public FluidStack getFluid() {
-        return fluid;
-    }
-
     public @NotNull NonNullList<IngredientWithCount> getIngredientsWithCount() {
-        return ingredients;
+        return RecipeUtils.listToNonNullList(ingredients);
     }
 
     @Override
-    public @NotNull ItemStack assemble(@NotNull SimpleContainer simpleContainer, @NotNull RegistryAccess registryAccess) {
-        return output.copy();
+    public ItemStack assemble(SimpleContainer simpleContainer, HolderLookup.Provider provider) {
+        return result.copy();
     }
 
     @Override
@@ -104,8 +85,8 @@ public class ImbuingCauldronRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public @NotNull ItemStack getResultItem(@NotNull RegistryAccess registryAccess) {
-        return output.copy();
+    public @NotNull ItemStack getResultItem(HolderLookup.@Nullable Provider provider) {
+        return result.copy();
     }
 
     @Override
@@ -120,29 +101,32 @@ public class ImbuingCauldronRecipe implements Recipe<SimpleContainer> {
 
     public static class Serializer implements RecipeSerializer<ImbuingCauldronRecipe> {
         public static final ImbuingCauldronRecipe.Serializer INSTANCE = new ImbuingCauldronRecipe.Serializer();
-        private static final Codec<ImbuingCauldronRecipe> CODEC = RecordCodecBuilder.create((builder) -> builder.group(
-                IngredientWithCount.CODEC.listOf().fieldOf("ingredients").forGetter((recipe) -> recipe.ingredients.stream().toList()),
-                ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
-                FluidStack.CODEC.fieldOf("fluid").forGetter(recipe -> recipe.fluid)
+        private static final MapCodec<ImbuingCauldronRecipe> MAP_CODEC = RecordCodecBuilder.mapCodec((builder) -> builder.group(
+                IngredientWithCount.CODEC.listOf().fieldOf("ingredients").forGetter(ImbuingCauldronRecipe::ingredients),
+                ItemStack.OPTIONAL_CODEC.fieldOf("result").forGetter(ImbuingCauldronRecipe::result),
+                FluidStack.OPTIONAL_CODEC.fieldOf("fluid").forGetter(ImbuingCauldronRecipe::fluidStack)
         ).apply(builder, ImbuingCauldronRecipe::new));
+        private static final StreamCodec<RegistryFriendlyByteBuf, ImbuingCauldronRecipe> STREAM_CODEC = StreamCodec.composite(
+                IngredientWithCount.STREAM_CODEC.apply(ByteBufCodecs.list()),
+                ImbuingCauldronRecipe::ingredients,
+                ItemStack.OPTIONAL_STREAM_CODEC,
+                ImbuingCauldronRecipe::result,
+                FluidStack.OPTIONAL_STREAM_CODEC,
+                ImbuingCauldronRecipe::fluidStack,
+                ImbuingCauldronRecipe::new
+        );
 
         private Serializer() {
         }
 
         @Override
-        public @NotNull Codec<ImbuingCauldronRecipe> codec() {
-            return CODEC;
-        }
-
-
-        @Override
-        public ImbuingCauldronRecipe fromNetwork(FriendlyByteBuf pBuffer) {
-            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
+        public @NotNull MapCodec<ImbuingCauldronRecipe> codec() {
+            return MAP_CODEC;
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, ImbuingCauldronRecipe pRecipe) {
-            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
+        public @NotNull StreamCodec<RegistryFriendlyByteBuf, ImbuingCauldronRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 

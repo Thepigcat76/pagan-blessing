@@ -17,15 +17,15 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
-public class PBBlocks {
+public final class PBBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(BuiltInRegistries.BLOCK, PaganBless.MODID);
 
     public static final Supplier<Block> IMBUING_CAULDRON = registerBlockAndItem("imbuing_cauldron",
             () -> new ImbuingCauldronBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).noOcclusion()));
     public static final Supplier<Block> CRANK = registerBlockAndItem("crank",
             () -> new CrankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noOcclusion()));
-    public static final Supplier<Block> JAR = registerBlockAndItem("jar",
-            () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).noOcclusion()));
+    public static final Supplier<Block> JAR = registerBlock("jar",
+            () -> new JarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).noOcclusion()));
     public static final Supplier<Block> WINCH = registerBlockAndItem("winch",
             () -> new WinchBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).noOcclusion()));
     public static final Supplier<Block> ROPE = registerBlockAndItem("rope",
@@ -79,7 +79,7 @@ public class PBBlocks {
                 }
             });
     public static final Supplier<Block> BLACK_THORN_SAPLING = registerBlockAndItem("black_thorn_sapling",
-            () -> new SaplingBlock(PBTreeGrowers.RUBBER, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
+            () -> new SaplingBlock(PBTreeGrowers.BLACK_THORN, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
     public static final Supplier<Block> PENTACLE = registerBlock("pentacle",
             () -> new PentacleBlock(BlockBehaviour.Properties.of()
                     .noCollission()

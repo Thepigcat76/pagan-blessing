@@ -1,7 +1,7 @@
 {
   "type": "paganbless:runic_ritual",
   "runeBlock": "paganbless:rune_slab_emerald",
-  "output": {
-    "item": "paganbless:wand"
+  "result": {
+    "id": "paganbless:wand"
   }
 }

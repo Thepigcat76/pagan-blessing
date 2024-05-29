@@ -2,6 +2,7 @@ package com.pigdad.paganbless.registries.worldgen;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.pigdad.paganbless.registries.PBPlacerTypes;
 import net.minecraft.core.BlockPos;
@@ -17,8 +18,9 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 public class BlackThornTrunkPlacer extends TrunkPlacer {
-    public static final Codec<BlackThornTrunkPlacer> CODEC =
-            RecordCodecBuilder.create(instance -> trunkPlacerParts(instance).apply(instance, BlackThornTrunkPlacer::new));
+    public static final MapCodec<BlackThornTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
+            trunkPlacerParts(instance).apply(instance, BlackThornTrunkPlacer::new)
+    );
 
     public BlackThornTrunkPlacer(int baseHeight, int heightRandA, int heightRandB) {
         super(baseHeight, heightRandA, heightRandB);

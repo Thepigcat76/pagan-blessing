@@ -22,7 +22,7 @@ import net.minecraft.world.level.material.PushReaction;
 
 public class HerbPlantBlock extends FlowerBlock implements BonemealableBlock {
     public HerbPlantBlock(int size, Properties p_53514_) {
-        super(() -> MobEffects.GLOWING, size, p_53514_
+        super(MobEffects.GLOWING, size, p_53514_
                 .mapColor(MapColor.PLANT)
                 .noCollission()
                 .instabreak()
@@ -32,7 +32,6 @@ public class HerbPlantBlock extends FlowerBlock implements BonemealableBlock {
     }
 
     // TODO: Bonemealing
-
     @Override
     public boolean canSurvive(BlockState p_51028_, LevelReader p_51029_, BlockPos p_51030_) {
         BlockPos blockpos = p_51030_.below();

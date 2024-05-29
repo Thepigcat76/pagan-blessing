@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class PBBlockEntities {
+public final class PBBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, PaganBless.MODID);
 
@@ -36,6 +36,10 @@ public class PBBlockEntities {
             BLOCK_ENTITIES.register("crank", () ->
                     BlockEntityType.Builder.of(CrankBlockEntity::new,
                             PBBlocks.CRANK.get()).build(null));
+    public static final Supplier<BlockEntityType<JarBlockEntity>> JAR =
+            BLOCK_ENTITIES.register("jar", () ->
+                    BlockEntityType.Builder.of(JarBlockEntity::new,
+                            PBBlocks.JAR.get()).build(null));
 
     private static Block[] getRuneSlabs() {
         List<Block> slabs = new ArrayList<>();

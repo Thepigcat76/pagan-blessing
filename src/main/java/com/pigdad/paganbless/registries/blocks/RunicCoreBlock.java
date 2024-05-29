@@ -15,7 +15,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -84,21 +86,21 @@ public class RunicCoreBlock extends BaseEntityBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState p_60503_, Level p_60504_, BlockPos p_60505_, Player player, InteractionHand p_60507_, BlockHitResult p_60508_) {
-        if (!p_60504_.isClientSide()) {
-            if (!player.getItemInHand(p_60507_).is(PBItems.BLACK_THORN_STAFF.get()) && getRuneType(p_60504_, p_60505_).getSecond() == null && p_60503_.getValue(ACTIVE)) {
+    protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand p_316595_, BlockHitResult p_316140_) {
+        if (!level.isClientSide()) {
+            if (!itemStack.is(PBItems.BLACK_THORN_STAFF.get()) && getRuneType(level, blockPos).getSecond() == null && blockState.getValue(ACTIVE)) {
                 player.sendSystemMessage(Component.literal("Ritual is valid"));
-            } else if (!player.getItemInHand(p_60507_).is(PBItems.BLACK_THORN_STAFF.get())) {
+            } else if (!itemStack.is(PBItems.BLACK_THORN_STAFF.get())) {
                 player.sendSystemMessage(Component.literal("Ritual is incomplete"));
-                player.sendSystemMessage(Component.literal(getRuneType(p_60504_, p_60505_).getSecond()));
-                if (!p_60503_.getValue(ACTIVE)) {
+                player.sendSystemMessage(Component.literal(getRuneType(level, blockPos).getSecond()));
+                if (!blockState.getValue(ACTIVE)) {
                     player.sendSystemMessage(Component.literal("Runic core is not activated"));
                 }
-            } else if (player.getItemInHand(p_60507_).is(PBItems.BLACK_THORN_STAFF.get())) {
-                p_60504_.setBlockAndUpdate(p_60505_, p_60503_.setValue(ACTIVE, true));
+            } else if (itemStack.is(PBItems.BLACK_THORN_STAFF.get())) {
+                level.setBlockAndUpdate(blockPos, blockState.setValue(ACTIVE, true));
             }
         }
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
     @Override
@@ -252,7 +254,7 @@ public class RunicCoreBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void appendHoverText(ItemStack p_49816_, @Nullable BlockGetter p_49817_, List<Component> p_49818_, TooltipFlag p_49819_) {
+    public void appendHoverText(ItemStack p_49816_, Item.TooltipContext p_339606_, List<Component> p_49818_, TooltipFlag p_49819_) {
         p_49818_.add(Component.translatable("desc.paganbless.runic_core").withStyle(ChatFormatting.GRAY));
     }
 }

@@ -4,10 +4,9 @@ import com.pigdad.paganbless.PaganBless;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.level.block.Block;
 
-public class PBTags {
-    public static class Item {
+public final class PBTags {
+    public final static class Item {
         public static final TagKey<net.minecraft.world.item.Item> HERBS = bind("herbs");
         public static final TagKey<net.minecraft.world.item.Item> HERB_PLANTS = bind("herb_plants");
 
@@ -23,7 +22,7 @@ public class PBTags {
         }
     }
 
-    public static class Block {
+    public final static class Block {
         public static final TagKey<net.minecraft.world.level.block.Block> HEAT_SOURCE = bind("heat_source");
 
         private Block() {

@@ -1,7 +1,7 @@
 {
   "type": "paganbless:runic_ritual",
   "runeBlock": "paganbless:rune_slab_lapis",
-  "output": {
-    "item": "paganbless:chalice"
+  "result": {
+    "id": "paganbless:chalice"
   }
 }

@@ -1,8 +1,10 @@
 package com.pigdad.paganbless.registries.items;
 
+import com.pigdad.paganbless.PBConfig;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.blockentities.PentacleBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
@@ -22,7 +24,7 @@ public class PentacleItem extends Item implements CaptureSacrificeItem {
         Player player = useOnContext.getPlayer();
         BlockPos blockPos = useOnContext.getClickedPos().above();
 
-        CompoundTag tag = useOnContext.getItemInHand().getOrCreateTag().getCompound("entity");
+        CompoundTag tag = useOnContext.getItemInHand().get(DataComponents.ENTITY_DATA).copyTag();
 
         level.setBlockAndUpdate(blockPos, PBBlocks.PENTACLE.get().defaultBlockState());
 
@@ -32,9 +34,10 @@ public class PentacleItem extends Item implements CaptureSacrificeItem {
             useOnContext.getItemInHand().shrink(1);
         }
 
-        blockEntity.spawner.setEntityId(EntityType.by(tag).get(), level, level.getRandom(), blockPos);
-
-        // EntityType.create(tag, level);
+        EntityType<?> pType = EntityType.by(tag).get();
+        if (!PBConfig.entityTypes.contains(pType)) {
+            blockEntity.spawner.setEntityId(pType, level, level.getRandom(), blockPos);
+        }
         return InteractionResult.SUCCESS;
     }
 }

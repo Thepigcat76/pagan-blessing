@@ -1,6 +1,7 @@
 package com.pigdad.paganbless.registries.worldgen;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.pigdad.paganbless.registries.PBPlacerTypes;
 import net.minecraft.core.BlockPos;
@@ -12,8 +13,9 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 
 public class BlackThornFoliagePlacer extends FoliagePlacer {
-    public static final Codec<BlackThornFoliagePlacer> CODEC = RecordCodecBuilder.create(instance ->
-            foliagePlacerParts(instance).apply(instance, BlackThornFoliagePlacer::new));
+    public static final MapCodec<BlackThornFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
+            foliagePlacerParts(instance).apply(instance, BlackThornFoliagePlacer::new)
+    );
 
     public BlackThornFoliagePlacer(IntProvider radius, IntProvider offset) {
         super(radius, offset);

@@ -3,7 +3,6 @@ package com.pigdad.paganbless.registries.blockentities.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.blockentities.ImbuingCauldronBlockEntity;
 import com.pigdad.paganbless.registries.blocks.ImbuingCauldronBlock;
 import com.pigdad.paganbless.utils.Utils;

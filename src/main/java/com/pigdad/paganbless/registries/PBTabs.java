@@ -1,24 +1,19 @@
 package com.pigdad.paganbless.registries;
 
-import com.klikli_dev.modonomicon.data.BookDataManager;
 import com.pigdad.paganbless.PaganBless;
-import com.pigdad.paganbless.registries.blocks.PentacleBlock;
 import com.pigdad.paganbless.registries.items.CaptureSacrificeItem;
 import com.pigdad.paganbless.registries.items.PentacleItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
-public class PBTabs {
+public final class PBTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, PaganBless.MODID);
     public static final Supplier<CreativeModeTab> MAIN_TAB = CREATIVE_MODE_TABS.register("main", () -> CreativeModeTab.builder()
             .title(Component.translatable("tab.paganbless.main"))
@@ -26,9 +21,9 @@ public class PBTabs {
             .icon(() -> PBBlocks.IMBUING_CAULDRON.get().asItem().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.accept(PBBlocks.IMBUING_CAULDRON.get());
-                output.accept(PBBlocks.JAR.get());
-                output.accept(PBBlocks.WINCH.get());
-                output.accept(PBBlocks.CRANK.get());
+                output.accept(PBItems.JAR.get());
+                //output.accept(PBBlocks.WINCH.get());
+                //output.accept(PBBlocks.CRANK.get());
                 output.accept(PBBlocks.RUNIC_CORE.get());
                 output.accept(PBBlocks.RUNE_SLAB_INERT.get());
                 output.accept(PBBlocks.RUNE_SLAB_AMETHYST.get());
@@ -53,10 +48,10 @@ public class PBTabs {
                 output.accept(PBItems.GLAZED_BERRIES.get());
                 output.accept(PBItems.RUNIC_CHARGE.get());
                 output.accept(PBItems.BLACK_THORN_STAFF.get());
-                addBook(output, PBItems.PAGAN_GUIDE.get());
+                // addBook(output);
                 output.accept(PBItems.CINNABAR.get());
                 output.accept(PBItems.HERB_POUCH.get());
-                output.accept(PBBlocks.ROPE.get());
+                //output.accept(PBBlocks.ROPE.get());
                 output.accept(PBItems.ATHAME.get());
                 output.accept(PBItems.CHALICE.get());
                 output.accept(PBItems.ETERNAL_SNOWBALL.get());
@@ -67,18 +62,14 @@ public class PBTabs {
                 output.accept(PBBlocks.BLACK_THORN_SAPLING.get());
                 output.accept(PBBlocks.BLACK_THORN_PLANKS.get());
                 output.accept(PBBlocks.BLACK_THORN_LOG.get());
-                output.accept(PBBlocks.STRIPPED_BLACK_THORN_LOG.get());
-                output.accept(PBBlocks.BLACK_THORN_WOOD.get());
-                output.accept(PBBlocks.STRIPPED_BLACK_THORN_WOOD.get());
+                //output.accept(PBBlocks.STRIPPED_BLACK_THORN_LOG.get());
+                //output.accept(PBBlocks.BLACK_THORN_WOOD.get());
+                //output.accept(PBBlocks.STRIPPED_BLACK_THORN_WOOD.get());
             }).build());
 
-    public static void addBook(CreativeModeTab.Output output, Item item) {
-        try {
-            ResourceLocation id = BookDataManager.get().getBook(new ResourceLocation("paganbless:pagan_guide")).getId();
-            ItemStack itemStack = new ItemStack(item);
-            itemStack.getOrCreateTag().putString("modonomicon:book_id", id.toString());
-            output.accept(itemStack);
-        } catch (Exception ignored) {
+    public static void addBook(CreativeModeTab.Output output) {
+        if (PBItems.PAGAN_GUIDE != null) {
+            //output.accept(ModonomiconCompat.getStackForCreativeTab());
         }
     }
 
