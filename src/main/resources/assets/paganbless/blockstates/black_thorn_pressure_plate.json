@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "paganbless:block/tree/black_thorn_pressure_plate"
+    },
+    "powered=true": {
+      "model": "paganbless:block/tree/black_thorn_pressure_plate_down"
+    }
+  }
+}

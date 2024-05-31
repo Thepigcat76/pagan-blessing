@@ -75,7 +75,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 
 dependencies {
-    implementation "com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}"
+    //implementation "com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}"
     // compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
     // compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
     // at runtime, use the full JEI jar for Forge

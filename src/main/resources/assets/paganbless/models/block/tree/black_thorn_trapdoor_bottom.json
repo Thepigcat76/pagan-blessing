@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_trapdoor_bottom",
+  "textures": {
+    "texture": "paganbless:block/tree/black_thorn_trapdoor"
+  }
+}

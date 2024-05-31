@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "paganbless:block/tree/black_thorn_planks",
+    "side": "paganbless:block/tree/black_thorn_planks",
+    "top": "paganbless:block/tree/black_thorn_planks"
+  }
+}

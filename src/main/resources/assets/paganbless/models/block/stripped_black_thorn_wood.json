@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/leaves",
-  "textures": {
-    "all": "paganbless:block/black_thorn_stripped_log_side"
-  }
-}

@@ -20,7 +20,8 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 
 public class JarItemRenderer extends BlockEntityWithoutLevelRenderer {
     public JarItemRenderer() {
-        super(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
+        super(null, null);
+        //super(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
     }
 
     @Override

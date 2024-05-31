@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "paganbless:block/black_thorn_planks"
+      "model": "paganbless:block/tree/black_thorn_planks"
     }
   }
 }

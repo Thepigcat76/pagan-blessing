@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "paganbless:block/tree/black_thorn_planks"
+  }
+}

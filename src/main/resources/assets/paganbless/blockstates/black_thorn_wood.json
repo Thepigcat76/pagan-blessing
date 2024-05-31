@@ -1,7 +1,16 @@
 {
   "variants": {
-    "": {
-      "model": "paganbless:block/black_thorn_wood"
+    "axis=x": {
+      "model": "paganbless:block/tree/black_thorn_wood",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "paganbless:block/tree/black_thorn_wood"
+    },
+    "axis=z": {
+      "model": "paganbless:block/tree/black_thorn_wood",
+      "x": 90
     }
   }
 }

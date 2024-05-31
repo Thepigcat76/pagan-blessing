@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "paganbless:block/tree/black_thorn_stripped_log_top",
+    "side": "paganbless:block/tree/black_thorn_stripped_log"
+  }
+}

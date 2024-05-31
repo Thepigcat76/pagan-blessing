@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "paganbless:block/stripped_black_thorn_wood"
+      "model": "paganbless:block/tree/stripped_black_thorn_wood"
     }
   }
 }

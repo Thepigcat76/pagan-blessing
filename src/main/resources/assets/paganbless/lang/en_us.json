@@ -3,6 +3,7 @@
 
   "desc.paganbless.rune_slab": "Right-click with a black thorn staff to change the rune's state",
   "desc.paganbless.athame": "Biggest fear of the undead! Become a zombie slayer",
+  "desc.paganbless.boline": "Pagan's essential, use this to harvest crops by right-clicking and to process ingredients",
   "desc.paganbless.eternal_snowball": "An ever-lasting snowball that deals damage. It is quite cold tho",
   "desc.paganbless.chalice": "A never ending milk bucket. What would you use this for?",
   "desc.paganbless.wand": "The dream of any Gardener! Grow your crops infinitely.",
@@ -27,6 +28,7 @@
   "item.paganbless.belladonna": "Belladonna",
   "book.paganbless.pagan_guide.name": "Pagan Guide",
   "item.paganbless.herb_pouch": "Herb Pouch",
+  "item.paganbless.boline": "Boline",
   "item.paganbless.glazed_berries": "Glazed Berries",
   "pagan_guide.desc.0": "The guide to this mod",
 
@@ -50,6 +52,9 @@
   "block.paganbless.rue_plant": "Rue Plant",
 
   "block.paganbless.black_thorn_log": "Black Thorn Log",
+  "block.paganbless.stripped_black_thorn_log": "Stripped Black Thorn Log",
+  "block.paganbless.black_thorn_wood": "Black Thorn Wood",
+  "block.paganbless.stripped_black_thorn_wood": "Stripped Black Thorn Wood",
   "block.paganbless.black_thorn_leaves": "Black Thorn Leaves",
   "block.paganbless.black_thorn_sapling": "Black Thorn Sapling"
 }

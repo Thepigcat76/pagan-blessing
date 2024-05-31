@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "paganbless:block/tree/black_thorn_planks"
+  }
+}

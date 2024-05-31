@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "paganbless:block/tree/black_thorn_slab"
+    },
+    "type=double": {
+      "model": "paganbless:block/tree/black_thorn_planks"
+    },
+    "type=top": {
+      "model": "paganbless:block/tree/black_thorn_slab_top"
+    }
+  }
+}

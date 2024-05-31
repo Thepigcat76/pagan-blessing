@@ -1,7 +1,6 @@
 package com.pigdad.paganbless.registries;
 
 import com.pigdad.paganbless.PaganBless;
-import com.pigdad.paganbless.compat.ModonomiconCompat;
 import com.pigdad.paganbless.registries.items.CaptureSacrificeItem;
 import com.pigdad.paganbless.registries.items.PentacleItem;
 import net.minecraft.core.registries.Registries;
@@ -52,6 +51,7 @@ public final class PBTabs {
                 addBook(output);
                 output.accept(PBItems.CINNABAR.get());
                 output.accept(PBItems.HERB_POUCH.get());
+                output.accept(PBItems.BOLINE.get());
                 output.accept(PBBlocks.ROPE.get());
                 output.accept(PBItems.ATHAME.get());
                 output.accept(PBItems.CHALICE.get());
@@ -62,16 +62,26 @@ public final class PBTabs {
                 output.accept(PBBlocks.BLACK_THORN_LEAVES.get());
                 output.accept(PBBlocks.BLACK_THORN_SAPLING.get());
                 output.accept(PBBlocks.BLACK_THORN_PLANKS.get());
+                output.accept(PBBlocks.BLACK_THORN_SLAB.get());
+                output.accept(PBBlocks.BLACK_THORN_STAIRS.get());
+                output.accept(PBBlocks.BLACK_THORN_FENCE.get());
+                output.accept(PBBlocks.BLACK_THORN_FENCE_GATE.get());
+                output.accept(PBBlocks.BLACK_THORN_PRESSURE_PLATE.get());
+                output.accept(PBBlocks.BLACK_THORN_BUTTON.get());
                 output.accept(PBBlocks.BLACK_THORN_LOG.get());
                 output.accept(PBBlocks.STRIPPED_BLACK_THORN_LOG.get());
                 output.accept(PBBlocks.BLACK_THORN_WOOD.get());
                 output.accept(PBBlocks.STRIPPED_BLACK_THORN_WOOD.get());
+                output.accept(PBBlocks.BLACK_THORN_TRAPDOOR.get());
+                output.accept(PBBlocks.BLACK_THORN_DOOR.get());
             }).build());
 
     public static void addBook(CreativeModeTab.Output output) {
+    /*
         if (PBItems.PAGAN_GUIDE != null) {
             output.accept(ModonomiconCompat.getItemStack());
         }
+     */
     }
 
     public static void addPentacle(CreativeModeTab.Output output) {

@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cross",
   "render_type": "cutout",
   "textures": {
-    "cross": "paganbless:block/black_thorn_sapling"
+    "cross": "paganbless:block/tree/black_thorn_sapling"
   }
 }

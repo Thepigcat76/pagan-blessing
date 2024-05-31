@@ -1,15 +1,15 @@
 {
   "variants": {
     "axis=x": {
-      "model": "paganbless:block/stripped_black_thorn_log_horizontal",
+      "model": "paganbless:block/tree/stripped_black_thorn_log_horizontal",
       "x": 90,
       "y": 90
     },
     "axis=y": {
-      "model": "paganbless:block/stripped_black_thorn_log"
+      "model": "paganbless:block/tree/stripped_black_thorn_log"
     },
     "axis=z": {
-      "model": "paganbless:block/stripped_black_thorn_log_horizontal",
+      "model": "paganbless:block/tree/stripped_black_thorn_log_horizontal",
       "x": 90
     }
   }

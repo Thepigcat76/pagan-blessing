@@ -31,6 +31,7 @@ public class AnvilBlockMixin {
             at = @At("TAIL")
     )
     public void anvilLanding(Level level, BlockPos blockPos, BlockState blockState, BlockState oldBlockState, FallingBlockEntity fallingBlockEntity, CallbackInfo callbackInfoLevel) {
+        // FIXME: when dropping anvil from too small distance, it has wrong recipe
         List<Entity> entities = level.getEntities(EntityType.ITEM.create(level), new AABB(blockPos));
         List<ItemEntity> itemEntities = new ArrayList<>();
         for (Entity entity : entities) {
@@ -46,10 +47,8 @@ public class AnvilBlockMixin {
         for (int i = 0; i < itemEntities.size(); i++) {
             container.setItem(i, itemEntities.get(i).getItem());
         }
-        PaganBless.LOGGER.debug("Container: {}", container);
         Optional<RecipeHolder<AnvilSmashingRecipe>> optionalRecipe = getCurrentRecipe(level, container);
         optionalRecipe.ifPresent(anvilSmashingRecipe -> {
-            PaganBless.LOGGER.debug("Has recipe!");
             ItemStack resultItem = anvilSmashingRecipe.value().getResultItem(level.registryAccess());
             for (ItemEntity itemEntity : itemEntities) {
                 for (Ingredient ingredient : anvilSmashingRecipe.value().getIngredients()) {

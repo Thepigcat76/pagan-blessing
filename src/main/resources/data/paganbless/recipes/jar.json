@@ -1,21 +1,14 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "#": {
-      "tag": "forge:glass_panes"
+  "type": "paganbless:anvil_smashing",
+  "ingredients": [
+    {
+      "tag": "forge:glass"
     },
-    "W": {
+    {
       "item": "paganbless:black_thorn_log"
     }
-  },
-  "pattern": [
-    "#W#",
-    "# #",
-    "###"
   ],
   "result": {
     "id": "paganbless:jar"
-  },
-  "show_notification": false
+  }
 }

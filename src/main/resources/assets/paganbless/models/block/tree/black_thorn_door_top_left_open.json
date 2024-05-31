@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_left_open",
+  "textures": {
+    "bottom": "paganbless:block/tree/black_thorn_door_bottom",
+    "top": "paganbless:block/tree/black_thorn_door_top"
+  }
+}
