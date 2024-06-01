@@ -4,6 +4,7 @@ import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.blockentities.RunicCoreBlockEntity;
+import com.pigdad.paganbless.registries.blockentities.renderer.HerbalistBenchBERenderer;
 import com.pigdad.paganbless.registries.blockentities.renderer.ImbuingCauldronBERenderer;
 import com.pigdad.paganbless.registries.blockentities.renderer.JarBERenderer;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,6 +25,8 @@ public class PBEvents {
                     ImbuingCauldronBERenderer::new);
             event.registerBlockEntityRenderer(PBBlockEntities.JAR.get(),
                     JarBERenderer::new);
+            event.registerBlockEntityRenderer(PBBlockEntities.HERBALIST_BENCH.get(),
+                    HerbalistBenchBERenderer::new);
         }
     }
 

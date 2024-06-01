@@ -4,7 +4,7 @@
     "0": "paganbless:block/winch/side_metal",
     "1": "paganbless:block/winch/side_metal_two",
     "3": "paganbless:block/winch/side_wood",
-    "4": "paganbless:block/black_thorn_log_side",
+    "4": "paganbless:block/tree/black_thorn_log",
     "particle": "paganbless:block/winch/side_metal"
   },
   "elements": [

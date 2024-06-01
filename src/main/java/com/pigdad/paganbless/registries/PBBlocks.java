@@ -27,6 +27,8 @@ public final class PBBlocks {
 
     public static final Supplier<Block> IMBUING_CAULDRON = registerBlockAndItem("imbuing_cauldron",
             () -> new ImbuingCauldronBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).noOcclusion()));
+    public static final Supplier<Block> HERBALIST_BENCH = registerBlockAndItem("herbalist_bench",
+            () -> new HerbalistBenchBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).noOcclusion()));
     public static final Supplier<Block> CRANK = registerBlockAndItem("crank",
             () -> new CrankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noOcclusion()));
     public static final Supplier<Block> JAR = registerBlock("jar",

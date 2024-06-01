@@ -1,0 +1,15 @@
+{
+  "type": "paganbless:bench_cutting",
+  "ingredient": {
+    "count": 2,
+    "item": "minecraft:hay_block"
+  },
+  "tool": {
+    "tag": "paganbless:pagan_tools"
+  },
+  "cuts": 3,
+  "try_damage": true,
+  "result": {
+    "id": "minecraft:wheat"
+  }
+}

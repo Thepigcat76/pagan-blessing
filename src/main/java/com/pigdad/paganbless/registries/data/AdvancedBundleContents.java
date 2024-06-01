@@ -2,7 +2,6 @@ package com.pigdad.paganbless.registries.data;
 
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
-import com.pigdad.paganbless.registries.PBDataComponents;
 import com.pigdad.paganbless.registries.PBTags;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -11,10 +10,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
-import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.PickaxeItem;
-import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 import org.apache.commons.lang3.math.Fraction;
@@ -150,7 +146,7 @@ public record AdvancedBundleContents(List<ItemStack> items, Fraction weight) imp
         }
 
         public boolean isValid(ItemStack itemStack) {
-            return itemStack.is(PBTags.Item.HERBS);
+            return itemStack.is(PBTags.ItemTags.HERBS);
         }
 
         public int tryTransfer(Slot p_330834_, Player p_331924_) {

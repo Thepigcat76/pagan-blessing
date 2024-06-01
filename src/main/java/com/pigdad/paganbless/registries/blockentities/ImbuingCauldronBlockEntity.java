@@ -105,7 +105,7 @@ public class ImbuingCauldronBlockEntity extends ContainerBlockEntity {
                     if (itemHandler.getStackInSlot(i).is(itemStack.getItem()) && itemHandler.getStackInSlot(i).getCount() >= itemStack.getCount()) {
                         itemHandler.extractItem(i, ingredient.count(), false);
                         break;
-                    } else if (itemHandler.getStackInSlot(i).is(PBTags.Item.HERBS) && itemHandler.getStackInSlot(i).getCount() >= itemStack.getCount()) {
+                    } else if (itemHandler.getStackInSlot(i).is(PBTags.ItemTags.HERBS) && itemHandler.getStackInSlot(i).getCount() >= itemStack.getCount()) {
                         itemHandler.extractItem(i, ingredient.count(), false);
                         break;
                     }

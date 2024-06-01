@@ -2,11 +2,11 @@
 	"credit": "Made with Blockbench",
 	"render_type": "cutout",
 	"textures": {
-		"0": "paganbless:block/black_thorn_log_side",
-		"1": "paganbless:block/black_thorn_log_top",
+		"0": "paganbless:block/tree/black_thorn_log",
+		"1": "paganbless:block/tree/black_thorn_log_top",
 		"2": "paganbless:block/skeleton",
 		"3": "block/brown_candle_lit",
-		"particle": "paganbless:block/black_thorn_log_top"
+		"particle": "paganbless:block/tree/black_thorn_log_top"
 	},
 	"elements": [
 		{

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "paganbless:block/herbalist_bench",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "paganbless:block/herbalist_bench",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "paganbless:block/herbalist_bench"
+    },
+    "facing=west": {
+      "model": "paganbless:block/herbalist_bench",
+      "y": 90
+    }
+  }
+}

@@ -15,6 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -37,6 +38,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static com.pigdad.paganbless.registries.blocks.RotatableEntityBlock.FACING;
+
 public class RuneSlabBlock extends BaseEntityBlock {
     public static final BooleanProperty IS_TOP = BooleanProperty.create("is_top");
     public static final EnumProperty<RuneState> RUNE_STATE = EnumProperty.create("rune_state", RuneState.class);
@@ -53,15 +56,15 @@ public class RuneSlabBlock extends BaseEntityBlock {
 
     @Override
     public void setPlacedBy(Level level, BlockPos blockPos, BlockState p_49849_, @Nullable LivingEntity p_49850_, ItemStack p_49851_) {
-        level.setBlockAndUpdate(blockPos.offset(0, 1, 0), this.defaultBlockState().setValue(IS_TOP, true));
+        level.setBlockAndUpdate(blockPos.above(), this.defaultBlockState().setValue(IS_TOP, true));
     }
 
     @Override
     public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
         if (state.getValue(IS_TOP)) {
-            level.removeBlock(pos.offset(0, -1, 0), true);
+            level.removeBlock(pos.below(), true);
         } else {
-            level.removeBlock(pos.offset(0, 1, 0), true);
+            level.removeBlock(pos.above(), true);
         }
         return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
     }

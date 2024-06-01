@@ -9,7 +9,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;
@@ -79,7 +78,7 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        if (ctx.getLevel().getBlockState(ctx.getClickedPos().below()).is(PBTags.Block.HEAT_SOURCE))
+        if (ctx.getLevel().getBlockState(ctx.getClickedPos().below()).is(PBTags.BlockTags.HEAT_SOURCE))
             return super.getStateForPlacement(ctx).setValue(ACTIVE, true);
         return super.getStateForPlacement(ctx);
     }
@@ -89,9 +88,9 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
         BlockState blockState = p_60544_.getBlockState(basePos);
         if (newState.getBlock() != this) {
             if (direction.equals(Direction.DOWN)) {
-                if (newState.is(PBTags.Block.HEAT_SOURCE)) {
+                if (newState.is(PBTags.BlockTags.HEAT_SOURCE)) {
                     return blockState.setValue(ACTIVE, true);
-                } else if (blockState.getValue(ACTIVE) && !newState.is(PBTags.Block.HEAT_SOURCE)) {
+                } else if (blockState.getValue(ACTIVE) && !newState.is(PBTags.BlockTags.HEAT_SOURCE)) {
                     return blockState.setValue(ACTIVE, false);
                 }
             }
