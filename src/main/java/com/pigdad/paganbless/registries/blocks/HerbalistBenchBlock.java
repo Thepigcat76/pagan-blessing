@@ -145,7 +145,7 @@ public class HerbalistBenchBlock extends RotatableEntityBlock {
     private static void performRecipeAction(Level level, HerbalistBenchBlockEntity blockEntity, ItemStack itemStack, BenchCuttingRecipe recipe) {
         itemStack.setCount(itemStack.getCount() - recipe.ingredient().count());
         BlockPos blockPos = blockEntity.getBlockPos().above();
-        Containers.dropItemStack(level, blockPos.getX(), blockPos.getY(), blockPos.getZ(), recipe.resultStack());
+        Containers.dropItemStack(level, blockPos.getX(), blockPos.getY(), blockPos.getZ(), recipe.resultStack().copy());
     }
 
     public enum BenchVariant implements StringRepresentable {
