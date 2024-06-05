@@ -4,6 +4,7 @@ import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.blockentities.*;
 import com.pigdad.paganbless.registries.blocks.HerbalistBenchBlock;
 import com.pigdad.paganbless.registries.blocks.RuneSlabBlock;
+import com.pigdad.paganbless.registries.blocks.WinchBlock;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -41,6 +42,10 @@ public final class PBBlockEntities {
             BLOCK_ENTITIES.register("herbalist_bench", () ->
                     BlockEntityType.Builder.of(HerbalistBenchBlockEntity::new,
                             PBBlocks.HERBALIST_BENCH.get()).build(null));
+    public static final Supplier<BlockEntityType<WinchBlockEntity>> WINCH =
+            BLOCK_ENTITIES.register("winch", () ->
+                    BlockEntityType.Builder.of(WinchBlockEntity::new,
+                            PBBlocks.WINCH.get()).build(null));
 
     private static Block[] getRuneSlabs() {
         List<Block> slabs = new ArrayList<>();

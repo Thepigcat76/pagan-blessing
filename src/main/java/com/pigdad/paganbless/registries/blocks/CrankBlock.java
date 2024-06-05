@@ -19,8 +19,8 @@ import org.jetbrains.annotations.Nullable;
 public class CrankBlock extends RotatableBlock {
     public static final IntegerProperty ROTATION = IntegerProperty.create("rotation", 0, 7);
 
-    public CrankBlock(Properties p_49224_) {
-        super(p_49224_);
+    public CrankBlock(Properties properties) {
+        super(properties);
     }
 
     @Nullable
@@ -42,20 +42,38 @@ public class CrankBlock extends RotatableBlock {
 
     @Override
     protected @NotNull InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
-        level.setBlockAndUpdate(blockPos, incrRotationState(blockState));
-        Direction direction = blockState.getValue(FACING);
-        BlockPos winchPos = blockPos.relative(direction);
-        BlockState winchBlock = level.getBlockState(winchPos);
-        if (winchBlock.getBlock() instanceof WinchBlock) {
-            WinchBlock.liftUp(level, winchPos, winchBlock);
+        if (!level.isClientSide() && !player.isShiftKeyDown()) {
+            level.setBlockAndUpdate(blockPos, incrRotationState(blockState));
+            BlockPos winchPos = getWinchPos(blockState, blockPos);
+            BlockState winchBlock = level.getBlockState(winchPos);
+            int distance = winchBlock.getValue(WinchBlock.DISTANCE);
+            if (winchBlock.getBlock() instanceof WinchBlock && distance > 1) {
+                WinchBlock.liftUp(level, winchPos, winchBlock);
+            } else {
+                return InteractionResult.FAIL;
+            }
+
+            return InteractionResult.SUCCESS;
         }
-        return InteractionResult.SUCCESS;
+        return InteractionResult.FAIL;
     }
 
-    protected BlockState incrRotationState(BlockState blockState) {
+    public static @NotNull BlockPos getWinchPos(BlockState blockState, BlockPos blockPos) {
+        Direction direction = blockState.getValue(FACING);
+        return blockPos.relative(direction);
+    }
+
+    public static BlockState incrRotationState(BlockState blockState) {
         int oldRotation = blockState.getValue(ROTATION);
         return oldRotation == 7
                 ? blockState.setValue(ROTATION, 0)
                 : blockState.setValue(ROTATION, oldRotation + 1);
+    }
+
+    public static BlockState decrRotationState(BlockState blockState) {
+        int oldRotation = blockState.getValue(ROTATION);
+        return oldRotation == 0
+                ? blockState.setValue(ROTATION, 7)
+                : blockState.setValue(ROTATION, oldRotation - 1);
     }
 }
