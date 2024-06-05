@@ -15,10 +15,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -39,7 +41,7 @@ public class RunicCoreBlockEntity extends BlockEntity {
 
             Optional<RunicRitualRecipe> recipe = Optional.empty();
 
-            for (RecipeHolder<RunicRitualRecipe> recipe1 : Utils.getAllRitualRecipes(level.getRecipeManager())) {
+            for (RecipeHolder<RunicRitualRecipe> recipe1 : getAllRitualRecipes(level.getRecipeManager())) {
                 if (recipe1.value().matchesRunes(runeBlock, level)) {
                     recipe = Optional.of(recipe1.value());
                     break;
@@ -71,5 +73,9 @@ public class RunicCoreBlockEntity extends BlockEntity {
         } else {
             player.sendSystemMessage(Component.literal(RunicCoreBlock.getRuneType(level, getBlockPos()).getSecond()));
         }
+    }
+
+    public static List<RecipeHolder<RunicRitualRecipe>> getAllRitualRecipes(RecipeManager recipeManager) {
+        return recipeManager.getAllRecipesFor(RunicRitualRecipe.Type.INSTANCE);
     }
 }

@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.pigdad.paganbless.registries.*;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.server.MinecraftServer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -13,13 +14,17 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import org.slf4j.Logger;
 
 @Mod(PaganBless.MODID)
 public final class PaganBless {
     public static final String MODID = "paganbless";
     public static final Logger LOGGER = LogUtils.getLogger();
+
+    public static MinecraftServer server;
 
     public PaganBless(IEventBus modEventBus, ModContainer container) {
         PBBlocks.BLOCKS.register(modEventBus);
@@ -45,9 +50,20 @@ public final class PaganBless {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-            event.enqueueWork(() -> {
-                EntityRenderers.register(PBEntities.ETERNAL_SNOWBALL.get(), pContext -> new ThrownItemRenderer<>(pContext, 1, false));
-            });
+            event.enqueueWork(() -> EntityRenderers.register(PBEntities.ETERNAL_SNOWBALL.get(), pContext -> new ThrownItemRenderer<>(pContext, 1, false)));
+        }
+    }
+
+    @EventBusSubscriber(modid = MODID)
+    public static class ServerEvents {
+        @SubscribeEvent
+        public static void onServerStarted(ServerStartedEvent event) {
+            server = event.getServer();
+        }
+
+        @SubscribeEvent
+        public static void onServerStopping(ServerStoppedEvent event) {
+            server = null;
         }
     }
 }

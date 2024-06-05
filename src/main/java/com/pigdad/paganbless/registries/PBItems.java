@@ -14,6 +14,7 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.component.CustomData;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -55,17 +56,20 @@ public final class PBItems {
     public static final Supplier<Item> RUNIC_CHARGE = registerItem("runic_charge",
             () -> new RunicChargeItem(new Item.Properties().stacksTo(16)));
     public static final Supplier<Item> WAND = registerItem("wand",
-            () -> new WandItem(new Item.Properties().stacksTo(1)));
+            () -> new WandItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
     public static final Supplier<Item> CHALICE = registerItem("chalice",
-            () -> new ChaliceItem(new Item.Properties().stacksTo(1)));
+            () -> new ChaliceItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
     public static final Supplier<Item> ATHAME = registerItem("athame",
-            () -> new AthameItem(new Item.Properties().stacksTo(1)));
+            () -> new AthameItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
     public static final Supplier<Item> WICAN_WARD = registerItem("wican_ward",
-            () -> new BlockItem(PBBlocks.WICAN_WARD.get(), new Item.Properties()));
+            () -> new BlockItem(PBBlocks.WICAN_WARD.get(), new Item.Properties().rarity(Rarity.RARE)));
     public static final Supplier<Item> ETERNAL_SNOWBALL = registerItem("eternal_snowball",
-            () -> new EternalSnowBallItem(new Item.Properties().stacksTo(1)));
+            () -> new EternalSnowBallItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
     public static final Supplier<Item> PENTACLE = registerItem("pentacle",
-            () -> new PentacleItem(new Item.Properties().stacksTo(1).component(DataComponents.ENTITY_DATA, CustomData.EMPTY)));
+            () -> new PentacleItem(PBBlocks.PENTACLE.get(), new Item.Properties()
+                    .stacksTo(1)
+                    .component(DataComponents.ENTITY_DATA, CustomData.EMPTY)
+                    .rarity(Rarity.RARE)));
     public static final Supplier<Item> BLACK_THORN_STAFF = registerItem("black_thorn_staff",
             () -> new ToolTipItem(new Item.Properties().stacksTo(1), Component.translatable("desc.paganbless.black_thorn_staff")
                     .withStyle(ChatFormatting.GRAY)));

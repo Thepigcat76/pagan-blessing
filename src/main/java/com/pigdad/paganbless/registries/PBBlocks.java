@@ -37,6 +37,17 @@ public final class PBBlocks {
             () -> new WinchBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).noOcclusion()));
     public static final Supplier<Block> ROPE = registerBlockAndItem("rope",
             () -> new RopeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noOcclusion().sound(SoundType.WOOL)));
+    public static final Supplier<Block> PENTACLE = registerBlock("pentacle",
+            () -> new PentacleBlock(BlockBehaviour.Properties.of()
+                    .noCollission()
+                    .noOcclusion()
+                    .instabreak()));
+    public static final Supplier<Block> WICAN_WARD = registerBlock("wican_ward",
+            () -> new WicanWardBlock(BlockBehaviour.Properties.of()
+                    .noOcclusion()));
+    public static final Supplier<Block> RUNIC_CORE = registerBlockAndItem("runic_core",
+            () -> new RunicCoreBlock(BlockBehaviour.Properties.of().noOcclusion()));
+    // Rune slabs
     public static final Supplier<Block> RUNE_SLAB_AMETHYST = registerRuneSlab("rune_slab_amethyst");
     public static final Supplier<Block> RUNE_SLAB_CINNABAR = registerRuneSlab("rune_slab_cinnabar");
     public static final Supplier<Block> RUNE_SLAB_DIAMOND = registerRuneSlab("rune_slab_diamond");
@@ -44,6 +55,7 @@ public final class PBBlocks {
     public static final Supplier<Block> RUNE_SLAB_QUARTZ = registerRuneSlab("rune_slab_quartz");
     public static final Supplier<Block> RUNE_SLAB_LAPIS = registerRuneSlab("rune_slab_lapis");
     public static final Supplier<Block> RUNE_SLAB_INERT = registerRuneSlab("rune_slab_inert");
+    // Plants
     public static final Supplier<Block> RUE_PLANT = registerBlockAndItem("rue_plant",
             () -> new HerbPlantBlock(5, BlockBehaviour.Properties.of()));
     public static final Supplier<Block> BELLADONNA_PLANT = registerBlockAndItem("belladonna_plant",
@@ -58,6 +70,7 @@ public final class PBBlocks {
             () -> new HerbPlantBlock(5, BlockBehaviour.Properties.of()));
     public static final Supplier<Block> WINTER_BERRY_BUSH = registerBlock("winter_berry_bush",
             () -> new WinterBerryBushBlock(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.SWEET_BERRY_BUSH)));
+    // Black thorn wood
     public static final Supplier<Block> BLACK_THORN_LOG = registerBlockAndItem("black_thorn_log",
             () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
     public static final Supplier<Block> STRIPPED_BLACK_THORN_LOG = registerBlockAndItem("stripped_black_thorn_log",
@@ -86,16 +99,6 @@ public final class PBBlocks {
             () -> new ButtonBlock(BLACK_THORN_SET_TYPE, 30, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_BUTTON)));
     public static final Supplier<Block> BLACK_THORN_SLAB = registerBlockAndItem("black_thorn_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB)));
-    public static final Supplier<Block> PENTACLE = registerBlock("pentacle",
-            () -> new PentacleBlock(BlockBehaviour.Properties.of()
-                    .noCollission()
-                    .noOcclusion()
-                    .instabreak()));
-    public static final Supplier<Block> WICAN_WARD = registerBlock("wican_ward",
-            () -> new WicanWardBlock(BlockBehaviour.Properties.of()
-                    .noOcclusion()));
-    public static final Supplier<Block> RUNIC_CORE = registerBlockAndItem("runic_core",
-            () -> new RunicCoreBlock(BlockBehaviour.Properties.of().noOcclusion()));
 
     private static Supplier<Block> registerBlockAndItem(String name, Supplier<Block> block) {
         Supplier<Block> toReturn = BLOCKS.register(name, block);

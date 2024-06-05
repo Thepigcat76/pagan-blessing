@@ -54,11 +54,11 @@ public final class PBTabs {
                     output.accept(PBItems.HERB_POUCH.get());
                     output.accept(PBItems.BOLINE.get());
                     output.accept(PBBlocks.ROPE.get());
-                    output.accept(PBItems.ATHAME.get());
+                    output.accept(PBItems.WAND.get());
                     output.accept(PBItems.CHALICE.get());
                     output.accept(PBItems.ETERNAL_SNOWBALL.get());
                     addPentacle(output);
-                    output.accept(PBItems.WAND.get());
+                    output.accept(PBItems.ATHAME.get());
                     output.accept(PBItems.WICAN_WARD.get());
                     output.accept(PBBlocks.BLACK_THORN_LEAVES.get());
                     output.accept(PBBlocks.BLACK_THORN_SAPLING.get());

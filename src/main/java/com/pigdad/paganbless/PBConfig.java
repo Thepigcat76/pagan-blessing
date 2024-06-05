@@ -23,10 +23,14 @@ public final class PBConfig {
     private static final ModConfigSpec.ConfigValue<List<? extends String>> ENTITY_TYPES = BUILDER
             .comment("A blacklist for mobs that should not be captured by the pentacle on sacrifice")
             .defineListAllowEmpty("pentacle_blacklisted", List.of("minecraft:wither", "minecraft:warden", "minecraft:ender_dragon"), PBConfig::validateEntityName);
+    private static final ModConfigSpec.IntValue WICAN_WARD_RANGE = BUILDER
+            .comment("The range that the wican ward will prevent mob spawning in. This area is cubic")
+            .defineInRange("wican_ward_range", 10, 0, 128);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 
     public static Set<EntityType<?>> entityTypes;
+    public static int wwRange;
 
     private static boolean validateEntityName(final Object obj) {
         return obj instanceof final String itemName && BuiltInRegistries.ENTITY_TYPE.containsKey(new ResourceLocation(itemName));
@@ -37,5 +41,6 @@ public final class PBConfig {
         entityTypes = ENTITY_TYPES.get().stream()
                 .map(itemName -> BuiltInRegistries.ENTITY_TYPE.get(new ResourceLocation(itemName)))
                 .collect(Collectors.toSet());
+        wwRange = WICAN_WARD_RANGE.getAsInt();
     }
 }

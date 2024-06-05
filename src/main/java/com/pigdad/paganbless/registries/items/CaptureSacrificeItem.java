@@ -13,21 +13,12 @@ import net.minecraft.world.item.component.CustomData;
  */
 public interface CaptureSacrificeItem {
     default void setEntity(Entity entity, ItemStack itemStack) {
-        if (entity instanceof LivingEntity livingEntity) {
-            CompoundTag tag = new CompoundTag();
-            tag.put("entity", entity.serializeNBT(entity.registryAccess()));
-            tag.getCompound("entity").putFloat("Health", livingEntity.getMaxHealth());
-            tag.getCompound("entity").remove("HandItems");
-            tag.getCompound("entity").remove("ArmorItems");
-            CustomData data = CustomData.of(tag);
-            itemStack.set(DataComponents.ENTITY_DATA, data);
-        }
+        setEntity(entity.getType(), itemStack);
     }
 
     default void setEntity(EntityType<?> entity, ItemStack itemStack) {
         CompoundTag tag = new CompoundTag();
-        tag.put("entity", new CompoundTag());
-        tag.getCompound("entity").putString("id", EntityType.getKey(entity).toString());
+        tag.putString("id", EntityType.getKey(entity).toString());
         CustomData data = CustomData.of(tag);
         itemStack.set(DataComponents.ENTITY_DATA, data);
     }

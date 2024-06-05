@@ -4,16 +4,14 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.component.ItemAttributeModifiers;
 
 import java.util.List;
 
 public class AthameItem extends SwordItem {
     public AthameItem(Properties properties) {
-        super(Tiers.DIAMOND, properties.attributes(SwordItem.createAttributes(Tiers.DIAMOND, 8, 1.8F)));
+        super(Tiers.DIAMOND, properties.attributes(SwordItem.createAttributes(Tiers.DIAMOND, 3, -2.2F)));
     }
 
     @Override
