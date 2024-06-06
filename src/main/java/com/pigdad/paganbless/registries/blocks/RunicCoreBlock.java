@@ -2,6 +2,7 @@ package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.MapCodec;
+import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.PBItems;
 import com.pigdad.paganbless.registries.blockentities.RuneSlabBlockEntity;
@@ -27,6 +28,8 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -99,19 +102,21 @@ public class RunicCoreBlock extends BaseEntityBlock {
                     player.sendSystemMessage(Component.literal("Runic core is not activated"));
                 }
             } else if (itemStack.is(PBItems.BLACK_THORN_STAFF.get())) {
-                level.setBlockAndUpdate(blockPos, blockState.setValue(ACTIVE, true));
+                level.setBlockAndUpdate(blockPos, blockState.setValue(ACTIVE, !blockState.getValue(ACTIVE)));
             }
         }
         return ItemInteractionResult.SUCCESS;
     }
 
+    @Nullable
     @Override
-    public void animateTick(BlockState p_220827_, Level level, BlockPos pos, RandomSource p_220830_) {
-        double d0 = (double) pos.getX() + 0.5f;
-        double d1 = (double) pos.getY() + 1.0f;
-        double d2 = (double) pos.getZ() + 0.5f;
-        level.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0f, 0.0f, 0.0f);
-        level.addParticle(ParticleTypes.FLAME, d0, d1, d2, 0.0f, 0.0f, 0.0f);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        return createTickerHelper(pBlockEntityType, PBBlockEntities.RUNIC_CORE.get(), (level, pos, state, entity) -> {
+            if (level.isClientSide())
+                entity.clientTick();
+            else
+                entity.serverTick();
+        });
     }
 
     /**
@@ -196,7 +201,7 @@ public class RunicCoreBlock extends BaseEntityBlock {
 
         // check if all blockstates are correct
         if (!runeStates.equals(expectedStates)) {
-            return errorFromString("A rune state is not correct. When performing the runic ritual, every block needs a different state. States can be changed with a pickaxe");
+            return errorFromString("A rune state is not correct. When performing the runic ritual, every block needs a different state. States can be changed with a blackthorn staff");
         }
 
         Block runeType = level.getBlockState(finalPositions.stream().toList().get(0)).getBlock();

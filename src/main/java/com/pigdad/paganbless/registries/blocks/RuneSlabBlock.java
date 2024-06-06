@@ -101,8 +101,11 @@ public class RuneSlabBlock extends BaseEntityBlock {
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack p_316304_, BlockState p_316362_, Level level, BlockPos blockPos, Player p_316132_, InteractionHand p_316595_, BlockHitResult p_316140_) {
-        if (p_316304_.is(PBItems.BLACK_THORN_STAFF.get())) {
-            incrementRuneState(level, blockPos);
+        if (!level.isClientSide()) {
+            if (p_316304_.is(PBItems.BLACK_THORN_STAFF.get())) {
+                incrementRuneState(level, blockPos);
+            }
+            p_316132_.sendSystemMessage(Component.literal("Rune State: " + p_316362_.getValue(RUNE_STATE).ordinal()));
             return ItemInteractionResult.SUCCESS;
         }
         return ItemInteractionResult.FAIL;

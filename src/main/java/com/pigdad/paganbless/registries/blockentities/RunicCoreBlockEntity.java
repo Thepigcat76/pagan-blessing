@@ -7,6 +7,7 @@ import com.pigdad.paganbless.registries.recipes.RunicRitualRecipe;
 import com.pigdad.paganbless.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -19,6 +20,7 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +29,28 @@ import java.util.Set;
 public class RunicCoreBlockEntity extends BlockEntity {
     public RunicCoreBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
         super(PBBlockEntities.RUNIC_CORE.get(), p_155229_, p_155230_);
+    }
+
+    public void serverTick() {
+
+    }
+
+    public void clientTick() {
+        if (getBlockState().getValue(RunicCoreBlock.ACTIVE)) {
+            Vec3 northPos = new Vec3(worldPosition.getX() + 0.75, worldPosition.getY() + 0.65, worldPosition.getZ() + 0.23);
+            Vec3 eastPos = new Vec3(worldPosition.getX() + 0.75, worldPosition.getY() + 0.65, worldPosition.getZ() + 0.75);
+            Vec3 southPos = new Vec3(worldPosition.getX() + 0.23, worldPosition.getY() + 0.65, worldPosition.getZ() + 0.75);
+            Vec3 westPos = new Vec3(worldPosition.getX() + 0.23, worldPosition.getY() + 0.65, worldPosition.getZ() + 0.23);
+            Vec3 pos = switch (getBlockState().getValue(RunicCoreBlock.FACING)) {
+                case NORTH -> northPos;
+                case SOUTH -> southPos;
+                case WEST -> westPos;
+                case EAST -> eastPos;
+                default -> null;
+            };
+            level.addParticle(ParticleTypes.SMOKE, pos.x, pos.y, pos.z, 0.0f, 0.0f, 0.0f);
+            level.addParticle(ParticleTypes.FLAME, pos.x, pos.y, pos.z, 0.0f, 0.0f, 0.0f);
+        }
     }
 
     public void craftItem(Entity sacrificedEntity) {
