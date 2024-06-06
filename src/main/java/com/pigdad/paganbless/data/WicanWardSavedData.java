@@ -1,12 +1,11 @@
 package com.pigdad.paganbless.data;
 
 import com.pigdad.paganbless.registries.blocks.WicanWardBlock;
-import com.pigdad.paganbless.utils.wican_ward.DistanceLogics;
+import com.pigdad.paganbless.utils.wicanward.DistanceLogics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import org.jetbrains.annotations.NotNull;

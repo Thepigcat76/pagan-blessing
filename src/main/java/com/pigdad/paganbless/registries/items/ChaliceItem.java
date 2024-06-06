@@ -24,9 +24,4 @@ public class ChaliceItem extends MilkBucketItem {
         }
         return p_42923_;
     }
-
-    @Override
-    public void appendHoverText(ItemStack p_41421_, TooltipContext p_339594_, List<Component> p_41423_, TooltipFlag p_41424_) {
-        p_41423_.add(Component.translatable("desc.paganbless.chalice").withStyle(ChatFormatting.GRAY));
-    }
 }

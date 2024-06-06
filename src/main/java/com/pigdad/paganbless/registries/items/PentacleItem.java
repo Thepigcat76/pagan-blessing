@@ -25,7 +25,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-// TODO: Make this a BlockItem
 public class PentacleItem extends BlockItem implements CaptureSacrificeItem {
     public PentacleItem(Block block, Properties properties) {
         super(block, properties);
@@ -35,7 +34,6 @@ public class PentacleItem extends BlockItem implements CaptureSacrificeItem {
     protected boolean placeBlock(BlockPlaceContext pContext, BlockState pState) {
         boolean result = super.placeBlock(pContext, pState);
         Level level = pContext.getLevel();
-        Player player = pContext.getPlayer();
         BlockPos blockPos = pContext.getClickedPos().above();
 
         CompoundTag tag = pContext.getItemInHand().get(DataComponents.ENTITY_DATA).copyTag();
@@ -59,7 +57,6 @@ public class PentacleItem extends BlockItem implements CaptureSacrificeItem {
         } else {
             pTooltipComponents.add(Component.translatable("desc.paganbless.decorative").withStyle(ChatFormatting.GRAY));
         }
-        pTooltipComponents.add(Component.translatable("desc.paganbless.pentacle").withStyle(ChatFormatting.GRAY));
         super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
     }
 }

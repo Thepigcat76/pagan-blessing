@@ -69,9 +69,4 @@ public class RunicChargeItem extends Item {
         }
         return InteractionResult.FAIL;
     }
-
-    @Override
-    public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
-        components.add(Component.translatable("desc.paganbless.runic_charge").withStyle(ChatFormatting.GRAY));
-    }
 }

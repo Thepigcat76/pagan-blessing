@@ -1,4 +1,4 @@
-package com.pigdad.paganbless.utils.wican_ward;
+package com.pigdad.paganbless.utils.wicanward;
 
 public class DistanceLogics {
     public static IDistanceLogic Cubic = (posX, posY, posZ, torch, range) -> {

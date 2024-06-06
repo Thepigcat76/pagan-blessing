@@ -35,6 +35,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
+@SuppressWarnings("deprecation")
 public class RunicCoreBlock extends BaseEntityBlock {
     public static final BooleanProperty ACTIVE = com.pigdad.paganbless.utils.BlockStateProperties.ACTIVE;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -53,12 +55,12 @@ public class RunicCoreBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
+    protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
         return simpleCodec(RunicCoreBlock::new);
     }
 
     @Override
-    public RenderShape getRenderShape(BlockState p_49232_) {
+    public @NotNull RenderShape getRenderShape(BlockState p_49232_) {
         return RenderShape.MODEL;
     }
 
@@ -159,34 +161,12 @@ public class RunicCoreBlock extends BaseEntityBlock {
         // check if all the blocks are rune slabs and determine which layout to use
         if (level.getBlockState(firstPos1).getBlock() instanceof RuneSlabBlock &&
                 level.getBlockState(firstPos2).getBlock() instanceof RuneSlabBlock) {
-            for (Vec3i offSetPos : otherPositions1) {
-                if (!(level.getBlockState(corePos.offset(offSetPos)).getBlock() instanceof RuneSlabBlock)) {
-                    return errorFromString(String.format("Block at %d, %d, %d is not a rune slab but a %s",
-                            corePos.offset(offSetPos).getX(),
-                            corePos.offset(offSetPos).getY(),
-                            corePos.offset(offSetPos).getZ(),
-                            level.getBlockState(corePos.offset(offSetPos)).getBlock().getName()));
-                } else {
-                    finalPositions.add(corePos.offset(offSetPos));
-                }
-            }
-            finalPositions.add(firstPos1);
-            finalPositions.add(firstPos2);
+            Pair<@Nullable Set<BlockPos>, @Nullable String> offSetPos = getSetStringPair(level, corePos, otherPositions1, firstPos1, firstPos2, finalPositions);
+            if (offSetPos != null) return offSetPos;
         } else if (level.getBlockState(secPos1).getBlock() instanceof RuneSlabBlock &&
                 level.getBlockState(secPos2).getBlock() instanceof RuneSlabBlock) {
-            for (Vec3i offSetPos : otherPositions2) {
-                if (!(level.getBlockState(corePos.offset(offSetPos)).getBlock() instanceof RuneSlabBlock)) {
-                    return errorFromString(String.format("Block at %d, %d, %d is not a rune slab but a %s",
-                            corePos.offset(offSetPos).getX(),
-                            corePos.offset(offSetPos).getY(),
-                            corePos.offset(offSetPos).getZ(),
-                            level.getBlockState(corePos.offset(offSetPos)).getBlock().getName()));
-                } else {
-                    finalPositions.add(corePos.offset(offSetPos));
-                }
-            }
-            finalPositions.add(secPos1);
-            finalPositions.add(secPos2);
+            Pair<@Nullable Set<BlockPos>, @Nullable String> offSetPos = getSetStringPair(level, corePos, otherPositions2, secPos1, secPos2, finalPositions);
+            if (offSetPos != null) return offSetPos;
         } else {
             return errorFromString(String.format("Neither the block at %d, %d, %d nor block at %d, %d, %d are rune slabs",
                     corePos.offset(firstPos1).getX(),
@@ -233,6 +213,23 @@ public class RunicCoreBlock extends BaseEntityBlock {
         return Pair.of(finalPositions, null);
     }
 
+    private static @Nullable Pair<@Nullable Set<BlockPos>, @Nullable String> getSetStringPair(Level level, BlockPos corePos, List<Vec3i> otherPositions1, BlockPos firstPos1, BlockPos firstPos2, Set<BlockPos> finalPositions) {
+        for (Vec3i offSetPos : otherPositions1) {
+            if (!(level.getBlockState(corePos.offset(offSetPos)).getBlock() instanceof RuneSlabBlock)) {
+                return errorFromString(String.format("Block at %d, %d, %d is not a rune slab but a %s",
+                        corePos.offset(offSetPos).getX(),
+                        corePos.offset(offSetPos).getY(),
+                        corePos.offset(offSetPos).getZ(),
+                        level.getBlockState(corePos.offset(offSetPos)).getBlock().getName()));
+            } else {
+                finalPositions.add(corePos.offset(offSetPos));
+            }
+        }
+        finalPositions.add(firstPos1);
+        finalPositions.add(firstPos2);
+        return null;
+    }
+
     private static Pair<@Nullable Set<BlockPos>, String> errorFromString(String errorMessage) {
         return Pair.of(null, errorMessage);
     }
@@ -251,10 +248,5 @@ public class RunicCoreBlock extends BaseEntityBlock {
                     .setValue(RuneSlabBlock.RUNE_STATE, runeState)
                     .setValue(RuneSlabBlock.IS_TOP, true));
         }
-    }
-
-    @Override
-    public void appendHoverText(ItemStack p_49816_, Item.TooltipContext p_339606_, List<Component> p_49818_, TooltipFlag p_49819_) {
-        p_49818_.add(Component.translatable("desc.paganbless.runic_core").withStyle(ChatFormatting.GRAY));
     }
 }

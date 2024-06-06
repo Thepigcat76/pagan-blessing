@@ -21,9 +21,4 @@ public class AthameItem extends SwordItem {
         }
         return super.hurtEnemy(p_43278_, livingEntity, player);
     }
-
-    @Override
-    public void appendHoverText(ItemStack p_41421_, TooltipContext p_339594_, List<Component> tooltip, TooltipFlag p_41424_) {
-        tooltip.add(Component.translatable("desc.paganbless.athame").withStyle(ChatFormatting.GRAY));
-    }
 }

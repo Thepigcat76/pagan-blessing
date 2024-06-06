@@ -1,24 +1,11 @@
 {
   "tab.paganbless.main": "Pagan's Blessing",
 
-  "desc.paganbless.rune_slab": "Right-click with a black thorn staff to change the rune's state",
-  "desc.paganbless.athame": "Biggest fear of the undead! Become a zombie slayer",
-  "desc.paganbless.boline": "Pagan's essential, use this to harvest crops by right-clicking and to process ingredients",
-  "desc.paganbless.eternal_snowball": "An ever-lasting snowball that deals damage. It is quite cold tho",
-  "desc.paganbless.chalice": "A never ending milk bucket. What would you use this for?",
-  "desc.paganbless.wand": "The dream of any Gardener! Grow your crops infinitely",
-  "desc.paganbless.wican_ward": "A might selection of herbs that will keep away any unwanted visitors. Range: %d",
   "desc.paganbless.decorative": "Decorative",
-  "desc.paganbless.runic_core": "Activate with a Black Thorn Staff. Place in the middle of rune slabs",
-  "desc.paganbless.winch": "An easy way to pull up or lift down falling blocks. This will prevent anvils from losing durability when falling",
-  "desc.paganbless.pentacle": "A mystical item that captures the sacrificed mob and spawns it like a regular spawner does",
-  "desc.paganbless.runic_charge": "Use this to recharge your runic slabs without them losing their state",
-  "desc.paganbless.black_thorn_staff": "Use this to activate the runic core",
 
   "item.paganbless.athame": "Athame",
   "item.paganbless.chalice": "Chalice",
   "item.paganbless.eternal_snowball": "Eternal Snowball",
-  "item.paganbless.pentacle": "Pentacle",
   "item.paganbless.black_thorn_staff": "Black Thorn Staff",
   "item.paganbless.wand": "Wand",
   "item.paganbless.cinnabar": "Cinnabar",
@@ -47,6 +34,7 @@
   "block.paganbless.rune_slab_lapis": "Rune Slab Lapis",
   "block.paganbless.wican_ward": "Wican Ward",
   "block.paganbless.jar": "Jar",
+  "block.paganbless.pentacle": "Pentacle",
 
   "block.paganbless.belladonna_plant": "Belladonna Plant",
   "block.paganbless.hags_taper_plant": "Hags Taper",

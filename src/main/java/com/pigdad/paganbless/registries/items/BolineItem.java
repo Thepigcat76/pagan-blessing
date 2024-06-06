@@ -59,9 +59,4 @@ public class BolineItem extends SwordItem {
         }
         level.destroyBlock(blockPos, false, player);
     }
-
-    @Override
-    public void appendHoverText(ItemStack p_41421_, TooltipContext p_339594_, List<Component> tooltip, TooltipFlag p_41424_) {
-        tooltip.add(Component.translatable("desc.paganbless.boline").withStyle(ChatFormatting.GRAY));
-    }
 }

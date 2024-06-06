@@ -130,10 +130,4 @@ public class WinchBlock extends RotatableEntityBlock {
         }
         return length;
     }
-
-    @Override
-    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
-        pTooltipComponents.add(Component.translatable("desc.paganbless.winch").withStyle(ChatFormatting.GRAY));
-        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
-    }
 }

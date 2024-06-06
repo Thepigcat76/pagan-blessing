@@ -75,10 +75,4 @@ public class WicanWardBlock extends Block {
             savedData.removeWicanWard(pPos);
         }
     }
-
-    @Override
-    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, List<Component> pTootipComponents, TooltipFlag pTooltipFlag) {
-        pTootipComponents.add(Component.translatable("desc.paganbless.wican_ward", RANGE).withStyle(ChatFormatting.GRAY));
-        super.appendHoverText(pStack, pContext, pTootipComponents, pTooltipFlag);
-    }
 }

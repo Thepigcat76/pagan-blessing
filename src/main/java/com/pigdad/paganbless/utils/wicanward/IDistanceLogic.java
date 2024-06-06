@@ -1,4 +1,4 @@
-package com.pigdad.paganbless.utils.wican_ward;
+package com.pigdad.paganbless.utils.wicanward;
 
 import net.minecraft.core.BlockPos;
 

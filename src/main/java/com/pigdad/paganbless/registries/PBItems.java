@@ -71,8 +71,7 @@ public final class PBItems {
                     .component(DataComponents.ENTITY_DATA, CustomData.EMPTY)
                     .rarity(Rarity.RARE)));
     public static final Supplier<Item> BLACK_THORN_STAFF = registerItem("black_thorn_staff",
-            () -> new ToolTipItem(new Item.Properties().stacksTo(1), Component.translatable("desc.paganbless.black_thorn_staff")
-                    .withStyle(ChatFormatting.GRAY)));
+            () -> new Item(new Item.Properties().stacksTo(1)));
     public static final Supplier<Item> HERB_POUCH = registerItem("herb_pouch",
             () -> new HerbPouchItem(new Item.Properties().stacksTo(1).component(PBDataComponents.ADVANCED_BUNDLE_CONTENTS, AdvancedBundleContents.EMPTY)));
     public static final Supplier<Item> BOLINE = registerItem("boline",

@@ -56,29 +56,23 @@ public final class PBBlocks {
     public static final Supplier<Block> RUNE_SLAB_LAPIS = registerRuneSlab("rune_slab_lapis");
     public static final Supplier<Block> RUNE_SLAB_INERT = registerRuneSlab("rune_slab_inert");
     // Plants
-    public static final Supplier<Block> RUE_PLANT = registerBlockAndItem("rue_plant",
-            () -> new HerbPlantBlock(5, BlockBehaviour.Properties.of()));
-    public static final Supplier<Block> BELLADONNA_PLANT = registerBlockAndItem("belladonna_plant",
-            () -> new HerbPlantBlock(5, BlockBehaviour.Properties.of()));
-    public static final Supplier<Block> HAGS_TAPER_PLANT = registerBlockAndItem("hags_taper_plant",
-            () -> new HerbPlantBlock(5, BlockBehaviour.Properties.of()));
-    public static final Supplier<Block> LAVENDER_PLANT = registerBlockAndItem("lavender_plant",
-            () -> new HerbPlantBlock(5, BlockBehaviour.Properties.of()));
-    public static final Supplier<Block> MANDRAKE_ROOT_PLANT = registerBlockAndItem("mandrake_root_plant",
-            () -> new HerbPlantBlock(5, BlockBehaviour.Properties.of()));
-    public static final Supplier<Block> MUGWORT_PLANT = registerBlockAndItem("mugwort_plant",
-            () -> new HerbPlantBlock(5, BlockBehaviour.Properties.of()));
+    public static final Supplier<Block> RUE_PLANT = registerHerbPlant("rue_plant");
+    public static final Supplier<Block> BELLADONNA_PLANT = registerHerbPlant("belladonna_plant");
+    public static final Supplier<Block> HAGS_TAPER_PLANT = registerHerbPlant("hags_taper_plant");
+    public static final Supplier<Block> LAVENDER_PLANT = registerHerbPlant("lavender_plant");
+    public static final Supplier<Block> MANDRAKE_ROOT_PLANT = registerHerbPlant("mandrake_root_plant");
+    public static final Supplier<Block> MUGWORT_PLANT = registerHerbPlant("mugwort_plant");
     public static final Supplier<Block> WINTER_BERRY_BUSH = registerBlock("winter_berry_bush",
             () -> new WinterBerryBushBlock(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.SWEET_BERRY_BUSH)));
     // Black thorn wood
-    public static final Supplier<Block> BLACK_THORN_LOG = registerBlockAndItem("black_thorn_log",
-            () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
     public static final Supplier<Block> STRIPPED_BLACK_THORN_LOG = registerBlockAndItem("stripped_black_thorn_log",
             () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG)));
-    public static final Supplier<Block> BLACK_THORN_WOOD = registerBlockAndItem("black_thorn_wood",
-        () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
+    public static final Supplier<Block> BLACK_THORN_LOG = registerBlockAndItem("black_thorn_log",
+            () -> new LogBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG), STRIPPED_BLACK_THORN_LOG.get()));
     public static final Supplier<Block> STRIPPED_BLACK_THORN_WOOD = registerBlockAndItem("stripped_black_thorn_wood",
             () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
+    public static final Supplier<Block> BLACK_THORN_WOOD = registerBlockAndItem("black_thorn_wood",
+        () -> new LogBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD), STRIPPED_BLACK_THORN_WOOD.get()));
     public static final Supplier<Block> BLACK_THORN_PLANKS = registerBlockAndItem("black_thorn_planks", PBBlocks::plankBlock);
     public static final Supplier<Block> BLACK_THORN_LEAVES = registerBlockAndItem("black_thorn_leaves", PBBlocks::leavesBlock);
     public static final Supplier<Block> BLACK_THORN_SAPLING = registerBlockAndItem("black_thorn_sapling",
@@ -116,6 +110,12 @@ public final class PBBlocks {
 
     private static Supplier<Block> registerRuneSlab(String name) {
         Supplier<Block> toReturn = BLOCKS.register(name, () -> new RuneSlabBlock(BlockBehaviour.Properties.of()));
+        PBItems.ITEMS.register(name, () -> new RuneSlabItem(toReturn.get(), new Item.Properties()));
+        return toReturn;
+    }
+
+    private static Supplier<Block> registerHerbPlant(String name) {
+        Supplier<Block> toReturn = BLOCKS.register(name, () -> new HerbPlantBlock(5, BlockBehaviour.Properties.of()));
         PBItems.ITEMS.register(name, () -> new RuneSlabItem(toReturn.get(), new Item.Properties()));
         return toReturn;
     }
