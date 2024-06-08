@@ -127,7 +127,7 @@ public class RopeBlock extends WaterloggedTransparentBlock implements SimpleWate
         return null;
     }
 
-    // Go through all blocks below `blockPos` and set HAS_WINCH to false
+    // Go through all blocks below `blockPoses` and set HAS_WINCH to false
     public static void invalidateDownwards(Level level, BlockPos blockPos) {
         BlockPos curBlockPos = blockPos.below();
         while (level.getBlockState(curBlockPos).getBlock() instanceof RopeBlock && facingUpOrDown(level.getBlockState(curBlockPos).getValue(FACING))) {

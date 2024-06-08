@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AnvilUtils {
+public final class AnvilUtils {
     public static void onAnvilLand(Level level, BlockPos blockPos) {
         List<Entity> entities = level.getEntities(EntityType.ITEM.create(level), new AABB(blockPos));
         List<ItemEntity> itemEntities = new ArrayList<>();

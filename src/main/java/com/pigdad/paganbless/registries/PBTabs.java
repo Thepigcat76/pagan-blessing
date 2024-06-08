@@ -20,9 +20,33 @@ public final class PBTabs {
                 .withTabsBefore(CreativeModeTabs.COMBAT)
                 .icon(() -> PBBlocks.IMBUING_CAULDRON.get().asItem().getDefaultInstance())
                 .displayItems((parameters, output) -> {
+                    // Items
+                    output.accept(PBItems.BELLADONNA.get());
+                    output.accept(PBItems.HAG_TAPER.get());
+                    output.accept(PBItems.LAVENDER.get());
+                    output.accept(PBItems.MANDRAKE_ROOT.get());
+                    output.accept(PBItems.MUGWORT.get());
+                    output.accept(PBItems.RUE.get());
+                    output.accept(PBItems.WINTER_BERRIES.get());
+                    output.accept(PBItems.GLAZED_BERRIES.get());
+                    output.accept(PBItems.RUNIC_CHARGE.get());
+                    output.accept(PBItems.BLACK_THORN_STICK.get());
+                    output.accept(PBItems.BLACK_THORN_STAFF.get());
+                    addBook(output);
+                    output.accept(PBItems.CINNABAR.get());
+                    output.accept(PBItems.HERB_POUCH.get());
+                    output.accept(PBBlocks.ROPE.get());
+                    output.accept(PBItems.BOLINE.get());
+                    output.accept(PBItems.WAND.get());
+                    output.accept(PBItems.CHALICE.get());
+                    output.accept(PBItems.ETERNAL_SNOWBALL.get());
+                    addPentacle(output);
+                    output.accept(PBItems.ATHAME.get());
+                    output.accept(PBItems.WICAN_WARD.get());
+
+                    // Blocks
                     output.accept(PBBlocks.IMBUING_CAULDRON.get());
                     output.accept(PBBlocks.HERBALIST_BENCH.get());
-                    output.accept(PBItems.JAR.get());
                     output.accept(PBBlocks.WINCH.get());
                     output.accept(PBBlocks.CRANK.get());
                     output.accept(PBBlocks.RUNIC_CORE.get());
@@ -33,33 +57,13 @@ public final class PBTabs {
                     output.accept(PBBlocks.RUNE_SLAB_EMERALD.get());
                     output.accept(PBBlocks.RUNE_SLAB_QUARTZ.get());
                     output.accept(PBBlocks.RUNE_SLAB_LAPIS.get());
+                    output.accept(PBItems.JAR.get());
                     output.accept(PBBlocks.BELLADONNA_PLANT.get());
                     output.accept(PBBlocks.HAGS_TAPER_PLANT.get());
                     output.accept(PBBlocks.LAVENDER_PLANT.get());
                     output.accept(PBBlocks.MANDRAKE_ROOT_PLANT.get());
                     output.accept(PBBlocks.MUGWORT_PLANT.get());
                     output.accept(PBBlocks.RUE_PLANT.get());
-                    output.accept(PBItems.BELLADONNA.get());
-                    output.accept(PBItems.HAG_TAPER.get());
-                    output.accept(PBItems.LAVENDER.get());
-                    output.accept(PBItems.MANDRAKE_ROOT.get());
-                    output.accept(PBItems.MUGWORT.get());
-                    output.accept(PBItems.RUE.get());
-                    output.accept(PBItems.WINTER_BERRIES.get());
-                    output.accept(PBItems.GLAZED_BERRIES.get());
-                    output.accept(PBItems.RUNIC_CHARGE.get());
-                    output.accept(PBItems.BLACK_THORN_STAFF.get());
-                    addBook(output);
-                    output.accept(PBItems.CINNABAR.get());
-                    output.accept(PBItems.HERB_POUCH.get());
-                    output.accept(PBItems.BOLINE.get());
-                    output.accept(PBBlocks.ROPE.get());
-                    output.accept(PBItems.WAND.get());
-                    output.accept(PBItems.CHALICE.get());
-                    output.accept(PBItems.ETERNAL_SNOWBALL.get());
-                    addPentacle(output);
-                    output.accept(PBItems.ATHAME.get());
-                    output.accept(PBItems.WICAN_WARD.get());
                     output.accept(PBBlocks.BLACK_THORN_LEAVES.get());
                     output.accept(PBBlocks.BLACK_THORN_SAPLING.get());
                     output.accept(PBBlocks.BLACK_THORN_PLANKS.get());

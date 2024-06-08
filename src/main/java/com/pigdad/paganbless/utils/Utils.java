@@ -1,5 +1,6 @@
 package com.pigdad.paganbless.utils;
 
+import com.pigdad.paganbless.data.RunicCoreSavedData;
 import com.pigdad.paganbless.data.WicanWardSavedData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -14,5 +15,9 @@ public final class Utils {
 
     public static WicanWardSavedData getWWData(ServerLevel level) {
         return level.getDataStorage().computeIfAbsent(WicanWardSavedData.factory(level), WicanWardSavedData.DATA_ID);
+    }
+
+    public static RunicCoreSavedData getRCData(ServerLevel level) {
+        return level.getDataStorage().computeIfAbsent(RunicCoreSavedData.factory(level), RunicCoreSavedData.DATA_ID);
     }
 }

@@ -63,7 +63,7 @@ public class WicanWardBlock extends Block {
         super.onPlace(pState, pLevel, pPos, pOldState, pMovedByPiston);
         if (pLevel instanceof ServerLevel serverLevel) {
             WicanWardSavedData savedData = Utils.getWWData(serverLevel);
-            savedData.addWicanWard(pPos);
+            savedData.addBlockPos(pPos);
         }
     }
 
@@ -72,7 +72,7 @@ public class WicanWardBlock extends Block {
         super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
         if (pLevel instanceof ServerLevel serverLevel) {
             WicanWardSavedData savedData = Utils.getWWData(serverLevel);
-            savedData.removeWicanWard(pPos);
+            savedData.removeBlockPos(pPos);
         }
     }
 }

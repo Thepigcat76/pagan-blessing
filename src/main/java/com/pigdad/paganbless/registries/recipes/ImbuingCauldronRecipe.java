@@ -101,7 +101,7 @@ public record ImbuingCauldronRecipe(List<IngredientWithCount> ingredients, ItemS
         private static final MapCodec<ImbuingCauldronRecipe> MAP_CODEC = RecordCodecBuilder.mapCodec((builder) -> builder.group(
                 IngredientWithCount.CODEC.listOf().fieldOf("ingredients").forGetter(ImbuingCauldronRecipe::ingredients),
                 ItemStack.OPTIONAL_CODEC.fieldOf("result").forGetter(ImbuingCauldronRecipe::result),
-                FluidStack.OPTIONAL_CODEC.fieldOf("fluid").forGetter(ImbuingCauldronRecipe::fluidStack)
+                FluidStack.OPTIONAL_CODEC.fieldOf("fluid").orElse(FluidStack.EMPTY).forGetter(ImbuingCauldronRecipe::fluidStack)
         ).apply(builder, ImbuingCauldronRecipe::new));
         private static final StreamCodec<RegistryFriendlyByteBuf, ImbuingCauldronRecipe> STREAM_CODEC = StreamCodec.composite(
                 IngredientWithCount.STREAM_CODEC.apply(ByteBufCodecs.list()),

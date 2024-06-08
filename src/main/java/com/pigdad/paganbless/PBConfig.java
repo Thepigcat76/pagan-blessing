@@ -26,11 +26,15 @@ public final class PBConfig {
     private static final ModConfigSpec.IntValue WICAN_WARD_RANGE = BUILDER
             .comment("The range that the wican ward will prevent mob spawning in. This area is cubic")
             .defineInRange("wican_ward_range", 10, 0, 128);
+    private static final ModConfigSpec.IntValue RITUAL_TIME = BUILDER
+            .comment("The time rituals take to complete in ticks. 20 ticks are one second")
+            .defineInRange("ritual_time", 120, 0, 20000);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 
     public static Set<EntityType<?>> entityTypes;
     public static int wwRange;
+    public static int ritualTime;
 
     private static boolean validateEntityName(final Object obj) {
         return obj instanceof final String itemName && BuiltInRegistries.ENTITY_TYPE.containsKey(new ResourceLocation(itemName));
@@ -42,5 +46,6 @@ public final class PBConfig {
                 .map(itemName -> BuiltInRegistries.ENTITY_TYPE.get(new ResourceLocation(itemName)))
                 .collect(Collectors.toSet());
         wwRange = WICAN_WARD_RANGE.getAsInt();
+        ritualTime = RITUAL_TIME.getAsInt();
     }
 }

@@ -3,19 +3,15 @@ package com.pigdad.paganbless.registries.blocks;
 import com.mojang.serialization.MapCodec;
 import com.pigdad.paganbless.registries.PBItems;
 import com.pigdad.paganbless.registries.blockentities.RuneSlabBlockEntity;
-import net.minecraft.ChatFormatting;
+import com.pigdad.paganbless.registries.items.RunicChargeItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -35,23 +31,27 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.stream.Stream;
-
-import static com.pigdad.paganbless.registries.blocks.RotatableEntityBlock.FACING;
 
 public class RuneSlabBlock extends BaseEntityBlock {
     public static final BooleanProperty IS_TOP = BooleanProperty.create("is_top");
     public static final EnumProperty<RuneState> RUNE_STATE = EnumProperty.create("rune_state", RuneState.class);
 
-    public RuneSlabBlock(Properties properties) {
+    private final int color;
+
+    public RuneSlabBlock(Properties properties, int color) {
         super(properties.mapColor(MapColor.STONE).noOcclusion());
         registerDefaultState(this.defaultBlockState().setValue(IS_TOP, false));
+        this.color = color;
+    }
+
+    public int getColor() {
+        return color;
     }
 
     @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return simpleCodec(RuneSlabBlock::new);
+    protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
+        return simpleCodec((properties1) -> new RuneSlabBlock(properties1, 0));
     }
 
     @Override
@@ -100,15 +100,16 @@ public class RuneSlabBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack p_316304_, BlockState p_316362_, Level level, BlockPos blockPos, Player p_316132_, InteractionHand p_316595_, BlockHitResult p_316140_) {
-        if (!level.isClientSide()) {
-            if (p_316304_.is(PBItems.BLACK_THORN_STAFF.get())) {
+    protected @NotNull ItemInteractionResult useItemOn(ItemStack p_316304_, BlockState p_316362_, Level level, BlockPos blockPos, Player player, InteractionHand p_316595_, BlockHitResult p_316140_) {
+        if (!level.isClientSide) {
+            if ((p_316304_.getItem() instanceof RunicChargeItem))
+                return ItemInteractionResult.FAIL;
+            if (p_316304_.is(PBItems.BLACK_THORN_STAFF.get()))
                 incrementRuneState(level, blockPos);
-            }
-            p_316132_.sendSystemMessage(Component.literal("Rune State: " + p_316362_.getValue(RUNE_STATE).ordinal()));
-            return ItemInteractionResult.SUCCESS;
+            player.sendSystemMessage(Component.literal("Rune State: " + p_316362_.getValue(RUNE_STATE).ordinal()));
+
         }
-        return ItemInteractionResult.FAIL;
+        return ItemInteractionResult.sidedSuccess(level.isClientSide);
     }
 
     public static void incrementRuneState(Level level, BlockPos blockPos) {

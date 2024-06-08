@@ -18,6 +18,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.*;
 import java.util.function.Supplier;
 
 public final class PBBlocks {
@@ -48,13 +49,13 @@ public final class PBBlocks {
     public static final Supplier<Block> RUNIC_CORE = registerBlockAndItem("runic_core",
             () -> new RunicCoreBlock(BlockBehaviour.Properties.of().noOcclusion()));
     // Rune slabs
-    public static final Supplier<Block> RUNE_SLAB_AMETHYST = registerRuneSlab("rune_slab_amethyst");
-    public static final Supplier<Block> RUNE_SLAB_CINNABAR = registerRuneSlab("rune_slab_cinnabar");
-    public static final Supplier<Block> RUNE_SLAB_DIAMOND = registerRuneSlab("rune_slab_diamond");
-    public static final Supplier<Block> RUNE_SLAB_EMERALD = registerRuneSlab("rune_slab_emerald");
-    public static final Supplier<Block> RUNE_SLAB_QUARTZ = registerRuneSlab("rune_slab_quartz");
-    public static final Supplier<Block> RUNE_SLAB_LAPIS = registerRuneSlab("rune_slab_lapis");
-    public static final Supplier<Block> RUNE_SLAB_INERT = registerRuneSlab("rune_slab_inert");
+    public static final Supplier<Block> RUNE_SLAB_AMETHYST = registerRuneSlab("rune_slab_amethyst", 0x67449e);
+    public static final Supplier<Block> RUNE_SLAB_CINNABAR = registerRuneSlab("rune_slab_cinnabar", 0xa82137);
+    public static final Supplier<Block> RUNE_SLAB_DIAMOND = registerRuneSlab("rune_slab_diamond", 0x37b1b1);
+    public static final Supplier<Block> RUNE_SLAB_EMERALD = registerRuneSlab("rune_slab_emerald", 0x21a833);
+    public static final Supplier<Block> RUNE_SLAB_QUARTZ = registerRuneSlab("rune_slab_quartz", 0xc7b7ab);
+    public static final Supplier<Block> RUNE_SLAB_LAPIS = registerRuneSlab("rune_slab_lapis", 0x2123a8);
+    public static final Supplier<Block> RUNE_SLAB_INERT = registerRuneSlab("rune_slab_inert", 0);
     // Plants
     public static final Supplier<Block> RUE_PLANT = registerHerbPlant("rue_plant");
     public static final Supplier<Block> BELLADONNA_PLANT = registerHerbPlant("belladonna_plant");
@@ -108,8 +109,8 @@ public final class PBBlocks {
         PBItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
-    private static Supplier<Block> registerRuneSlab(String name) {
-        Supplier<Block> toReturn = BLOCKS.register(name, () -> new RuneSlabBlock(BlockBehaviour.Properties.of()));
+    private static Supplier<Block> registerRuneSlab(String name, int color) {
+        Supplier<Block> toReturn = BLOCKS.register(name, () -> new RuneSlabBlock(BlockBehaviour.Properties.of(), color));
         PBItems.ITEMS.register(name, () -> new RuneSlabItem(toReturn.get(), new Item.Properties()));
         return toReturn;
     }

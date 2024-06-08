@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.pigdad.paganbless.registries.blockentities.ImbuingCauldronBlockEntity;
 import com.pigdad.paganbless.registries.blocks.ImbuingCauldronBlock;
+import com.pigdad.paganbless.utils.RenderUtils;
 import com.pigdad.paganbless.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
@@ -16,14 +17,20 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.joml.Matrix4f;
@@ -45,6 +52,8 @@ public class ImbuingCauldronBERenderer implements BlockEntityRenderer<ImbuingCau
         Map<Integer, ItemStack> itemStacks = blockEntity.getRenderStack();
 
         for (int i : itemStacks.keySet()) {
+            if (i == 5)
+                RenderUtils.renderFloatingItem(blockEntity.getItemHandler().get().getStackInSlot(5), poseStack, pBufferSource, combinedLight, combinedOverlay);
             ItemStack itemStack = itemStacks.get(i);
             poseStack.pushPose();
             switch (i) {
@@ -68,11 +77,6 @@ public class ImbuingCauldronBERenderer implements BlockEntityRenderer<ImbuingCau
                 case 4 -> {
                     poseStack.translate(0.66f, 0.5f, 0.5f);
                     poseStack.mulPose(Axis.YN.rotationDegrees(353));
-                }
-                // outputs
-                case 5 -> {
-                    poseStack.translate(0.5f, 1.05f, 0.5f);
-                    poseStack.mulPose(Axis.YN.rotationDegrees(rotation));
                 }
             }
             poseStack.scale(0.25f, 0.25f, 0.25f);

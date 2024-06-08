@@ -27,6 +27,7 @@ public final class PBTags {
 
     public final static class BlockTags {
         public static final TagKey<Block> HEAT_SOURCE = bind("heat_source");
+        public static final TagKey<Block> RUNIC_CHARGE_NO_REFILL = bind("runic_charge_no_refill");
 
         private BlockTags() {
         }

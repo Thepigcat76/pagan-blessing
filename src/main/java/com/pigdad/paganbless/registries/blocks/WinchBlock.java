@@ -1,22 +1,12 @@
 package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.serialization.MapCodec;
-import com.pigdad.paganbless.PaganBless;
-import com.pigdad.paganbless.mixins.AnvilBlockMixin;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.blockentities.WinchBlockEntity;
 import com.pigdad.paganbless.utils.AnvilUtils;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -29,10 +19,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 public class WinchBlock extends RotatableEntityBlock {
     public static final IntegerProperty DISTANCE = IntegerProperty.create("distance", 0, 512);
@@ -43,7 +31,7 @@ public class WinchBlock extends RotatableEntityBlock {
     }
 
     @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
+    protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
         return simpleCodec(WinchBlock::new);
     }
 
@@ -116,6 +104,7 @@ public class WinchBlock extends RotatableEntityBlock {
         return true;
     }
 
+    // Will return length of the connection
     public static int recheckConnections(Level level, BlockPos winchPos, @Nullable BlockPos excludedPosition) {
         int length = 0;
 
