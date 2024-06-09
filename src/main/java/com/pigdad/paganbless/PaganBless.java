@@ -46,15 +46,6 @@ public final class PaganBless {
     public void onServerStarting(ServerStartingEvent event) {
     }
 
-    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-            event.enqueueWork(() -> EntityRenderers.register(PBEntities.ETERNAL_SNOWBALL.get(), pContext -> new ThrownItemRenderer<>(pContext, 1, false)));
-            event.enqueueWork(() -> EntityRenderers.register(PBEntities.WAND_PROJECTILE.get(), pContext -> new ThrownItemRenderer<>(pContext, 1, false)));
-        }
-    }
-
     @EventBusSubscriber(modid = MODID)
     public static class ServerEvents {
         @SubscribeEvent

@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -62,7 +63,7 @@ public class JarBlock extends RotatableEntityBlock {
 
     @Override
     public @NotNull RenderShape getRenderShape(BlockState pState) {
-        return RenderShape.MODEL;
+        return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
     @Override
@@ -72,9 +73,11 @@ public class JarBlock extends RotatableEntityBlock {
             ItemStack itemInHand = pPlayer.getItemInHand(pHand);
             if (itemInHand.isEmpty()) {
                 ItemHandlerHelper.giveItemToPlayer(pPlayer, handler.getStackInSlot(0).copyAndClear());
+                jarBlockEntity.wobble(DecoratedPotBlockEntity.WobbleStyle.NEGATIVE);
             } else {
                 if (handler.getStackInSlot(0).isEmpty() || handler.getStackInSlot(0).is(itemInHand.getItem())) {
                     handler.insertItem(0, itemInHand.copyAndClear(), false);
+                    jarBlockEntity.wobble(DecoratedPotBlockEntity.WobbleStyle.POSITIVE);
                 }
             }
         });

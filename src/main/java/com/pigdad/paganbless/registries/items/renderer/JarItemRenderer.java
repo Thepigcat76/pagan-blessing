@@ -3,6 +3,7 @@ package com.pigdad.paganbless.registries.items.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.blockentities.renderer.JarBERenderer;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -21,7 +22,6 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 public class JarItemRenderer extends BlockEntityWithoutLevelRenderer {
     public JarItemRenderer() {
         super(null, null);
-        //super(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
     }
 
     @Override
@@ -29,7 +29,7 @@ public class JarItemRenderer extends BlockEntityWithoutLevelRenderer {
         pPoseStack.pushPose();
         BlockItem item = ((BlockItem) stack.getItem());
         BlockState state = item.getBlock().defaultBlockState();
-        Minecraft.getInstance().getBlockRenderer().renderSingleBlock(state, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
+//        Minecraft.getInstance().getBlockRenderer().renderSingleBlock(state, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
         pPoseStack.popPose();
         CustomData tag = stack.get(DataComponents.BLOCK_ENTITY_DATA);
         if (tag != null) {
@@ -43,6 +43,7 @@ public class JarItemRenderer extends BlockEntityWithoutLevelRenderer {
             itemStackHandler.deserializeNBT(Minecraft.getInstance().level.registryAccess(), tag.copyTag().getCompound("itemhandler"));
             ItemStack itemStack = itemStackHandler.getStackInSlot(0);
             JarBERenderer.renderItems(itemStack, Minecraft.getInstance().getItemRenderer(), poseStack, buffer, combinedLightIn, combinedOverlayIn, Direction.NORTH);
+
         }
     }
 }
