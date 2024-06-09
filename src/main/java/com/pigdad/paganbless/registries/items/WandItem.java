@@ -1,21 +1,24 @@
 package com.pigdad.paganbless.registries.items;
 
-import net.minecraft.ChatFormatting;
+import com.pigdad.paganbless.PaganBless;
+import com.pigdad.paganbless.registries.PBItems;
+import com.pigdad.paganbless.registries.entities.WandProjectileEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BoneMealItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.BaseCoralWallFanBlock;
@@ -23,67 +26,74 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.CommonHooks;
-import net.neoforged.neoforge.event.EventHooks;
-import net.neoforged.neoforge.event.entity.player.BonemealEvent;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
-import java.util.List;
-
-public class WandItem extends BoneMealItem {
+public class WandItem extends Item {
     public WandItem(Properties properties) {
         super(properties);
     }
 
-    public InteractionResult useOn(UseOnContext p_40637_) {
-        Level level = p_40637_.getLevel();
-        BlockPos blockpos = p_40637_.getClickedPos();
-        BlockPos blockpos1 = blockpos.relative(p_40637_.getClickedFace());
-        if (applyBonemeal(p_40637_.getItemInHand(), level, blockpos, p_40637_.getPlayer())) {
+    @Override
+    public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity, int pTimeCharged) {
+        PaganBless.LOGGER.debug("time: {}", pTimeCharged);
+        if (!pLevel.isClientSide() && pTimeCharged <= getUseDuration(pStack) - 15) {
+            WandProjectileEntity wandProjectile = new WandProjectileEntity(pLevel, pLivingEntity);
+            wandProjectile.setItem(PBItems.WAND_PROJECTILE.get().getDefaultInstance());
+            wandProjectile.shootFromRotation(pLivingEntity, pLivingEntity.getXRot(), pLivingEntity.getYRot(), 0.0F, 1.5F, 1.0F);
+            pLevel.addFreshEntity(wandProjectile);
+        }
+    }
+
+    @Override
+    public int getUseDuration(ItemStack pStack) {
+        return 72000;
+    }
+
+    @Override
+    public UseAnim getUseAnimation(ItemStack pStack) {
+        return UseAnim.BOW;
+    }
+
+    @Override
+    public @NotNull InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
+        pPlayer.startUsingItem(pUsedHand);
+        return super.use(pLevel, pPlayer, pUsedHand);
+    }
+
+    public static void applyBonemeal(Level level, BlockPos hitPos, Direction face) {
+        BlockPos blockpos1 = hitPos.relative(face);
+        if (applyBonemeal(level, hitPos)) {
             if (!level.isClientSide) {
-                level.levelEvent(1505, blockpos, 0);
+                level.levelEvent(1505, hitPos, 15);
             }
-
-            p_40637_.getPlayer().getCooldowns().addCooldown(this, 30);
-            return InteractionResult.sidedSuccess(level.isClientSide);
         } else {
-            BlockState blockstate = level.getBlockState(blockpos);
-            boolean flag = blockstate.isFaceSturdy(level, blockpos, p_40637_.getClickedFace());
-            if (flag && growWaterPlant(level, blockpos1, p_40637_.getClickedFace())) {
+            BlockState blockstate = level.getBlockState(hitPos);
+            boolean flag = blockstate.isFaceSturdy(level, hitPos, face);
+            if (flag && growWaterPlant(level, blockpos1, face)) {
                 if (!level.isClientSide) {
-                    level.levelEvent(1505, blockpos1, 0);
+                    level.levelEvent(1505, blockpos1, 15);
                 }
-
-                p_40637_.getPlayer().getCooldowns().addCooldown(this, 30);
-                return InteractionResult.sidedSuccess(level.isClientSide);
-            } else {
-                return InteractionResult.PASS;
             }
         }
     }
 
-    public static boolean applyBonemeal(ItemStack p_40628_, Level p_40629_, BlockPos p_40630_, @Nullable Player player) {
+    private static boolean applyBonemeal(Level p_40629_, BlockPos p_40630_) {
         BlockState blockstate = p_40629_.getBlockState(p_40630_);
-        BonemealEvent event = EventHooks.fireBonemealEvent(player, p_40629_, p_40630_, blockstate, p_40628_);
-        if (event.isCanceled()) {
-            return event.isSuccessful();
-        } else {
-            Block var7 = blockstate.getBlock();
-            if (var7 instanceof BonemealableBlock) {
-                BonemealableBlock bonemealableblock = (BonemealableBlock)var7;
-                if (bonemealableblock.isValidBonemealTarget(p_40629_, p_40630_, blockstate)) {
-                    if (p_40629_ instanceof ServerLevel) {
-                        if (bonemealableblock.isBonemealSuccess(p_40629_, p_40629_.random, p_40630_, blockstate)) {
-                            bonemealableblock.performBonemeal((ServerLevel)p_40629_, p_40629_.random, p_40630_, blockstate);
-                        }
+        Block var7 = blockstate.getBlock();
+        if (var7 instanceof BonemealableBlock) {
+            BonemealableBlock bonemealableblock = (BonemealableBlock) var7;
+            if (bonemealableblock.isValidBonemealTarget(p_40629_, p_40630_, blockstate)) {
+                if (p_40629_ instanceof ServerLevel) {
+                    if (bonemealableblock.isBonemealSuccess(p_40629_, p_40629_.random, p_40630_, blockstate)) {
+                        bonemealableblock.performBonemeal((ServerLevel) p_40629_, p_40629_.random, p_40630_, blockstate);
                     }
-
-                    return true;
                 }
+
+                return true;
             }
 
-            return false;
         }
+        return false;
     }
 
     public static boolean growWaterPlant(Level p_40633_, BlockPos p_40634_, @javax.annotation.Nullable Direction p_40635_) {

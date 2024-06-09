@@ -51,6 +51,7 @@ public final class PaganBless {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             event.enqueueWork(() -> EntityRenderers.register(PBEntities.ETERNAL_SNOWBALL.get(), pContext -> new ThrownItemRenderer<>(pContext, 1, false)));
+            event.enqueueWork(() -> EntityRenderers.register(PBEntities.WAND_PROJECTILE.get(), pContext -> new ThrownItemRenderer<>(pContext, 1, false)));
         }
     }
 

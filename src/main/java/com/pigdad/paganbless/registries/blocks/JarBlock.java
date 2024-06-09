@@ -23,6 +23,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.NotNull;
@@ -30,6 +31,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 @SuppressWarnings("deprecation")
 public class JarBlock extends RotatableEntityBlock {
@@ -39,7 +41,12 @@ public class JarBlock extends RotatableEntityBlock {
 
     @Override
     public @NotNull VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return Block.box(4, 0, 4, 12, 13.5, 12);
+        return Stream.of(
+                Block.box(5, 11.5, 5, 11, 13.5, 11),
+                Block.box(5, 9.5, 5, 11, 10.5, 11),
+                Block.box(4.5, 10.5, 4.5, 11.5, 12.5, 11.5),
+                Block.box(4, 0, 4, 12, 9.5, 12)
+        ).reduce(Shapes::or).get();
     }
 
     @Override

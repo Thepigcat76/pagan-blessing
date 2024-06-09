@@ -27,17 +27,17 @@ public final class PBBlocks {
     public static final WoodType BLACK_THORN_WOOD_TYPE = WoodType.register(new WoodType(PaganBless.MODID + ":black_thorn", BLACK_THORN_SET_TYPE));
 
     public static final Supplier<Block> IMBUING_CAULDRON = registerBlockAndItem("imbuing_cauldron",
-            () -> new ImbuingCauldronBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).noOcclusion()));
+            () -> new ImbuingCauldronBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(4.0F, 600.0F).noOcclusion()));
     public static final Supplier<Block> HERBALIST_BENCH = registerBlockAndItem("herbalist_bench",
-            () -> new HerbalistBenchBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).noOcclusion()));
+            () -> new HerbalistBenchBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(4.0F, 600.0F).noOcclusion()));
     public static final Supplier<Block> CRANK = registerBlockAndItem("crank",
-            () -> new CrankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noOcclusion()));
+            () -> new CrankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(1.0F, 300.0F).noOcclusion()));
     public static final Supplier<Block> JAR = registerBlock("jar",
-            () -> new JarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).noOcclusion()));
+            () -> new JarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).strength(0.2F).noOcclusion()));
     public static final Supplier<Block> WINCH = registerBlockAndItem("winch",
-            () -> new WinchBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).noOcclusion()));
+            () -> new WinchBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(4.0F, 600.0F).noOcclusion()));
     public static final Supplier<Block> ROPE = registerBlockAndItem("rope",
-            () -> new RopeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noOcclusion().sound(SoundType.WOOL)));
+            () -> new RopeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(0.4F).noOcclusion().sound(SoundType.WOOL)));
     public static final Supplier<Block> PENTACLE = registerBlock("pentacle",
             () -> new PentacleBlock(BlockBehaviour.Properties.of()
                     .noCollission()
@@ -85,7 +85,7 @@ public final class PBBlocks {
     public static final Supplier<Block> BLACK_THORN_PRESSURE_PLATE = registerBlockAndItem("black_thorn_pressure_plate",
             () -> new PressurePlateBlock(BLACK_THORN_SET_TYPE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE)));
     public static final Supplier<Block> BLACK_THORN_FENCE = registerBlockAndItem("black_thorn_fence",
-            () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)));
+            () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE)));
     public static final Supplier<Block> BLACK_THORN_TRAPDOOR = registerBlockAndItem("black_thorn_trapdoor",
             () -> new TrapDoorBlock(BLACK_THORN_SET_TYPE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR)));
     public static final Supplier<Block> BLACK_THORN_FENCE_GATE = registerBlockAndItem("black_thorn_fence_gate",

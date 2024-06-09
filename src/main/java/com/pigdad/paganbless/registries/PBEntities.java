@@ -2,6 +2,7 @@ package com.pigdad.paganbless.registries;
 
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.entities.EternalSnowballEntity;
+import com.pigdad.paganbless.registries.entities.WandProjectileEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -21,5 +22,12 @@ public final class PBEntities {
                             .clientTrackingRange(4)
                             .updateInterval(20)
                             .build("eternal_snowball"));
+    public static final Supplier<EntityType<WandProjectileEntity>> WAND_PROJECTILE =
+            ENTITY_TYPES.register("wand_projectile",
+                    () -> EntityType.Builder.<WandProjectileEntity>of(WandProjectileEntity::new, MobCategory.MISC)
+                            .sized(0.5f, 0.5f)
+                            .clientTrackingRange(4)
+                            .updateInterval(20)
+                            .build("wand_projectile"));
 
 }

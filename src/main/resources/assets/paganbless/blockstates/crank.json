@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=north": {
+      "model": "paganbless:block/crank",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "paganbless:block/crank",
+      "y": 270
+    },
+    "facing=south": {
       "model": "paganbless:block/crank"
+    },
+    "facing=west": {
+      "model": "paganbless:block/crank",
+      "y": 90
     }
   }
 }

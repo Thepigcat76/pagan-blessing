@@ -9,6 +9,7 @@ import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
+import org.jetbrains.annotations.NotNull;
 
 public class EternalSnowballEntity extends Snowball {
     public EternalSnowballEntity(EntityType<? extends Snowball> p_37391_, Level p_37392_) {
@@ -19,10 +20,12 @@ public class EternalSnowballEntity extends Snowball {
         super(p_37399_, p_37400_);
     }
 
-    protected Item getDefaultItem() {
+    @Override
+    protected @NotNull Item getDefaultItem() {
         return PBItems.ETERNAL_SNOWBALL.get();
     }
 
+    @Override
     protected void onHitEntity(EntityHitResult p_37404_) {
         super.onHitEntity(p_37404_);
         Entity entity = p_37404_.getEntity();

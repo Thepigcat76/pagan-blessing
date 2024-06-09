@@ -65,6 +65,8 @@ public final class PBItems {
             () -> new BlockItem(PBBlocks.WICAN_WARD.get(), new Item.Properties().rarity(Rarity.RARE)));
     public static final Supplier<Item> ETERNAL_SNOWBALL = registerItem("eternal_snowball",
             () -> new EternalSnowBallItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
+    public static final Supplier<Item> WAND_PROJECTILE = registerItem("wand_projectile",
+            () -> new Item(new Item.Properties()));
     public static final Supplier<Item> PENTACLE = registerItem("pentacle",
             () -> new PentacleItem(PBBlocks.PENTACLE.get(), new Item.Properties()
                     .stacksTo(1)

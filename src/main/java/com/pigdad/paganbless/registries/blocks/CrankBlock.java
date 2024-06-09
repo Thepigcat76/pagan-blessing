@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
@@ -12,6 +13,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,6 +25,28 @@ public class CrankBlock extends RotatableBlock {
 
     public CrankBlock(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    protected @NotNull VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return switch (pState.getValue(RotatableBlock.FACING)) {
+            case NORTH -> Shapes.or(
+                    Block.box(0, 1, 3, 14, 15, 5),
+                    Block.box(2, 3, 1, 12, 13, 3)
+            );
+            case SOUTH -> Shapes.or(
+                    Block.box(1, 1, 12, 15, 15, 14),
+                    Block.box(3, 3, 14, 13, 13, 16)
+            );
+            case WEST -> Shapes.or(
+                    Block.box(2, 1, 1, 4, 15, 15),
+                    Block.box(0, 3, 3, 2, 13, 13)
+            );
+            default -> Shapes.or(
+                    Block.box(12, 1, 1, 14, 15, 15),
+                    Block.box(14, 3, 3, 16, 13, 13)
+            );
+        };
     }
 
     @Nullable

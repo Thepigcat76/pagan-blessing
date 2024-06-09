@@ -23,18 +23,19 @@ public class EternalSnowBallItem extends Item {
         super(properties);
     }
 
-    public @NotNull InteractionResultHolder<ItemStack> use(Level p_43142_, Player p_43143_, InteractionHand p_43144_) {
-        ItemStack itemstack = p_43143_.getItemInHand(p_43144_);
-        p_43142_.playSound((Player)null, p_43143_.getX(), p_43143_.getY(), p_43143_.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (p_43142_.getRandom().nextFloat() * 0.4F + 0.8F));
-        if (!p_43142_.isClientSide()) {
-            EternalSnowballEntity snowball = new EternalSnowballEntity(p_43142_, p_43143_);
+    @Override
+    public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
+        if (!level.isClientSide()) {
+            EternalSnowballEntity snowball = new EternalSnowballEntity(level, player);
             snowball.setItem(itemstack);
-            snowball.shootFromRotation(p_43143_, p_43143_.getXRot(), p_43143_.getYRot(), 0.0F, 1.5F, 1.0F);
-            p_43142_.addFreshEntity(snowball);
+            snowball.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
+            level.addFreshEntity(snowball);
         }
 
-        p_43143_.awardStat(Stats.ITEM_USED.get(this));
+        player.awardStat(Stats.ITEM_USED.get(this));
 
-        return InteractionResultHolder.sidedSuccess(itemstack, p_43142_.isClientSide());
+        return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
     }
 }
