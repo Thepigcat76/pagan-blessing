@@ -46,4 +46,10 @@ public final class RenderUtils {
             blockRenderer.modelRenderer.renderModel(poseStack.last(), pBufferSource.getBuffer(RenderTypeHelper.getEntityRenderType(rt, false)), blockState, bakedmodel, f, f1, f2, combinedLight, combinedOverlay, ModelData.EMPTY, rt);
         }
     }
+
+    public static void rotateCentered(PoseStack poseStack, Axis axis, float degrees) {
+        poseStack.translate(.5f, .5f, .5f);
+        poseStack.mulPose(axis.rotationDegrees(degrees));
+        poseStack.translate(-.5f, -.5f, -.5f);
+    }
 }

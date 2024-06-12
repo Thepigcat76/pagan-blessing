@@ -54,6 +54,8 @@ public class PBEvents {
                     RunicCoreBERenderer::new);
             event.registerBlockEntityRenderer(PBBlockEntities.CRANK.get(),
                     CrankBERenderer::new);
+            event.registerBlockEntityRenderer(PBBlockEntities.INCENSE.get(),
+                    IncenseBERenderer::new);
         }
 
         @SubscribeEvent

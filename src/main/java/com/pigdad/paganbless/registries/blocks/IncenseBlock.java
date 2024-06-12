@@ -4,6 +4,7 @@ import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.blockentities.IncenseBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -16,6 +17,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.RotationSegment;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,11 +28,18 @@ public abstract class IncenseBlock extends BaseEntityBlock {
 
     public IncenseBlock(Properties pProperties) {
         super(pProperties);
+        this.registerDefaultState((BlockState)this.defaultBlockState().setValue(ROTATION, 0));
+    }
+
+    @Nullable
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+        return super.getStateForPlacement(pContext).setValue(ROTATION, RotationSegment.convertToSegment(pContext.getRotation()));
     }
 
     @Override
     protected @NotNull RenderShape getRenderShape(BlockState pState) {
-        return RenderShape.MODEL;
+        return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
     @Override
