@@ -1,0 +1,9 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "paganbless:block/incenses/dried_lavender_incense_two",
+	"textures": {
+		"0": "paganbless:block/winch/rope",
+		"1": "paganbless:block/incenses/dried_hanging_rue",
+		"particle": "paganbless:block/winch/rope"
+	}
+}

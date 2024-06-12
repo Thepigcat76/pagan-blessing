@@ -1,0 +1,9 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "paganbless:block/incenses/incense_lavender_one",
+	"textures": {
+		"0": "paganbless:block/incenses/skull",
+		"1": "paganbless:block/incenses/dried_hanging_rue",
+		"particle": "paganbless:block/incenses/skull"
+	}
+}
