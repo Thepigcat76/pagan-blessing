@@ -1,20 +1,17 @@
 package com.pigdad.paganbless.registries.items.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.blockentities.renderer.JarBERenderer;
-import net.minecraft.client.KeyMapping;
+import com.pigdad.paganbless.utils.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -29,7 +26,7 @@ public class JarItemRenderer extends BlockEntityWithoutLevelRenderer {
         pPoseStack.pushPose();
         BlockItem item = ((BlockItem) stack.getItem());
         BlockState state = item.getBlock().defaultBlockState();
-//        Minecraft.getInstance().getBlockRenderer().renderSingleBlock(state, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
+        RenderUtils.renderBlockModel(state, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
         pPoseStack.popPose();
         CustomData tag = stack.get(DataComponents.BLOCK_ENTITY_DATA);
         if (tag != null) {

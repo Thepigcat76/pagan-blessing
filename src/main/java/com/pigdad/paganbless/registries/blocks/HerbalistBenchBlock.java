@@ -2,12 +2,14 @@ package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.serialization.MapCodec;
 import com.pigdad.paganbless.registries.PBTags;
-import com.pigdad.paganbless.registries.blockentities.ContainerBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.HerbalistBenchBlockEntity;
 import com.pigdad.paganbless.registries.recipes.BenchCuttingRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.StringRepresentable;
-import net.minecraft.world.*;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -29,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class HerbalistBenchBlock extends RotatableEntityBlock {
+public class HerbalistBenchBlock extends RotatableEntityBlock implements TranslucentHighlightFix {
     public static final EnumProperty<BenchVariant> BENCH_PART = EnumProperty.create("bench_part", BenchVariant.class);
 
     public HerbalistBenchBlock(Properties properties) {

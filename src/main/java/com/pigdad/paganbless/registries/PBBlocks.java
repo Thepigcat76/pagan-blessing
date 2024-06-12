@@ -18,7 +18,6 @@ import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
 
-import java.awt.*;
 import java.util.function.Supplier;
 
 public final class PBBlocks {
@@ -34,6 +33,10 @@ public final class PBBlocks {
             () -> new CrankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(1.0F, 300.0F).noOcclusion()));
     public static final Supplier<Block> JAR = registerBlock("jar",
             () -> new JarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).strength(0.2F).noOcclusion()));
+    public static final Supplier<Block> RUE_INCENSE = registerBlockAndItem("rue_incense",
+            () -> new RueIncenseBlock(BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).strength(0.2F).noOcclusion()));
+    public static final Supplier<Block> LAVENDER_INCENSE = registerBlockAndItem("lavender_incense",
+            () -> new LavenderIncenseBlock(BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).strength(0.2F).noOcclusion()));
     public static final Supplier<Block> WINCH = registerBlockAndItem("winch",
             () -> new WinchBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(4.0F, 600.0F).noOcclusion()));
     public static final Supplier<Block> ROPE = registerBlockAndItem("rope",

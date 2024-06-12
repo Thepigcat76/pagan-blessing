@@ -2,7 +2,6 @@ package com.pigdad.paganbless.registries.blockentities;
 
 import com.pigdad.paganbless.PBConfig;
 import com.pigdad.paganbless.PaganBless;
-import com.pigdad.paganbless.networking.RunicCoreExplodePayload;
 import com.pigdad.paganbless.networking.RunicCoreRecipePayload;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.blocks.RuneSlabBlock;
@@ -12,7 +11,6 @@ import com.pigdad.paganbless.registries.recipes.RunicRitualRecipe;
 import com.pigdad.paganbless.utils.NbtUtils;
 import com.pigdad.paganbless.utils.RunicCoreUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -31,19 +29,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-import java.awt.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class RunicCoreBlockEntity extends ContainerBlockEntity {
     public static final int RITUAL_TIME = PBConfig.ritualTime;

@@ -3,8 +3,6 @@ package com.pigdad.paganbless.registries.blockentities.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.pigdad.paganbless.registries.blockentities.HerbalistBenchBlockEntity;
-import com.pigdad.paganbless.registries.blockentities.JarBlockEntity;
-import com.pigdad.paganbless.registries.blocks.JarBlock;
 import com.pigdad.paganbless.registries.blocks.RotatableEntityBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
@@ -13,15 +11,12 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Vec3i;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
-import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
 
 public class HerbalistBenchBERenderer implements BlockEntityRenderer<HerbalistBenchBlockEntity> {

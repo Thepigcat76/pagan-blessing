@@ -8,5 +8,8 @@
   "mixins": [
     "AnvilBlockMixin",
     "FallingBlockMixin"
+  ],
+  "client": [
+    "LevelRendererAccess"
   ]
 }

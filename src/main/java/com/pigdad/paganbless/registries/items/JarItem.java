@@ -1,6 +1,5 @@
 package com.pigdad.paganbless.registries.items;
 
-import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.items.renderer.JarItemRenderer;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;

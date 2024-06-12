@@ -2,9 +2,8 @@ package com.pigdad.paganbless.registries;
 
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.blockentities.*;
-import com.pigdad.paganbless.registries.blocks.HerbalistBenchBlock;
+import com.pigdad.paganbless.registries.blocks.IncenseBlock;
 import com.pigdad.paganbless.registries.blocks.RuneSlabBlock;
-import com.pigdad.paganbless.registries.blocks.WinchBlock;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -33,7 +32,7 @@ public final class PBBlockEntities {
     public static final Supplier<BlockEntityType<RuneSlabBlockEntity>> RUNE_SLAB =
             BLOCK_ENTITIES.register("rune_slab", () ->
                     BlockEntityType.Builder.of(RuneSlabBlockEntity::new,
-                            getRuneSlabs()).build(null));
+                            getInheritedBlocks(RuneSlabBlock.class)).build(null));
     public static final Supplier<BlockEntityType<JarBlockEntity>> JAR =
             BLOCK_ENTITIES.register("jar", () ->
                     BlockEntityType.Builder.of(JarBlockEntity::new,
@@ -46,14 +45,17 @@ public final class PBBlockEntities {
             BLOCK_ENTITIES.register("winch", () ->
                     BlockEntityType.Builder.of(WinchBlockEntity::new,
                             PBBlocks.WINCH.get()).build(null));
+    public static final Supplier<BlockEntityType<CrankBlockEntity>> CRANK =
+            BLOCK_ENTITIES.register("crank", () ->
+                    BlockEntityType.Builder.of(CrankBlockEntity::new,
+                            PBBlocks.CRANK.get()).build(null));
+    public static final Supplier<BlockEntityType<IncenseBlockEntity>> INCENSE =
+            BLOCK_ENTITIES.register("incense", () ->
+                    BlockEntityType.Builder.of(IncenseBlockEntity::new,
+                            getInheritedBlocks(IncenseBlock.class)).build(null));
 
-    private static Block[] getRuneSlabs() {
-        List<Block> slabs = new ArrayList<>();
-        for (Block block : BuiltInRegistries.BLOCK.stream().toList()) {
-            if (block instanceof RuneSlabBlock) {
-                slabs.add(block);
-            }
-        }
+    private static Block[] getInheritedBlocks(Class<? extends Block> blockClass) {
+        List<Block> slabs = BuiltInRegistries.BLOCK.stream().filter(blockClass::isInstance).toList();
         Block[] slabArray = new Block[slabs.size()];
         return slabs.toArray(slabArray);
     }

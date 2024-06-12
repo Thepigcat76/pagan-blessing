@@ -2,14 +2,11 @@ package com.pigdad.paganbless.utils;
 
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-
-import java.util.List;
 
 // TODO: Move this to a record codec builder if something breaks
 public record IngredientWithCount(Ingredient ingredient, int count) {

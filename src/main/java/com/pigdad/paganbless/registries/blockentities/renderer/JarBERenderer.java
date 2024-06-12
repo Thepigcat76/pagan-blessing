@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.pigdad.paganbless.registries.blockentities.JarBlockEntity;
 import com.pigdad.paganbless.registries.blocks.JarBlock;
+import com.pigdad.paganbless.utils.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -25,8 +26,6 @@ import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
 import net.neoforged.neoforge.client.RenderTypeHelper;
 import net.neoforged.neoforge.client.model.data.ModelData;
-
-import java.util.Iterator;
 
 public class JarBERenderer implements BlockEntityRenderer<JarBlockEntity> {
     public JarBERenderer(BlockEntityRendererProvider.Context ignored) {
@@ -55,7 +54,7 @@ public class JarBERenderer implements BlockEntityRenderer<JarBlockEntity> {
                     }
                 }
             }
-            renderBlockModel(blockEntity, poseStack, pBufferSource, combinedLight, combinedOverlay);
+            RenderUtils.renderBlockModel(blockEntity.getBlockState(), poseStack, pBufferSource, combinedLight, combinedOverlay);
             poseStack.popPose();
         }
 
@@ -63,19 +62,6 @@ public class JarBERenderer implements BlockEntityRenderer<JarBlockEntity> {
             ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
             ItemStack itemStack = blockEntity.getItemHandler().get().getStackInSlot(0);
             renderItems(itemStack, itemRenderer, poseStack, pBufferSource, getLightLevel(blockEntity.getLevel(), blockEntity.getBlockPos()), OverlayTexture.NO_OVERLAY, blockEntity.getBlockState().getValue(JarBlock.FACING));
-        }
-    }
-
-    private static void renderBlockModel(JarBlockEntity blockEntity, PoseStack poseStack, MultiBufferSource pBufferSource, int combinedLight, int combinedOverlay) {
-        BlockRenderDispatcher blockRenderer = Minecraft.getInstance().getBlockRenderer();
-        BakedModel bakedmodel = blockRenderer.getBlockModel(blockEntity.getBlockState());
-        int i = blockRenderer.blockColors.getColor(blockEntity.getBlockState(), null, null, 0);
-        float f = (float) (i >> 16 & 255) / 255.0F;
-        float f1 = (float) (i >> 8 & 255) / 255.0F;
-        float f2 = (float) (i & 255) / 255.0F;
-
-        for (RenderType rt : bakedmodel.getRenderTypes(blockEntity.getBlockState(), RandomSource.create(42L), ModelData.EMPTY)) {
-            blockRenderer.modelRenderer.renderModel(poseStack.last(), pBufferSource.getBuffer(RenderTypeHelper.getEntityRenderType(rt, false)), blockEntity.getBlockState(), bakedmodel, f, f1, f2, combinedLight, combinedOverlay, ModelData.EMPTY, rt);
         }
     }
 

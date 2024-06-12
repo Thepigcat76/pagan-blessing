@@ -4,7 +4,6 @@ import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.data.AdvancedBundleContents;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
