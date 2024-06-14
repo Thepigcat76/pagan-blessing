@@ -27,13 +27,17 @@ public final class PBConfig {
             .defineInRange("wican_ward_range", 10, 0, 128);
     private static final ModConfigSpec.IntValue RITUAL_TIME = BUILDER
             .comment("The time rituals take to complete in ticks. 20 ticks are one second")
-            .defineInRange("ritual_time", 120, 0, 20000);
+            .defineInRange("ritual_time", 120, 0, 20_000);
+    private static final ModConfigSpec.IntValue INCENSE_TIME = BUILDER
+            .comment("The time incenses burn in ticks. 20 ticks are one second")
+            .defineInRange("incense_time", 20_000, 0, 20_000);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 
     public static Set<EntityType<?>> entityTypes;
     public static int wwRange;
     public static int ritualTime;
+    public static int incenseTime;
 
     private static boolean validateEntityName(final Object obj) {
         return obj instanceof final String itemName && BuiltInRegistries.ENTITY_TYPE.containsKey(new ResourceLocation(itemName));
@@ -46,5 +50,6 @@ public final class PBConfig {
                 .collect(Collectors.toSet());
         wwRange = WICAN_WARD_RANGE.getAsInt();
         ritualTime = RITUAL_TIME.getAsInt();
+        incenseTime = INCENSE_TIME.getAsInt();
     }
 }

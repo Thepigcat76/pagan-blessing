@@ -3,6 +3,7 @@ package com.pigdad.paganbless.events;
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.data.RunicCoreSavedData;
 import com.pigdad.paganbless.mixins.LevelRendererAccess;
+import com.pigdad.paganbless.networking.IncenseBurningPayload;
 import com.pigdad.paganbless.networking.PayloadActions;
 import com.pigdad.paganbless.networking.RunicCoreExplodePayload;
 import com.pigdad.paganbless.networking.RunicCoreRecipePayload;
@@ -139,6 +140,7 @@ public class PBEvents {
             PayloadRegistrar registrar = event.registrar(PaganBless.MODID);
             registrar.playToClient(RunicCoreRecipePayload.TYPE, RunicCoreRecipePayload.STREAM_CODEC, PayloadActions::runicCoreRecipeSync);
             registrar.playToClient(RunicCoreExplodePayload.TYPE, RunicCoreExplodePayload.STREAM_CODEC, PayloadActions::runicCoreExplodeSync);
+            registrar.playToClient(IncenseBurningPayload.TYPE, IncenseBurningPayload.STREAM_CODEC, PayloadActions::incenseBurningSync);
         }
     }
 }

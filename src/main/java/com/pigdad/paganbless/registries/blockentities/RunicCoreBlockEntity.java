@@ -100,9 +100,7 @@ public class RunicCoreBlockEntity extends ContainerBlockEntity {
         }
 
         if (runRecipe) {
-            PaganBless.LOGGER.debug("running recipe");
             for (BlockPos blockPos : runeSlabs) {
-                PaganBless.LOGGER.debug("rendering particle");
                 renderRuneSlabParticles(blockPos);
             }
         }

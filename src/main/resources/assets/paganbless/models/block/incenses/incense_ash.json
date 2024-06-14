@@ -1,7 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "paganbless:block/skull",
+		"0": "paganbless:block/incenses/skull",
 		"2": "paganbless:block/incenses/ash",
 		"particle": "paganbless:block/incenses/skull"
 	},

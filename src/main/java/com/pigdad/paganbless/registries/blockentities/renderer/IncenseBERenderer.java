@@ -8,7 +8,6 @@ import com.pigdad.paganbless.utils.RenderUtils;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.RotationSegment;
 
 public class IncenseBERenderer implements BlockEntityRenderer<IncenseBlockEntity> {
@@ -21,7 +20,7 @@ public class IncenseBERenderer implements BlockEntityRenderer<IncenseBlockEntity
         float degrees = RotationSegment.convertToDegrees(rotation);
         {
             poseStack.pushPose();
-            RenderUtils.rotateCentered(poseStack, Axis.YP, degrees);
+            RenderUtils.rotateCentered(poseStack, Axis.YN, degrees);
             RenderUtils.renderBlockModel(incenseBlockEntity.getBlockState(), poseStack, multiBufferSource, i, i1);
             poseStack.popPose();
         }

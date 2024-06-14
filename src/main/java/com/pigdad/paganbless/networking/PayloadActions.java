@@ -1,5 +1,6 @@
 package com.pigdad.paganbless.networking;
 
+import com.pigdad.paganbless.registries.blockentities.IncenseBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.RunicCoreBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -22,5 +23,15 @@ public class PayloadActions {
         ClientLevel level = Minecraft.getInstance().level;
         BlockPos blockPos = payload.blockPos();
         level.explode(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), 100.0f, Level.ExplosionInteraction.NONE);
+    }
+
+    public static void incenseBurningSync(IncenseBurningPayload payload, IPayloadContext ctx) {
+        ClientLevel level = Minecraft.getInstance().level;
+        BlockPos blockPos = payload.blockPos();
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if (blockEntity instanceof IncenseBlockEntity incenseBlockEntity) {
+            incenseBlockEntity.setBurning(payload.burning());
+            incenseBlockEntity.setBurningProgress(payload.burningProgress());
+        }
     }
 }
