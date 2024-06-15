@@ -31,6 +31,15 @@ public final class PBConfig {
     private static final ModConfigSpec.IntValue INCENSE_TIME = BUILDER
             .comment("The time incenses burn in ticks. 20 ticks are one second")
             .defineInRange("incense_time", 20_000, 0, 20_000);
+    private static final ModConfigSpec.IntValue RUE_INCENSE_RANGE = BUILDER
+            .comment("Range of the rue incense, responsible for growing crops")
+            .defineInRange("rue_incense_range", 4, 1, 100);
+    private static final ModConfigSpec.IntValue LAVENDER_INCENSE_RANGE = BUILDER
+            .comment("Range of the lavender incense, responsible for regenerating health")
+            .defineInRange("lavender_incense_range", 5, 1, 100);
+    private static final ModConfigSpec.IntValue DRYING_TIME = BUILDER
+            .comment("The time hanging herbs take to dry. 20 ticks is one second")
+            .defineInRange("drying_time", 2_000, 0, 20_000);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 
@@ -38,6 +47,9 @@ public final class PBConfig {
     public static int wwRange;
     public static int ritualTime;
     public static int incenseTime;
+    public static int rueIncenseRange;
+    public static int lavenderIncenseRange;
+    public static int dryingTime;
 
     private static boolean validateEntityName(final Object obj) {
         return obj instanceof final String itemName && BuiltInRegistries.ENTITY_TYPE.containsKey(new ResourceLocation(itemName));
@@ -51,5 +63,8 @@ public final class PBConfig {
         wwRange = WICAN_WARD_RANGE.getAsInt();
         ritualTime = RITUAL_TIME.getAsInt();
         incenseTime = INCENSE_TIME.getAsInt();
+        lavenderIncenseRange = LAVENDER_INCENSE_RANGE.getAsInt();
+        rueIncenseRange = RUE_INCENSE_RANGE.getAsInt();
+        dryingTime = DRYING_TIME.getAsInt();
     }
 }

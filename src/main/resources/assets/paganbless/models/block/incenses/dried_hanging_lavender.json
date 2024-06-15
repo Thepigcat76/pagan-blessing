@@ -1,8 +1,9 @@
 {
 	"credit": "Made with Blockbench",
+	"render_type": "cutout",
 	"textures": {
 		"0": "paganbless:block/winch/rope",
-		"2": "paganbless:block/incenses/dried_hanging_rue",
+		"2": "paganbless:block/incenses/dried_hanging_plants",
 		"particle": "paganbless:block/winch/rope"
 	},
 	"elements": [
@@ -81,6 +82,7 @@
 			}
 		}
 	],
+	"gui_light": "front",
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [180, 0, 0],
@@ -106,6 +108,9 @@
 			"rotation": [90, 0, 0],
 			"translation": [0, -2, 0],
 			"scale": [0.6, 0.6, 0.6]
+		},
+		"gui": {
+			"rotation": [23.5, 45, 0]
 		},
 		"head": {
 			"translation": [0, -13.75, -5]

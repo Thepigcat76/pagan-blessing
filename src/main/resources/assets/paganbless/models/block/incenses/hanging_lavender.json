@@ -1,5 +1,6 @@
 {
 	"credit": "Made with Blockbench",
+	"render_type": "cutout",
 	"textures": {
 		"0": "paganbless:block/winch/rope",
 		"1": "paganbless:block/plants/lavender_plant",
@@ -81,6 +82,7 @@
 			}
 		}
 	],
+	"gui_light": "front",
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [57, 0, 0],
@@ -106,6 +108,9 @@
 			"rotation": [90, 0, 0],
 			"translation": [0, -2, 0],
 			"scale": [0.6, 0.6, 0.6]
+		},
+		"gui": {
+			"rotation": [23.5, 45, 0]
 		},
 		"head": {
 			"translation": [0, -10.5, -5]

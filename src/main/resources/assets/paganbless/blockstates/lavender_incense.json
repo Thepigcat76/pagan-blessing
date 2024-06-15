@@ -1,8 +1,5 @@
 {
   "variants": {
-    "incense_state=empty": {
-      "model": "paganbless:block/incenses/incense_empty"
-    },
     "incense_state=ash": {
       "model": "paganbless:block/incenses/incense_ash"
     },

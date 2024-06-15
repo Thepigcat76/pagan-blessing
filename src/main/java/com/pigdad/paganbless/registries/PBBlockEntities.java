@@ -2,6 +2,7 @@ package com.pigdad.paganbless.registries;
 
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.blockentities.*;
+import com.pigdad.paganbless.registries.blocks.HangingHerbBlock;
 import com.pigdad.paganbless.registries.blocks.IncenseBlock;
 import com.pigdad.paganbless.registries.blocks.RuneSlabBlock;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -53,6 +54,10 @@ public final class PBBlockEntities {
             BLOCK_ENTITIES.register("incense", () ->
                     BlockEntityType.Builder.of(IncenseBlockEntity::new,
                             getInheritedBlocks(IncenseBlock.class)).build(null));
+    public static final Supplier<BlockEntityType<HangingHerbBlockEntity>> HANGING_HERB =
+            BLOCK_ENTITIES.register("hanging_herb", () ->
+                    BlockEntityType.Builder.of(HangingHerbBlockEntity::new,
+                            getInheritedBlocks(HangingHerbBlock.class)).build(null));
 
     private static Block[] getInheritedBlocks(Class<? extends Block> blockClass) {
         List<Block> slabs = BuiltInRegistries.BLOCK.stream().filter(blockClass::isInstance).toList();

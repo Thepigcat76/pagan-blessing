@@ -24,9 +24,9 @@ public class RunicCoreSavedData extends LocationsSavedData {
         return DATA_ID;
     }
 
-    public @Nullable BlockPos sacrificeInRange(BlockPos pos) {
+    public @Nullable BlockPos sacrificeInRange(BlockPos sacrificePos) {
         for (BlockPos rcPos : blocks) {
-            if (DistanceUtils.CUBIC.isPositionInRange(pos.getX(), pos.getY(), pos.getZ(), rcPos, 2))
+            if (DistanceUtils.CUBIC.isPositionInRange(sacrificePos.getX(), sacrificePos.getY(), sacrificePos.getZ(), rcPos, 2))
                 return rcPos;
         }
         return null;

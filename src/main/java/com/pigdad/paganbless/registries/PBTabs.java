@@ -57,8 +57,7 @@ public final class PBTabs {
                     output.accept(PBBlocks.RUNE_SLAB_EMERALD.get());
                     output.accept(PBBlocks.RUNE_SLAB_QUARTZ.get());
                     output.accept(PBBlocks.RUNE_SLAB_LAPIS.get());
-                    output.accept(PBBlocks.LAVENDER_INCENSE.get());
-                    output.accept(PBBlocks.RUE_INCENSE.get());
+                    output.accept(PBBlocks.EMPTY_INCENSE.get());
                     output.accept(PBItems.JAR.get());
                     output.accept(PBBlocks.BELLADONNA_PLANT.get());
                     output.accept(PBBlocks.HAGS_TAPER_PLANT.get());
@@ -66,6 +65,10 @@ public final class PBTabs {
                     output.accept(PBBlocks.MANDRAKE_ROOT_PLANT.get());
                     output.accept(PBBlocks.MUGWORT_PLANT.get());
                     output.accept(PBBlocks.RUE_PLANT.get());
+                    output.accept(PBBlocks.HANGING_LAVENDER.get());
+                    output.accept(PBBlocks.HANGING_RUE.get());
+                    output.accept(PBBlocks.DRIED_HANGING_LAVENDER.get());
+                    output.accept(PBBlocks.DRIED_HANGING_RUE.get());
                     output.accept(PBBlocks.BLACK_THORN_LEAVES.get());
                     output.accept(PBBlocks.BLACK_THORN_SAPLING.get());
                     output.accept(PBBlocks.BLACK_THORN_PLANKS.get());

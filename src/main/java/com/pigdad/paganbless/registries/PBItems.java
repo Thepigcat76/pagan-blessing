@@ -1,6 +1,7 @@
 package com.pigdad.paganbless.registries;
 
 import com.pigdad.paganbless.PaganBless;
+import com.pigdad.paganbless.registries.blocks.RueIncenseBlock;
 import com.pigdad.paganbless.registries.data.AdvancedBundleContents;
 import com.pigdad.paganbless.registries.items.*;
 import net.minecraft.core.component.DataComponents;
@@ -13,25 +14,32 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 public final class PBItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM, PaganBless.MODID);
+
+    public static final ConcurrentHashMap<Item, Block> INCENSES = new ConcurrentHashMap<>();
+
     public static final Supplier<Item> PAGAN_GUIDE;
     public static final Supplier<Item> RUE = registerItem("rue",
-            () -> new Item(new Item.Properties()));
+            () -> new HerbItem(new Item.Properties(), PBBlocks.RUE_INCENSE.get()));
     public static final Supplier<Item> BELLADONNA = registerItem("belladonna",
-            () -> new Item(new Item.Properties()));
+            () -> new HerbItem(new Item.Properties()));
     public static final Supplier<Item> HAG_TAPER = registerItem("hag_taper",
-            () -> new Item(new Item.Properties()));
+            () -> new HerbItem(new Item.Properties()));
     public static final Supplier<Item> LAVENDER = registerItem("lavender",
-            () -> new Item(new Item.Properties()));
+            () -> new HerbItem(new Item.Properties(), PBBlocks.LAVENDER_INCENSE.get()));
     public static final Supplier<Item> MANDRAKE_ROOT = registerItem("mandrake_root",
-            () -> new Item(new Item.Properties()));
+            () -> new HerbItem(new Item.Properties()));
     public static final Supplier<Item> MUGWORT = registerItem("mugwort",
-            () -> new Item(new Item.Properties()));
+            () -> new HerbItem(new Item.Properties()));
     public static final Supplier<Item> WINTER_BERRIES = registerItem("winter_berries",
             () -> new ItemNameBlockItem(PBBlocks.WINTER_BERRY_BUSH.get(), new Item.Properties()
                     .food(new FoodProperties.Builder()
