@@ -1,7 +1,6 @@
 package com.pigdad.paganbless.registries;
 
 import com.pigdad.paganbless.PaganBless;
-import com.pigdad.paganbless.registries.blocks.RueIncenseBlock;
 import com.pigdad.paganbless.registries.data.AdvancedBundleContents;
 import com.pigdad.paganbless.registries.items.*;
 import net.minecraft.core.component.DataComponents;
@@ -15,8 +14,6 @@ import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -29,17 +26,21 @@ public final class PBItems {
 
     public static final Supplier<Item> PAGAN_GUIDE;
     public static final Supplier<Item> RUE = registerItem("rue",
-            () -> new HerbItem(new Item.Properties(), PBBlocks.RUE_INCENSE.get()));
+            () -> new Item(new Item.Properties()));
     public static final Supplier<Item> BELLADONNA = registerItem("belladonna",
-            () -> new HerbItem(new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final Supplier<Item> HAG_TAPER = registerItem("hag_taper",
-            () -> new HerbItem(new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final Supplier<Item> LAVENDER = registerItem("lavender",
-            () -> new HerbItem(new Item.Properties(), PBBlocks.LAVENDER_INCENSE.get()));
+            () -> new Item(new Item.Properties()));
+    public static final Supplier<Item> CHOPPED_LAVENDER = registerItem("chopped_lavender",
+            () -> new ChoppedHerbItem(new Item.Properties(), PBBlocks.LAVENDER_INCENSE.get()));
+    public static final Supplier<Item> CHOPPED_RUE = registerItem("chopped_rue",
+            () -> new ChoppedHerbItem(new Item.Properties(), PBBlocks.RUE_INCENSE.get()));
     public static final Supplier<Item> MANDRAKE_ROOT = registerItem("mandrake_root",
-            () -> new HerbItem(new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final Supplier<Item> MUGWORT = registerItem("mugwort",
-            () -> new HerbItem(new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final Supplier<Item> WINTER_BERRIES = registerItem("winter_berries",
             () -> new ItemNameBlockItem(PBBlocks.WINTER_BERRY_BUSH.get(), new Item.Properties()
                     .food(new FoodProperties.Builder()
@@ -72,7 +73,7 @@ public final class PBItems {
     public static final Supplier<Item> WAND_PROJECTILE = registerItem("wand_projectile",
             () -> new Item(new Item.Properties()));
     public static final Supplier<Item> PENTACLE = registerItem("pentacle",
-            () -> new PentacleItem(PBBlocks.PENTACLE.get(), new Item.Properties()
+            () -> new PentacleItem(new Item.Properties()
                     .stacksTo(1)
                     .component(DataComponents.ENTITY_DATA, CustomData.EMPTY)
                     .rarity(Rarity.RARE)));

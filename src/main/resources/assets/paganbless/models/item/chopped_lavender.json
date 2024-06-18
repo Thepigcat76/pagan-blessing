@@ -1,7 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"1": "paganbless:block/dried_hanging_plants",
+		"1": "paganbless:block/incenses/dried_hanging_plants",
 		"particle": "paganbless:block/winch/rope"
 	},
 	"elements": [

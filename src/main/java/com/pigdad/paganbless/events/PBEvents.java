@@ -3,16 +3,15 @@ package com.pigdad.paganbless.events;
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.data.RunicCoreSavedData;
 import com.pigdad.paganbless.mixins.LevelRendererAccess;
-import com.pigdad.paganbless.networking.IncenseBurningPayload;
-import com.pigdad.paganbless.networking.PayloadActions;
-import com.pigdad.paganbless.networking.RunicCoreExplodePayload;
-import com.pigdad.paganbless.networking.RunicCoreRecipePayload;
+import com.pigdad.paganbless.networking.*;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBEntities;
+import com.pigdad.paganbless.registries.blockentities.CrankBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.RunicCoreBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.renderer.*;
 import com.pigdad.paganbless.registries.blocks.CrankBlock;
-import com.pigdad.paganbless.registries.blocks.TranslucentHighlightFix;
+import com.pigdad.paganbless.registries.blocks.JarBlock;
+import com.pigdad.paganbless.api.blocks.TranslucentHighlightFix;
 import com.pigdad.paganbless.registries.blocks.WinchBlock;
 import com.pigdad.paganbless.utils.PBRenderTypes;
 import com.pigdad.paganbless.utils.Utils;
@@ -37,6 +36,7 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RenderHighlightEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
@@ -80,12 +80,13 @@ public class PBEvents {
 
                 BlockState targetBlock = world.getBlockState(rtr.getBlockPos());
                 if (targetBlock.getBlock() instanceof TranslucentHighlightFix) {
-                    ((LevelRendererAccess) event.getLevelRenderer()).callRenderHitOutline(
-                            event.getPoseStack(), event.getMultiBufferSource().getBuffer(PBRenderTypes.LINES_NONTRANSLUCENT),
-                            living, renderView.x, renderView.y, renderView.z,
-                            pos, targetBlock
-                    );
-
+                    if (!(targetBlock.getBlock() instanceof JarBlock)) {
+                        ((LevelRendererAccess) event.getLevelRenderer()).callRenderHitOutline(
+                                event.getPoseStack(), event.getMultiBufferSource().getBuffer(PBRenderTypes.LINES_NONTRANSLUCENT),
+                                living, renderView.x, renderView.y, renderView.z,
+                                pos, targetBlock
+                        );
+                    }
                     event.setCanceled(true);
                 }
             }
@@ -118,9 +119,14 @@ public class PBEvents {
             if (blockState.getBlock() instanceof CrankBlock && player.isShiftKeyDown()) {
                 BlockPos winchPos = CrankBlock.getWinchPos(blockState, pos);
                 BlockState winchBlock = level.getBlockState(winchPos);
+                CrankBlockEntity blockEntity = (CrankBlockEntity) level.getBlockEntity(pos);
                 level.setBlockAndUpdate(pos, CrankBlock.decrRotationState(blockState));
-                level.setBlockAndUpdate(winchPos, winchBlock.setValue(WinchBlock.LIFT_DOWN, true));
-                player.swing(InteractionHand.MAIN_HAND);
+                PacketDistributor.sendToAllPlayers(new CrankDropPayload(pos, true));
+                if (WinchBlock.liftDown(level, winchPos, winchBlock)) {
+                    level.setBlockAndUpdate(winchPos, winchBlock.setValue(WinchBlock.LIFT_DOWN, true));
+                    blockEntity.drop();
+                    player.swing(InteractionHand.MAIN_HAND);
+                }
             }
         }
     }
@@ -141,6 +147,10 @@ public class PBEvents {
             registrar.playToClient(RunicCoreRecipePayload.TYPE, RunicCoreRecipePayload.STREAM_CODEC, PayloadActions::runicCoreRecipeSync);
             registrar.playToClient(RunicCoreExplodePayload.TYPE, RunicCoreExplodePayload.STREAM_CODEC, PayloadActions::runicCoreExplodeSync);
             registrar.playToClient(IncenseBurningPayload.TYPE, IncenseBurningPayload.STREAM_CODEC, PayloadActions::incenseBurningSync);
+            registrar.playBidirectional(CrankAnglePayload.TYPE, CrankAnglePayload.STREAM_CODEC, PayloadActions::crankAngleSync);
+            registrar.playBidirectional(CrankRotatePayload.TYPE, CrankRotatePayload.STREAM_CODEC, PayloadActions::crankRotateSync);
+            registrar.playBidirectional(CrankDropPayload.TYPE, CrankDropPayload.STREAM_CODEC, PayloadActions::crankDropSync);
+            registrar.playBidirectional(CrankRotationPayload.TYPE, CrankRotationPayload.STREAM_CODEC, PayloadActions::crankRotationSync);
         }
     }
 }

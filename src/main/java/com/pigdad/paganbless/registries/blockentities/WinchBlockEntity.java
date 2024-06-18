@@ -1,5 +1,6 @@
 package com.pigdad.paganbless.registries.blockentities;
 
+import com.pigdad.paganbless.api.blocks.ContainerBlockEntity;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.blocks.WinchBlock;
 import net.minecraft.core.BlockPos;

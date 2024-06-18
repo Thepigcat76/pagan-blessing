@@ -1,4 +1,4 @@
-package com.pigdad.paganbless.data;
+package com.pigdad.paganbless.api.data;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;

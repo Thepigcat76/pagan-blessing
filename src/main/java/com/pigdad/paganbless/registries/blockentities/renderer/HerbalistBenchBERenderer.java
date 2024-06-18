@@ -3,7 +3,7 @@ package com.pigdad.paganbless.registries.blockentities.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.pigdad.paganbless.registries.blockentities.HerbalistBenchBlockEntity;
-import com.pigdad.paganbless.registries.blocks.RotatableEntityBlock;
+import com.pigdad.paganbless.api.blocks.RotatableEntityBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;

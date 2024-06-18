@@ -1,6 +1,10 @@
 package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.serialization.MapCodec;
+import com.pigdad.paganbless.api.blocks.RotatableEntityBlock;
+import com.pigdad.paganbless.networking.CrankAnglePayload;
+import com.pigdad.paganbless.networking.CrankRotatePayload;
+import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.blockentities.CrankBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -13,6 +17,8 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -20,12 +26,31 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class CrankBlock extends RotatableEntityBlock {
-    public static final IntegerProperty ROTATION = IntegerProperty.create("rotation", 0, 7);
+    public static final int CRANK_MIN_ROTATION = 1;
+    public static final int CRANK_MAX_ROTATION = 3;
+
+    public static final IntegerProperty ROTATION = IntegerProperty.create("rotation", CRANK_MIN_ROTATION, CRANK_MAX_ROTATION);
+    public static final VoxelShape SHAPE_NORTH = Shapes.or(
+            Block.box(0, 1, 3, 14, 15, 5),
+            Block.box(2, 3, 1, 12, 13, 3)
+    );
+    public static final VoxelShape SHAPE_SOUTH = Shapes.or(
+            Block.box(1, 1, 12, 15, 15, 14),
+            Block.box(3, 3, 14, 13, 13, 16)
+    );
+    public static final VoxelShape SHAPE_WEST = Shapes.or(
+            Block.box(2, 1, 1, 4, 15, 15),
+            Block.box(0, 3, 3, 2, 13, 13)
+    );
+    public static final VoxelShape SHAPE_EAST = Shapes.or(
+            Block.box(12, 1, 1, 14, 15, 15),
+            Block.box(14, 3, 3, 16, 13, 13)
+    );
 
     public CrankBlock(Properties properties) {
         super(properties);
@@ -45,22 +70,10 @@ public class CrankBlock extends RotatableEntityBlock {
     @Override
     protected @NotNull VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return switch (pState.getValue(RotatableBlock.FACING)) {
-            case NORTH -> Shapes.or(
-                    Block.box(0, 1, 3, 14, 15, 5),
-                    Block.box(2, 3, 1, 12, 13, 3)
-            );
-            case SOUTH -> Shapes.or(
-                    Block.box(1, 1, 12, 15, 15, 14),
-                    Block.box(3, 3, 14, 13, 13, 16)
-            );
-            case WEST -> Shapes.or(
-                    Block.box(2, 1, 1, 4, 15, 15),
-                    Block.box(0, 3, 3, 2, 13, 13)
-            );
-            default -> Shapes.or(
-                    Block.box(12, 1, 1, 14, 15, 15),
-                    Block.box(14, 3, 3, 16, 13, 13)
-            );
+            case NORTH -> SHAPE_NORTH;
+            case SOUTH -> SHAPE_SOUTH;
+            case WEST -> SHAPE_WEST;
+            default -> SHAPE_EAST;
         };
     }
 
@@ -68,7 +81,7 @@ public class CrankBlock extends RotatableEntityBlock {
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         BlockState blockState = super.getStateForPlacement(pContext);
-        return blockState != null ? blockState.setValue(ROTATION, 0) : null;
+        return blockState != null ? blockState.setValue(ROTATION, CRANK_MIN_ROTATION).setValue(RotatableEntityBlock.FACING, pContext.getPlayer().getDirection()) : null;
     }
 
     @Override
@@ -83,18 +96,20 @@ public class CrankBlock extends RotatableEntityBlock {
 
     @Override
     protected @NotNull InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
-        if (!level.isClientSide() && !player.isShiftKeyDown()) {
+        if (!player.isShiftKeyDown()) {
             level.setBlockAndUpdate(blockPos, incrRotationState(blockState));
             BlockPos winchPos = getWinchPos(blockState, blockPos);
             BlockState winchBlock = level.getBlockState(winchPos);
-            int distance = winchBlock.getValue(WinchBlock.DISTANCE);
-            if (winchBlock.getBlock() instanceof WinchBlock && distance > 1) {
-                WinchBlock.liftUp(level, winchPos, winchBlock);
-            } else {
-                return InteractionResult.FAIL;
+            if (winchBlock.getBlock() instanceof WinchBlock) {
+                int distance = winchBlock.getValue(WinchBlock.DISTANCE);
+                if (winchBlock.getBlock() instanceof WinchBlock && distance > 1) {
+                    CrankBlockEntity blockEntity = (CrankBlockEntity) level.getBlockEntity(blockPos);
+                    blockEntity.turn();
+                    WinchBlock.liftUp(level, winchPos, winchBlock);
+                    return InteractionResult.SUCCESS;
+                }
             }
-
-            return InteractionResult.SUCCESS;
+            return InteractionResult.FAIL;
         }
         return InteractionResult.FAIL;
     }
@@ -106,15 +121,22 @@ public class CrankBlock extends RotatableEntityBlock {
 
     public static BlockState incrRotationState(BlockState blockState) {
         int oldRotation = blockState.getValue(ROTATION);
-        return oldRotation == 7
-                ? blockState.setValue(ROTATION, 0)
+        return oldRotation == CRANK_MAX_ROTATION
+                ? blockState.setValue(ROTATION, CRANK_MIN_ROTATION)
                 : blockState.setValue(ROTATION, oldRotation + 1);
     }
 
     public static BlockState decrRotationState(BlockState blockState) {
         int oldRotation = blockState.getValue(ROTATION);
-        return oldRotation == 0
-                ? blockState.setValue(ROTATION, 7)
+        return oldRotation == CRANK_MIN_ROTATION
+                ? blockState.setValue(ROTATION, CRANK_MAX_ROTATION)
                 : blockState.setValue(ROTATION, oldRotation - 1);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        return createTickerHelper(pBlockEntityType, PBBlockEntities.CRANK.get(),
+                (level, blockPos, blockState, crankBlockEntity) -> crankBlockEntity.tick());
     }
 }

@@ -1,12 +1,13 @@
-package com.pigdad.paganbless.registries.blocks;
+package com.pigdad.paganbless.api.blocks;
 
 import com.pigdad.paganbless.PBConfig;
 import com.pigdad.paganbless.networking.IncenseBurningPayload;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBBlocks;
-import com.pigdad.paganbless.registries.PBEntities;
 import com.pigdad.paganbless.registries.PBItems;
+import com.pigdad.paganbless.registries.PBTags;
 import com.pigdad.paganbless.registries.blockentities.IncenseBlockEntity;
+import com.pigdad.paganbless.registries.items.ChoppedHerbItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
@@ -19,7 +20,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -28,7 +28,6 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -37,6 +36,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -97,31 +97,31 @@ public abstract class IncenseBlock extends BaseEntityBlock implements TickingBlo
     }
 
     @Override
-    protected void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
-        super.onPlace(pState, pLevel, pPos, pOldState, pMovedByPiston);
-    }
-
-    @Override
-    protected void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
-        super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
-    }
-
-    @Override
-    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+    protected @NotNull ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
         if (!pLevel.isClientSide()) {
 
             IncenseStates incenseState = pState.getValue(INCENSE_STATE);
             IncenseBlockEntity blockEntity = (IncenseBlockEntity) pLevel.getBlockEntity(pPos);
 
             if (incenseState == IncenseStates.ONE) {
-                if (!blockEntity.isBurning() && pStack.is(Items.FLINT_AND_STEEL)) {
-                    pLevel.playSound(null, (double) pPos.getX() + 0.5, (double) pPos.getY() + 0.5, (double) pPos.getZ() + 0.5,
-                            SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1F, 1F);
-                    blockEntity.setBurning(true);
-                    pLevel.setBlockAndUpdate(pPos, pState.setValue(BURNING, true));
-                    blockEntity.setBurningProgress(PBConfig.incenseTime);
-                    PacketDistributor.sendToAllPlayers(new IncenseBurningPayload(pPos, blockEntity.isBurning(), blockEntity.getBurningProgress()));
-                    pStack.hurtAndBreak(1, pPlayer, LivingEntity.getSlotForHand(pHand));
+                if (!blockEntity.isBurning()) {
+                    if (pStack.is(PBTags.ItemTags.FIRE_LIGHTER)) {
+                        pLevel.playSound(null, (double) pPos.getX() + 0.5, (double) pPos.getY() + 0.5, (double) pPos.getZ() + 0.5,
+                                SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1F, 1F);
+                        blockEntity.setBurning(true);
+                        pLevel.setBlockAndUpdate(pPos, pState.setValue(BURNING, true));
+                        blockEntity.setBurningProgress(PBConfig.incenseTime);
+                        PacketDistributor.sendToAllPlayers(new IncenseBurningPayload(pPos, blockEntity.isBurning(), blockEntity.getBurningProgress()));
+                        pStack.hurtAndBreak(1, pPlayer, LivingEntity.getSlotForHand(pHand));
+                    } else if (!pStack.is(this.getIncenseItem())) {
+                        Block block = PBBlocks.EMPTY_INCENSE.get();
+                        if (pStack.getItem() instanceof ChoppedHerbItem choppedHerbItem) {
+                            block = choppedHerbItem.getIncenseBlock();
+                            pStack.shrink(1);
+                        }
+                        ItemHandlerHelper.giveItemToPlayer(pPlayer, this.getIncenseItem().getDefaultInstance());
+                        pLevel.setBlockAndUpdate(pPos, block.defaultBlockState().setValue(ROTATION, pState.getValue(ROTATION)));
+                    }
                 }
             }
         }

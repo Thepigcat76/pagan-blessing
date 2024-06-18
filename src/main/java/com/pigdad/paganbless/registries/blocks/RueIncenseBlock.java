@@ -2,7 +2,7 @@ package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.serialization.MapCodec;
 import com.pigdad.paganbless.PBConfig;
-import com.pigdad.paganbless.PaganBless;
+import com.pigdad.paganbless.api.blocks.IncenseBlock;
 import com.pigdad.paganbless.registries.PBItems;
 import com.pigdad.paganbless.registries.blockentities.IncenseBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -58,7 +58,7 @@ public class RueIncenseBlock extends IncenseBlock {
 
     @Override
     public Item getIncenseItem() {
-        return PBItems.RUE.get();
+        return PBItems.CHOPPED_RUE.get();
     }
 
     @Override

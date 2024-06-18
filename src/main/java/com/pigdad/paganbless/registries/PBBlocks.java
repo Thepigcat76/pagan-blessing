@@ -129,7 +129,7 @@ public final class PBBlocks {
     }
 
     private static Supplier<Block> registerHerbPlant(String name) {
-        Supplier<Block> toReturn = BLOCKS.register(name, () -> new HerbPlantBlock(5, BlockBehaviour.Properties.of()));
+        Supplier<Block> toReturn = BLOCKS.register(name, () -> new HerbPlantBlock(BlockBehaviour.Properties.of()));
         PBItems.ITEMS.register(name, () -> new RuneSlabItem(toReturn.get(), new Item.Properties()));
         return toReturn;
     }

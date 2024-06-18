@@ -1,7 +1,7 @@
 package com.pigdad.paganbless.registries.blockentities;
 
 import com.pigdad.paganbless.PBConfig;
-import com.pigdad.paganbless.PaganBless;
+import com.pigdad.paganbless.api.blocks.ContainerBlockEntity;
 import com.pigdad.paganbless.networking.RunicCoreRecipePayload;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.blocks.RuneSlabBlock;

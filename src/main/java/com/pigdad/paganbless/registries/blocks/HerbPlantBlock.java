@@ -7,23 +7,31 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.FlowerBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
-public class HerbPlantBlock extends FlowerBlock implements BonemealableBlock {
-    public HerbPlantBlock(int size, Properties p_53514_) {
-        super(MobEffects.GLOWING, size, p_53514_
-                .mapColor(MapColor.PLANT)
+public class HerbPlantBlock extends CropBlock {
+    public static final VoxelShape SHAPE = Block.box(5.0, 0.0, 5.0, 11.0, 10.0, 11.0);
+    public static final IntegerProperty AGE = BlockStateProperties.AGE_5;
+
+    public HerbPlantBlock(Properties p_53514_) {
+        super(p_53514_.mapColor(MapColor.PLANT)
                 .noCollission()
                 .instabreak()
                 .sound(SoundType.GRASS)
@@ -31,7 +39,11 @@ public class HerbPlantBlock extends FlowerBlock implements BonemealableBlock {
                 .pushReaction(PushReaction.DESTROY));
     }
 
-    // TODO: Bonemealing
+    @Override
+    protected @NotNull ItemLike getBaseSeedId() {
+        return Items.AIR;
+    }
+
     @Override
     public boolean canSurvive(BlockState p_51028_, LevelReader p_51029_, BlockPos p_51030_) {
         BlockPos blockpos = p_51030_.below();
@@ -40,22 +52,29 @@ public class HerbPlantBlock extends FlowerBlock implements BonemealableBlock {
         return this.mayPlaceOn(p_51029_.getBlockState(blockpos), p_51029_, blockpos);
     }
 
+    protected VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        Vec3 vec3 = pState.getOffset(pLevel, pPos);
+        return SHAPE.move(vec3.x, vec3.y, vec3.z);
+    }
+
     @Override
     public boolean canBeReplaced(BlockState p_60470_, BlockPlaceContext p_60471_) {
         return true;
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader p_256234_, BlockPos p_57304_, BlockState p_57305_) {
-        return true;
+    protected IntegerProperty getAgeProperty() {
+        return AGE;
     }
 
-    public boolean isBonemealSuccess(Level p_222573_, RandomSource p_222574_, BlockPos p_222575_, BlockState p_222576_) {
-        return true;
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        pBuilder.add(AGE);
     }
 
-    public void performBonemeal(ServerLevel p_222568_, RandomSource p_222569_, BlockPos p_222570_, BlockState p_222571_) {
-        popResource(p_222568_, p_222570_, new ItemStack(this));
+
+    public int getMaxAge() {
+        return 5;
     }
 
     @Override

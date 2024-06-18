@@ -1,12 +1,16 @@
 package com.pigdad.paganbless.networking;
 
+import com.pigdad.paganbless.registries.blockentities.CrankBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.IncenseBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.RunicCoreBlockEntity;
+import com.pigdad.paganbless.registries.blocks.CrankBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class PayloadActions {
@@ -32,6 +36,39 @@ public class PayloadActions {
         if (blockEntity instanceof IncenseBlockEntity incenseBlockEntity) {
             incenseBlockEntity.setBurning(payload.burning());
             incenseBlockEntity.setBurningProgress(payload.burningProgress());
+        }
+    }
+
+    public static void crankAngleSync(CrankAnglePayload payload, IPayloadContext ctx) {
+        Level level = ctx.player().level();
+        BlockPos blockPos = payload.blockPos();
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if (blockEntity instanceof CrankBlockEntity crankBlockEntity) {
+        }
+    }
+
+    public static void crankRotateSync(CrankRotatePayload payload, IPayloadContext ctx) {
+        Level level = ctx.player().level();
+        BlockPos blockPos = payload.blockPos();
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if (blockEntity instanceof CrankBlockEntity crankBlockEntity) {
+        }
+    }
+
+    public static void crankDropSync(CrankDropPayload payload, IPayloadContext ctx) {
+        Level level = ctx.player().level();
+        BlockPos blockPos = payload.blockPos();
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if (blockEntity instanceof CrankBlockEntity crankBlockEntity) {
+        }
+    }
+
+    public static void crankRotationSync(CrankRotationPayload payload, IPayloadContext ctx) {
+        Level level = ctx.player().level();
+        BlockPos blockPos = payload.blockPos();
+        BlockState blockState = level.getBlockState(blockPos);
+        if (blockState.getBlock() instanceof CrankBlock) {
+            level.setBlockAndUpdate(blockPos, blockState.setValue(CrankBlock.ROTATION, payload.rotation()));
         }
     }
 }

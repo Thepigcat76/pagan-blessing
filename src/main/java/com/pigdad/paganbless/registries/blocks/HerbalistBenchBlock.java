@@ -1,6 +1,8 @@
 package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.serialization.MapCodec;
+import com.pigdad.paganbless.api.blocks.RotatableEntityBlock;
+import com.pigdad.paganbless.api.blocks.TranslucentHighlightFix;
 import com.pigdad.paganbless.registries.PBTags;
 import com.pigdad.paganbless.registries.blockentities.HerbalistBenchBlockEntity;
 import com.pigdad.paganbless.registries.recipes.BenchCuttingRecipe;

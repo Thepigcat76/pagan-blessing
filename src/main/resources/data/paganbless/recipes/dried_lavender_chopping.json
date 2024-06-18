@@ -1,0 +1,14 @@
+{
+  "type": "paganbless:bench_cutting",
+  "ingredient": {
+    "item": "paganbless:dried_hanging_lavender"
+  },
+  "tool": {
+    "item": "paganbless:boline"
+  },
+  "cuts": 3,
+  "try_damage": true,
+  "result": {
+    "id": "paganbless:chopped_lavender"
+  }
+}

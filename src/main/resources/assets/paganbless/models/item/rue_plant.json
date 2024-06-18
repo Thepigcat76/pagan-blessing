@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "paganbless:block/plants/rue_plant"
-  }
+  "parent": "paganbless:block/plants/rue_plant"
 }

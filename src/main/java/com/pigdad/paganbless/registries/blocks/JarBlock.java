@@ -1,8 +1,13 @@
 package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.serialization.MapCodec;
+import com.pigdad.paganbless.api.blocks.RotatableEntityBlock;
+import com.pigdad.paganbless.api.blocks.TranslucentHighlightFix;
 import com.pigdad.paganbless.registries.blockentities.JarBlockEntity;
+import com.pigdad.paganbless.utils.SoundUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -24,6 +29,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -64,18 +70,21 @@ public class JarBlock extends RotatableEntityBlock implements TranslucentHighlig
     @Override
     public @NotNull ItemInteractionResult useItemOn(ItemStack itemStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         JarBlockEntity jarBlockEntity = ((JarBlockEntity) pLevel.getBlockEntity(pPos));
-        jarBlockEntity.getItemHandler().ifPresent(handler -> {
-            ItemStack itemInHand = pPlayer.getItemInHand(pHand);
-            if (itemInHand.isEmpty()) {
-                ItemHandlerHelper.giveItemToPlayer(pPlayer, handler.getStackInSlot(0).copyAndClear());
-                jarBlockEntity.wobble(DecoratedPotBlockEntity.WobbleStyle.NEGATIVE);
-            } else {
-                if (handler.getStackInSlot(0).isEmpty() || handler.getStackInSlot(0).is(itemInHand.getItem())) {
-                    handler.insertItem(0, itemInHand.copyAndClear(), false);
-                    jarBlockEntity.wobble(DecoratedPotBlockEntity.WobbleStyle.POSITIVE);
-                }
+        ItemStackHandler handler = jarBlockEntity.getItemHandler().get();
+        ItemStack itemInHand = pPlayer.getItemInHand(pHand);
+        ItemStack stackInSlot = handler.getStackInSlot(0);
+        if (itemInHand.isEmpty()) {
+            ItemHandlerHelper.giveItemToPlayer(pPlayer, stackInSlot.copyAndClear());
+            jarBlockEntity.wobble(DecoratedPotBlockEntity.WobbleStyle.NEGATIVE);
+        } else {
+            ItemStack stack = handler.insertItem(0, itemInHand.copy(), false);
+            itemInHand.setCount(pPlayer.hasInfiniteMaterials() ? itemInHand.getCount() : stack.getCount());
+            jarBlockEntity.wobble(DecoratedPotBlockEntity.WobbleStyle.POSITIVE);
+            if (!stack.isEmpty()) {
+                SoundUtils.playSound(pLevel, pPos, SoundEvents.GLASS_PLACE, SoundSource.BLOCKS);
             }
-        });
+        }
+
         return ItemInteractionResult.SUCCESS;
     }
 

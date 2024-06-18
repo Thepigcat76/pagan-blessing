@@ -1,6 +1,6 @@
 {
   "values": [
-    "#forge:is_desert",
-    "#forge:is_plains"
+    "#neoforge:is_desert",
+    "#neoforge:is_plains"
   ]
 }

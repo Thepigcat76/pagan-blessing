@@ -2,9 +2,9 @@ package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.serialization.MapCodec;
 import com.pigdad.paganbless.PBConfig;
+import com.pigdad.paganbless.api.blocks.IncenseBlock;
 import com.pigdad.paganbless.registries.PBItems;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,12 +13,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.neoforge.common.IPlantable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class LavenderIncenseBlock extends IncenseBlock{
+public class LavenderIncenseBlock extends IncenseBlock {
     public LavenderIncenseBlock(Properties pProperties) {
         super(pProperties);
     }
@@ -44,7 +43,7 @@ public class LavenderIncenseBlock extends IncenseBlock{
 
     @Override
     public Item getIncenseItem() {
-        return PBItems.LAVENDER.get();
+        return PBItems.CHOPPED_LAVENDER.get();
     }
 
     @Override

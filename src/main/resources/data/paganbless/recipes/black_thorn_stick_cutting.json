@@ -1,0 +1,15 @@
+{
+  "type": "paganbless:bench_cutting",
+  "ingredient": {
+    "item": "paganbless:black_thorn_log"
+  },
+  "tool": {
+    "tag": "minecraft:axes"
+  },
+  "cuts": 3,
+  "try_damage": true,
+  "result": {
+    "id": "paganbless:black_thorn_stick",
+    "count": 3
+  }
+}

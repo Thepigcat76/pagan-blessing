@@ -12,6 +12,7 @@ public final class PBTags {
         public static final TagKey<Item> HERBS = bind("herbs");
         public static final TagKey<Item> HERB_PLANTS = bind("herb_plants");
         public static final TagKey<Item> PAGAN_TOOLS = bind("pagan_tools");
+        public static final TagKey<Item> FIRE_LIGHTER = bind("fire_lighter");
 
         private ItemTags() {
         }

@@ -22,6 +22,9 @@ public class WicanWardBlock extends Block {
     public static final int RANGE = PBConfig.wwRange;
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final VoxelShape NORTH_SOUTH_SHAPE = Block.box(0, 11, 7, 16, 16, 9);
+    public static final VoxelShape EAST_WEST_SHAPE = Block.box(7, 11, 0, 9, 16, 16);
+
     public WicanWardBlock(Properties p_49795_) {
         super(p_49795_);
     }
@@ -46,8 +49,8 @@ public class WicanWardBlock extends Block {
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
         return switch (state.getValue(FACING)) {
-            case EAST, WEST -> Block.box(7, 11, 0, 9, 16, 16);
-            default -> Block.box(0, 11, 7, 16, 16, 9);
+            case EAST, WEST -> EAST_WEST_SHAPE;
+            default -> NORTH_SOUTH_SHAPE;
         };
     }
 

@@ -29,6 +29,8 @@ public final class PBTabs {
                     output.accept(PBItems.RUE.get());
                     output.accept(PBItems.WINTER_BERRIES.get());
                     output.accept(PBItems.GLAZED_BERRIES.get());
+                    output.accept(PBItems.CHOPPED_LAVENDER.get());
+                    output.accept(PBItems.CHOPPED_RUE.get());
                     output.accept(PBItems.RUNIC_CHARGE.get());
                     output.accept(PBItems.BLACK_THORN_STICK.get());
                     output.accept(PBItems.BLACK_THORN_STAFF.get());
@@ -50,6 +52,8 @@ public final class PBTabs {
                     output.accept(PBBlocks.WINCH.get());
                     output.accept(PBBlocks.CRANK.get());
                     output.accept(PBBlocks.RUNIC_CORE.get());
+                    output.accept(PBBlocks.EMPTY_INCENSE.get());
+                    output.accept(PBItems.JAR.get());
                     output.accept(PBBlocks.RUNE_SLAB_INERT.get());
                     output.accept(PBBlocks.RUNE_SLAB_AMETHYST.get());
                     output.accept(PBBlocks.RUNE_SLAB_CINNABAR.get());
@@ -57,8 +61,6 @@ public final class PBTabs {
                     output.accept(PBBlocks.RUNE_SLAB_EMERALD.get());
                     output.accept(PBBlocks.RUNE_SLAB_QUARTZ.get());
                     output.accept(PBBlocks.RUNE_SLAB_LAPIS.get());
-                    output.accept(PBBlocks.EMPTY_INCENSE.get());
-                    output.accept(PBItems.JAR.get());
                     output.accept(PBBlocks.BELLADONNA_PLANT.get());
                     output.accept(PBBlocks.HAGS_TAPER_PLANT.get());
                     output.accept(PBBlocks.LAVENDER_PLANT.get());

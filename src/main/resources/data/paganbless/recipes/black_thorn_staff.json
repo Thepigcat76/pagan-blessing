@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "L": {
-      "item": "paganbless:black_thorn_log"
+      "item": "paganbless:black_thorn_stick"
     },
     "I": {
-      "item": "minecraft:snowball"
+      "tag": "paganbless:herbs"
     }
   },
   "pattern": [

@@ -1,4 +1,4 @@
-package com.pigdad.paganbless.registries.blocks;
+package com.pigdad.paganbless.api.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;

@@ -1,6 +1,7 @@
 package com.pigdad.paganbless.registries.items;
 
 import com.pigdad.paganbless.PBConfig;
+import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.blockentities.PentacleBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -9,37 +10,46 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 
-public class PentacleItem extends BlockItem implements CaptureSacrificeItem {
-    public PentacleItem(Block block, Properties properties) {
-        super(block, properties);
+public class PentacleItem extends Item implements CaptureSacrificeItem {
+    public PentacleItem(Properties properties) {
+        super(properties);
     }
 
     @Override
-    protected boolean placeBlock(BlockPlaceContext pContext, BlockState pState) {
-        boolean result = super.placeBlock(pContext, pState);
-        Level level = pContext.getLevel();
-        BlockPos blockPos = pContext.getClickedPos().above();
+    public InteractionResult useOn(UseOnContext useOnContext) {
+        Level level = useOnContext.getLevel();
+        Player player = useOnContext.getPlayer();
+        BlockPos blockPos = useOnContext.getClickedPos().above();
 
-        CompoundTag tag = pContext.getItemInHand().get(DataComponents.ENTITY_DATA).copyTag();
+        CompoundTag tag = useOnContext.getItemInHand().get(DataComponents.ENTITY_DATA).copyTag();
+
+        level.setBlockAndUpdate(blockPos, PBBlocks.PENTACLE.get().defaultBlockState());
 
         PentacleBlockEntity blockEntity = (PentacleBlockEntity) level.getBlockEntity(blockPos);
+
+        if (!player.isCreative()) {
+            useOnContext.getItemInHand().shrink(1);
+        }
 
         EntityType<?> pType = EntityType.by(tag).get();
         if (!PBConfig.entityTypes.contains(pType)) {
             blockEntity.spawner.setEntityId(pType, level, level.getRandom(), blockPos);
         }
-        return result;
+        return InteractionResult.SUCCESS;
     }
 
     @Override

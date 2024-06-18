@@ -1,15 +1,14 @@
 {
   "type": "paganbless:bench_cutting",
   "ingredient": {
-    "count": 2,
-    "item": "minecraft:hay_block"
+    "item": "paganbless:dried_hanging_rue"
   },
   "tool": {
-    "tag": "paganbless:pagan_tools"
+    "item": "paganbless:boline"
   },
   "cuts": 3,
   "try_damage": true,
   "result": {
-    "id": "minecraft:wheat"
+    "id": "paganbless:chopped_rue"
   }
 }

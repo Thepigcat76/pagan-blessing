@@ -1,6 +1,7 @@
 package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.serialization.MapCodec;
+import com.pigdad.paganbless.api.blocks.RotatableEntityBlock;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.blockentities.WinchBlockEntity;
@@ -85,7 +86,6 @@ public class WinchBlock extends RotatableEntityBlock {
 
     // Will return true as long as the winch can lift down
     public static boolean liftDown(Level level, BlockPos winchPos, BlockState winchBlock) {
-        if (level.isClientSide()) return winchBlock.getValue(LIFT_DOWN);
         // BlockPos of the block being lifted
         int distance = winchBlock.getValue(DISTANCE);
         BlockPos liftedBlockPos = winchPos.below(distance + 1);

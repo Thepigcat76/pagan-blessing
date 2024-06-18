@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.MapCodec;
 import com.pigdad.paganbless.data.RunicCoreSavedData;
 import com.pigdad.paganbless.registries.PBBlockEntities;
+import com.pigdad.paganbless.registries.PBTags;
 import com.pigdad.paganbless.registries.blockentities.RunicCoreBlockEntity;
 import com.pigdad.paganbless.utils.RunicCoreUtils;
 import com.pigdad.paganbless.utils.Utils;
@@ -13,6 +14,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -85,12 +87,9 @@ public class RunicCoreBlock extends BaseEntityBlock {
 
     @Override
     protected @NotNull ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand hand, BlockHitResult p_316140_) {
-        if (itemStack.is(Items.FLINT_AND_STEEL) && !blockState.getValue(ACTIVE)) {
+        if (itemStack.is(PBTags.ItemTags.FIRE_LIGHTER) && !blockState.getValue(ACTIVE)) {
             level.setBlockAndUpdate(blockPos, blockState.setValue(ACTIVE, true));
-            itemStack.hurtAndBreak(1, player, switch (hand) {
-                case MAIN_HAND -> EquipmentSlot.MAINHAND;
-                case OFF_HAND -> EquipmentSlot.OFFHAND;
-            });
+            itemStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
         }
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
