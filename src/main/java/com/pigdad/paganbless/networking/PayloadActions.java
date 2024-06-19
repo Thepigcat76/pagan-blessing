@@ -38,37 +38,4 @@ public class PayloadActions {
             incenseBlockEntity.setBurningProgress(payload.burningProgress());
         }
     }
-
-    public static void crankAngleSync(CrankAnglePayload payload, IPayloadContext ctx) {
-        Level level = ctx.player().level();
-        BlockPos blockPos = payload.blockPos();
-        BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if (blockEntity instanceof CrankBlockEntity crankBlockEntity) {
-        }
-    }
-
-    public static void crankRotateSync(CrankRotatePayload payload, IPayloadContext ctx) {
-        Level level = ctx.player().level();
-        BlockPos blockPos = payload.blockPos();
-        BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if (blockEntity instanceof CrankBlockEntity crankBlockEntity) {
-        }
-    }
-
-    public static void crankDropSync(CrankDropPayload payload, IPayloadContext ctx) {
-        Level level = ctx.player().level();
-        BlockPos blockPos = payload.blockPos();
-        BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if (blockEntity instanceof CrankBlockEntity crankBlockEntity) {
-        }
-    }
-
-    public static void crankRotationSync(CrankRotationPayload payload, IPayloadContext ctx) {
-        Level level = ctx.player().level();
-        BlockPos blockPos = payload.blockPos();
-        BlockState blockState = level.getBlockState(blockPos);
-        if (blockState.getBlock() instanceof CrankBlock) {
-            level.setBlockAndUpdate(blockPos, blockState.setValue(CrankBlock.ROTATION, payload.rotation()));
-        }
-    }
 }

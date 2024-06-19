@@ -2,6 +2,7 @@ package com.pigdad.paganbless.registries.recipes;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.pigdad.paganbless.utils.PBRecipeInput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -15,11 +16,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
-public record RunicRitualRecipe(ItemStack result, ItemStack runeBlock) implements Recipe<SimpleContainer> {
+public record RunicRitualRecipe(ItemStack result, ItemStack runeBlock) implements Recipe<PBRecipeInput> {
     public static final String NAME = "runic_ritual";
 
     @Override
-    public boolean matches(SimpleContainer p_44002_, Level level) {
+    public boolean matches(PBRecipeInput recipeInput, Level level) {
         return true;
     }
 
@@ -34,7 +35,7 @@ public record RunicRitualRecipe(ItemStack result, ItemStack runeBlock) implement
     }
 
     @Override
-    public @NotNull ItemStack assemble(SimpleContainer simpleContainer, HolderLookup.Provider provider) {
+    public @NotNull ItemStack assemble(PBRecipeInput recipeInput, HolderLookup.Provider provider) {
         return result.copy();
     }
 

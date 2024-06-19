@@ -5,6 +5,7 @@ import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBTags;
 import com.pigdad.paganbless.registries.recipes.ImbuingCauldronRecipe;
 import com.pigdad.paganbless.utils.IngredientWithCount;
+import com.pigdad.paganbless.utils.PBRecipeInput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.SimpleContainer;
@@ -15,10 +16,9 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class ImbuingCauldronBlockEntity extends ContainerBlockEntity {
     private static final int OUTPUT = 5;
@@ -136,12 +136,14 @@ public class ImbuingCauldronBlockEntity extends ContainerBlockEntity {
     }
 
     private Optional<RecipeHolder<ImbuingCauldronRecipe>> getCurrentRecipe() {
-        SimpleContainer inventory = new SimpleContainer(this.getItemHandler().get().getSlots());
-        for (int i = 0; i < this.getItemHandler().get().getSlots(); i++) {
-            inventory.setItem(i, this.getItemHandler().get().getStackInSlot(i));
+        ItemStackHandler stackHandler = this.getItemHandler().get();
+        List<ItemStack> itemStacks = new ArrayList<>(stackHandler.getSlots());
+        for (int i = 0; i < stackHandler.getSlots(); i++) {
+            itemStacks.add(stackHandler.getStackInSlot(i));
         }
+        PBRecipeInput recipeInput = new PBRecipeInput(itemStacks);
 
-        return this.level.getRecipeManager().getRecipeFor(ImbuingCauldronRecipe.Type.INSTANCE, inventory, level);
+        return this.level.getRecipeManager().getRecipeFor(ImbuingCauldronRecipe.Type.INSTANCE, recipeInput, level);
     }
 
 

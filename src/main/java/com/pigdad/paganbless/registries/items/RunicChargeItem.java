@@ -41,7 +41,7 @@ public class RunicChargeItem extends Item {
             RuneSlabBlockEntity runeSlabBlockEntity = (RuneSlabBlockEntity) blockEntity;
             String prevBlock = runeSlabBlockEntity.getPrevBlock();
             if (prevBlock != null) {
-                ResourceLocation defaultStateLocation = new ResourceLocation(prevBlock);
+                ResourceLocation defaultStateLocation = ResourceLocation.parse(prevBlock);
                 BlockState defaultState = BuiltInRegistries.BLOCK.get(defaultStateLocation).defaultBlockState();
 
                 if (defaultState.isEmpty()) return InteractionResult.FAIL;

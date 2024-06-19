@@ -31,11 +31,12 @@ public final class AnvilUtils {
     }
 
     private static void craftItem(Level level, List<ItemEntity> itemEntities, BlockPos blockPos) {
-        SimpleContainer container = new SimpleContainer(itemEntities.size());
-        for (int i = 0; i < itemEntities.size(); i++) {
-            container.setItem(i, itemEntities.get(i).getItem());
+        List<ItemStack> itemStacks = new ArrayList<>(itemEntities.size());
+        for (ItemEntity entity : itemEntities) {
+            itemStacks.add(entity.getItem());
         }
-        Optional<RecipeHolder<AnvilSmashingRecipe>> optionalRecipe = getCurrentRecipe(level, container);
+        PBRecipeInput recipeInput = new PBRecipeInput(itemStacks);
+        Optional<RecipeHolder<AnvilSmashingRecipe>> optionalRecipe = getCurrentRecipe(level, recipeInput);
         optionalRecipe.ifPresent(anvilSmashingRecipe -> {
             ItemStack resultItem = anvilSmashingRecipe.value().result().copy();
             for (ItemEntity itemEntity : itemEntities) {
@@ -48,13 +49,9 @@ public final class AnvilUtils {
             }
             Containers.dropItemStack(level, blockPos.getX(), blockPos.getY(), blockPos.getZ(), resultItem);
         });
-        for (int i = 0; i < container.getContainerSize(); i++) {
-            PaganBless.LOGGER.info("Ingredients: " + container.getItem(i));
-        }
-        PaganBless.LOGGER.info("Recipe: " + optionalRecipe);
     }
 
-    private static Optional<RecipeHolder<AnvilSmashingRecipe>> getCurrentRecipe(Level level, SimpleContainer container) {
+    private static Optional<RecipeHolder<AnvilSmashingRecipe>> getCurrentRecipe(Level level, PBRecipeInput container) {
         return level.getRecipeManager().getRecipeFor(AnvilSmashingRecipe.Type.INSTANCE, container, level);
     }
 }

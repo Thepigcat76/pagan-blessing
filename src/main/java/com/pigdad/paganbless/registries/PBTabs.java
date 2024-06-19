@@ -18,7 +18,7 @@ public final class PBTabs {
         CREATIVE_MODE_TABS.register("main", () -> CreativeModeTab.builder()
                 .title(Component.translatable("tab.paganbless.main"))
                 .withTabsBefore(CreativeModeTabs.COMBAT)
-                .icon(() -> PBItems.LAVENDER.get().asItem().getDefaultInstance())
+                .icon(() -> PBBlocks.IMBUING_CAULDRON.get().asItem().getDefaultInstance())
                 .displayItems((parameters, output) -> {
 
                     // Blocks

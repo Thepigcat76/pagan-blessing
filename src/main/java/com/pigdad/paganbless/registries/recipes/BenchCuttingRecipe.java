@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.pigdad.paganbless.utils.IngredientWithCount;
+import com.pigdad.paganbless.utils.PBRecipeInput;
 import com.pigdad.paganbless.utils.RecipeUtils;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -13,23 +14,20 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-public record BenchCuttingRecipe(IngredientWithCount ingredient, int cuts, boolean tryDamage, Ingredient toolItem, ItemStack resultStack) implements Recipe<SimpleContainer> {
+public record BenchCuttingRecipe(IngredientWithCount ingredient, int cuts, boolean tryDamage, Ingredient toolItem, ItemStack resultStack) implements Recipe<PBRecipeInput> {
     public static final String NAME = "bench_cutting";
 
     @Override
-    public boolean matches(SimpleContainer simpleContainer, @NotNull Level level) {
-        return ingredient.test(simpleContainer.getItem(0)) && toolItem.test(simpleContainer.getItem(1));
+    public boolean matches(PBRecipeInput pbRecipeInput, Level level) {
+        return ingredient.test(pbRecipeInput.getItem(0)) && toolItem.test(pbRecipeInput.getItem(1));
     }
 
     @Override
-    public @NotNull ItemStack assemble(@NotNull SimpleContainer simpleContainer, HolderLookup.@NotNull Provider provider) {
+    public ItemStack assemble(PBRecipeInput pbRecipeInput, HolderLookup.Provider provider) {
         return resultStack.copy();
     }
 

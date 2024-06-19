@@ -121,7 +121,6 @@ public class PBEvents {
                 BlockState winchBlock = level.getBlockState(winchPos);
                 CrankBlockEntity blockEntity = (CrankBlockEntity) level.getBlockEntity(pos);
                 level.setBlockAndUpdate(pos, CrankBlock.decrRotationState(blockState));
-                PacketDistributor.sendToAllPlayers(new CrankDropPayload(pos, true));
                 if (WinchBlock.liftDown(level, winchPos, winchBlock)) {
                     level.setBlockAndUpdate(winchPos, winchBlock.setValue(WinchBlock.LIFT_DOWN, true));
                     blockEntity.drop();
@@ -147,10 +146,6 @@ public class PBEvents {
             registrar.playToClient(RunicCoreRecipePayload.TYPE, RunicCoreRecipePayload.STREAM_CODEC, PayloadActions::runicCoreRecipeSync);
             registrar.playToClient(RunicCoreExplodePayload.TYPE, RunicCoreExplodePayload.STREAM_CODEC, PayloadActions::runicCoreExplodeSync);
             registrar.playToClient(IncenseBurningPayload.TYPE, IncenseBurningPayload.STREAM_CODEC, PayloadActions::incenseBurningSync);
-            registrar.playBidirectional(CrankAnglePayload.TYPE, CrankAnglePayload.STREAM_CODEC, PayloadActions::crankAngleSync);
-            registrar.playBidirectional(CrankRotatePayload.TYPE, CrankRotatePayload.STREAM_CODEC, PayloadActions::crankRotateSync);
-            registrar.playBidirectional(CrankDropPayload.TYPE, CrankDropPayload.STREAM_CODEC, PayloadActions::crankDropSync);
-            registrar.playBidirectional(CrankRotationPayload.TYPE, CrankRotationPayload.STREAM_CODEC, PayloadActions::crankRotationSync);
         }
     }
 }

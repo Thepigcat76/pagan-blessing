@@ -35,7 +35,7 @@ public class WandItem extends Item {
     @Override
     public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity, int pTimeCharged) {
         PaganBless.LOGGER.debug("time: {}", pTimeCharged);
-        if (!pLevel.isClientSide() && pTimeCharged <= getUseDuration(pStack) - 15) {
+        if (!pLevel.isClientSide() && pTimeCharged <= getUseDuration(pStack, pLivingEntity) - 15) {
             WandProjectileEntity wandProjectile = new WandProjectileEntity(pLevel, pLivingEntity);
             wandProjectile.setItem(PBItems.WAND_PROJECTILE.get().getDefaultInstance());
             wandProjectile.shootFromRotation(pLivingEntity, pLivingEntity.getXRot(), pLivingEntity.getYRot(), 0.0F, 1.5F, 1.0F);
@@ -44,7 +44,7 @@ public class WandItem extends Item {
     }
 
     @Override
-    public int getUseDuration(ItemStack pStack) {
+    public int getUseDuration(ItemStack pStack, LivingEntity p_344979_) {
         return 72000;
     }
 

@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 public record IncenseBurningPayload(BlockPos blockPos, boolean burning, int burningProgress) implements CustomPacketPayload {
-    public static final Type<IncenseBurningPayload> TYPE = new Type<>(new ResourceLocation(PaganBless.MODID, "incense_burning_payload"));
+    public static final Type<IncenseBurningPayload> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(PaganBless.MODID, "incense_burning_payload"));
     public static final StreamCodec<RegistryFriendlyByteBuf, IncenseBurningPayload> STREAM_CODEC = StreamCodec.composite(
             BlockPos.STREAM_CODEC,
             IncenseBurningPayload::blockPos,

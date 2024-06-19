@@ -15,7 +15,7 @@ public final class PBTreeGrowers {
     public static final TreeGrower BLACK_THORN = new TreeGrower("black_thorn", Optional.empty(), Optional.of(BLACK_THORN_KEY), Optional.empty());
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerConfigKey(String name) {
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(PaganBless.MODID, name));
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(PaganBless.MODID, name));
     }
 
     private PBTreeGrowers() {

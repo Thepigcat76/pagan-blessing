@@ -6,6 +6,7 @@ import com.pigdad.paganbless.api.blocks.TranslucentHighlightFix;
 import com.pigdad.paganbless.registries.PBTags;
 import com.pigdad.paganbless.registries.blockentities.HerbalistBenchBlockEntity;
 import com.pigdad.paganbless.registries.recipes.BenchCuttingRecipe;
+import com.pigdad.paganbless.utils.PBRecipeInput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.Containers;
@@ -124,7 +125,7 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
     }
 
     public static void cutItem(Level level, Player player, HerbalistBenchBlockEntity blockEntity, InteractionHand hand, ItemStack itemStack, ItemStack tool) {
-        SimpleContainer container = new SimpleContainer(itemStack, tool);
+        PBRecipeInput container = new PBRecipeInput(itemStack, tool);
         Optional<BenchCuttingRecipe> recipeOptional = level.getRecipeManager()
                 .getRecipeFor(BenchCuttingRecipe.Type.INSTANCE, container, level)
                 .map(RecipeHolder::value);

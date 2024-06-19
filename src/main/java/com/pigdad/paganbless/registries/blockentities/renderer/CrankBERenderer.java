@@ -3,7 +3,7 @@ package com.pigdad.paganbless.registries.blockentities.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.pigdad.paganbless.registries.blockentities.CrankBlockEntity;
 import com.pigdad.paganbless.registries.blocks.CrankBlock;
-import com.pigdad.paganbless.utils.RenderUtils;
+import com.pigdad.paganbless.utils.rendering.RenderUtils;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;

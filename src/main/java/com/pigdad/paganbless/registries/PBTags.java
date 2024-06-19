@@ -18,7 +18,7 @@ public final class PBTags {
         }
 
         private static TagKey<Item> bind(String p_203855_) {
-            return TagKey.create(Registries.ITEM, new ResourceLocation(PaganBless.MODID, p_203855_));
+            return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(PaganBless.MODID, p_203855_));
         }
 
         public static TagKey<Item> create(final ResourceLocation name) {
@@ -34,7 +34,7 @@ public final class PBTags {
         }
 
         private static TagKey<Block> bind(String p_203855_) {
-            return TagKey.create(Registries.BLOCK, new ResourceLocation(PaganBless.MODID, p_203855_));
+            return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(PaganBless.MODID, p_203855_));
         }
 
         public static TagKey<Block> create(final ResourceLocation name) {

@@ -3,6 +3,7 @@ package com.pigdad.paganbless.registries.recipes;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.pigdad.paganbless.utils.IngredientWithCount;
+import com.pigdad.paganbless.utils.PBRecipeInput;
 import com.pigdad.paganbless.utils.RecipeUtils;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -23,17 +24,17 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public record ImbuingCauldronRecipe(List<IngredientWithCount> ingredients, ItemStack result, FluidStack fluidStack) implements Recipe<SimpleContainer> {
+public record ImbuingCauldronRecipe(List<IngredientWithCount> ingredients, ItemStack result, FluidStack fluidStack) implements Recipe<PBRecipeInput> {
     public static final String NAME = "cauldron_imbuing";
 
     @Override
-    public boolean matches(@NotNull SimpleContainer container, Level level) {
+    public boolean matches(@NotNull PBRecipeInput recipeInput, Level level) {
         if (level.isClientSide()) return false;
 
         List<ItemStack> containerItems = new ArrayList<>();
 
-        for (int i = 0; i < container.getContainerSize(); i++) {
-            containerItems.add(container.getItem(i));
+        for (int i = 0; i < recipeInput.size(); i++) {
+            containerItems.add(recipeInput.getItem(i));
         }
 
         List<Boolean> checked = new ArrayList<>();
@@ -72,7 +73,7 @@ public record ImbuingCauldronRecipe(List<IngredientWithCount> ingredients, ItemS
     }
 
     @Override
-    public @NotNull ItemStack assemble(@NotNull SimpleContainer simpleContainer, HolderLookup.@NotNull Provider provider) {
+    public @NotNull ItemStack assemble(@NotNull PBRecipeInput recipeInput, HolderLookup.@NotNull Provider provider) {
         return result.copy();
     }
 

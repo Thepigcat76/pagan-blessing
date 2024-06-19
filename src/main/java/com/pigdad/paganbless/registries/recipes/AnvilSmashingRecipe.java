@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.utils.IngredientWithCount;
+import com.pigdad.paganbless.utils.PBRecipeInput;
 import com.pigdad.paganbless.utils.RecipeUtils;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -21,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public record AnvilSmashingRecipe(NonNullList<IngredientWithCount> ingredients, ItemStack result) implements Recipe<SimpleContainer> {
+public record AnvilSmashingRecipe(NonNullList<IngredientWithCount> ingredients, ItemStack result) implements Recipe<PBRecipeInput> {
     public static final String NAME = "anvil_smashing";
 
     public AnvilSmashingRecipe(List<IngredientWithCount> ingredients, ItemStack result) {
@@ -29,10 +30,10 @@ public record AnvilSmashingRecipe(NonNullList<IngredientWithCount> ingredients, 
     }
 
     @Override
-    public boolean matches(@NotNull SimpleContainer container, Level level) {
+    public boolean matches(@NotNull PBRecipeInput recipeInput, Level level) {
         if (level.isClientSide()) return false;
 
-        List<ItemStack> containerItems = container.getItems();
+        List<ItemStack> containerItems = recipeInput.items();
 
         List<IngredientWithCount> expected = ingredients.stream().toList();
 
@@ -86,7 +87,7 @@ public record AnvilSmashingRecipe(NonNullList<IngredientWithCount> ingredients, 
     }
 
     @Override
-    public @NotNull ItemStack assemble(SimpleContainer simpleContainer, HolderLookup.Provider provider) {
+    public @NotNull ItemStack assemble(PBRecipeInput recipeInput, HolderLookup.Provider provider) {
         return result.copy();
     }
 

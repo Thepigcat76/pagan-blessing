@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.pigdad.paganbless.registries.blockentities.IncenseBlockEntity;
 import com.pigdad.paganbless.api.blocks.IncenseBlock;
-import com.pigdad.paganbless.utils.RenderUtils;
+import com.pigdad.paganbless.utils.rendering.RenderUtils;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;

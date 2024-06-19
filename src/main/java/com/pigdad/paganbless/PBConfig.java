@@ -52,13 +52,13 @@ public final class PBConfig {
     public static int dryingTime;
 
     private static boolean validateEntityName(final Object obj) {
-        return obj instanceof final String itemName && BuiltInRegistries.ENTITY_TYPE.containsKey(new ResourceLocation(itemName));
+        return obj instanceof final String itemName && BuiltInRegistries.ENTITY_TYPE.containsKey(ResourceLocation.parse(itemName));
     }
 
     @SubscribeEvent
     public static void onLoad(final ModConfigEvent event) {
         entityTypes = ENTITY_TYPES.get().stream()
-                .map(itemName -> BuiltInRegistries.ENTITY_TYPE.get(new ResourceLocation(itemName)))
+                .map(itemName -> BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(itemName)))
                 .collect(Collectors.toSet());
         wwRange = WICAN_WARD_RANGE.getAsInt();
         ritualTime = RITUAL_TIME.getAsInt();

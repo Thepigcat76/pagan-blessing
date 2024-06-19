@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 public record RunicCoreExplodePayload(BlockPos blockPos) implements CustomPacketPayload {
-    public static final Type<RunicCoreExplodePayload> TYPE = new Type<>(new ResourceLocation(PaganBless.MODID, "runic_core_explode_payload"));
+    public static final Type<RunicCoreExplodePayload> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(PaganBless.MODID, "runic_core_explode_payload"));
     public static final StreamCodec<RegistryFriendlyByteBuf, RunicCoreExplodePayload> STREAM_CODEC = StreamCodec.composite(
             BlockPos.STREAM_CODEC,
             RunicCoreExplodePayload::blockPos,
