@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -15,6 +16,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.RenderTypeHelper;
 import net.neoforged.neoforge.client.model.data.ModelData;
+import org.joml.Quaternionf;
 
 public final class RenderUtils {
     // From Mystical agriculture. Thank you, Blake <3
@@ -47,9 +49,16 @@ public final class RenderUtils {
         }
     }
 
-    public static void rotateCentered(PoseStack poseStack, Axis axis, float degrees) {
+    public static void rotateCentered(PoseStack poseStack, Axis axis, float radians) {
         poseStack.translate(.5f, .5f, .5f);
-        poseStack.mulPose(axis.rotationDegrees(degrees));
+        poseStack.mulPose(axis.rotationDegrees(radians));
+        poseStack.translate(-.5f, -.5f, -.5f);
+    }
+
+    public static void rotateCentered(PoseStack poseStack, Direction direction, float degrees) {
+        var step = direction.step();
+        poseStack.translate(.5f, .5f, .5f);
+        poseStack.mulPose(new Quaternionf().setAngleAxis(Math.toRadians(degrees), step.x(), step.y(), step.z()));
         poseStack.translate(-.5f, -.5f, -.5f);
     }
 }

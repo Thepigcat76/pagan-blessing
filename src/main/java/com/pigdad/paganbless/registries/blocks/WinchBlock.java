@@ -39,7 +39,7 @@ public class WinchBlock extends RotatableEntityBlock {
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockState state = super.getStateForPlacement(context);
-        return state != null ? state.setValue(LIFT_DOWN, false) : null;
+        return state != null ? state.setValue(LIFT_DOWN, false).setValue(RotatableEntityBlock.FACING, context.getPlayer().getDirection().getOpposite().getClockWise()) : null;
     }
 
     @Override

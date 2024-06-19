@@ -14,6 +14,12 @@
     "facing=west": {
       "model": "paganbless:block/crank",
       "y": 90
+    },
+    "facing=down": {
+      "model": "paganbless:block/crank_vertical_1"
+    },
+    "facing=up": {
+      "model": "paganbless:block/crank_vertical_2"
     }
   }
 }

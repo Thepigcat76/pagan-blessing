@@ -38,20 +38,20 @@ public class BolineItem extends SwordItem {
             if (cropBlock.isMaxAge(blockState)) {
                 dropCropDrops(level, player, blockPos, blockState);
                 level.setBlockAndUpdate(blockPos, cropBlock.getStateForAge(0));
+                return InteractionResult.SUCCESS;
             }
-            return InteractionResult.SUCCESS;
         } else if (blockState.getBlock() instanceof NetherWartBlock wartBlock) {
             if (blockState.getValue(NetherWartBlock.AGE) >= 3) {
                 dropCropDrops(level, player, blockPos, blockState);
                 level.setBlockAndUpdate(blockPos, wartBlock.defaultBlockState());
+                return InteractionResult.SUCCESS;
             }
-            return InteractionResult.SUCCESS;
         } else if (blockState.getBlock() instanceof HerbPlantBlock herbPlantBlock) {
             if (blockState.getValue(HerbPlantBlock.AGE) >= 5) {
                 dropCropDrops(level, player, blockPos, blockState);
                 level.setBlockAndUpdate(blockPos, herbPlantBlock.defaultBlockState().setValue(HerbPlantBlock.AGE, 0));
+                return InteractionResult.SUCCESS;
             }
-            return InteractionResult.SUCCESS;
         }
 
         return InteractionResult.PASS;

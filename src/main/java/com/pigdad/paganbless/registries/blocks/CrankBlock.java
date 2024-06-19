@@ -21,20 +21,22 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class CrankBlock extends RotatableEntityBlock {
+public class CrankBlock extends BaseEntityBlock {
     public static final int CRANK_MIN_ROTATION = 1;
     public static final int CRANK_MAX_ROTATION = 3;
-
     public static final IntegerProperty ROTATION = IntegerProperty.create("rotation", CRANK_MIN_ROTATION, CRANK_MAX_ROTATION);
+    public static final DirectionProperty FACING = BlockStateProperties.FACING;
+
     public static final VoxelShape SHAPE_NORTH = Shapes.or(
             Block.box(0, 1, 3, 14, 15, 5),
             Block.box(2, 3, 1, 12, 13, 3)
@@ -51,9 +53,18 @@ public class CrankBlock extends RotatableEntityBlock {
             Block.box(12, 1, 1, 14, 15, 15),
             Block.box(14, 3, 3, 16, 13, 13)
     );
+    public static final VoxelShape SHAPE_UP = Shapes.or(
+            Block.box(1, 12, 1, 15, 14, 15),
+            Block.box(3, 14, 3, 13, 16, 13)
+    );
+    public static final VoxelShape SHAPE_DOWN = Shapes.or(
+            Block.box(1, 2, 1, 15, 4, 15),
+            Block.box(3, 0, 3, 13, 2, 13)
+    );
 
     public CrankBlock(Properties properties) {
         super(properties);
+        registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH));
     }
 
     @Override
@@ -69,11 +80,13 @@ public class CrankBlock extends RotatableEntityBlock {
 
     @Override
     protected @NotNull VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return switch (pState.getValue(RotatableBlock.FACING)) {
+        return switch (pState.getValue(FACING)) {
             case NORTH -> SHAPE_NORTH;
+            case EAST -> SHAPE_EAST;
             case SOUTH -> SHAPE_SOUTH;
             case WEST -> SHAPE_WEST;
-            default -> SHAPE_EAST;
+            case UP -> SHAPE_UP;
+            case DOWN -> SHAPE_DOWN;
         };
     }
 
@@ -81,17 +94,17 @@ public class CrankBlock extends RotatableEntityBlock {
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         BlockState blockState = super.getStateForPlacement(pContext);
-        return blockState != null ? blockState.setValue(ROTATION, CRANK_MIN_ROTATION).setValue(RotatableEntityBlock.FACING, pContext.getPlayer().getDirection()) : null;
+        return blockState != null ? blockState.setValue(ROTATION, CRANK_MIN_ROTATION).setValue(FACING, pContext.getNearestLookingDirection()) : null;
     }
 
     @Override
-    public @NotNull RenderShape getRenderShape(BlockState p_49232_) {
+    public @NotNull RenderShape getRenderShape(@NotNull BlockState p_49232_) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        super.createBlockStateDefinition(pBuilder.add(ROTATION));
+        super.createBlockStateDefinition(pBuilder.add(ROTATION, FACING));
     }
 
     @Override

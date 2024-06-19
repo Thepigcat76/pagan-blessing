@@ -15,44 +15,12 @@ public final class PBTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, PaganBless.MODID);
 
     static {
-        CREATIVE_MODE_TABS.register("items", () -> CreativeModeTab.builder()
-                .title(Component.translatable("tab.paganbless.items"))
+        CREATIVE_MODE_TABS.register("main", () -> CreativeModeTab.builder()
+                .title(Component.translatable("tab.paganbless.main"))
                 .withTabsBefore(CreativeModeTabs.COMBAT)
                 .icon(() -> PBItems.LAVENDER.get().asItem().getDefaultInstance())
                 .displayItems((parameters, output) -> {
-                    // Items
-                    output.accept(PBItems.BELLADONNA.get());
-                    output.accept(PBItems.HAG_TAPER.get());
-                    output.accept(PBItems.LAVENDER.get());
-                    output.accept(PBItems.MANDRAKE_ROOT.get());
-                    output.accept(PBItems.MUGWORT.get());
-                    output.accept(PBItems.RUE.get());
-                    output.accept(PBItems.WINTER_BERRIES.get());
-                    output.accept(PBItems.GLAZED_BERRIES.get());
-                    output.accept(PBItems.CHOPPED_LAVENDER.get());
-                    output.accept(PBItems.CHOPPED_RUE.get());
-                    output.accept(PBItems.RUNIC_CHARGE.get());
-                    output.accept(PBItems.BLACK_THORN_STICK.get());
-                    output.accept(PBItems.BLACK_THORN_STAFF.get());
-                    addBook(output);
-                    output.accept(PBItems.CINNABAR.get());
-                    output.accept(PBItems.HERB_POUCH.get());
-                    output.accept(PBBlocks.ROPE.get());
-                    output.accept(PBItems.BOLINE.get());
-                    output.accept(PBItems.WAND.get());
-                    output.accept(PBItems.CHALICE.get());
-                    output.accept(PBItems.ETERNAL_SNOWBALL.get());
-                    addPentacle(output);
-                    output.accept(PBItems.ATHAME.get());
-                    output.accept(PBItems.WICAN_WARD.get());
-                }).build());
 
-
-        CREATIVE_MODE_TABS.register("blocks", () -> CreativeModeTab.builder()
-                .title(Component.translatable("tab.paganbless.blocks"))
-                .withTabsBefore(CreativeModeTabs.COMBAT)
-                .icon(() -> PBBlocks.IMBUING_CAULDRON.get().asItem().getDefaultInstance())
-                .displayItems((parameters, output) -> {
                     // Blocks
                     output.accept(PBBlocks.IMBUING_CAULDRON.get());
                     output.accept(PBBlocks.HERBALIST_BENCH.get());
@@ -78,6 +46,34 @@ public final class PBTabs {
                     output.accept(PBBlocks.HANGING_RUE.get());
                     output.accept(PBBlocks.DRIED_HANGING_LAVENDER.get());
                     output.accept(PBBlocks.DRIED_HANGING_RUE.get());
+
+                    // Items
+                    output.accept(PBItems.BELLADONNA.get());
+                    output.accept(PBItems.HAG_TAPER.get());
+                    output.accept(PBItems.LAVENDER.get());
+                    output.accept(PBItems.MANDRAKE_ROOT.get());
+                    output.accept(PBItems.MUGWORT.get());
+                    output.accept(PBItems.RUE.get());
+                    output.accept(PBItems.WINTER_BERRIES.get());
+                    output.accept(PBItems.GLAZED_BERRIES.get());
+                    output.accept(PBItems.CHOPPED_LAVENDER.get());
+                    output.accept(PBItems.CHOPPED_RUE.get());
+                    output.accept(PBItems.RUNIC_CHARGE.get());
+                    output.accept(PBItems.BLACK_THORN_STICK.get());
+                    output.accept(PBItems.BLACK_THORN_STAFF.get());
+                    addBook(output);
+                    output.accept(PBItems.CINNABAR.get());
+                    output.accept(PBItems.HERB_POUCH.get());
+                    output.accept(PBBlocks.ROPE.get());
+                    output.accept(PBItems.BOLINE.get());
+                    output.accept(PBItems.WAND.get());
+                    output.accept(PBItems.CHALICE.get());
+                    output.accept(PBItems.ETERNAL_SNOWBALL.get());
+                    addPentacle(output);
+                    output.accept(PBItems.ATHAME.get());
+                    output.accept(PBItems.WICAN_WARD.get());
+
+                    // Wood blocks
                     output.accept(PBBlocks.BLACK_THORN_LEAVES.get());
                     output.accept(PBBlocks.BLACK_THORN_SAPLING.get());
                     output.accept(PBBlocks.BLACK_THORN_PLANKS.get());

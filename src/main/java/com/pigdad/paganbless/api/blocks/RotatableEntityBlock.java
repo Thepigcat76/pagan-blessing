@@ -1,5 +1,6 @@
 package com.pigdad.paganbless.api.blocks;
 
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -13,8 +14,9 @@ import org.jetbrains.annotations.Nullable;
 public abstract class RotatableEntityBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    protected RotatableEntityBlock(Properties pProperties) {
+    public RotatableEntityBlock(Properties pProperties) {
         super(pProperties);
+        registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH));
     }
 
     @Override
