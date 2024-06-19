@@ -1,5 +1,6 @@
 package com.pigdad.paganbless.registries.items;
 
+import com.pigdad.paganbless.registries.blocks.HerbPlantBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
@@ -43,6 +44,12 @@ public class BolineItem extends SwordItem {
             if (blockState.getValue(NetherWartBlock.AGE) >= 3) {
                 dropCropDrops(level, player, blockPos, blockState);
                 level.setBlockAndUpdate(blockPos, wartBlock.defaultBlockState());
+            }
+            return InteractionResult.SUCCESS;
+        } else if (blockState.getBlock() instanceof HerbPlantBlock herbPlantBlock) {
+            if (blockState.getValue(HerbPlantBlock.AGE) >= 5) {
+                dropCropDrops(level, player, blockPos, blockState);
+                level.setBlockAndUpdate(blockPos, herbPlantBlock.defaultBlockState().setValue(HerbPlantBlock.AGE, 0));
             }
             return InteractionResult.SUCCESS;
         }

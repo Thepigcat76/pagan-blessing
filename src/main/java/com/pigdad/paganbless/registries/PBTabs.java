@@ -15,10 +15,10 @@ public final class PBTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, PaganBless.MODID);
 
     static {
-        CREATIVE_MODE_TABS.register("main", () -> CreativeModeTab.builder()
-                .title(Component.translatable("tab.paganbless.main"))
+        CREATIVE_MODE_TABS.register("items", () -> CreativeModeTab.builder()
+                .title(Component.translatable("tab.paganbless.items"))
                 .withTabsBefore(CreativeModeTabs.COMBAT)
-                .icon(() -> PBBlocks.IMBUING_CAULDRON.get().asItem().getDefaultInstance())
+                .icon(() -> PBItems.LAVENDER.get().asItem().getDefaultInstance())
                 .displayItems((parameters, output) -> {
                     // Items
                     output.accept(PBItems.BELLADONNA.get());
@@ -45,7 +45,14 @@ public final class PBTabs {
                     addPentacle(output);
                     output.accept(PBItems.ATHAME.get());
                     output.accept(PBItems.WICAN_WARD.get());
+                }).build());
 
+
+        CREATIVE_MODE_TABS.register("blocks", () -> CreativeModeTab.builder()
+                .title(Component.translatable("tab.paganbless.blocks"))
+                .withTabsBefore(CreativeModeTabs.COMBAT)
+                .icon(() -> PBBlocks.IMBUING_CAULDRON.get().asItem().getDefaultInstance())
+                .displayItems((parameters, output) -> {
                     // Blocks
                     output.accept(PBBlocks.IMBUING_CAULDRON.get());
                     output.accept(PBBlocks.HERBALIST_BENCH.get());
