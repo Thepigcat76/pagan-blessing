@@ -1,6 +1,6 @@
 {
   "values": [
     "#minecraft:is_jungle",
-    "#neoforge:is_swamp"
+    "#c:is_swamp"
   ]
 }

@@ -1,6 +1,8 @@
 package com.pigdad.paganbless;
 
 import com.mojang.logging.LogUtils;
+import com.pigdad.paganbless.data.PBAttachmentTypes;
+import com.pigdad.paganbless.data.PBDataComponents;
 import com.pigdad.paganbless.registries.*;
 import net.minecraft.server.MinecraftServer;
 import net.neoforged.bus.api.IEventBus;
@@ -32,6 +34,7 @@ public final class PaganBless {
         PBPlacerTypes.TRUNK_PLACERS.register(modEventBus);
         PBEntities.ENTITY_TYPES.register(modEventBus);
         PBDataComponents.DATA_COMPONENT_TYPES.register(modEventBus);
+        PBAttachmentTypes.ATTACHMENT_TYPES.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
 

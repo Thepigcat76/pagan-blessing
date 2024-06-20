@@ -3,6 +3,7 @@ package com.pigdad.paganbless.registries.worldgen;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBPlacerTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -31,6 +32,8 @@ public class BlackThornTrunkPlacer extends TrunkPlacer {
 
     public List<FoliagePlacer.FoliageAttachment> placeTrunk(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, int height, BlockPos pos, TreeConfiguration config) {
         setDirtAt(level, blockSetter, random, pos.below(), config);
+
+        PaganBless.LOGGER.debug("placing tree");
 
         for (int i = 0; i < height; i++) {
             placeLog(level, blockSetter, random, pos.above(i), config);

@@ -1,6 +1,7 @@
 package com.pigdad.paganbless.registries;
 
 import com.pigdad.paganbless.PaganBless;
+import com.pigdad.paganbless.compat.modonomicon.ModonomiconCompat;
 import com.pigdad.paganbless.registries.items.CaptureSacrificeItem;
 import com.pigdad.paganbless.registries.items.PentacleItem;
 import net.minecraft.core.registries.Registries;
@@ -93,11 +94,9 @@ public final class PBTabs {
     }
 
     public static void addBook(CreativeModeTab.Output output) {
-    /*
         if (PBItems.PAGAN_GUIDE != null) {
             output.accept(ModonomiconCompat.getItemStack());
         }
-     */
     }
 
     public static void addPentacle(CreativeModeTab.Output output) {

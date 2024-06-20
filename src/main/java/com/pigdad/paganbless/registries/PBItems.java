@@ -1,6 +1,8 @@
 package com.pigdad.paganbless.registries;
 
 import com.pigdad.paganbless.PaganBless;
+import com.pigdad.paganbless.compat.modonomicon.ModonomiconCompat;
+import com.pigdad.paganbless.data.PBDataComponents;
 import com.pigdad.paganbless.registries.data.AdvancedBundleContents;
 import com.pigdad.paganbless.registries.items.*;
 import net.minecraft.core.component.DataComponents;
@@ -14,6 +16,7 @@ import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -87,14 +90,11 @@ public final class PBItems {
             () -> new BolineItem(new Item.Properties().stacksTo(1)));
 
     static {
-        PAGAN_GUIDE = null;
-        /*
         if (ModList.get().isLoaded("modonomicon")) {
             PAGAN_GUIDE = ModonomiconCompat.registerItem();
         } else {
             PAGAN_GUIDE = null;
         }
-         */
     }
 
     public static Supplier<Item> registerItem(String name, Supplier<Item> item) {

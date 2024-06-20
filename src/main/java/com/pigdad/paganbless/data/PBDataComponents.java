@@ -1,4 +1,4 @@
-package com.pigdad.paganbless.registries;
+package com.pigdad.paganbless.data;
 
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.data.AdvancedBundleContents;

@@ -1,11 +1,14 @@
 package com.pigdad.paganbless.events;
 
 import com.pigdad.paganbless.PaganBless;
+import com.pigdad.paganbless.compat.modonomicon.ModonomiconCompat;
+import com.pigdad.paganbless.data.PBAttachmentTypes;
 import com.pigdad.paganbless.data.RunicCoreSavedData;
 import com.pigdad.paganbless.mixins.LevelRendererAccess;
 import com.pigdad.paganbless.networking.*;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBEntities;
+import com.pigdad.paganbless.registries.PBItems;
 import com.pigdad.paganbless.registries.blockentities.CrankBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.RunicCoreBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.renderer.*;
@@ -28,6 +31,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -35,7 +39,9 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RenderHighlightEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
@@ -125,6 +131,17 @@ public class PBEvents {
                     level.setBlockAndUpdate(winchPos, winchBlock.setValue(WinchBlock.LIFT_DOWN, true));
                     blockEntity.drop();
                     player.swing(InteractionHand.MAIN_HAND);
+                }
+            }
+        }
+        
+        @SubscribeEvent
+        public static void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
+            if (ModList.get().isLoaded("modonomicon")) {
+                Player player = event.getEntity();
+                if (!player.getData(PBAttachmentTypes.HAS_PAGAN_GUIDE.get())) {
+                    ItemHandlerHelper.giveItemToPlayer(player, ModonomiconCompat.getItemStack());
+                    player.setData(PBAttachmentTypes.HAS_PAGAN_GUIDE.get(), true);
                 }
             }
         }
