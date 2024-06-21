@@ -1,11 +1,14 @@
 package com.pigdad.paganbless.registries.items.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import com.pigdad.paganbless.registries.blockentities.renderer.JarBERenderer;
 import com.pigdad.paganbless.utils.rendering.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.BlockItem;
@@ -38,8 +41,22 @@ public class JarItemRenderer extends BlockEntityWithoutLevelRenderer {
             ItemStackHandler itemStackHandler = new ItemStackHandler();
             itemStackHandler.deserializeNBT(Minecraft.getInstance().level.registryAccess(), tag.copyTag().getCompound("itemhandler"));
             ItemStack itemStack = itemStackHandler.getStackInSlot(0);
-            JarBERenderer.renderItems(itemStack, Minecraft.getInstance().getItemRenderer(), poseStack, buffer, combinedLightIn, combinedOverlayIn, Direction.NORTH);
+            renderItems(itemStack, Minecraft.getInstance().getItemRenderer(), poseStack, buffer, combinedLightIn, combinedOverlayIn);
 
         }
     }
+
+    public static void renderItems(ItemStack itemStack, ItemRenderer itemRenderer, PoseStack poseStack, MultiBufferSource pBufferSource, int light, int overlay) {
+        int renderedAmount = itemStack.getCount() / 8 + 1;
+        for (int i = 0; i < renderedAmount; i++) {
+            poseStack.pushPose();
+            poseStack.translate(0.5f, 0.07f + i / 20f, 0.5f);
+            poseStack.scale(0.45f, 0.45f, 0.45f);
+            poseStack.mulPose(Axis.XP.rotationDegrees(270));
+            BakedModel model = itemRenderer.getModel(itemStack, null, null, 0);
+            itemRenderer.render(itemStack, ItemDisplayContext.FIXED, true, poseStack, pBufferSource, light, overlay, model);
+            poseStack.popPose();
+        }
+    }
+
 }

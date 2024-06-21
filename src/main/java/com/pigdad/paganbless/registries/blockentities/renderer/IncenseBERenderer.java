@@ -16,11 +16,9 @@ public class IncenseBERenderer implements BlockEntityRenderer<IncenseBlockEntity
 
     @Override
     public void render(IncenseBlockEntity incenseBlockEntity, float v, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int i1) {
-        int rotation = incenseBlockEntity.getBlockState().getValue(IncenseBlock.ROTATION);
-        float degrees = RotationSegment.convertToDegrees(rotation);
         {
             poseStack.pushPose();
-            RenderUtils.rotateCentered(poseStack, Axis.YN, degrees);
+            RenderUtils.performBlockRotation16(incenseBlockEntity.getBlockState(), poseStack);
             RenderUtils.renderBlockModel(incenseBlockEntity.getBlockState(), poseStack, multiBufferSource, i, i1);
             poseStack.popPose();
         }

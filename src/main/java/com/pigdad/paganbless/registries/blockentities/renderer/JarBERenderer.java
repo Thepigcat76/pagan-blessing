@@ -21,6 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class JarBERenderer implements BlockEntityRenderer<JarBlockEntity> {
     public JarBERenderer(BlockEntityRendererProvider.Context ignored) {
@@ -30,13 +31,13 @@ public class JarBERenderer implements BlockEntityRenderer<JarBlockEntity> {
     public void render(JarBlockEntity blockEntity, float pPartialTick, PoseStack poseStack, MultiBufferSource pBufferSource, int combinedLight, int combinedOverlay) {
         {
             poseStack.pushPose();
-            DecoratedPotBlockEntity.WobbleStyle decoratedpotblockentity$wobblestyle = blockEntity.lastWobbleStyle;
-            if (decoratedpotblockentity$wobblestyle != null && blockEntity.getLevel() != null) {
-                float f = ((float)(blockEntity.getLevel().getGameTime() - blockEntity.wobbleStartedAtTick) + pPartialTick) / (float)decoratedpotblockentity$wobblestyle.duration;
+            DecoratedPotBlockEntity.WobbleStyle lastWobbleStyle = blockEntity.lastWobbleStyle;
+            if (lastWobbleStyle != null && blockEntity.getLevel() != null) {
+                float f = ((float) (blockEntity.getLevel().getGameTime() - blockEntity.wobbleStartedAtTick) + pPartialTick) / (float) lastWobbleStyle.duration;
                 if (f >= 0.0F && f <= 1.0F) {
                     float f1;
                     float f2;
-                    if (decoratedpotblockentity$wobblestyle == DecoratedPotBlockEntity.WobbleStyle.POSITIVE) {
+                    if (lastWobbleStyle == DecoratedPotBlockEntity.WobbleStyle.POSITIVE) {
                         f2 = f * 6.2831855F;
                         float f3 = -1.5F * (Mth.cos(f2) + 0.5F) * Mth.sin(f2 / 2.0F);
                         poseStack.rotateAround(Axis.XP.rotation(f3 * 0.015625F), 0.5F, 0.0F, 0.5F);
@@ -49,6 +50,7 @@ public class JarBERenderer implements BlockEntityRenderer<JarBlockEntity> {
                     }
                 }
             }
+            RenderUtils.performBlockRotation16(blockEntity.getBlockState(), poseStack);
             RenderUtils.renderBlockModel(blockEntity.getBlockState(), poseStack, pBufferSource, combinedLight, combinedOverlay);
             poseStack.popPose();
         }
@@ -56,18 +58,18 @@ public class JarBERenderer implements BlockEntityRenderer<JarBlockEntity> {
         {
             ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
             ItemStack itemStack = blockEntity.getItemHandler().get().getStackInSlot(0);
-            renderItems(itemStack, itemRenderer, poseStack, pBufferSource, getLightLevel(blockEntity.getLevel(), blockEntity.getBlockPos()), OverlayTexture.NO_OVERLAY, blockEntity.getBlockState().getValue(JarBlock.FACING));
+            renderItems(blockEntity.getBlockState(), itemStack, itemRenderer, poseStack, pBufferSource, getLightLevel(blockEntity.getLevel(), blockEntity.getBlockPos()), OverlayTexture.NO_OVERLAY);
         }
     }
 
-    public static void renderItems(ItemStack itemStack, ItemRenderer itemRenderer, PoseStack poseStack, MultiBufferSource pBufferSource, int light, int overlay, Direction direction) {
+    public static void renderItems(BlockState blockState, ItemStack itemStack, ItemRenderer itemRenderer, PoseStack poseStack, MultiBufferSource pBufferSource, int light, int overlay) {
         int renderedAmount = itemStack.getCount() / 8 + 1;
         for (int i = 0; i < renderedAmount; i++) {
             poseStack.pushPose();
+            RenderUtils.performBlockRotation16(blockState, poseStack);
             poseStack.translate(0.5f, 0.07f + i / 20f, 0.5f);
-            poseStack.scale(0.45f, 0.45f, 0.45f);
-            poseStack.mulPose(Axis.YN.rotationDegrees(direction.toYRot()));
             poseStack.mulPose(Axis.XP.rotationDegrees(270));
+            poseStack.scale(0.45f, 0.45f, 0.45f);
             BakedModel model = itemRenderer.getModel(itemStack, null, null, 0);
             itemRenderer.render(itemStack, ItemDisplayContext.FIXED, true, poseStack, pBufferSource, light, overlay, model);
             poseStack.popPose();

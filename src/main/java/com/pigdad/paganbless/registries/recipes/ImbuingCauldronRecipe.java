@@ -10,7 +10,6 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -21,7 +20,6 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public record ImbuingCauldronRecipe(List<IngredientWithCount> ingredients, ItemStack result, FluidStack fluidStack) implements Recipe<PBRecipeInput> {
@@ -31,25 +29,9 @@ public record ImbuingCauldronRecipe(List<IngredientWithCount> ingredients, ItemS
     public boolean matches(@NotNull PBRecipeInput recipeInput, Level level) {
         if (level.isClientSide()) return false;
 
-        List<ItemStack> containerItems = new ArrayList<>();
+        List<ItemStack> inputItems = recipeInput.items();
 
-        for (int i = 0; i < recipeInput.size(); i++) {
-            containerItems.add(recipeInput.getItem(i));
-        }
-
-        List<Boolean> checked = new ArrayList<>();
-
-        for (IngredientWithCount inputItem : ingredients) {
-            for (ItemStack item : containerItems) {
-                if (inputItem.ingredient().test(item) && item.getCount() >= inputItem.count()) {
-                    checked.add(true);
-                    break;
-                }
-            }
-        }
-
-        // Check if all input items match
-        return checked.stream().allMatch(Boolean::booleanValue) && checked.size() == ingredients.size();
+        return RecipeUtils.compareItems(inputItems, ingredients);
     }
 
     public boolean matchesFluid(FluidStack fluidStack, Level level) {
@@ -60,12 +42,7 @@ public record ImbuingCauldronRecipe(List<IngredientWithCount> ingredients, ItemS
 
     @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
-        NonNullList<Ingredient> ingredients1 = NonNullList.create();
-        for (int i = 0; i < ingredients.size(); i++) {
-            IngredientWithCount ingredient = ingredients.get(i);
-            ingredients1.add(i, ingredient.ingredient());
-        }
-        return ingredients1;
+        return RecipeUtils.listToNonNullList(RecipeUtils.iWCToIngredientsSaveCount(ingredients));
     }
 
     public @NotNull NonNullList<IngredientWithCount> getIngredientsWithCount() {

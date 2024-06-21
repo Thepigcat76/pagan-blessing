@@ -2,9 +2,9 @@
 	"credit": "Made with Blockbench",
 	"render_type": "cutout",
 	"textures": {
-		"0": "paganbless:block/plants/mandrake_plant_1",
-		"1": "paganbless:block/plants/mandrake_plant_2",
-		"particle": "paganbless:block/plants/mandrake_plant_1"
+		"0": "paganbless:block/plants/cut/mandrake_plant_1_stage_4",
+		"1": "paganbless:block/plants/cut/mandrake_plant_2_stage_4",
+		"particle": "paganbless:block/plants/cut/mandrake_plant_1_stage_4"
 	},
 	"elements": [
 		{

@@ -1,19 +1,7 @@
 {
   "variants": {
-    "facing=north": {
-      "model": "paganbless:block/jar",
-      "y": 180
-    },
-    "facing=east": {
-      "model": "paganbless:block/jar",
-      "y": 270
-    },
-    "facing=south": {
+    "": {
       "model": "paganbless:block/jar"
-    },
-    "facing=west": {
-      "model": "paganbless:block/jar",
-      "y": 90
     }
   }
 }

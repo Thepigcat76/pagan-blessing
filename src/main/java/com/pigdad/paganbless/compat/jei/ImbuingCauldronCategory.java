@@ -4,6 +4,7 @@ import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.blockentities.ImbuingCauldronBlockEntity;
 import com.pigdad.paganbless.registries.recipes.ImbuingCauldronRecipe;
+import com.pigdad.paganbless.utils.RecipeUtils;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -60,11 +61,11 @@ public class ImbuingCauldronCategory  implements IRecipeCategory<ImbuingCauldron
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, ImbuingCauldronRecipe recipe, IFocusGroup focuses) {
         List<Vec2> coordinates = List.of(
-                new Vec2(76, 5),
-                new Vec2(118, 21),
-                new Vec2(101, 60),
-                new Vec2(50, 60),
-                new Vec2(33, 21)
+                new Vec2(76, 6),
+                new Vec2(119, 20),
+                new Vec2(102, 59),
+                new Vec2(49, 59),
+                new Vec2(32, 20)
         );
 
         float scale = 34f / ImbuingCauldronBlockEntity.getCapacity();
@@ -78,8 +79,9 @@ public class ImbuingCauldronCategory  implements IRecipeCategory<ImbuingCauldron
 
         for (int i = 0; i < 5; i++) {
             try {
+                Ingredient ingredient = RecipeUtils.iWCToIngredientsSaveCount(recipe.ingredients()).get(i);
                 builder.addSlot(RecipeIngredientRole.INPUT, (int) coordinates.get(i).x, (int) coordinates.get(i).y)
-                        .addIngredients(recipe.getIngredients().get(i));
+                        .addIngredients(ingredient);
             } catch (Exception ignored) {
                 builder.addSlot(RecipeIngredientRole.INPUT, (int) coordinates.get(i).x, (int) coordinates.get(i).y)
                         .addIngredients(Ingredient.EMPTY);

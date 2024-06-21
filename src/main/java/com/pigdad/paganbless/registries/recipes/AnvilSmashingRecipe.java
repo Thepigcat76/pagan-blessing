@@ -33,35 +33,9 @@ public record AnvilSmashingRecipe(NonNullList<IngredientWithCount> ingredients, 
     public boolean matches(@NotNull PBRecipeInput recipeInput, Level level) {
         if (level.isClientSide()) return false;
 
-        List<ItemStack> containerItems = recipeInput.items();
+        List<ItemStack> inputItems = recipeInput.items();
 
-        List<IngredientWithCount> expected = ingredients.stream().toList();
-
-        List<ItemStack> items = containerItems.stream()
-                .filter(item -> !item.isEmpty())
-                .filter(itemStack -> {
-                    for (IngredientWithCount ingredient : ingredients) {
-                        if (ingredient.ingredient().test(itemStack) && itemStack.getCount() >= ingredient.count()) return true;
-                    }
-                    return false;
-                }).toList();
-
-        if (items.size() < ingredients.size()) return false;
-
-        PaganBless.LOGGER.debug("Items: {}, expected: {}", items, expected);
-
-        mainCheck:
-        for (ItemStack item : items) {
-            for (IngredientWithCount expectedItem : expected) {
-                if (expectedItem.ingredient().test(item) && item.getCount() >= expectedItem.count()) {
-                    continue mainCheck;
-                }
-            }
-            // else branch, if none of the expected items match
-            return false;
-        }
-
-        return true;
+        return RecipeUtils.compareItems(inputItems, ingredients);
     }
 
     @Override

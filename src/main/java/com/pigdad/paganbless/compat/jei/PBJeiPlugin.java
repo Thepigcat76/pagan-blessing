@@ -65,6 +65,7 @@ public class PBJeiPlugin implements IModPlugin {
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(PBBlocks.IMBUING_CAULDRON.get()), ImbuingCauldronCategory.IMBUING_CAULDRON_TYPE);
         registration.addRecipeCatalyst(new ItemStack(Items.ANVIL), AnvilSmashingCategory.ANVIL_SMASHING_RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(PBBlocks.WINCH.get()), AnvilSmashingCategory.ANVIL_SMASHING_RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(PBBlocks.RUNIC_CORE.get()), RunicRitualCategory.RUNIC_RITUAL_RECIPE_TYPE);
 
         for (Item item : BuiltInRegistries.ITEM) {
