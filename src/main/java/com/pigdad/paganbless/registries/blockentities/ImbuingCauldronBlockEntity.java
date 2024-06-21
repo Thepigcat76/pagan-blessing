@@ -122,7 +122,6 @@ public class ImbuingCauldronBlockEntity extends ContainerBlockEntity {
         Optional<RecipeHolder<ImbuingCauldronRecipe>> recipe = getCurrentRecipe();
 
         if (recipe.isEmpty()) {
-            PaganBless.LOGGER.debug("Recipe aint matching");
             return false;
         }
 
@@ -134,9 +133,7 @@ public class ImbuingCauldronBlockEntity extends ContainerBlockEntity {
     public boolean fluidMatches() {
         Optional<RecipeHolder<ImbuingCauldronRecipe>> recipe = getCurrentRecipe();
 
-        boolean b = recipe.map(imbuingCauldronRecipe -> imbuingCauldronRecipe.value().matchesFluid(getFluidTank().get().getFluidInTank(0), level)).orElse(false);
-        PaganBless.LOGGER.debug("Fluid matches: {}", b);
-        return b;
+        return recipe.map(imbuingCauldronRecipe -> imbuingCauldronRecipe.value().matchesFluid(getFluidTank().get().getFluidInTank(0), level)).orElse(false);
     }
 
     private Optional<RecipeHolder<ImbuingCauldronRecipe>> getCurrentRecipe() {

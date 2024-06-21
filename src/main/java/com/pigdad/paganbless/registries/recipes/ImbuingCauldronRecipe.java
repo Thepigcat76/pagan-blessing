@@ -32,8 +32,6 @@ public record ImbuingCauldronRecipe(List<IngredientWithCount> ingredients, ItemS
 
         List<ItemStack> inputItems = recipeInput.items().stream().filter(input -> !input.isEmpty()).toList();
 
-        PaganBless.LOGGER.debug("inputs: {}", inputItems);
-
         return RecipeUtils.compareItems(inputItems, ingredients);
     }
 
