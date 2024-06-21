@@ -2,6 +2,7 @@ package com.pigdad.paganbless.registries.recipes;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.utils.IngredientWithCount;
 import com.pigdad.paganbless.utils.PBRecipeInput;
 import com.pigdad.paganbless.utils.RecipeUtils;
@@ -29,7 +30,9 @@ public record ImbuingCauldronRecipe(List<IngredientWithCount> ingredients, ItemS
     public boolean matches(@NotNull PBRecipeInput recipeInput, Level level) {
         if (level.isClientSide()) return false;
 
-        List<ItemStack> inputItems = recipeInput.items();
+        List<ItemStack> inputItems = recipeInput.items().stream().filter(input -> !input.isEmpty()).toList();
+
+        PaganBless.LOGGER.debug("inputs: {}", inputItems);
 
         return RecipeUtils.compareItems(inputItems, ingredients);
     }

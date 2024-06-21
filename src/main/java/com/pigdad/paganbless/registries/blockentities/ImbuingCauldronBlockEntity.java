@@ -1,5 +1,6 @@
 package com.pigdad.paganbless.registries.blockentities;
 
+import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.api.blocks.ContainerBlockEntity;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBTags;
@@ -112,7 +113,7 @@ public class ImbuingCauldronBlockEntity extends ContainerBlockEntity {
                     }
                 }
             }
-            getFluidTank().ifPresent(tank -> tank.drain(recipe.get().value().fluidStack().getAmount(), IFluidHandler.FluidAction.EXECUTE));
+            getFluidTank().ifPresent(tank -> tank.drain(recipe.get().value().fluidStack().copy().getAmount(), IFluidHandler.FluidAction.EXECUTE));
             itemHandler.setStackInSlot(OUTPUT, new ItemStack(result.getItem(), itemHandler.getStackInSlot(OUTPUT).getCount() + result.getCount()));
         });
     }
@@ -121,6 +122,7 @@ public class ImbuingCauldronBlockEntity extends ContainerBlockEntity {
         Optional<RecipeHolder<ImbuingCauldronRecipe>> recipe = getCurrentRecipe();
 
         if (recipe.isEmpty()) {
+            PaganBless.LOGGER.debug("Recipe aint matching");
             return false;
         }
 
@@ -132,7 +134,9 @@ public class ImbuingCauldronBlockEntity extends ContainerBlockEntity {
     public boolean fluidMatches() {
         Optional<RecipeHolder<ImbuingCauldronRecipe>> recipe = getCurrentRecipe();
 
-        return recipe.map(imbuingCauldronRecipe -> imbuingCauldronRecipe.value().matchesFluid(getFluidTank().get().getFluidInTank(0), level)).orElse(false);
+        boolean b = recipe.map(imbuingCauldronRecipe -> imbuingCauldronRecipe.value().matchesFluid(getFluidTank().get().getFluidInTank(0), level)).orElse(false);
+        PaganBless.LOGGER.debug("Fluid matches: {}", b);
+        return b;
     }
 
     private Optional<RecipeHolder<ImbuingCauldronRecipe>> getCurrentRecipe() {
