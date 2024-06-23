@@ -1,0 +1,21 @@
+{
+  "type": "paganbless:cauldron_imbuing",
+  "fluid": {
+    "amount": 1000,
+    "id": "minecraft:lava"
+  },
+  "ingredients": [
+    {
+      "count": 3,
+      "tag": "c:cobblestones/deepslate"
+    },
+    {
+      "count": 2,
+      "tag": "paganbless:herbs"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "paganbless:rune_slab_inert"
+  }
+}

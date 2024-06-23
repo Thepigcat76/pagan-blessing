@@ -27,7 +27,7 @@ public final class RenderUtils {
 
         if (!stack.isEmpty()) {
             poseStack.pushPose();
-            poseStack.translate(0.5D, 1.2D, 0.5D);
+            poseStack.translate(0.5D, 0.6D, 0.5D);
             float scale = stack.getItem() instanceof BlockItem ? 0.95F : 0.75F;
             poseStack.scale(scale, scale, scale);
             double tick = System.currentTimeMillis() / 800.0D;

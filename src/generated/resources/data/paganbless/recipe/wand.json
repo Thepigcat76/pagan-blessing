@@ -1,0 +1,10 @@
+{
+  "type": "paganbless:runic_ritual",
+  "result": {
+    "count": 1,
+    "id": "paganbless:wand"
+  },
+  "runeBlock": {
+    "id": "paganbless:rune_slab_emerald"
+  }
+}

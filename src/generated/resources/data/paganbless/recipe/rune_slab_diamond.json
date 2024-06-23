@@ -1,0 +1,15 @@
+{
+  "type": "paganbless:anvil_smashing",
+  "ingredients": [
+    {
+      "tag": "c:gems/diamond"
+    },
+    {
+      "item": "paganbless:rune_slab_inert"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "paganbless:rune_slab_diamond"
+  }
+}

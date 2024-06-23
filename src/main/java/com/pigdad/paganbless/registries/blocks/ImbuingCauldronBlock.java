@@ -135,7 +135,7 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack p_316304_, BlockState p_316362_, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult p_316140_) {
+    protected @NotNull ItemInteractionResult useItemOn(ItemStack p_316304_, BlockState p_316362_, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult p_316140_) {
         ImbuingCauldronBlockEntity blockEntity = (ImbuingCauldronBlockEntity) level.getBlockEntity(blockPos);
         IFluidHandlerItem fluidHandlerItem = player.getItemInHand(interactionHand).getCapability(Capabilities.FluidHandler.ITEM);
         IItemHandler itemHandler = Utils.getCapability(Capabilities.ItemHandler.BLOCK, blockEntity);
@@ -143,11 +143,11 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
         if (player.isShiftKeyDown()) {
             blockEntity.turn();
             if (blockEntity.getFluidTank().get().getFluidAmount() >= 800) {
-                if (blockEntity.getFluidTank().get().getFluid().is(Fluids.WATER)) {
+                if (blockEntity.getFluidTank().get().getFluidInTank(0).is(Fluids.WATER)) {
                     level.playSound(null, player.getX(), player.getY() + 0.5, player.getZ(), SoundEvents.PLAYER_SWIM, SoundSource.PLAYERS, 0.2F, 1.0F);
-                } else {
-                    level.playSound(null, player.getX(), player.getY() + 0.5, player.getZ(), SoundEvents.GRINDSTONE_USE, SoundSource.PLAYERS, 0.2F, 1.0F);
                 }
+            } else {
+                level.playSound(null, player.getX(), player.getY() + 0.5, player.getZ(), SoundEvents.GRINDSTONE_USE, SoundSource.PLAYERS, 0.2F, 1.0F);
             }
             blockEntity.setProgress(blockEntity.getProgress() + 5);
             return ItemInteractionResult.SUCCESS;
@@ -179,12 +179,12 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
         if (fluidHandlerItem != null && fluidHandlerItem.getFluidInTank(0).getAmount() > 0) {
             int filled = fluidHandler.fill(fluidHandlerItem.getFluidInTank(0).copy(), IFluidHandler.FluidAction.EXECUTE);
             fluidHandlerItem.drain(filled, IFluidHandler.FluidAction.EXECUTE);
-            if (player.getItemInHand(interactionHand).getItem() instanceof BucketItem) {
-                player.getItemInHand(interactionHand).setCount(0);
+            if (player.getItemInHand(interactionHand).getItem() instanceof BucketItem bucketItem) {
+                player.getItemInHand(interactionHand).shrink(1);
                 Utils.giveItemToPlayerNoSound(player, Items.BUCKET.getDefaultInstance(), -1);
-                if (fluidInTank.is(Fluids.WATER)) {
+                if (bucketItem.content.isSame(Fluids.WATER)) {
                     level.playSound(null, player.getX(), player.getY() + 0.5, player.getZ(), SoundEvents.BUCKET_EMPTY, SoundSource.PLAYERS, 0.8F, 1.0F);
-                } else if (fluidInTank.is(Fluids.LAVA)) {
+                } else if (bucketItem.content.isSame(Fluids.LAVA)) {
                     level.playSound(null, player.getX(), player.getY() + 0.5, player.getZ(), SoundEvents.BUCKET_EMPTY_LAVA, SoundSource.PLAYERS, 0.8F, 1.0F);
                 }
             }

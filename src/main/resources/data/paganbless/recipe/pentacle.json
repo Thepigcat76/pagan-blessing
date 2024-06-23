@@ -1,9 +1,0 @@
-{
-  "type": "paganbless:runic_ritual",
-  "runeBlock": {
-    "id": "paganbless:rune_slab_cinnabar"
-  },
-  "result": {
-    "id": "paganbless:pentacle"
-  }
-}

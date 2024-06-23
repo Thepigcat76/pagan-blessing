@@ -1,0 +1,27 @@
+{
+  "type": "paganbless:cauldron_imbuing",
+  "fluid": {
+    "amount": 500,
+    "id": "minecraft:water"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "count": 2,
+      "tag": "paganbless:herbs"
+    },
+    {
+      "tag": "c:gems/amethyst"
+    },
+    {
+      "count": 2,
+      "tag": "c:dusts/glowstone"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "paganbless:runic_charge"
+  }
+}

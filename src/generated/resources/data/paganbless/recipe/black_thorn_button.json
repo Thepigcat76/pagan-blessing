@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "buttons",
+  "ingredients": [
+    {
+      "item": "paganbless:black_thorn_planks"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "paganbless:black_thorn_button"
+  }
+}

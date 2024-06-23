@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "paganbless:black_thorn_planks"
+    },
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "S": {
+      "item": "paganbless:black_thorn_stick"
+    }
+  },
+  "pattern": [
+    "#I#",
+    "#S#",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "paganbless:winch"
+  }
+}

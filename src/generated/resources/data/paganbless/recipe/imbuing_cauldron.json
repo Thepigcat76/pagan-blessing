@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "c:ingots/iron"
+    },
+    "H": {
+      "tag": "paganbless:herbs"
+    },
+    "S": {
+      "tag": "c:rods/wooden"
+    }
+  },
+  "pattern": [
+    "H H",
+    "#S#",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "paganbless:imbuing_cauldron"
+  }
+}

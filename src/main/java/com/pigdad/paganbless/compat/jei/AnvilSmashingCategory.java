@@ -57,9 +57,9 @@ public class AnvilSmashingCategory implements IRecipeCategory<AnvilSmashingRecip
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, AnvilSmashingRecipe recipe, IFocusGroup focuses) {
         Vec2[] coordinates = {
-                new Vec2(80, 6),
-                new Vec2(53, 9),
-                new Vec2(106, 9),
+                new Vec2(79, 5),
+                new Vec2(52, 8),
+                new Vec2(105, 8),
         };
 
         for (int i = 0; i < 3; i++) {

@@ -1,0 +1,13 @@
+{
+  "type": "paganbless:anvil_smashing",
+  "ingredients": [
+    {
+      "count": 4,
+      "tag": "c:gems/cinnabar"
+    }
+  ],
+  "result": {
+    "count": 15,
+    "id": "minecraft:redstone"
+  }
+}

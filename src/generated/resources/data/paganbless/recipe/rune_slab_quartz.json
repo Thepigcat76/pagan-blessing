@@ -1,0 +1,16 @@
+{
+  "type": "paganbless:anvil_smashing",
+  "ingredients": [
+    {
+      "count": 3,
+      "tag": "c:gems/quartz"
+    },
+    {
+      "item": "paganbless:rune_slab_inert"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "paganbless:rune_slab_quartz"
+  }
+}

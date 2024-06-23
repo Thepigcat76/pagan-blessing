@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "c:cobblestones/deepslate"
+    },
+    "J": {
+      "item": "paganbless:jar"
+    },
+    "P": {
+      "item": "paganbless:black_thorn_pressure_plate"
+    }
+  },
+  "pattern": [
+    "P J",
+    "###",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "paganbless:herbalist_bench"
+  }
+}

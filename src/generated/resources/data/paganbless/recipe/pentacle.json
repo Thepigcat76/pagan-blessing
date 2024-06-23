@@ -1,0 +1,15 @@
+{
+  "type": "paganbless:runic_ritual",
+  "result": {
+    "components": {
+      "minecraft:entity_data": {
+        "id": "minecraft:pig"
+      }
+    },
+    "count": 1,
+    "id": "paganbless:pentacle"
+  },
+  "runeBlock": {
+    "id": "paganbless:rune_slab_cinnabar"
+  }
+}

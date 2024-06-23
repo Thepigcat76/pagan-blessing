@@ -11,6 +11,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.jetbrains.annotations.NotNull;
 
 public final class PBTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, PaganBless.MODID);
@@ -70,7 +71,7 @@ public final class PBTabs {
                     output.accept(PBItems.WAND.get());
                     output.accept(PBItems.CHALICE.get());
                     output.accept(PBItems.ETERNAL_SNOWBALL.get());
-                    addPentacle(output);
+                    output.accept(PentacleItem.getPentacleDefaultStack());
                     output.accept(PBItems.ATHAME.get());
                     output.accept(PBItems.WICAN_WARD.get());
 
@@ -97,12 +98,5 @@ public final class PBTabs {
         if (PBItems.PAGAN_GUIDE != null) {
             output.accept(ModonomiconCompat.getItemStack());
         }
-    }
-
-    public static void addPentacle(CreativeModeTab.Output output) {
-        PentacleItem item = (PentacleItem) PBItems.PENTACLE.get();
-        ItemStack itemStack = item.getDefaultInstance();
-        ((CaptureSacrificeItem) itemStack.getItem()).setEntity(EntityType.PIG, itemStack);
-        output.accept(itemStack);
     }
 }
