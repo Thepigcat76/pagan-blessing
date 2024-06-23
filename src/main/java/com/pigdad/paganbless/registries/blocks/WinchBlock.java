@@ -5,7 +5,7 @@ import com.pigdad.paganbless.api.blocks.RotatableEntityBlock;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.blockentities.WinchBlockEntity;
-import com.pigdad.paganbless.utils.AnvilUtils;
+import com.pigdad.paganbless.utils.recipes.AnvilRecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -94,7 +94,7 @@ public class WinchBlock extends RotatableEntityBlock {
         if (blockState.hasBlockEntity() || distance <= 0) return false;
 
         if (!level.getBlockState(liftedBlockPos.below()).canBeReplaced()) {
-            AnvilUtils.onAnvilLand(level, liftedBlockPos);
+            AnvilRecipeUtils.onAnvilLand(level, liftedBlockPos);
             return false;
         }
 

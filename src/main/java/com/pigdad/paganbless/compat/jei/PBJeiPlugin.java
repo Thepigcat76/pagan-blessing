@@ -4,6 +4,7 @@ import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.blocks.RuneSlabBlock;
 import com.pigdad.paganbless.registries.recipes.AnvilSmashingRecipe;
+import com.pigdad.paganbless.registries.recipes.BenchCuttingRecipe;
 import com.pigdad.paganbless.registries.recipes.ImbuingCauldronRecipe;
 import com.pigdad.paganbless.registries.recipes.RunicRitualRecipe;
 import mezz.jei.api.IModPlugin;
@@ -42,6 +43,9 @@ public class PBJeiPlugin implements IModPlugin {
 
         registration.addRecipeCategories(new RunicRitualCategory(
                 registration.getJeiHelpers().getGuiHelper()));
+
+        registration.addRecipeCategories(new HerbalistBenchCategory(
+                registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -50,27 +54,35 @@ public class PBJeiPlugin implements IModPlugin {
 
         List<ImbuingCauldronRecipe> imbuingRecipe = recipeManager.getAllRecipesFor(ImbuingCauldronRecipe.Type.INSTANCE)
                 .stream().map(RecipeHolder::value).toList();
-        registration.addRecipes(ImbuingCauldronCategory.IMBUING_CAULDRON_TYPE, imbuingRecipe);
+        registration.addRecipes(ImbuingCauldronCategory.RECIPE_TYPE, imbuingRecipe);
 
         List<AnvilSmashingRecipe> anvilSmashingRecipe = recipeManager.getAllRecipesFor(AnvilSmashingRecipe.Type.INSTANCE)
                 .stream().map(RecipeHolder::value).toList();
-        registration.addRecipes(AnvilSmashingCategory.ANVIL_SMASHING_RECIPE_TYPE, anvilSmashingRecipe);
+        registration.addRecipes(AnvilSmashingCategory.RECIPE_TYPE, anvilSmashingRecipe);
 
         List<RunicRitualRecipe> runicRitualRecipe = recipeManager.getAllRecipesFor(RunicRitualRecipe.Type.INSTANCE)
                 .stream().map(RecipeHolder::value).toList();
-        registration.addRecipes(RunicRitualCategory.RUNIC_RITUAL_RECIPE_TYPE, runicRitualRecipe);
+        registration.addRecipes(RunicRitualCategory.RECIPE_TYPE, runicRitualRecipe);
+
+        List<BenchCuttingRecipe> herbalistBenchRecipes = recipeManager.getAllRecipesFor(BenchCuttingRecipe.Type.INSTANCE)
+                .stream().map(RecipeHolder::value).toList();
+        registration.addRecipes(HerbalistBenchCategory.RECIPE_TYPE, herbalistBenchRecipes);
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(new ItemStack(PBBlocks.IMBUING_CAULDRON.get()), ImbuingCauldronCategory.IMBUING_CAULDRON_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(Items.ANVIL), AnvilSmashingCategory.ANVIL_SMASHING_RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(PBBlocks.WINCH.get()), AnvilSmashingCategory.ANVIL_SMASHING_RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(PBBlocks.RUNIC_CORE.get()), RunicRitualCategory.RUNIC_RITUAL_RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(PBBlocks.HERBALIST_BENCH.get()), HerbalistBenchCategory.RECIPE_TYPE);
+
+        registration.addRecipeCatalyst(new ItemStack(PBBlocks.IMBUING_CAULDRON.get()), ImbuingCauldronCategory.RECIPE_TYPE);
+
+        registration.addRecipeCatalyst(new ItemStack(PBBlocks.RUNIC_CORE.get()), RunicRitualCategory.RECIPE_TYPE);
+
+        registration.addRecipeCatalyst(new ItemStack(Items.ANVIL), AnvilSmashingCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(PBBlocks.WINCH.get()), AnvilSmashingCategory.RECIPE_TYPE);
 
         for (Item item : BuiltInRegistries.ITEM) {
             if (Block.byItem(item) instanceof RuneSlabBlock runeSlabBlock && !runeSlabBlock.equals(PBBlocks.RUNE_SLAB_INERT.get())) {
-                registration.addRecipeCatalyst(new ItemStack(item), RunicRitualCategory.RUNIC_RITUAL_RECIPE_TYPE);
+                registration.addRecipeCatalyst(new ItemStack(item), RunicRitualCategory.RECIPE_TYPE);
             }
         }
     }

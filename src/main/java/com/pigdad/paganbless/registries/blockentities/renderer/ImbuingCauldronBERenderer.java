@@ -3,6 +3,7 @@ package com.pigdad.paganbless.registries.blockentities.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
+import com.pigdad.paganbless.registries.PBItems;
 import com.pigdad.paganbless.registries.blockentities.ImbuingCauldronBlockEntity;
 import com.pigdad.paganbless.registries.blocks.ImbuingCauldronBlock;
 import com.pigdad.paganbless.utils.Utils;
@@ -32,22 +33,24 @@ import org.joml.Matrix4f;
 import java.util.Map;
 
 public class ImbuingCauldronBERenderer implements BlockEntityRenderer<ImbuingCauldronBlockEntity> {
-    private float rotation = 0;
-    private static final float SIDE_MARGIN = (float) ImbuingCauldronBlock.SHAPE.min(Direction.Axis.X) + 0.1f,
-            MIN_Y = 2 / 16f,
-            MAX_Y = 1 - MIN_Y;
+    private static final float SIDE_MARGIN = (float) ImbuingCauldronBlock.SHAPE.min(Direction.Axis.X) + 0.1f;
+    private static final float MIN_Y = 2 / 16f;
+    private static final float MAX_Y = 1 - MIN_Y;
 
     public ImbuingCauldronBERenderer(BlockEntityRendererProvider.Context ignored) {
     }
 
     @Override
-    public void render(ImbuingCauldronBlockEntity blockEntity, float p_112308_, PoseStack poseStack, MultiBufferSource pBufferSource, int combinedLight, int combinedOverlay) {
+    public void render(ImbuingCauldronBlockEntity blockEntity, float pPartialTicks, PoseStack poseStack, MultiBufferSource pBufferSource, int combinedLight, int combinedOverlay) {
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         Map<Integer, ItemStack> itemStacks = blockEntity.getRenderStack();
 
+        // Items
         for (int i : itemStacks.keySet()) {
-            if (i == 5)
+            if (i == 5) {
                 RenderUtils.renderFloatingItem(blockEntity.getItemHandler().get().getStackInSlot(5), poseStack, pBufferSource, combinedLight, combinedOverlay);
+                continue;
+            }
             ItemStack itemStack = itemStacks.get(i);
             poseStack.pushPose();
             switch (i) {
@@ -74,17 +77,24 @@ public class ImbuingCauldronBERenderer implements BlockEntityRenderer<ImbuingCau
                 }
             }
             poseStack.scale(0.25f, 0.25f, 0.25f);
-            itemRenderer.renderStatic(itemStack, ItemDisplayContext.FIXED, getLightLevel(blockEntity.getLevel(),
-                    blockEntity.getBlockPos()), OverlayTexture.NO_OVERLAY, poseStack, pBufferSource, blockEntity.getLevel(), 1);
+            itemRenderer.renderStatic(itemStack, ItemDisplayContext.FIXED,
+                    getLightLevel(blockEntity.getLevel(), blockEntity.getBlockPos()), OverlayTexture.NO_OVERLAY,
+                    poseStack, pBufferSource, blockEntity.getLevel(), 1);
             poseStack.popPose();
         }
 
-        if (rotation < 360) {
-            rotation += 0.15F;
-        } else {
-            rotation = 0;
+        // Stirring stick
+        {
+            poseStack.pushPose();
+            poseStack.translate(0.5, 0.4, 0.5);
+            poseStack.mulPose(Axis.YP.rotationDegrees(blockEntity.getIndependentAngle(pPartialTicks)));
+            itemRenderer.renderStatic(PBItems.STIRRING_STICK.get().getDefaultInstance(), ItemDisplayContext.FIXED,
+                    getLightLevel(blockEntity.getLevel(), blockEntity.getBlockPos()), OverlayTexture.NO_OVERLAY,
+                    poseStack, pBufferSource, blockEntity.getLevel(), 1);
+            poseStack.popPose();
         }
 
+        // Fluids
         try {
             IFluidHandler fluidHandler = Utils.getCapability(Capabilities.FluidHandler.BLOCK, blockEntity);
             FluidStack fluidStack = fluidHandler.getFluidInTank(0);
@@ -110,6 +120,7 @@ public class ImbuingCauldronBERenderer implements BlockEntityRenderer<ImbuingCau
     private static void renderFluid(PoseStack poseStack, MultiBufferSource bufferSource, FluidStack fluidStack, float alpha, float heightPercentage, int combinedLight) {
         VertexConsumer vertexBuilder = bufferSource.getBuffer(RenderType.translucent());
         IClientFluidTypeExtensions fluidTypeExtensions = IClientFluidTypeExtensions.of(fluidStack.getFluid());
+        //noinspection deprecation
         TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(fluidTypeExtensions.getStillTexture(fluidStack));
         int color = fluidTypeExtensions.getTintColor();
         alpha *= (color >> 24 & 255) / 255f;

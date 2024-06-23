@@ -22,7 +22,7 @@ public class AnvilSmashingCategory implements IRecipeCategory<AnvilSmashingRecip
     public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(PaganBless.MODID,
             "textures/gui/anvil_smashing.png");
 
-    public static final RecipeType<AnvilSmashingRecipe> ANVIL_SMASHING_RECIPE_TYPE =
+    public static final RecipeType<AnvilSmashingRecipe> RECIPE_TYPE =
             new RecipeType<>(UID, AnvilSmashingRecipe.class);
 
     private final IDrawable background;
@@ -36,7 +36,7 @@ public class AnvilSmashingCategory implements IRecipeCategory<AnvilSmashingRecip
 
     @Override
     public RecipeType<AnvilSmashingRecipe> getRecipeType() {
-        return ANVIL_SMASHING_RECIPE_TYPE;
+        return RECIPE_TYPE;
     }
 
     @Override

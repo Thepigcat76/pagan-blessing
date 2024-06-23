@@ -1,6 +1,7 @@
 package com.pigdad.paganbless.networking;
 
 import com.pigdad.paganbless.registries.blockentities.CrankBlockEntity;
+import com.pigdad.paganbless.registries.blockentities.ImbuingCauldronBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.IncenseBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.RunicCoreBlockEntity;
 import com.pigdad.paganbless.registries.blocks.CrankBlock;

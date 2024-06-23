@@ -1,6 +1,5 @@
-package com.pigdad.paganbless.utils;
+package com.pigdad.paganbless.utils.recipes;
 
-import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeInput;
 import org.jetbrains.annotations.NotNull;

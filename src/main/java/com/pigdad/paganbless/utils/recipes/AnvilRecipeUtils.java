@@ -1,10 +1,8 @@
-package com.pigdad.paganbless.utils;
+package com.pigdad.paganbless.utils.recipes;
 
-import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.recipes.AnvilSmashingRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -18,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public final class AnvilUtils {
+public final class AnvilRecipeUtils {
     public static void onAnvilLand(Level level, BlockPos blockPos) {
         List<Entity> entities = level.getEntities(EntityType.ITEM.create(level), new AABB(blockPos));
         List<ItemEntity> itemEntities = new ArrayList<>();

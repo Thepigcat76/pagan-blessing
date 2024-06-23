@@ -4,7 +4,7 @@ import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.blockentities.ImbuingCauldronBlockEntity;
 import com.pigdad.paganbless.registries.recipes.ImbuingCauldronRecipe;
-import com.pigdad.paganbless.utils.RecipeUtils;
+import com.pigdad.paganbless.utils.recipes.RecipeUtils;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -26,7 +26,7 @@ public class ImbuingCauldronCategory  implements IRecipeCategory<ImbuingCauldron
     public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(PaganBless.MODID,
             "textures/gui/imbuing_cauldron.png");
 
-    public static final RecipeType<ImbuingCauldronRecipe> IMBUING_CAULDRON_TYPE =
+    public static final RecipeType<ImbuingCauldronRecipe> RECIPE_TYPE =
             new RecipeType<>(UID, ImbuingCauldronRecipe.class);
 
     private final IDrawable background;
@@ -40,7 +40,7 @@ public class ImbuingCauldronCategory  implements IRecipeCategory<ImbuingCauldron
 
     @Override
     public RecipeType<ImbuingCauldronRecipe> getRecipeType() {
-        return IMBUING_CAULDRON_TYPE;
+        return RECIPE_TYPE;
     }
 
     @Override

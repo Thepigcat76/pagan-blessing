@@ -1,8 +1,9 @@
-package com.pigdad.paganbless.utils;
+package com.pigdad.paganbless.utils.recipes;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -16,13 +17,15 @@ public final class RecipeUtils {
     }
 
     public static List<Ingredient> iWCToIngredientsSaveCount(List<IngredientWithCount> ingredientsWithCount) {
-        return ingredientsWithCount.stream().map(ingredientWithCount -> {
-            Ingredient ingredient = ingredientWithCount.ingredient();
-            for (ItemStack itemStack : ingredient.getItems()) {
-                itemStack.setCount(ingredientWithCount.count());
-            }
-            return ingredient;
-        }).toList();
+        return ingredientsWithCount.stream().map(RecipeUtils::iWCToIngredientSaveCount).toList();
+    }
+
+    public static @NotNull Ingredient iWCToIngredientSaveCount(IngredientWithCount ingredientWithCount) {
+        Ingredient ingredient = ingredientWithCount.ingredient();
+        for (ItemStack itemStack : ingredient.getItems()) {
+            itemStack.setCount(ingredientWithCount.count());
+        }
+        return ingredient;
     }
 
     public static <T> NonNullList<T> listToNonNullList(List<T> list) {

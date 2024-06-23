@@ -22,7 +22,7 @@ public class RunicRitualCategory  implements IRecipeCategory<RunicRitualRecipe> 
     public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(PaganBless.MODID,
             "textures/gui/runic_ritual.png");
 
-    public static final RecipeType<RunicRitualRecipe> RUNIC_RITUAL_RECIPE_TYPE =
+    public static final RecipeType<RunicRitualRecipe> RECIPE_TYPE =
             new RecipeType<>(UID, RunicRitualRecipe.class);
 
     private final IDrawable background;
@@ -35,7 +35,7 @@ public class RunicRitualCategory  implements IRecipeCategory<RunicRitualRecipe> 
 
     @Override
     public RecipeType<RunicRitualRecipe> getRecipeType() {
-        return RUNIC_RITUAL_RECIPE_TYPE;
+        return RECIPE_TYPE;
     }
 
     @Override

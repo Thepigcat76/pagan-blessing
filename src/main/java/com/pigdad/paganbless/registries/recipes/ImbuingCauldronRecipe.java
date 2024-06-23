@@ -3,9 +3,10 @@ package com.pigdad.paganbless.registries.recipes;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.pigdad.paganbless.PaganBless;
-import com.pigdad.paganbless.utils.IngredientWithCount;
-import com.pigdad.paganbless.utils.PBRecipeInput;
-import com.pigdad.paganbless.utils.RecipeUtils;
+import com.pigdad.paganbless.utils.recipes.IngredientWithCount;
+import com.pigdad.paganbless.utils.recipes.PBFluidRecipeInput;
+import com.pigdad.paganbless.utils.recipes.PBRecipeInput;
+import com.pigdad.paganbless.utils.recipes.RecipeUtils;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -23,22 +24,18 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public record ImbuingCauldronRecipe(List<IngredientWithCount> ingredients, ItemStack result, FluidStack fluidStack) implements Recipe<PBRecipeInput> {
+public record ImbuingCauldronRecipe(List<IngredientWithCount> ingredients, ItemStack result, FluidStack fluidStack) implements Recipe<PBFluidRecipeInput> {
     public static final String NAME = "cauldron_imbuing";
 
     @Override
-    public boolean matches(@NotNull PBRecipeInput recipeInput, Level level) {
+    public boolean matches(@NotNull PBFluidRecipeInput recipeInput, Level level) {
         if (level.isClientSide()) return false;
 
         List<ItemStack> inputItems = recipeInput.items().stream().filter(input -> !input.isEmpty()).toList();
 
-        return RecipeUtils.compareItems(inputItems, ingredients);
-    }
-
-    public boolean matchesFluid(FluidStack fluidStack, Level level) {
-        if (level.isClientSide()) return false;
-
-        return (fluidStack.getAmount() >= this.fluidStack.getAmount() && fluidStack.getFluid().isSame(this.fluidStack.getFluid()));
+        boolean fluidMatches = recipeInput.fluidStack().getAmount() >= this.fluidStack.getAmount() && recipeInput.fluidStack().is(this.fluidStack.getFluid());
+        boolean itemsMatches = RecipeUtils.compareItems(inputItems, ingredients);
+        return itemsMatches && fluidMatches;
     }
 
     @Override
@@ -51,7 +48,7 @@ public record ImbuingCauldronRecipe(List<IngredientWithCount> ingredients, ItemS
     }
 
     @Override
-    public @NotNull ItemStack assemble(@NotNull PBRecipeInput recipeInput, HolderLookup.@NotNull Provider provider) {
+    public @NotNull ItemStack assemble(@NotNull PBFluidRecipeInput recipeInput, HolderLookup.@NotNull Provider provider) {
         return result.copy();
     }
 

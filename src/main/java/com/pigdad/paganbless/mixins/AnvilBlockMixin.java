@@ -1,6 +1,6 @@
 package com.pigdad.paganbless.mixins;
 
-import com.pigdad.paganbless.utils.AnvilUtils;
+import com.pigdad.paganbless.utils.recipes.AnvilRecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.level.Level;
@@ -19,7 +19,7 @@ public class AnvilBlockMixin {
     )
     public void anvilLanding(Level level, BlockPos blockPos, BlockState blockState, BlockState oldBlockState, FallingBlockEntity fallingBlockEntity, CallbackInfo callbackInfoLevel) {
         // FIXME: when dropping anvil from too small distance, it has wrong recipe
-        AnvilUtils.onAnvilLand(level, blockPos);
+        AnvilRecipeUtils.onAnvilLand(level, blockPos);
     }
 
 }

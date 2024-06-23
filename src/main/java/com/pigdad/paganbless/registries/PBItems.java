@@ -82,6 +82,8 @@ public final class PBItems {
                     .rarity(Rarity.RARE)));
     public static final Supplier<Item> BLACK_THORN_STAFF = registerItem("black_thorn_staff",
             () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final Supplier<Item> STIRRING_STICK = registerItem("stirring_stick",
+            () -> new Item(new Item.Properties()));
     public static final Supplier<Item> HERB_POUCH = registerItem("herb_pouch",
             () -> new HerbPouchItem(new Item.Properties().stacksTo(1).component(PBDataComponents.ADVANCED_BUNDLE_CONTENTS, AdvancedBundleContents.EMPTY)));
     public static final Supplier<Item> BLACK_THORN_STICK = registerItem("black_thorn_stick",

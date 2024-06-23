@@ -23,7 +23,7 @@ public class CrankBlockEntity extends BlockEntity {
 
     public void turn() {
         this.inUse = 10;
-        this.speed = 800;
+        this.speed = 1200;
     }
 
     public void drop() {

@@ -1,4 +1,4 @@
-package com.pigdad.paganbless.utils;
+package com.pigdad.paganbless.utils.recipes;
 
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;

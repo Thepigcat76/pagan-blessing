@@ -94,6 +94,7 @@ public class CrankBlock extends BaseEntityBlock {
         return blockState != null ? blockState.setValue(ROTATION, CRANK_MIN_ROTATION).setValue(FACING, pContext.getNearestLookingDirection()) : null;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public @NotNull RenderShape getRenderShape(@NotNull BlockState p_49232_) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
