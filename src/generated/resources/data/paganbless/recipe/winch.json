@@ -5,15 +5,15 @@
     "#": {
       "item": "paganbless:black_thorn_planks"
     },
-    "I": {
-      "tag": "c:ingots/iron"
+    "M": {
+      "item": "paganbless:mechanical_component"
     },
     "S": {
       "item": "paganbless:black_thorn_stick"
     }
   },
   "pattern": [
-    "#I#",
+    "#M#",
     "#S#",
     "###"
   ],

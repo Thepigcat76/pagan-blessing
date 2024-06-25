@@ -1,0 +1,11 @@
+// 1.21	2024-06-25T16:12:38.417747901	Tags for minecraft:item mod id vanilla
+68d314cad5b9f109a5a0ad6d390b881c3b00d043 data/c/tags/item/gems/cinnabar.json
+d95c3d912dccf67eaffd33938f1e9ab0aeff7c06 data/c/tags/item/rods/wooden.json
+db9f03f5aa069f7dad825aeee9e1c36981e2fa0e data/minecraft/tags/item/bookshelf_books.json
+435e697daece867c3ffdd4cab4831325f4882df2 data/paganbless/tags/item/chopped_herbs.json
+9ce5f601f848be10b13948582ce3c83af5e8f8ca data/paganbless/tags/item/dried_herbs.json
+47be456ad97366b91300f74739cd8cac544f698d data/paganbless/tags/item/fire_lighter.json
+dafdb403da78fb67b9fc1f430dd8a05e07308c82 data/paganbless/tags/item/hanging_herbs.json
+69123a752f8bc9bbe7ffd4705e8b4f7c8e64529e data/paganbless/tags/item/herb_plants.json
+0e7979c08531ce9bbe7bda682e23ea2b80097a46 data/paganbless/tags/item/herbs.json
+7151fbd2e5f220128a4c3d5eb85aa058ad43e760 data/paganbless/tags/item/pagan_tools.json

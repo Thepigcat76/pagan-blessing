@@ -11,6 +11,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
+import java.util.function.Supplier;
+
 // TODO: Move this to a record codec builder if something breaks
 public record IngredientWithCount(Ingredient ingredient, int count) {
     public static final IngredientWithCount EMPTY = new IngredientWithCount(Ingredient.EMPTY, -1);
@@ -43,7 +45,15 @@ public record IngredientWithCount(Ingredient ingredient, int count) {
         return new IngredientWithCount(Ingredient.of(itemTagKey), 1);
     }
 
+    public static IngredientWithCount fromItemTag(TagKey<Item> itemTagKey, int count) {
+        return new IngredientWithCount(Ingredient.of(itemTagKey), count);
+    }
+
     public static IngredientWithCount fromItemLike(ItemLike itemLike) {
         return new IngredientWithCount(Ingredient.of(itemLike), 1);
+    }
+
+    public static IngredientWithCount fromItemLike(ItemLike itemLike, int count) {
+        return new IngredientWithCount(Ingredient.of(itemLike), count);
     }
 }

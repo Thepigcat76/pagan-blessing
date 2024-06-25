@@ -51,8 +51,8 @@ public class WinchBlock extends RotatableEntityBlock {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_49915_) {
-        super.createBlockStateDefinition(p_49915_.add(DISTANCE, LIFT_DOWN));
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder.add(DISTANCE, LIFT_DOWN));
     }
 
     @Nullable
@@ -86,6 +86,8 @@ public class WinchBlock extends RotatableEntityBlock {
 
     // Will return true as long as the winch can lift down
     public static boolean liftDown(Level level, BlockPos winchPos, BlockState winchBlock) {
+        if (!(winchBlock.getBlock() instanceof WinchBlock)) return false;
+
         // BlockPos of the block being lifted
         int distance = winchBlock.getValue(DISTANCE);
         BlockPos liftedBlockPos = winchPos.below(distance + 1);

@@ -1,8 +1,6 @@
 package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.serialization.MapCodec;
-import com.pigdad.paganbless.api.blocks.IncenseBlock;
-import com.pigdad.paganbless.api.blocks.RotatableEntityBlock;
 import com.pigdad.paganbless.api.blocks.TranslucentHighlightFix;
 import com.pigdad.paganbless.registries.blockentities.JarBlockEntity;
 import com.pigdad.paganbless.utils.SoundUtils;

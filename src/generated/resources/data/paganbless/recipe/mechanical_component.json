@@ -5,15 +5,16 @@
       "item": "paganbless:black_thorn_log"
     },
     {
-      "item": "minecraft:skeleton_skull"
+      "count": 3,
+      "tag": "c:ingots/iron"
     },
     {
-      "count": 3,
-      "tag": "minecraft:candles"
+      "count": 2,
+      "tag": "paganbless:chopped_herbs"
     }
   ],
   "result": {
     "count": 1,
-    "id": "paganbless:runic_core"
+    "id": "paganbless:mechanical_component"
   }
 }

@@ -59,6 +59,8 @@ public final class PBItems {
                             .saturationModifier(0.4F)
                             .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED), 1.0F)
                             .build())));
+    public static final Supplier<Item> MECHANICAL_COMPONENT = registerItem("mechanical_component",
+            () -> new Item(new Item.Properties()));
     public static final Supplier<Item> CINNABAR = registerItem("cinnabar",
             () -> new Item(new Item.Properties()));
     public static final Supplier<Item> RUNIC_CHARGE = registerItem("runic_charge",

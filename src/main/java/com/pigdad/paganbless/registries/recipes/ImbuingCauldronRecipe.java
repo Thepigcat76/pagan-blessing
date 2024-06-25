@@ -2,10 +2,8 @@ package com.pigdad.paganbless.registries.recipes;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.utils.recipes.IngredientWithCount;
 import com.pigdad.paganbless.utils.recipes.PBFluidRecipeInput;
-import com.pigdad.paganbless.utils.recipes.PBRecipeInput;
 import com.pigdad.paganbless.utils.recipes.RecipeUtils;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;

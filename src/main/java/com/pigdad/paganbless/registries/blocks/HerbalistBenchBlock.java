@@ -62,14 +62,19 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return defaultBlockState().setValue(FACING, context.getPlayer().getDirection());
+        BlockState blockState = defaultBlockState().setValue(FACING, context.getPlayer().getDirection());
+        BlockPos relativePos = context.getClickedPos().relative(blockState.getValue(FACING).getCounterClockWise());
+        if (!context.getLevel().getBlockState(relativePos).canBeReplaced()) {
+            return null;
+        }
+        return blockState;
     }
 
     @Override
     public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
         switch (state.getValue(BENCH_PART)) {
-            case RIGHT -> level.removeBlock(pos.relative(state.getValue(FACING).getCounterClockWise()), true);
-            case LEFT -> level.removeBlock(pos.relative(state.getValue(FACING).getClockWise()), true);
+            case RIGHT -> level.removeBlock(pos.relative(state.getValue(FACING).getCounterClockWise()), false);
+            case LEFT -> level.removeBlock(pos.relative(state.getValue(FACING).getClockWise()), false);
         }
         return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
     }

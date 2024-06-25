@@ -1,4 +1,4 @@
-// 1.21	2024-06-23T16:39:25.938316082	Recipes
+// 1.21	2024-06-25T16:12:38.420430257	Recipes
 27f81e325c94e576ca60319ce332ad42e5c8bb76 data/minecraft/recipe/redstone.json
 8d6b4019881392215dd1e5550ca4bbce4b3e5f0a data/paganbless/advancement/recipes/building_blocks/black_thorn_door.json
 e8d6aafcdc567f0396782a3204b5cc5f62269062 data/paganbless/advancement/recipes/building_blocks/black_thorn_fence.json
@@ -30,12 +30,13 @@ a5b40315ef1537d3781a108226f7dff1baece830 data/paganbless/recipe/black_thorn_wood
 58286ec3912a4c17c06a0d662b44f72608e4e9aa data/paganbless/recipe/chalice.json
 76b68b29d289c19338cc0fc48532c2d64c362776 data/paganbless/recipe/chopped_lavender.json
 85d06b961aef20404ea4b2e7f685b97ab2b777c8 data/paganbless/recipe/chopped_rue.json
-17c5257cf103628c0683af341fa733ddfa79f97a data/paganbless/recipe/crank.json
+21aec52015d250540a956f6bdf741f4bf9679b57 data/paganbless/recipe/crank.json
 afc959df3896e21699d2179cf10fe6308e8c94e6 data/paganbless/recipe/eternal_snowball.json
 ace59ee7b8588a988f0d425b57bd54ff45bfee8f data/paganbless/recipe/glazed_berries.json
 8778152d52b1001843bf54f241ebde99f001aca8 data/paganbless/recipe/herbalist_bench.json
 514954d7b8ac67484479c2d1e9375698b230fb63 data/paganbless/recipe/imbuing_cauldron.json
 cb57a83111e7456d46ab71d287271c434f9ba213 data/paganbless/recipe/jar.json
+53fe13674888e4e4edb598a3a819c4385bee877d data/paganbless/recipe/mechanical_component.json
 fba2c325604b0b2211da8e5582455e95b852d959 data/paganbless/recipe/pentacle.json
 25e7337e6835849f6a4b2bab9e6ff04a2b81b48f data/paganbless/recipe/rune_slab_amethyst.json
 b215e910e1519e3103d89667f4f821a163c498e6 data/paganbless/recipe/rune_slab_cinnabar.json
@@ -45,8 +46,8 @@ fadb894a01c433ad84fb2bf29f39905d715ec650 data/paganbless/recipe/rune_slab_inert.
 3c69480ae17cf312f14b7d2570c0157cdc15cbf3 data/paganbless/recipe/rune_slab_lapis.json
 d56b071a658980224a8578a29a7865ec2fba6bdc data/paganbless/recipe/rune_slab_quartz.json
 a8fcbb822ced57aa50d1cbe5b0e5544af2661f0c data/paganbless/recipe/runic_charge.json
-915f4252666822fafc7d584be2ecc47f7f0e4244 data/paganbless/recipe/runic_core.json
+612910e76a77748b4be6869c6673fa663798aafe data/paganbless/recipe/runic_core.json
 eb48d85441f1802827a7f967904191b092eb37b2 data/paganbless/recipe/stripped_black_thorn_wood.json
 4c8d045e4b840141289c6bf3d4b2d2f8e19b7017 data/paganbless/recipe/wand.json
 9d3c8679ae86ce0e4296b26c5b13d78658e35ea5 data/paganbless/recipe/wican_ward.json
-3a8b5de4e1efa6f11e8ab7f5b665e42a5894d530 data/paganbless/recipe/winch.json
+e7afd7e33340bcf044b224328146cfb5128c149d data/paganbless/recipe/winch.json

@@ -1,14 +1,13 @@
 package com.pigdad.paganbless.datagen;
 
-import com.pigdad.paganbless.datagen.builder.AnvilSmashingRecipeBuilder;
-import com.pigdad.paganbless.datagen.builder.BenchCuttingRecipeBuilder;
-import com.pigdad.paganbless.datagen.builder.ImbuingCauldronRecipeBuilder;
-import com.pigdad.paganbless.datagen.builder.RunicRitualRecipeBuilder;
+import com.pigdad.paganbless.datagen.recipe_builder.AnvilSmashingRecipeBuilder;
+import com.pigdad.paganbless.datagen.recipe_builder.BenchCuttingRecipeBuilder;
+import com.pigdad.paganbless.datagen.recipe_builder.ImbuingCauldronRecipeBuilder;
+import com.pigdad.paganbless.datagen.recipe_builder.RunicRitualRecipeBuilder;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.PBItems;
 import com.pigdad.paganbless.registries.PBTags;
 import com.pigdad.paganbless.registries.items.PentacleItem;
-import com.pigdad.paganbless.registries.recipes.AnvilSmashingRecipe;
 import com.pigdad.paganbless.utils.recipes.IngredientWithCount;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -19,7 +18,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.Tags;
@@ -56,21 +54,27 @@ public class PBRecipeProvider extends RecipeProvider {
     }
 
     private void anvilSmashingRecipes(RecipeOutput recipeOutput) {
-        AnvilSmashingRecipeBuilder.newRecipe(new ItemStack(Items.REDSTONE, 15), new IngredientWithCount(Ingredient.of(PBTags.ItemTags.GEMS_CINNABAR), 4))
+        AnvilSmashingRecipeBuilder.newRecipe(new ItemStack(Items.REDSTONE, 15),
+                        IngredientWithCount.fromItemTag(PBTags.ItemTags.GEMS_CINNABAR, 4))
                 .save(recipeOutput);
         AnvilSmashingRecipeBuilder.newRecipe(PBItems.JAR.get().getDefaultInstance(),
                         IngredientWithCount.fromItemLike(PBBlocks.BLACK_THORN_LOG.get()),
-                        new IngredientWithCount(Ingredient.of(Tags.Items.GLASS_PANES), 5))
+                        IngredientWithCount.fromItemTag(Tags.Items.GLASS_PANES, 5))
                 .save(recipeOutput);
         AnvilSmashingRecipeBuilder.newRecipe(PBBlocks.RUNIC_CORE.get().asItem().getDefaultInstance(),
                         IngredientWithCount.fromItemLike(PBBlocks.BLACK_THORN_LOG.get()),
                         IngredientWithCount.fromItemLike(Items.SKELETON_SKULL),
-                        new IngredientWithCount(Ingredient.of(ItemTags.CANDLES), 3))
+                        IngredientWithCount.fromItemTag(ItemTags.CANDLES, 3))
+                .save(recipeOutput);
+        AnvilSmashingRecipeBuilder.newRecipe(PBItems.MECHANICAL_COMPONENT.get().getDefaultInstance(),
+                        IngredientWithCount.fromItemLike(PBBlocks.BLACK_THORN_LOG.get()),
+                        IngredientWithCount.fromItemTag(Tags.Items.INGOTS_IRON, 3),
+                        IngredientWithCount.fromItemTag(PBTags.ItemTags.CHOPPED_HERBS, 2))
                 .save(recipeOutput);
 
         runeSlabRecipe(recipeOutput, PBBlocks.RUNE_SLAB_CINNABAR.get(), PBTags.ItemTags.GEMS_CINNABAR, 2);
-        runeSlabRecipe(recipeOutput, PBBlocks.RUNE_SLAB_DIAMOND.get(), Tags.Items.GEMS_DIAMOND);
-        runeSlabRecipe(recipeOutput, PBBlocks.RUNE_SLAB_EMERALD.get(), Tags.Items.GEMS_EMERALD);
+        runeSlabRecipe(recipeOutput, PBBlocks.RUNE_SLAB_DIAMOND.get(), Tags.Items.GEMS_DIAMOND, 1);
+        runeSlabRecipe(recipeOutput, PBBlocks.RUNE_SLAB_EMERALD.get(), Tags.Items.GEMS_EMERALD, 1);
         runeSlabRecipe(recipeOutput, PBBlocks.RUNE_SLAB_LAPIS.get(), Tags.Items.GEMS_LAPIS, 5);
         runeSlabRecipe(recipeOutput, PBBlocks.RUNE_SLAB_QUARTZ.get(), Tags.Items.GEMS_QUARTZ, 3);
         runeSlabRecipe(recipeOutput, PBBlocks.RUNE_SLAB_AMETHYST.get(), Tags.Items.GEMS_AMETHYST, 2);
@@ -81,10 +85,6 @@ public class PBRecipeProvider extends RecipeProvider {
                         new IngredientWithCount(Ingredient.of(gemItem), gemCount),
                         new IngredientWithCount(Ingredient.of(PBBlocks.RUNE_SLAB_INERT.get()), 1))
                 .save(recipeOutput);
-    }
-
-    private void runeSlabRecipe(RecipeOutput recipeOutput, Block runeSlabBlock, TagKey<Item> gemItem) {
-        runeSlabRecipe(recipeOutput, runeSlabBlock, gemItem, 1);
     }
 
     private void runicRitualRecipes(RecipeOutput recipeOutput) {
@@ -142,18 +142,18 @@ public class PBRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, PBBlocks.CRANK.get())
                 .pattern("  S")
                 .pattern("###")
-                .pattern("I  ")
-                .define('I', Tags.Items.INGOTS_IRON)
+                .pattern("M  ")
+                .define('M', PBItems.MECHANICAL_COMPONENT.get())
                 .define('S', PBItems.BLACK_THORN_STICK.get())
                 .define('#', PBBlocks.BLACK_THORN_PLANKS.get())
                 .unlockedBy("has_black_thorn_stick", has(PBItems.BLACK_THORN_STICK.get()))
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, PBBlocks.WINCH.get())
-                .pattern("#I#")
+                .pattern("#M#")
                 .pattern("#S#")
                 .pattern("###")
-                .define('I', Tags.Items.INGOTS_IRON)
+                .define('M', PBItems.MECHANICAL_COMPONENT.get())
                 .define('S', PBItems.BLACK_THORN_STICK.get())
                 .define('#', PBBlocks.BLACK_THORN_PLANKS.get())
                 .unlockedBy("has_black_thorn_stick", has(PBItems.BLACK_THORN_STICK.get()))

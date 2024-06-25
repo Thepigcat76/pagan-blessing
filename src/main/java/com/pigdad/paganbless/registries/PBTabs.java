@@ -2,16 +2,12 @@ package com.pigdad.paganbless.registries;
 
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.compat.modonomicon.ModonomiconCompat;
-import com.pigdad.paganbless.registries.items.CaptureSacrificeItem;
 import com.pigdad.paganbless.registries.items.PentacleItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import org.jetbrains.annotations.NotNull;
 
 public final class PBTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, PaganBless.MODID);
@@ -74,6 +70,7 @@ public final class PBTabs {
                     output.accept(PentacleItem.getPentacleDefaultStack());
                     output.accept(PBItems.ATHAME.get());
                     output.accept(PBItems.WICAN_WARD.get());
+                    output.accept(PBItems.MECHANICAL_COMPONENT.get());
 
                     // Wood blocks
                     output.accept(PBBlocks.BLACK_THORN_LEAVES.get());

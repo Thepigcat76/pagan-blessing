@@ -1,13 +1,10 @@
 package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.serialization.MapCodec;
-import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlockEntities;
-import com.pigdad.paganbless.registries.PBTags;
 import com.pigdad.paganbless.registries.blockentities.ImbuingCauldronBlockEntity;
 import com.pigdad.paganbless.utils.Utils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -16,10 +13,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
@@ -40,7 +35,6 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
-import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -76,30 +70,6 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
         }
 
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
-    }
-
-    @Nullable
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        if (ctx.getLevel().getBlockState(ctx.getClickedPos().below()).is(PBTags.BlockTags.HEAT_SOURCE))
-            return super.getStateForPlacement(ctx).setValue(ACTIVE, true);
-        return super.getStateForPlacement(ctx);
-    }
-
-    @Override
-    public @NotNull BlockState updateShape(BlockState oldState, Direction direction, BlockState newState, LevelAccessor p_60544_, BlockPos basePos, BlockPos p_60546_) {
-        BlockState blockState = p_60544_.getBlockState(basePos);
-        if (newState.getBlock() != this) {
-            if (direction.equals(Direction.DOWN)) {
-                if (newState.is(PBTags.BlockTags.HEAT_SOURCE)) {
-                    return blockState.setValue(ACTIVE, true);
-                } else if (blockState.getValue(ACTIVE) && !newState.is(PBTags.BlockTags.HEAT_SOURCE)) {
-                    return blockState.setValue(ACTIVE, false);
-                }
-            }
-        }
-
-        return blockState;
     }
 
     @Override
