@@ -58,6 +58,10 @@ public class JarBlock extends BaseEntityBlock implements TranslucentHighlightFix
     }
 
     @Override
+    protected void spawnDestroyParticles(Level pLevel, Player pPlayer, BlockPos pPos, BlockState pState) {
+    }
+
+    @Override
     protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
         return simpleCodec(JarBlock::new);
     }
@@ -68,6 +72,7 @@ public class JarBlock extends BaseEntityBlock implements TranslucentHighlightFix
         return new JarBlockEntity(blockPos, blockState);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public @NotNull RenderShape getRenderShape(BlockState pState) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
