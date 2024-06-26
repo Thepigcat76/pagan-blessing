@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "tag": "paganbless:herbs"
+    },
+    "S": {
+      "item": "paganbless:black_thorn_stick"
+    }
+  },
+  "pattern": [
+    "  #",
+    " S ",
+    "S  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "paganbless:black_thorn_staff"
+  }
+}

@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.Block;
 public final class PBTags {
     public final static class ItemTags {
         public static final TagKey<Item> HERBS = bind("herbs");
+        public static final TagKey<Item> ROPE_HERBS = bind("rope_herbs");
         public static final TagKey<Item> HANGING_HERBS = bind("hanging_herbs");
         public static final TagKey<Item> DRIED_HERBS = bind("dried_herbs");
         public static final TagKey<Item> CHOPPED_HERBS = bind("chopped_herbs");

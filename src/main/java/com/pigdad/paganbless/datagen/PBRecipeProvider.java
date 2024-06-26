@@ -69,7 +69,7 @@ public class PBRecipeProvider extends RecipeProvider {
         AnvilSmashingRecipeBuilder.newRecipe(PBItems.MECHANICAL_COMPONENT.get().getDefaultInstance(),
                         IngredientWithCount.fromItemLike(PBBlocks.BLACK_THORN_LOG.get()),
                         IngredientWithCount.fromItemTag(Tags.Items.INGOTS_IRON, 3),
-                        IngredientWithCount.fromItemTag(PBTags.ItemTags.CHOPPED_HERBS, 2))
+                        IngredientWithCount.fromItemLike(PBItems.BLACK_THORN_STICK.get(), 2))
                 .save(recipeOutput);
 
         runeSlabRecipe(recipeOutput, PBBlocks.RUNE_SLAB_CINNABAR.get(), PBTags.ItemTags.GEMS_CINNABAR, 2);
@@ -157,6 +157,24 @@ public class PBRecipeProvider extends RecipeProvider {
                 .define('S', PBItems.BLACK_THORN_STICK.get())
                 .define('#', PBBlocks.BLACK_THORN_PLANKS.get())
                 .unlockedBy("has_black_thorn_stick", has(PBItems.BLACK_THORN_STICK.get()))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, PBItems.BLACK_THORN_STAFF.get())
+                .pattern("  #")
+                .pattern(" S ")
+                .pattern("S  ")
+                .define('S', PBItems.BLACK_THORN_STICK.get())
+                .define('#', PBTags.ItemTags.HERBS)
+                .unlockedBy("has_black_thorn_stick", has(PBItems.BLACK_THORN_STICK.get()))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, PBBlocks.ROPE.get())
+                .pattern("S")
+                .pattern("H")
+                .pattern("S")
+                .define('S', Tags.Items.STRINGS)
+                .define('H', PBTags.ItemTags.ROPE_HERBS)
+                .unlockedBy("has_herbs", has(ItemTags.WOOL))
                 .save(recipeOutput);
     }
 

@@ -1,4 +1,4 @@
-// 1.21	2024-06-25T16:12:38.420430257	Recipes
+// 1.21	2024-06-26T18:18:17.020201453	Recipes
 27f81e325c94e576ca60319ce332ad42e5c8bb76 data/minecraft/recipe/redstone.json
 8d6b4019881392215dd1e5550ca4bbce4b3e5f0a data/paganbless/advancement/recipes/building_blocks/black_thorn_door.json
 e8d6aafcdc567f0396782a3204b5cc5f62269062 data/paganbless/advancement/recipes/building_blocks/black_thorn_fence.json
@@ -15,6 +15,8 @@ b6827b1c46fbec2b0ca89b9effdd934a0ace862c data/paganbless/advancement/recipes/dec
 57a6c3d34719ccd22ccb95401587babca8b7ba78 data/paganbless/advancement/recipes/decorations/winch.json
 0abb0edd8fec40ccc18a2041423d547e4ce76ea7 data/paganbless/advancement/recipes/redstone/black_thorn_button.json
 b99272b287ded4762238e11cb4d5ba333563791e data/paganbless/advancement/recipes/redstone/black_thorn_pressure_plate.json
+1e028f5d1d5f72699a092ef7ffde7beea300f971 data/paganbless/advancement/recipes/tools/black_thorn_staff.json
+def8e44d53b540edd31acabd97ce8eb87a251abf data/paganbless/advancement/recipes/tools/rope.json
 85725787482dd44e275e514b61a348c66d24b497 data/paganbless/recipe/athame.json
 99c818a5ccf7a58e52d608f7d6c8e6e639518c3c data/paganbless/recipe/black_thorn_button.json
 ccfcb21753fe26eeddf162c6646a3e771fb525cf data/paganbless/recipe/black_thorn_door.json
@@ -23,6 +25,7 @@ ccfcb21753fe26eeddf162c6646a3e771fb525cf data/paganbless/recipe/black_thorn_door
 1af068077de2b0902849c1219450ceb2d13828f6 data/paganbless/recipe/black_thorn_planks.json
 32145b41b2fa92b54703ee5d7bac0c015df11a2f data/paganbless/recipe/black_thorn_pressure_plate.json
 387b5bb4658bfa5f0b87b9ef237e780750ec0c26 data/paganbless/recipe/black_thorn_slab.json
+e9858c79664e5fb80e7f234525e21f68a240e202 data/paganbless/recipe/black_thorn_staff.json
 4b24df1132ee6a08cebf5d8464ce7c1a28391627 data/paganbless/recipe/black_thorn_stairs.json
 db1810a6495904dd0637c86b1e057074fdca7ad3 data/paganbless/recipe/black_thorn_stick.json
 e1e866836109e5fb097efbcede5f95f476b8e80f data/paganbless/recipe/black_thorn_trapdoor.json
@@ -36,8 +39,9 @@ ace59ee7b8588a988f0d425b57bd54ff45bfee8f data/paganbless/recipe/glazed_berries.j
 8778152d52b1001843bf54f241ebde99f001aca8 data/paganbless/recipe/herbalist_bench.json
 514954d7b8ac67484479c2d1e9375698b230fb63 data/paganbless/recipe/imbuing_cauldron.json
 cb57a83111e7456d46ab71d287271c434f9ba213 data/paganbless/recipe/jar.json
-53fe13674888e4e4edb598a3a819c4385bee877d data/paganbless/recipe/mechanical_component.json
+c2c39dfdd259eb777c1e5be56691e3c950b76890 data/paganbless/recipe/mechanical_component.json
 fba2c325604b0b2211da8e5582455e95b852d959 data/paganbless/recipe/pentacle.json
+944e2facd61106f58ad077020a37e82bb6ef48a2 data/paganbless/recipe/rope.json
 25e7337e6835849f6a4b2bab9e6ff04a2b81b48f data/paganbless/recipe/rune_slab_amethyst.json
 b215e910e1519e3103d89667f4f821a163c498e6 data/paganbless/recipe/rune_slab_cinnabar.json
 d82d880bd038b3e3f50b160a63dec321341d2c93 data/paganbless/recipe/rune_slab_diamond.json

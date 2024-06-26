@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_herbs": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "paganbless:rope"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_herbs"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "paganbless:rope"
+    ]
+  }
+}
