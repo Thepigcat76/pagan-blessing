@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": {
+      "item": "paganbless:rue"
+    },
+    "R": {
+      "item": "paganbless:rope"
+    }
+  },
+  "pattern": [
+    " R ",
+    "HHH"
+  ],
+  "result": {
+    "count": 1,
+    "id": "paganbless:hanging_rue"
+  }
+}

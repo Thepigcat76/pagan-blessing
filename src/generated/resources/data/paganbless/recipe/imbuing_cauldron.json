@@ -9,7 +9,7 @@
       "tag": "paganbless:herbs"
     },
     "S": {
-      "tag": "c:rods/wooden"
+      "item": "paganbless:black_thorn_stick"
     }
   },
   "pattern": [

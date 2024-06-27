@@ -1,7 +1,7 @@
 package com.pigdad.paganbless.registries.blocks;
 
 import com.pigdad.paganbless.PBConfig;
-import com.pigdad.paganbless.data.WicanWardSavedData;
+import com.pigdad.paganbless.data.saved_data.WicanWardSavedData;
 import com.pigdad.paganbless.utils.Utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

@@ -40,7 +40,7 @@ public class RuneSlabBlock extends BaseEntityBlock {
     private final int color;
 
     public RuneSlabBlock(Properties properties, int color) {
-        super(properties.mapColor(MapColor.STONE).noOcclusion());
+        super(properties);
         registerDefaultState(this.defaultBlockState().setValue(IS_TOP, false));
         this.color = color;
     }

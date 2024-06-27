@@ -1,4 +1,4 @@
-package com.pigdad.paganbless.data;
+package com.pigdad.paganbless.data.saved_data;
 
 import com.pigdad.paganbless.api.data.LocationsSavedData;
 import com.pigdad.paganbless.utils.DistanceUtils;

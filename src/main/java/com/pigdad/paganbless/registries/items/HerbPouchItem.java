@@ -1,7 +1,7 @@
 package com.pigdad.paganbless.registries.items;
 
 import com.pigdad.paganbless.data.PBDataComponents;
-import com.pigdad.paganbless.registries.data.AdvancedBundleContents;
+import com.pigdad.paganbless.data.components.AdvancedBundleContents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;

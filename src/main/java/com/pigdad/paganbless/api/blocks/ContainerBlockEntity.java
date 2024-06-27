@@ -22,58 +22,54 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public abstract class ContainerBlockEntity extends BlockEntity {
-    private Optional<ItemStackHandler> itemHandler = Optional.empty();
-    private Optional<FluidTank> fluidTank = Optional.empty();
+    private ItemStackHandler itemHandler;
+    private FluidTank fluidTank;
 
     public ContainerBlockEntity(BlockEntityType<?> p_155228_, BlockPos p_155229_, BlockState p_155230_) {
         super(p_155228_, p_155229_, p_155230_);
     }
 
     public void drops() {
-        getItemHandlerStacks().ifPresent(stacks -> {
-            SimpleContainer inventory = new SimpleContainer(stacks);
-            Containers.dropContents(this.level, this.worldPosition, inventory);
-        });
+        SimpleContainer inventory = new SimpleContainer(getItemHandlerStacks());
+        Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
-    public Optional<ItemStackHandler> getItemHandler() {
+    public ItemStackHandler getItemHandler() {
         return itemHandler;
     }
 
-    public Optional<ItemStack[]> getItemHandlerStacks() {
-        return this.itemHandler.map(handler -> {
-            ItemStack[] itemStacks = new ItemStack[handler.getSlots()];
-            for (int i = 0; i < handler.getSlots(); i++) {
-                itemStacks[i] = handler.getStackInSlot(i);
-            }
-            return itemStacks;
-        });
+    public ItemStack[] getItemHandlerStacks() {
+        ItemStack[] itemStacks = new ItemStack[itemHandler.getSlots()];
+        for (int i = 0; i < itemHandler.getSlots(); i++) {
+            itemStacks[i] = itemHandler.getStackInSlot(i);
+        }
+        return itemStacks;
     }
 
-    public Optional<FluidTank> getFluidTank() {
+    public FluidTank getFluidTank() {
         return fluidTank;
     }
 
     @Override
-    protected final void saveAdditional(CompoundTag p_187471_, HolderLookup.Provider provider) {
-        super.saveAdditional(p_187471_, provider);
-        getFluidTank().ifPresent(fluidTank1 -> fluidTank1.writeToNBT(provider, p_187471_));
-        getItemHandler().ifPresent(itemStackHandler -> p_187471_.put("itemhandler", itemStackHandler.serializeNBT(provider)));
-        saveOther(p_187471_);
+    protected final void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        super.saveAdditional(tag, provider);
+        if (getFluidTank() != null) getFluidTank().writeToNBT(provider, tag);
+        if (getItemHandler() != null) tag.put("itemhandler", getItemHandler().serializeNBT(provider));
+        saveData(tag);
     }
 
     @Override
-    public final void loadAdditional(CompoundTag p_155245_, HolderLookup.Provider provider) {
-        super.loadAdditional(p_155245_, provider);
-        getFluidTank().ifPresent(fluidTank1 -> fluidTank1.readFromNBT(provider, p_155245_));
-        getItemHandler().ifPresent(itemStackHandler -> itemStackHandler.deserializeNBT(provider, p_155245_.getCompound("itemhandler")));
-        loadOther(p_155245_);
+    public final void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        super.loadAdditional(tag, provider);
+        if (getFluidTank() != null) getFluidTank().readFromNBT(provider, tag);
+        if (getItemHandler() != null) getItemHandler().deserializeNBT(provider, tag.getCompound("itemhandler"));
+        loadData(tag);
     }
 
-    protected void loadOther(CompoundTag tag) {
+    protected void loadData(CompoundTag tag) {
     }
 
-    protected void saveOther(CompoundTag tag) {
+    protected void saveData(CompoundTag tag) {
     }
 
     protected final void addItemHandler(int slots) {
@@ -85,7 +81,7 @@ public abstract class ContainerBlockEntity extends BlockEntity {
     }
 
     protected final void addItemHandler(int slots, ValidationFunctions.ItemValid validation) {
-        this.itemHandler = Optional.of(new ItemStackHandler(slots) {
+        this.itemHandler = new ItemStackHandler(slots) {
             @Override
             protected void onContentsChanged(int slot) {
                 setChanged();
@@ -97,7 +93,12 @@ public abstract class ContainerBlockEntity extends BlockEntity {
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
                 return validation.itemValid(slot, stack);
             }
-        });
+
+            @Override
+            public int getSlotLimit(int slot) {
+                return 64;
+            }
+        };
     }
 
     private void update() {
@@ -106,7 +107,7 @@ public abstract class ContainerBlockEntity extends BlockEntity {
     }
 
     protected final void addFluidTank(int capacityInMb, ValidationFunctions.FluidValid validation) {
-        this.fluidTank = Optional.of(new FluidTank(capacityInMb) {
+        this.fluidTank = new FluidTank(capacityInMb) {
             @Override
             protected void onContentsChanged() {
                 setChanged();
@@ -118,7 +119,7 @@ public abstract class ContainerBlockEntity extends BlockEntity {
             public boolean isFluidValid(FluidStack stack) {
                 return validation.fluidValid(stack);
             }
-        });
+        };
     }
 
     protected void onItemsChanged(int slot) {

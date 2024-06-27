@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "books",
+  "ingredients": [
+    {
+      "tag": "paganbless:herbs"
+    },
+    {
+      "item": "minecraft:book"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "paganbless:pagan_guide"
+  }
+}

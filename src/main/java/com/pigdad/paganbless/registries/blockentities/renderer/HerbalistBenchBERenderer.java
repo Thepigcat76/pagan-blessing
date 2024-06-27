@@ -27,8 +27,8 @@ public class HerbalistBenchBERenderer implements BlockEntityRenderer<HerbalistBe
     public void render(HerbalistBenchBlockEntity blockEntity, float v, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int i1) {
         ItemRenderer renderer = Minecraft.getInstance().getItemRenderer();
         Direction facing = blockEntity.getBlockState().getValue(RotatableEntityBlock.FACING);
-        ItemStack boardStack = blockEntity.getItemHandler().get().getStackInSlot(0);
-        ItemStack toolStack = blockEntity.getItemHandler().get().getStackInSlot(1);
+        ItemStack boardStack = blockEntity.getItemHandler().getStackInSlot(0);
+        ItemStack toolStack = blockEntity.getItemHandler().getStackInSlot(1);
 
         Vector3f toolPos = switch (facing) {
             case NORTH -> new Vector3f(1.35f, 1f, 0.6f);

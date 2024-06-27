@@ -1,6 +1,5 @@
 {
-  "tab.paganbless.items": "Pagan's Blessing - Items",
-  "tab.paganbless.blocks": "Pagan's Blessing - Blocks",
+  "tab.paganbless.main": "Pagan's Blessing",
 
   "desc.paganbless.decorative": "Decorative",
 
@@ -49,5 +48,14 @@
   "block.paganbless.black_thorn_wood": "Black Thorn Wood",
   "block.paganbless.stripped_black_thorn_wood": "Stripped Black Thorn Wood",
   "block.paganbless.black_thorn_leaves": "Black Thorn Leaves",
-  "block.paganbless.black_thorn_sapling": "Black Thorn Sapling"
+  "block.paganbless.black_thorn_sapling": "Black Thorn Sapling",
+
+  "jei_info.paganbless.dried_herbs_info": "Hanging Dried Herbs can be obtained by placing a Hanging Herb on the bottom side of a block and waiting for it to turn into a Dried Hanging Herb",
+  "jei_info.paganbless.skeleton_skull": "Skeleton Skulls can be obtained by killing Skeletons with a boline",
+
+  "ritual_feedback.paganbless.valid": "Ritual is valid",
+  "ritual_feedback.paganbless.unlit": "Runic core is not lit. To light it, right-click with a flint and steel",
+  "ritual_feedback.paganbless.incomplete": "Ritual is incomplete",
+  "ritual_feedback.paganbless.no_rune_slabs": "Neither the block at %d, %d, %d nor block at %d, %d, %d are rune slabs",
+  "ritual_feedback.paganbless.no_runeslab_at_pos": "Block at %d, %d, %d is not a rune slab but a %s"
 }

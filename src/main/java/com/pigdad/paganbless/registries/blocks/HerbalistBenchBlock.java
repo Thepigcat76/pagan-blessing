@@ -84,9 +84,9 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
         BlockEntity blockEntity = pLevel.getBlockEntity(getMainBlock(pState, pPos));
         int slot = pState.getValue(BENCH_PART) == BenchVariant.LEFT ? 0 : 1;
         if (blockEntity instanceof HerbalistBenchBlockEntity herbalistBenchBlockEntity) {
-            ItemStack stackInSlot = herbalistBenchBlockEntity.getItemHandler().get().getStackInSlot(slot);
+            ItemStack stackInSlot = herbalistBenchBlockEntity.getItemHandler().getStackInSlot(slot);
             if (pStack.isEmpty()) {
-                ItemStack stack = herbalistBenchBlockEntity.getItemHandler().get().extractItem(slot, stackInSlot.getCount(), false);
+                ItemStack stack = herbalistBenchBlockEntity.getItemHandler().extractItem(slot, stackInSlot.getCount(), false);
                 if (!stack.isEmpty()) {
                     ItemHandlerHelper.giveItemToPlayer(pPlayer, stack);
                 } else {
@@ -96,7 +96,7 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
                 cutItem(pLevel, pPlayer, herbalistBenchBlockEntity, pHand, stackInSlot, pStack);
             } else {
                 int oldCount = pStack.getCount();
-                int count = herbalistBenchBlockEntity.getItemHandler().get().insertItem(slot, pStack.copy(), false).getCount();
+                int count = herbalistBenchBlockEntity.getItemHandler().insertItem(slot, pStack.copy(), false).getCount();
                 if (oldCount != count) {
                     pStack.setCount(count);
                 } else {

@@ -6,7 +6,7 @@
 package com.pigdad.paganbless.events;
 
 import com.pigdad.paganbless.PaganBless;
-import com.pigdad.paganbless.data.WicanWardSavedData;
+import com.pigdad.paganbless.data.saved_data.WicanWardSavedData;
 import com.pigdad.paganbless.utils.Utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

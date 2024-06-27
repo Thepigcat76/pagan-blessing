@@ -35,6 +35,7 @@ public final class PaganBless {
         PBEntities.ENTITY_TYPES.register(modEventBus);
         PBDataComponents.DATA_COMPONENT_TYPES.register(modEventBus);
         PBAttachmentTypes.ATTACHMENT_TYPES.register(modEventBus);
+        PBMenuTypes.MENUS.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
 

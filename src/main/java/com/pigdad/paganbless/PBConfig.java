@@ -40,6 +40,9 @@ public final class PBConfig {
     private static final ModConfigSpec.IntValue DRYING_TIME = BUILDER
             .comment("The time hanging herbs take to dry. 20 ticks is one second")
             .defineInRange("drying_time", 2_000, 0, 20_000);
+    private static final ModConfigSpec.IntValue SKELETON_SKULL_FROM_BOLINE_CHANCE = BUILDER
+            .comment("The chance in percent that a skeleton killed with a boline drops a skull")
+            .defineInRange("skeleton_skull_from_boline_chance", 15, 0, 100);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 
@@ -50,6 +53,7 @@ public final class PBConfig {
     public static int rueIncenseRange;
     public static int lavenderIncenseRange;
     public static int dryingTime;
+    public static int skeletonSkullFromBolineChance;
 
     private static boolean validateEntityName(final Object obj) {
         return obj instanceof final String itemName && BuiltInRegistries.ENTITY_TYPE.containsKey(ResourceLocation.parse(itemName));
@@ -66,5 +70,6 @@ public final class PBConfig {
         lavenderIncenseRange = LAVENDER_INCENSE_RANGE.getAsInt();
         rueIncenseRange = RUE_INCENSE_RANGE.getAsInt();
         dryingTime = DRYING_TIME.getAsInt();
+        skeletonSkullFromBolineChance = SKELETON_SKULL_FROM_BOLINE_CHANCE.getAsInt();
     }
 }

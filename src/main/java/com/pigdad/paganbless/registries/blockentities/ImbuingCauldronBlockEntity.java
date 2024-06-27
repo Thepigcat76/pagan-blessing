@@ -69,14 +69,13 @@ public class ImbuingCauldronBlockEntity extends ContainerBlockEntity {
 
     public Map<Integer, ItemStack> getRenderStack() {
         Map<Integer, ItemStack> toReturn = new HashMap<>();
-        getItemHandler().ifPresent(handler -> {
-            for (int i = 0; i < handler.getSlots(); i++) {
-                ItemStack itemStack = handler.getStackInSlot(i);
-                if (!itemStack.isEmpty()) {
-                    toReturn.put(i, itemStack);
-                }
+        ItemStackHandler handler = getItemHandler();
+        for (int i = 0; i < handler.getSlots(); i++) {
+            ItemStack itemStack = handler.getStackInSlot(i);
+            if (!itemStack.isEmpty()) {
+                toReturn.put(i, itemStack);
             }
-        });
+        }
         return toReturn;
     }
 
@@ -95,7 +94,7 @@ public class ImbuingCauldronBlockEntity extends ContainerBlockEntity {
 
         if (inUse > 0) {
             inUse--;
-            if (getFluidTank().get().getFluidAmount() >= 1000) {
+            if (getFluidTank().getFluidAmount() >= 1000) {
                 Utils.spawnParticles(level, new Vector3f(worldPosition.getX(), worldPosition.getY() + .35f, worldPosition.getZ()),
                         1, 0.07f, 0, true, ParticleTypes.BUBBLE);
             }
@@ -140,25 +139,25 @@ public class ImbuingCauldronBlockEntity extends ContainerBlockEntity {
     }
 
     private void craftItem() {
-        getItemHandler().ifPresent(itemHandler -> {
-            Optional<RecipeHolder<ImbuingCauldronRecipe>> recipe = getCurrentRecipe();
-            ItemStack result = recipe.get().value().getResultItem(null);
+        ItemStackHandler itemHandler = getItemHandler();
+        Optional<RecipeHolder<ImbuingCauldronRecipe>> recipe = getCurrentRecipe();
+        ItemStack result = recipe.get().value().getResultItem(null);
 
-            for (IngredientWithCount ingredient : recipe.get().value().getIngredientsWithCount()) {
-                ItemStack itemStack = ingredient.ingredient().getItems()[0];
-                for (int i = 0; i < itemHandler.getSlots(); i++) {
-                    if (itemHandler.getStackInSlot(i).is(itemStack.getItem()) && itemHandler.getStackInSlot(i).getCount() >= itemStack.getCount()) {
-                        itemHandler.extractItem(i, ingredient.count(), false);
-                        break;
-                    } else if (itemHandler.getStackInSlot(i).is(PBTags.ItemTags.HERBS) && itemHandler.getStackInSlot(i).getCount() >= itemStack.getCount()) {
-                        itemHandler.extractItem(i, ingredient.count(), false);
-                        break;
-                    }
+        for (IngredientWithCount ingredient : recipe.get().value().getIngredientsWithCount()) {
+            ItemStack itemStack = ingredient.ingredient().getItems()[0];
+            for (int i = 0; i < itemHandler.getSlots(); i++) {
+                if (itemHandler.getStackInSlot(i).is(itemStack.getItem()) && itemHandler.getStackInSlot(i).getCount() >= itemStack.getCount()) {
+                    itemHandler.extractItem(i, ingredient.count(), false);
+                    break;
+                } else if (itemHandler.getStackInSlot(i).is(PBTags.ItemTags.HERBS) && itemHandler.getStackInSlot(i).getCount() >= itemStack.getCount()) {
+                    itemHandler.extractItem(i, ingredient.count(), false);
+                    break;
                 }
             }
-            getFluidTank().ifPresent(tank -> tank.drain(recipe.get().value().fluidStack().copy().getAmount(), IFluidHandler.FluidAction.EXECUTE));
-            itemHandler.setStackInSlot(OUTPUT, new ItemStack(result.getItem(), itemHandler.getStackInSlot(OUTPUT).getCount() + result.getCount()));
-        });
+        }
+        getFluidTank().drain(recipe.get().value().fluidStack().copy().getAmount(), IFluidHandler.FluidAction.EXECUTE);
+        itemHandler.setStackInSlot(OUTPUT, new ItemStack(result.getItem(), itemHandler.getStackInSlot(OUTPUT).getCount() + result.getCount()));
+
     }
 
     public boolean hasRecipe() {
@@ -168,7 +167,7 @@ public class ImbuingCauldronBlockEntity extends ContainerBlockEntity {
             return false;
         }
 
-        ItemStack result = recipe.get().value().getResultItem(getLevel().registryAccess());
+        ItemStack result = recipe.get().value().getResultItem(level.registryAccess());
 
         boolean itemIntoOutputSlot = canInsertItemIntoOutputSlot(result);
         boolean amountIntoOutputSlot = canInsertAmountIntoOutputSlot(result);
@@ -176,22 +175,22 @@ public class ImbuingCauldronBlockEntity extends ContainerBlockEntity {
     }
 
     private Optional<RecipeHolder<ImbuingCauldronRecipe>> getCurrentRecipe() {
-        ItemStackHandler stackHandler = this.getItemHandler().get();
+        ItemStackHandler stackHandler = this.getItemHandler();
         List<ItemStack> itemStacks = new ArrayList<>(stackHandler.getSlots());
         for (int i = 0; i < stackHandler.getSlots() - 1; i++) {
             itemStacks.add(stackHandler.getStackInSlot(i));
         }
-        PBFluidRecipeInput recipeInput = new PBFluidRecipeInput(itemStacks, this.getFluidTank().get().getFluid());
+        PBFluidRecipeInput recipeInput = new PBFluidRecipeInput(itemStacks, this.getFluidTank().getFluid());
 
         return this.level.getRecipeManager().getRecipeFor(ImbuingCauldronRecipe.Type.INSTANCE, recipeInput, level);
     }
 
     private boolean canInsertItemIntoOutputSlot(ItemStack itemStack) {
-        return this.getItemHandler().get().getStackInSlot(OUTPUT).isEmpty() || this.getItemHandler().get().getStackInSlot(OUTPUT).is(itemStack.getItem());
+        return this.getItemHandler().getStackInSlot(OUTPUT).isEmpty() || this.getItemHandler().getStackInSlot(OUTPUT).is(itemStack.getItem());
     }
 
     private boolean canInsertAmountIntoOutputSlot(ItemStack itemStack) {
-        return this.getItemHandler().get().getStackInSlot(OUTPUT).getCount() + itemStack.getCount() <= itemStack.getMaxStackSize();
+        return this.getItemHandler().getStackInSlot(OUTPUT).getCount() + itemStack.getCount() <= itemStack.getMaxStackSize();
     }
 
     private boolean hasProgressFinished() {
@@ -199,12 +198,12 @@ public class ImbuingCauldronBlockEntity extends ContainerBlockEntity {
     }
 
     @Override
-    protected void saveOther(CompoundTag pTag) {
+    protected void saveData(CompoundTag pTag) {
         pTag.putInt("imbuing_cauldron_progress", progress);
     }
 
     @Override
-    public void loadOther(CompoundTag pTag) {
+    public void loadData(CompoundTag pTag) {
         progress = pTag.getInt("imbuing_cauldron_progress");
     }
 }

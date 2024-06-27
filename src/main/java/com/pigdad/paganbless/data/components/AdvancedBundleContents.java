@@ -1,4 +1,4 @@
-package com.pigdad.paganbless.registries.data;
+package com.pigdad.paganbless.data.components;
 
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;

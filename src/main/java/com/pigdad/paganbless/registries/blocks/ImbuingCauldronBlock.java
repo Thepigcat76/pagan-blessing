@@ -112,8 +112,8 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
         IFluidHandler fluidHandler = Utils.getCapability(Capabilities.FluidHandler.BLOCK, blockEntity);
         if (player.isShiftKeyDown()) {
             blockEntity.turn();
-            if (blockEntity.getFluidTank().get().getFluidAmount() >= 800) {
-                if (blockEntity.getFluidTank().get().getFluidInTank(0).is(Fluids.WATER)) {
+            if (blockEntity.getFluidTank().getFluidAmount() >= 800) {
+                if (blockEntity.getFluidTank().getFluidInTank(0).is(Fluids.WATER)) {
                     level.playSound(null, player.getX(), player.getY() + 0.5, player.getZ(), SoundEvents.PLAYER_SWIM, SoundSource.PLAYERS, 0.2F, 1.0F);
                 }
             } else {

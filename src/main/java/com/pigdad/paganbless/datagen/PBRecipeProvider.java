@@ -51,6 +51,9 @@ public class PBRecipeProvider extends RecipeProvider {
         BenchCuttingRecipeBuilder.newRecipe(new ItemStack(PBItems.CHOPPED_LAVENDER.get()), IngredientWithCount.fromItemLike(PBBlocks.DRIED_HANGING_LAVENDER.get()),
                         Ingredient.of(PBItems.BOLINE.get()), 3, true)
                 .save(recipeOutput);
+        BenchCuttingRecipeBuilder.newRecipe(new ItemStack(PBBlocks.EMPTY_INCENSE.get()), IngredientWithCount.fromItemLike(Items.SKELETON_SKULL),
+                        Ingredient.of(PBItems.BOLINE.get()), 9, true)
+                .save(recipeOutput);
     }
 
     private void anvilSmashingRecipes(RecipeOutput recipeOutput) {
@@ -124,7 +127,7 @@ public class PBRecipeProvider extends RecipeProvider {
                 .pattern("#S#")
                 .pattern("###")
                 .define('H', PBTags.ItemTags.HERBS)
-                .define('S', Tags.Items.RODS_WOODEN)
+                .define('S', PBItems.BLACK_THORN_STICK.get())
                 .define('#', Tags.Items.INGOTS_IRON)
                 .unlockedBy("has_iron_ingot", has(Tags.Items.INGOTS_IRON))
                 .save(recipeOutput);
@@ -168,14 +171,59 @@ public class PBRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_black_thorn_stick", has(PBItems.BLACK_THORN_STICK.get()))
                 .save(recipeOutput);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, PBBlocks.ROPE.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, PBBlocks.ROPE.get(), 2)
                 .pattern("S")
                 .pattern("H")
                 .pattern("S")
                 .define('S', Tags.Items.STRINGS)
                 .define('H', PBTags.ItemTags.ROPE_HERBS)
-                .unlockedBy("has_herbs", has(ItemTags.WOOL))
+                .unlockedBy("has_herbs", has(PBTags.ItemTags.ROPE_HERBS))
                 .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PBItems.HERB_POUCH.get())
+                .pattern("#S#")
+                .pattern("#H#")
+                .pattern("###")
+                .define('S', Tags.Items.STRINGS)
+                .define('H', PBTags.ItemTags.HERBS)
+                .define('#', ItemTags.WOOL)
+                .unlockedBy("has_wool", has(ItemTags.WOOL))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, PBItems.BOLINE.get())
+                .pattern("I")
+                .pattern("S")
+                .pattern("B")
+                .define('S', PBItems.BLACK_THORN_STICK.get())
+                .define('B', Tags.Items.BONES)
+                .define('I', Tags.Items.INGOTS_IRON)
+                .unlockedBy("has_wool", has(ItemTags.WOOL))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, PBBlocks.HANGING_LAVENDER.get())
+                .pattern(" R ")
+                .pattern("HHH")
+                .define('R', PBBlocks.ROPE.get())
+                .define('H', PBItems.LAVENDER.get())
+                .unlockedBy("has_rope", has(PBBlocks.ROPE.get()))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, PBBlocks.HANGING_RUE.get())
+                .pattern(" R ")
+                .pattern("HHH")
+                .define('R', PBBlocks.ROPE.get())
+                .define('H', PBItems.RUE.get())
+                .unlockedBy("has_rope", has(PBBlocks.ROPE.get()))
+                .save(recipeOutput);
+
+        if (PBItems.PAGAN_GUIDE != null) {
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, PBItems.PAGAN_GUIDE.get())
+                    .requires(PBTags.ItemTags.HERBS)
+                    .requires(Items.BOOK)
+                    .group("books")
+                    .unlockedBy("has_book", has(Items.BOOK))
+                    .save(recipeOutput);
+        }
     }
 
     private static void blackThornWoodRecipes(RecipeOutput recipeOutput) {

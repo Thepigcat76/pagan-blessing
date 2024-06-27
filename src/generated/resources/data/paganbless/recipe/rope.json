@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "equipment",
+  "category": "building",
   "key": {
     "H": {
       "tag": "paganbless:rope_herbs"
@@ -15,7 +15,7 @@
     "S"
   ],
   "result": {
-    "count": 1,
+    "count": 2,
     "id": "paganbless:rope"
   }
 }

@@ -42,6 +42,12 @@ import java.util.stream.Stream;
 
 public class JarBlock extends BaseEntityBlock implements TranslucentHighlightFix {
     public static final IntegerProperty ROTATION = BlockStateProperties.ROTATION_16;
+    public static final VoxelShape SHAPE = Stream.of(
+            Block.box(5, 11.5, 5, 11, 13.5, 11),
+            Block.box(5, 9.5, 5, 11, 10.5, 11),
+            Block.box(4.5, 10.5, 4.5, 11.5, 12.5, 11.5),
+            Block.box(4, 0, 4, 12, 9.5, 12)
+    ).reduce(Shapes::or).get();
 
     public JarBlock(Properties pProperties) {
         super(pProperties);
@@ -49,12 +55,7 @@ public class JarBlock extends BaseEntityBlock implements TranslucentHighlightFix
 
     @Override
     public @NotNull VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return Stream.of(
-                Block.box(5, 11.5, 5, 11, 13.5, 11),
-                Block.box(5, 9.5, 5, 11, 10.5, 11),
-                Block.box(4.5, 10.5, 4.5, 11.5, 12.5, 11.5),
-                Block.box(4, 0, 4, 12, 9.5, 12)
-        ).reduce(Shapes::or).get();
+        return SHAPE;
     }
 
     @Override
@@ -81,7 +82,7 @@ public class JarBlock extends BaseEntityBlock implements TranslucentHighlightFix
     @Override
     public @NotNull ItemInteractionResult useItemOn(ItemStack itemStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         JarBlockEntity jarBlockEntity = ((JarBlockEntity) pLevel.getBlockEntity(pPos));
-        ItemStackHandler handler = jarBlockEntity.getItemHandler().get();
+        ItemStackHandler handler = jarBlockEntity.getItemHandler();
         ItemStack itemInHand = pPlayer.getItemInHand(pHand);
         ItemStack stackInSlot = handler.getStackInSlot(0);
         if (itemInHand.isEmpty()) {

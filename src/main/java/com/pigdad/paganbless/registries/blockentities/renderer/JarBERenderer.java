@@ -55,7 +55,7 @@ public class JarBERenderer implements BlockEntityRenderer<JarBlockEntity> {
 
         {
             ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-            ItemStack itemStack = blockEntity.getItemHandler().get().getStackInSlot(0);
+            ItemStack itemStack = blockEntity.getItemHandler().getStackInSlot(0);
             renderItems(blockEntity.getBlockState(), itemStack, itemRenderer, poseStack, pBufferSource, getLightLevel(blockEntity.getLevel(), blockEntity.getBlockPos()), OverlayTexture.NO_OVERLAY);
         }
     }

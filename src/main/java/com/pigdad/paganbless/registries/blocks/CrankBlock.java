@@ -2,7 +2,10 @@ package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.serialization.MapCodec;
 import com.pigdad.paganbless.registries.PBBlockEntities;
+import com.pigdad.paganbless.registries.PBBlocks;
+import com.pigdad.paganbless.registries.PBItems;
 import com.pigdad.paganbless.registries.blockentities.CrankBlockEntity;
+import com.pigdad.paganbless.registries.blockentities.WinchBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
@@ -25,6 +28,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -111,16 +115,18 @@ public class CrankBlock extends BaseEntityBlock {
             level.setBlockAndUpdate(blockPos, incrRotationState(blockState));
             BlockPos winchPos = getWinchPos(blockState, blockPos);
             BlockState winchBlock = level.getBlockState(winchPos);
+            WinchBlockEntity winchBlockEntity = (WinchBlockEntity) level.getBlockEntity(winchPos);
             if (winchBlock.getBlock() instanceof WinchBlock) {
                 int distance = winchBlock.getValue(WinchBlock.DISTANCE);
-                if (winchBlock.getBlock() instanceof WinchBlock && distance > 1) {
+                ItemStackHandler itemHandler = winchBlockEntity.getItemHandler();
+                if (winchBlock.getBlock() instanceof WinchBlock && distance > 1 && itemHandler.getStackInSlot(0).getCount() < itemHandler.getSlotLimit(0)) {
                     CrankBlockEntity blockEntity = (CrankBlockEntity) level.getBlockEntity(blockPos);
                     blockEntity.turn();
                     WinchBlock.liftUp(level, winchPos, winchBlock);
+                    itemHandler.insertItem(0, PBBlocks.ROPE.get().asItem().getDefaultInstance(), false);
                     return InteractionResult.SUCCESS;
                 }
             }
-            return InteractionResult.FAIL;
         }
         return InteractionResult.FAIL;
     }

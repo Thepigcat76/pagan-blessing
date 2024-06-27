@@ -38,14 +38,14 @@ public class HerbalistBenchBlockEntity extends ContainerBlockEntity {
     }
 
     @Override
-    protected void saveOther(CompoundTag tag) {
-        super.saveOther(tag);
+    protected void saveData(CompoundTag tag) {
+        super.saveData(tag);
         tag.putInt("cuts", this.cuts);
     }
 
     @Override
-    protected void loadOther(CompoundTag tag) {
-        super.loadOther(tag);
+    protected void loadData(CompoundTag tag) {
+        super.loadData(tag);
         this.cuts = tag.getInt("cuts");
     }
 }

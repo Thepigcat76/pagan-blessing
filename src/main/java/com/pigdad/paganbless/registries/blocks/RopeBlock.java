@@ -97,8 +97,10 @@ public class RopeBlock extends WaterloggedTransparentBlock implements SimpleWate
     protected void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
         if (!pState.is(pNewState.getBlock())) {
             BlockState aboveBlock = pLevel.getBlockState(pPos.above());
-            if ((pState.getValue(HAS_WINCH)) || aboveBlock.getBlock() instanceof WinchBlock) {
+            if (pState.getValue(HAS_WINCH) || aboveBlock.getBlock() instanceof WinchBlock) {
                 invalidateDownwards(pLevel, pPos);
+                BlockPos winchPos = aboveBlock.getBlock() instanceof WinchBlock ? pPos.above() : getWinchPos(pLevel, pPos.above());
+                WinchBlock.recheckConnections(pLevel, winchPos, null);
             }
         }
         super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);

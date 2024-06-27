@@ -3,7 +3,7 @@ package com.pigdad.paganbless.registries;
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.compat.modonomicon.ModonomiconCompat;
 import com.pigdad.paganbless.data.PBDataComponents;
-import com.pigdad.paganbless.registries.data.AdvancedBundleContents;
+import com.pigdad.paganbless.data.components.AdvancedBundleContents;
 import com.pigdad.paganbless.registries.items.*;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;

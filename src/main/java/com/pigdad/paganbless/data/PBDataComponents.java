@@ -1,7 +1,7 @@
 package com.pigdad.paganbless.data;
 
 import com.pigdad.paganbless.PaganBless;
-import com.pigdad.paganbless.registries.data.AdvancedBundleContents;
+import com.pigdad.paganbless.data.components.AdvancedBundleContents;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.neoforge.registries.DeferredRegister;

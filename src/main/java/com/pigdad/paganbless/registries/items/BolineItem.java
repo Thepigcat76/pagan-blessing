@@ -1,12 +1,17 @@
 package com.pigdad.paganbless.registries.items;
 
+import com.pigdad.paganbless.PBConfig;
 import com.pigdad.paganbless.registries.blocks.HerbPlantBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.context.UseOnContext;
@@ -21,7 +26,23 @@ import java.util.List;
 
 public class BolineItem extends SwordItem {
     public BolineItem(Properties pProperties) {
-        super(Tiers.STONE, pProperties);
+        super(Tiers.STONE, pProperties.attributes(createAttributes(Tiers.STONE, 4, -2.6f)));
+    }
+
+    @Override
+    public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
+        if (pAttacker instanceof Player player) {
+            if (pTarget instanceof Skeleton && pTarget.getHealth() == 0) {
+                RandomSource randomSource = pTarget.getRandom();
+                int i = randomSource.nextInt(0, 100 / PBConfig.skeletonSkullFromBolineChance);
+                System.out.println(i);
+                if (i == 0) {
+                    BlockPos onPos = pTarget.getOnPos();
+                    Containers.dropItemStack(pTarget.level(), onPos.getX(), onPos.getY(), onPos.getZ(), Items.SKELETON_SKULL.getDefaultInstance());
+                }
+            }
+        }
+        return super.hurtEnemy(pStack, pTarget, pAttacker);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.pigdad.paganbless.utils;
 
-import com.pigdad.paganbless.data.RunicCoreSavedData;
-import com.pigdad.paganbless.data.WicanWardSavedData;
+import com.pigdad.paganbless.data.saved_data.RunicCoreSavedData;
+import com.pigdad.paganbless.data.saved_data.WicanWardSavedData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;

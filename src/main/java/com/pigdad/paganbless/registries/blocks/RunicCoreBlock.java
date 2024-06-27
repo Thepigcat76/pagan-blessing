@@ -2,7 +2,7 @@ package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.MapCodec;
-import com.pigdad.paganbless.data.RunicCoreSavedData;
+import com.pigdad.paganbless.data.saved_data.RunicCoreSavedData;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBTags;
 import com.pigdad.paganbless.registries.blockentities.RunicCoreBlockEntity;
@@ -93,22 +93,18 @@ public class RunicCoreBlock extends BaseEntityBlock {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
 
         if (blockEntity instanceof RunicCoreBlockEntity runicCoreBlockEntity) {
-            ItemStackHandler stackHandler = runicCoreBlockEntity.getItemHandler().get();
+            ItemStackHandler stackHandler = runicCoreBlockEntity.getItemHandler();
             if (stackHandler.getStackInSlot(0).isEmpty()) {
-                Either<Set<BlockPos>, String> runeType = RunicCoreUtils.getRuneType(level, blockPos);
-                if (runeType != null && !level.isClientSide()) {
-                    if (runeType.right().isEmpty() && blockState.getValue(ACTIVE)) {
-                        player.sendSystemMessage(Component.literal("Ritual is valid"));
+                Either<Set<BlockPos>, Component> runePosResult = RunicCoreUtils.tryGetRunePositions(level, blockPos);
+                if (!level.isClientSide()) {
+                    if (runePosResult.right().isEmpty() && blockState.getValue(ACTIVE)) {
+                        player.sendSystemMessage(Component.translatable("ritual_feedback.paganbless.valid"));
                     } else {
                         if (!blockState.getValue(ACTIVE)) {
-                            // TODO: Add a tag for items that can activate the runic core
-                            player.sendSystemMessage(Component.literal("Runic core is not lit. To light it, right-click with a flint and steel"));
+                            player.sendSystemMessage(Component.translatable("ritual_feedback.paganbless.unlit"));
                         }
-                        player.sendSystemMessage(Component.literal("Ritual is incomplete"));
-                        player.sendSystemMessage(Component.literal(runeType.right().get()));
-                        if (!blockState.getValue(ACTIVE)) {
-                            player.sendSystemMessage(Component.literal("Runic core is not activated"));
-                        }
+                        player.sendSystemMessage(Component.translatable("ritual_feedback.paganbless.incomplete"));
+                        player.sendSystemMessage(runePosResult.right().get());
                     }
                 }
             } else {
@@ -116,7 +112,7 @@ public class RunicCoreBlock extends BaseEntityBlock {
                 stackHandler.setStackInSlot(0, ItemStack.EMPTY);
             }
         }
-        return ItemInteractionResult.sidedSuccess(level.isClientSide);
+        return ItemInteractionResult.sidedSuccess(level.isClientSide());
     }
 
     @Override

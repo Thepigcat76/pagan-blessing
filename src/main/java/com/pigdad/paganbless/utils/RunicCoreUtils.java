@@ -8,9 +8,11 @@ import com.pigdad.paganbless.registries.blocks.RuneSlabBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public final class RunicCoreUtils {
     /**
      * @return first pair entry returns block positions of rune slabs, second returns error message or null
      */
-    public static @Nullable Either<Set<BlockPos>, String> getRuneType(Level level, BlockPos corePos) {
+    public static @NotNull Either<Set<BlockPos>, Component> tryGetRunePositions(Level level, BlockPos corePos) {
         // ritual shape
         //   x
         // y   y
@@ -65,20 +67,20 @@ public final class RunicCoreUtils {
         // check if all the blocks are rune slabs and determine which layout to use
         if (level.getBlockState(firstPos1).getBlock() instanceof RuneSlabBlock &&
                 level.getBlockState(firstPos2).getBlock() instanceof RuneSlabBlock) {
-            Either<Set<BlockPos>, String> offSetPos = getSetStringPair(level, corePos, otherPositions1, firstPos1, firstPos2, finalPositions);
+            Either<Set<BlockPos>, Component> offSetPos = checkPossiblePositions(level, corePos, otherPositions1, firstPos1, firstPos2, finalPositions);
             if (offSetPos != null) return offSetPos;
         } else if (level.getBlockState(secPos1).getBlock() instanceof RuneSlabBlock &&
                 level.getBlockState(secPos2).getBlock() instanceof RuneSlabBlock) {
-            Either<Set<BlockPos>, String> offSetPos = getSetStringPair(level, corePos, otherPositions2, secPos1, secPos2, finalPositions);
+            Either<Set<BlockPos>, Component> offSetPos = checkPossiblePositions(level, corePos, otherPositions2, secPos1, secPos2, finalPositions);
             if (offSetPos != null) return offSetPos;
         } else {
-            return errorFromString(String.format("Neither the block at %d, %d, %d nor block at %d, %d, %d are rune slabs",
+            return errorFromString("ritual_feedback.paganbless.no_rune_slabs",
                     corePos.offset(firstPos1).getX(),
                     corePos.offset(firstPos1).getY(),
                     corePos.offset(firstPos1).getZ(),
                     corePos.offset(secPos1).getX(),
                     corePos.offset(secPos1).getY(),
-                    corePos.offset(secPos1).getZ())
+                    corePos.offset(secPos1).getZ()
             );
         }
 
@@ -122,10 +124,10 @@ public final class RunicCoreUtils {
         return Either.left(finalPositions);
     }
 
-    private static @Nullable Either<Set<BlockPos>, String> getSetStringPair(Level level, BlockPos corePos, List<Vec3i> otherPositions1, BlockPos firstPos1, BlockPos firstPos2, Set<BlockPos> finalPositions) {
+    private static @Nullable Either<Set<BlockPos>, Component> checkPossiblePositions(Level level, BlockPos corePos, List<Vec3i> otherPositions1, BlockPos firstPos1, BlockPos firstPos2, Set<BlockPos> finalPositions) {
         for (Vec3i offSetPos : otherPositions1) {
             if (!(level.getBlockState(corePos.offset(offSetPos)).getBlock() instanceof RuneSlabBlock)) {
-                return Either.right(String.format("Block at %d, %d, %d is not a rune slab but a %s",
+                return Either.right(Component.translatable("ritual_feedback.paganbless.no_runeslab_at_pos",
                         corePos.offset(offSetPos).getX(),
                         corePos.offset(offSetPos).getY(),
                         corePos.offset(offSetPos).getZ(),
@@ -140,8 +142,8 @@ public final class RunicCoreUtils {
         return null;
     }
 
-    private static Either<@Nullable Set<BlockPos>, String> errorFromString(String errorMessage) {
-        return Either.right(errorMessage);
+    private static Either<@Nullable Set<BlockPos>, Component> errorFromString(String errorTranslationKey, Object... args) {
+        return Either.right(Component.translatable(errorTranslationKey, args));
     }
 
     public static void resetPillars(Level level, Set<BlockPos> positions) {

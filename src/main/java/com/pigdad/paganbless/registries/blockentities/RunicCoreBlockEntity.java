@@ -120,7 +120,7 @@ public class RunicCoreBlockEntity extends ContainerBlockEntity {
 
     public void craftItem(Entity sacrificedEntity) {
         Player player = Minecraft.getInstance().player;
-        Optional<Set<BlockPos>> runes = RunicCoreUtils.getRuneType(level, getBlockPos()).left();
+        Optional<Set<BlockPos>> runes = RunicCoreUtils.tryGetRunePositions(level, getBlockPos()).left();
         if (runes.isPresent()) {
             this.runeSlabs = runes.get();
             this.runRecipe = true;
@@ -131,7 +131,7 @@ public class RunicCoreBlockEntity extends ContainerBlockEntity {
             level.playSound(null, (double) worldPosition.getX() + 0.5, (double) worldPosition.getY() + 0.5, (double) worldPosition.getZ() + 0.5,
                     SoundEvents.AMBIENT_CAVE.value(), SoundSource.BLOCKS, 1F, 1F);
         } else {
-            player.sendSystemMessage(Component.literal(RunicCoreUtils.getRuneType(level, getBlockPos()).right().get()));
+            player.sendSystemMessage(RunicCoreUtils.tryGetRunePositions(level, getBlockPos()).right().get());
         }
     }
 
@@ -157,7 +157,7 @@ public class RunicCoreBlockEntity extends ContainerBlockEntity {
                         captureSacrificeItem.setEntity(entityType, result);
                     }
 
-                    ItemStackHandler stackHandler = getItemHandler().get();
+                    ItemStackHandler stackHandler = getItemHandler();
                     ItemStack stackInSlot = stackHandler.getStackInSlot(0);
                     if (stackInSlot.isEmpty() || (stackInSlot.is(result.getItem()) && stackInSlot.getCount() < stackInSlot.getMaxStackSize())) {
                         stackHandler.setStackInSlot(0, result);
@@ -182,8 +182,8 @@ public class RunicCoreBlockEntity extends ContainerBlockEntity {
     }
 
     @Override
-    protected void saveOther(CompoundTag tag) {
-        super.saveOther(tag);
+    protected void saveData(CompoundTag tag) {
+        super.saveData(tag);
         if (this.entityType != null) {
             tag.putString("entity_type", BuiltInRegistries.ENTITY_TYPE.getKey(this.entityType).toString());
         }
@@ -193,8 +193,8 @@ public class RunicCoreBlockEntity extends ContainerBlockEntity {
     }
 
     @Override
-    protected void loadOther(CompoundTag tag) {
-        super.loadOther(tag);
+    protected void loadData(CompoundTag tag) {
+        super.loadData(tag);
         Optional<EntityType<?>> entityType = EntityType.byString(tag.getString("entity_type"));
         entityType.ifPresent(type -> this.entityType = type);
         this.runRecipe = tag.getBoolean("run_recipe");

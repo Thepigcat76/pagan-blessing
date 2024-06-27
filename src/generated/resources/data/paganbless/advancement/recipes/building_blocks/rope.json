@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#minecraft:wool"
+            "items": "#paganbless:rope_herbs"
           }
         ]
       },

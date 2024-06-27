@@ -4,7 +4,7 @@ import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.api.blocks.TranslucentHighlightFix;
 import com.pigdad.paganbless.compat.modonomicon.ModonomiconCompat;
 import com.pigdad.paganbless.data.PBAttachmentTypes;
-import com.pigdad.paganbless.data.RunicCoreSavedData;
+import com.pigdad.paganbless.data.saved_data.RunicCoreSavedData;
 import com.pigdad.paganbless.mixins.LevelRendererAccess;
 import com.pigdad.paganbless.networking.IncenseBurningPayload;
 import com.pigdad.paganbless.networking.PayloadActions;
@@ -12,12 +12,15 @@ import com.pigdad.paganbless.networking.RunicCoreExplodePayload;
 import com.pigdad.paganbless.networking.RunicCoreRecipePayload;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBEntities;
+import com.pigdad.paganbless.registries.PBMenuTypes;
 import com.pigdad.paganbless.registries.blockentities.CrankBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.RunicCoreBlockEntity;
+import com.pigdad.paganbless.registries.blockentities.WinchBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.renderer.*;
 import com.pigdad.paganbless.registries.blocks.CrankBlock;
 import com.pigdad.paganbless.registries.blocks.JarBlock;
 import com.pigdad.paganbless.registries.blocks.WinchBlock;
+import com.pigdad.paganbless.registries.screens.WinchScreen;
 import com.pigdad.paganbless.utils.PBRenderTypes;
 import com.pigdad.paganbless.utils.Utils;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -39,6 +42,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RenderHighlightEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
@@ -70,6 +74,11 @@ public class PBEvents {
         public static void onClientSetup(FMLClientSetupEvent event) {
             event.enqueueWork(() -> EntityRenderers.register(PBEntities.ETERNAL_SNOWBALL.get(), pContext -> new ThrownItemRenderer<>(pContext, 1, false)));
             event.enqueueWork(() -> EntityRenderers.register(PBEntities.WAND_PROJECTILE.get(), pContext -> new ThrownItemRenderer<>(pContext, 1, false)));
+        }
+
+        @SubscribeEvent
+        public static void onClientSetup(RegisterMenuScreensEvent event) {
+            event.register(PBMenuTypes.WINCH_MENU.get(), WinchScreen::new);
         }
     }
 
@@ -127,11 +136,15 @@ public class PBEvents {
                 BlockPos winchPos = CrankBlock.getWinchPos(blockState, pos);
                 BlockState winchBlock = level.getBlockState(winchPos);
                 CrankBlockEntity blockEntity = (CrankBlockEntity) level.getBlockEntity(pos);
+                WinchBlockEntity winchBlockEntity = ((WinchBlockEntity) level.getBlockEntity(winchPos));
                 level.setBlockAndUpdate(pos, CrankBlock.decrRotationState(blockState));
-                if (WinchBlock.liftDown(level, winchPos, winchBlock)) {
-                    level.setBlockAndUpdate(winchPos, winchBlock.setValue(WinchBlock.LIFT_DOWN, true));
-                    blockEntity.drop();
-                    player.swing(InteractionHand.MAIN_HAND);
+                if (winchBlockEntity.getItemHandler().getStackInSlot(0).getCount() > 0) {
+                    if (WinchBlock.liftDown(level, winchPos, winchBlock)) {
+                        winchBlockEntity.getItemHandler().extractItem(0, 1, false);
+                        level.setBlockAndUpdate(winchPos, winchBlock.setValue(WinchBlock.LIFT_DOWN, true));
+                        blockEntity.drop();
+                        player.swing(InteractionHand.MAIN_HAND);
+                    }
                 }
             }
         }
@@ -152,10 +165,10 @@ public class PBEvents {
     public static class ModBus {
         @SubscribeEvent
         public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PBBlockEntities.IMBUING_CAULDRON.get(), (be, ctx) -> be.getItemHandler().get());
-            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PBBlockEntities.JAR.get(), (be, ctx) -> be.getItemHandler().get());
-            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PBBlockEntities.RUNIC_CORE.get(), (be, ctx) -> be.getItemHandler().get());
-            event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, PBBlockEntities.IMBUING_CAULDRON.get(), (be, ctx) -> be.getFluidTank().get());
+            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PBBlockEntities.IMBUING_CAULDRON.get(), (be, ctx) -> be.getItemHandler());
+            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PBBlockEntities.JAR.get(), (be, ctx) -> be.getItemHandler());
+            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PBBlockEntities.RUNIC_CORE.get(), (be, ctx) -> be.getItemHandler());
+            event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, PBBlockEntities.IMBUING_CAULDRON.get(), (be, ctx) -> be.getFluidTank());
         }
 
         @SubscribeEvent
