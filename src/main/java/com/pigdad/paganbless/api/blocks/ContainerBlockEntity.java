@@ -1,6 +1,10 @@
 package com.pigdad.paganbless.api.blocks;
 
+import com.mojang.datafixers.util.Pair;
+import com.pigdad.paganbless.api.io.IOActions;
+import com.pigdad.paganbless.api.io.SidedItemHandler;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
@@ -15,10 +19,14 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public abstract class ContainerBlockEntity extends BlockEntity {
@@ -79,6 +87,75 @@ public abstract class ContainerBlockEntity extends BlockEntity {
     protected final void addFluidTank(int capacityInMb) {
         addFluidTank(capacityInMb, fluidStack -> true);
     }
+
+    /**
+     * Get the input/output config for the blockenitity.
+     * If directions are not defined in the map, they are assumed to be {@link  IOActions#NONE} and do not affect any slot.
+     *
+     * @return Map of directions that each map to a pair that defines the IOAction as well as the slots that are affected
+     */
+    public abstract Map<Direction, Pair<IOActions, int[]>> getItemIO();
+
+    /**
+     * Get the input/output config for the blockenitity.
+     * If directions are not defined in the map, they are assumed to be {@link  IOActions#NONE} and do not affect any slot.
+     *
+     * @return Map of directions that each map to a pair that defines the IOAction as well as the tanks that are affected
+     */
+    public abstract Map<Direction, Pair<IOActions, int[]>> getFluidIO();
+
+    public IItemHandlerModifiable getItemHandlerOnSide(Direction direction) {
+        if (direction == null) {
+            return itemHandler;
+        }
+
+        Map<Direction, Pair<IOActions, int[]>> ioPorts = getItemIO();
+        if (ioPorts.containsKey(direction)) {
+
+            if (direction == Direction.UP || direction == Direction.DOWN) {
+                return new SidedItemHandler(itemHandler, ioPorts.get(direction));
+            }
+
+            if (!this.getBlockState().hasProperty(RotatableEntityBlock.FACING)) return null;
+
+            Direction localDir = this.getBlockState().getValue(RotatableEntityBlock.FACING);
+
+            return switch (localDir) {
+                case NORTH -> new SidedItemHandler(itemHandler, ioPorts.get(direction.getOpposite()));
+                case EAST -> new SidedItemHandler(itemHandler, ioPorts.get(direction.getClockWise()));
+                case SOUTH -> new SidedItemHandler(itemHandler, ioPorts.get(direction));
+                case WEST -> new SidedItemHandler(itemHandler, ioPorts.get(direction.getCounterClockWise()));
+                default -> null;
+            };
+        }
+
+        return null;
+    }
+
+//    public SidedItemHandler getFluidTankOnSide(Direction direction) {
+//        if (side == null) {
+//            return lazyFluidHandler.cast();
+//        }
+//
+//        Map<Direction, Pair<IOAction, List<Integer>>> ioPorts = getFluidIO();
+//        if (ioPorts.containsKey(side)) {
+//            Direction localDir = this.getBlockState().getValue(ContainerBlock.FACING);
+//
+//            if (side == Direction.UP || side == Direction.DOWN) {
+//                return LazyOptional.of(() -> new SidedFluidHandler(fluidTank, ioPorts.get(side))).cast();
+//            }
+//
+//            return switch (localDir) {
+//                case NORTH ->
+//                        LazyOptional.of(() -> new SidedFluidHandler(fluidTank, ioPorts.get(side.getOpposite()))).cast();
+//                case EAST ->
+//                        LazyOptional.of(() -> new SidedFluidHandler(fluidTank, ioPorts.get(side.getClockWise()))).cast();
+//                case SOUTH -> LazyOptional.of(() -> new SidedFluidHandler(fluidTank, ioPorts.get(side))).cast();
+//                case WEST ->
+//                        LazyOptional.of(() -> new SidedFluidHandler(fluidTank, ioPorts.get(side.getCounterClockWise()))).cast();
+//                default -> LazyOptional.empty();
+//            };
+//    }
 
     protected final void addItemHandler(int slots, ValidationFunctions.ItemValid validation) {
         this.itemHandler = new ItemStackHandler(slots) {

@@ -1,7 +1,9 @@
 package com.pigdad.paganbless.registries.blockentities;
 
+import com.mojang.datafixers.util.Pair;
 import com.pigdad.paganbless.PBConfig;
 import com.pigdad.paganbless.api.blocks.ContainerBlockEntity;
+import com.pigdad.paganbless.api.io.IOActions;
 import com.pigdad.paganbless.networking.RunicCoreRecipePayload;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.blocks.RuneSlabBlock;
@@ -12,6 +14,7 @@ import com.pigdad.paganbless.utils.NbtUtils;
 import com.pigdad.paganbless.utils.RunicCoreUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -35,10 +38,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class RunicCoreBlockEntity extends ContainerBlockEntity {
     public static final int RITUAL_TIME = PBConfig.ritualTime;
@@ -72,10 +72,6 @@ public class RunicCoreBlockEntity extends ContainerBlockEntity {
 
     public void setRunRecipe(boolean run) {
         this.runRecipe = run;
-    }
-
-    public void setRuneSlabs(Set<BlockPos> runeSlabs) {
-        this.runeSlabs = runeSlabs;
     }
 
     public void setRuneSlabs(List<BlockPos> runeSlabs) {
@@ -190,6 +186,18 @@ public class RunicCoreBlockEntity extends ContainerBlockEntity {
         tag.putBoolean("run_recipe", this.runRecipe);
         NbtUtils.saveBlockPosSet(tag, "rune_slabs", this.runeSlabs);
         tag.putInt("timer", this.timer);
+    }
+
+    @Override
+    public Map<Direction, Pair<IOActions, int[]>> getItemIO() {
+        return Map.of(
+                Direction.DOWN, Pair.of(IOActions.EXTRACT, new int[]{0})
+        );
+    }
+
+    @Override
+    public Map<Direction, Pair<IOActions, int[]>> getFluidIO() {
+        return Map.of();
     }
 
     @Override

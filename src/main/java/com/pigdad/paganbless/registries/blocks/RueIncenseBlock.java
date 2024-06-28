@@ -14,7 +14,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.IPlantable;
 import org.jetbrains.annotations.NotNull;
 
 public class RueIncenseBlock extends IncenseBlock {
@@ -47,7 +46,7 @@ public class RueIncenseBlock extends IncenseBlock {
                 BlockState cropState = pLevel.getBlockState(cropPos);
                 Block cropBlock = cropState.getBlock();
 
-                if (isAllowedCropBlock(cropBlock) && (cropBlock instanceof IPlantable || cropBlock instanceof BonemealableBlock)) {
+                if (isAllowedCropBlock(cropBlock) && cropBlock instanceof BonemealableBlock) {
                     if (pRandom.nextInt(0, 12) == 10) {
                         ParticleUtils.spawnParticles(pLevel, cropPos.above(), 1, 0.4, 0, true, ParticleTypes.HAPPY_VILLAGER);
                     }
@@ -81,7 +80,7 @@ public class RueIncenseBlock extends IncenseBlock {
             BlockState cropState = level.getBlockState(cropPos);
             Block cropBlock = cropState.getBlock();
 
-            if (isAllowedCropBlock(cropBlock) && (cropBlock instanceof IPlantable || cropBlock instanceof BonemealableBlock)) {
+            if (isAllowedCropBlock(cropBlock) && cropBlock instanceof BonemealableBlock) {
                 double distance = Math.sqrt(cropPos.distSqr(pos));
                 tickCropBlock(level, cropPos, cropState, cropBlock, distance, range);
             }

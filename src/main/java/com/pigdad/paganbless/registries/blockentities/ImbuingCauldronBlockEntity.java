@@ -1,6 +1,8 @@
 package com.pigdad.paganbless.registries.blockentities;
 
+import com.mojang.datafixers.util.Pair;
 import com.pigdad.paganbless.api.blocks.ContainerBlockEntity;
+import com.pigdad.paganbless.api.io.IOActions;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBTags;
 import com.pigdad.paganbless.registries.recipes.ImbuingCauldronRecipe;
@@ -8,6 +10,7 @@ import com.pigdad.paganbless.utils.Utils;
 import com.pigdad.paganbless.utils.recipes.IngredientWithCount;
 import com.pigdad.paganbless.utils.recipes.PBFluidRecipeInput;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.inventory.ContainerData;
@@ -200,6 +203,19 @@ public class ImbuingCauldronBlockEntity extends ContainerBlockEntity {
     @Override
     protected void saveData(CompoundTag pTag) {
         pTag.putInt("imbuing_cauldron_progress", progress);
+    }
+
+    @Override
+    public Map<Direction, Pair<IOActions, int[]>> getItemIO() {
+        return Map.of(
+                Direction.UP, Pair.of(IOActions.INSERT, new int[]{0, 1, 2, 3, 4}),
+                Direction.DOWN, Pair.of(IOActions.EXTRACT, new int[]{5})
+        );
+    }
+
+    @Override
+    public Map<Direction, Pair<IOActions, int[]>> getFluidIO() {
+        return Map.of();
     }
 
     @Override

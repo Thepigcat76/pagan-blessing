@@ -34,7 +34,7 @@ public class HerbalistBenchCategory implements IRecipeCategory<BenchCuttingRecip
     }
 
     @Override
-    public RecipeType<BenchCuttingRecipe> getRecipeType() {
+    public @NotNull RecipeType<BenchCuttingRecipe> getRecipeType() {
         return RECIPE_TYPE;
     }
 
@@ -49,15 +49,15 @@ public class HerbalistBenchCategory implements IRecipeCategory<BenchCuttingRecip
     }
 
     @Override
-    public IDrawable getIcon() {
+    public @NotNull IDrawable getIcon() {
         return this.icon;
     }
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, BenchCuttingRecipe recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 11, 38).addIngredients(recipe.toolItem());
-        builder.addSlot(RecipeIngredientRole.INPUT, 35, 38).addIngredients(RecipeUtils.iWCToIngredientSaveCount(recipe.ingredient()));
+        builder.addSlot(RecipeIngredientRole.INPUT, 35, 33).addIngredients(RecipeUtils.iWCToIngredientSaveCount(recipe.ingredient()));
+        builder.addSlot(RecipeIngredientRole.INPUT, 79, 56).addIngredients(recipe.toolItem());
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 125, 38).addItemStack(recipe.getResultItem(null));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 125, 33).addItemStack(recipe.getResultItem(null));
     }
 }

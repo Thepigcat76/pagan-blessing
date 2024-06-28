@@ -1,6 +1,7 @@
 package com.pigdad.paganbless.events;
 
 import com.pigdad.paganbless.PaganBless;
+import com.pigdad.paganbless.api.blocks.ContainerBlockEntity;
 import com.pigdad.paganbless.api.blocks.TranslucentHighlightFix;
 import com.pigdad.paganbless.compat.modonomicon.ModonomiconCompat;
 import com.pigdad.paganbless.data.PBAttachmentTypes;
@@ -165,9 +166,12 @@ public class PBEvents {
     public static class ModBus {
         @SubscribeEvent
         public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PBBlockEntities.IMBUING_CAULDRON.get(), (be, ctx) -> be.getItemHandler());
-            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PBBlockEntities.JAR.get(), (be, ctx) -> be.getItemHandler());
-            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PBBlockEntities.RUNIC_CORE.get(), (be, ctx) -> be.getItemHandler());
+            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PBBlockEntities.IMBUING_CAULDRON.get(), ContainerBlockEntity::getItemHandlerOnSide);
+            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PBBlockEntities.JAR.get(), ContainerBlockEntity::getItemHandlerOnSide);
+            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PBBlockEntities.RUNIC_CORE.get(), ContainerBlockEntity::getItemHandlerOnSide);
+            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PBBlockEntities.WINCH.get(), ContainerBlockEntity::getItemHandlerOnSide);
+            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PBBlockEntities.HERBALIST_BENCH.get(), ContainerBlockEntity::getItemHandlerOnSide);
+
             event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, PBBlockEntities.IMBUING_CAULDRON.get(), (be, ctx) -> be.getFluidTank());
         }
 

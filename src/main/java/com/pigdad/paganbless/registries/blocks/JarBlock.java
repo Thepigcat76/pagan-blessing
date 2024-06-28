@@ -1,6 +1,7 @@
 package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.serialization.MapCodec;
+import com.pigdad.paganbless.api.blocks.RotatableEntityBlock;
 import com.pigdad.paganbless.api.blocks.TranslucentHighlightFix;
 import com.pigdad.paganbless.registries.blockentities.JarBlockEntity;
 import com.pigdad.paganbless.utils.SoundUtils;
@@ -40,7 +41,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class JarBlock extends BaseEntityBlock implements TranslucentHighlightFix {
+public class JarBlock extends RotatableEntityBlock implements TranslucentHighlightFix {
     public static final IntegerProperty ROTATION = BlockStateProperties.ROTATION_16;
     public static final VoxelShape SHAPE = Stream.of(
             Block.box(5, 11.5, 5, 11, 13.5, 11),
@@ -73,7 +74,6 @@ public class JarBlock extends BaseEntityBlock implements TranslucentHighlightFix
         return new JarBlockEntity(blockPos, blockState);
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public @NotNull RenderShape getRenderShape(BlockState pState) {
         return RenderShape.ENTITYBLOCK_ANIMATED;

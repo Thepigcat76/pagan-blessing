@@ -8,6 +8,7 @@ import com.pigdad.paganbless.registries.blockentities.HerbalistBenchBlockEntity;
 import com.pigdad.paganbless.registries.recipes.BenchCuttingRecipe;
 import com.pigdad.paganbless.utils.recipes.PBRecipeInput;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -27,17 +29,53 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class HerbalistBenchBlock extends RotatableEntityBlock implements TranslucentHighlightFix {
     public static final EnumProperty<BenchVariant> BENCH_PART = EnumProperty.create("bench_part", BenchVariant.class);
+    public static final VoxelShape NORTH_SHAPE = Stream.of(
+            Block.box(0, 3, 4, 12, 11, 12),
+            Block.box(0, 11, 0, 16, 16, 16),
+            Block.box(0, 0, 0, 16, 3, 16)
+    ).reduce(Shapes::or).get();
+    public static final VoxelShape EAST_SHAPE = Stream.of(
+            Block.box(0, 11, 0, 16, 16, 16),
+            Block.box(0, 0, 0, 16, 3, 16),
+            Block.box(4, 3, 4, 12, 11, 16)
+    ).reduce(Shapes::or).get();
+    public static final VoxelShape SOUTH_SHAPE = Stream.of(
+            Block.box(0, 11, 0, 16, 16, 16),
+            Block.box(0, 0, 0, 16, 3, 16),
+            Block.box(4, 3, 4, 16, 11, 12)
+    ).reduce(Shapes::or).get();
+    public static final VoxelShape WEST_SHAPE = Stream.of(
+            Block.box(0, 11, 0, 16, 16, 16),
+            Block.box(0, 0, 0, 16, 3, 16),
+            Block.box(4, 3, 0, 12, 11, 12)
+    ).reduce(Shapes::or).get();
 
     public HerbalistBenchBlock(Properties properties) {
         super(properties);
+        registerDefaultState(this.defaultBlockState().setValue(BENCH_PART, BenchVariant.LEFT));
+    }
+
+    @Override
+    protected VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return switch (pState.getValue(FACING)) {
+            case NORTH -> NORTH_SHAPE;
+            case EAST -> WEST_SHAPE;
+            case SOUTH -> SOUTH_SHAPE;
+            case WEST -> EAST_SHAPE;
+            default -> null;
+        };
     }
 
     @Override
@@ -55,15 +93,16 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
 
     @Override
     public void setPlacedBy(Level level, BlockPos blockPos, BlockState state, @Nullable LivingEntity p_49850_, ItemStack p_49851_) {
-        level.setBlockAndUpdate(blockPos.relative(state.getValue(FACING).getCounterClockWise()), this.defaultBlockState()
-                .setValue(BENCH_PART, BenchVariant.LEFT)
-                .setValue(FACING, state.getValue(FACING)));
+        Direction value = state.getValue(FACING).getOpposite();
+        level.setBlockAndUpdate(blockPos.relative(value.getClockWise()), this.defaultBlockState()
+                .setValue(BENCH_PART, BenchVariant.RIGHT)
+                .setValue(FACING, value));
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        BlockState blockState = defaultBlockState().setValue(FACING, context.getPlayer().getDirection());
-        BlockPos relativePos = context.getClickedPos().relative(blockState.getValue(FACING).getCounterClockWise());
+        BlockState blockState = defaultBlockState().setValue(FACING, context.getPlayer().getDirection().getOpposite());
+        BlockPos relativePos = context.getClickedPos().relative(blockState.getValue(FACING).getOpposite().getClockWise());
         if (!context.getLevel().getBlockState(relativePos).canBeReplaced()) {
             return null;
         }
@@ -72,9 +111,9 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
 
     @Override
     public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
-        switch (state.getValue(BENCH_PART)) {
-            case RIGHT -> level.removeBlock(pos.relative(state.getValue(FACING).getCounterClockWise()), false);
-            case LEFT -> level.removeBlock(pos.relative(state.getValue(FACING).getClockWise()), false);
+        BlockPos pPos = pos.relative(state.getValue(FACING).getCounterClockWise());
+        if (level.getBlockState(pPos).is(this)) {
+            level.removeBlock(pPos, false);
         }
         return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
     }

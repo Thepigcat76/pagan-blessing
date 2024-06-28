@@ -13,6 +13,7 @@ import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AnvilBlock;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -26,10 +27,33 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.stream.Stream;
+
 public class WinchBlock extends RotatableEntityBlock {
+    public static final VoxelShape SHAPE = Stream.of(
+            Block.box(3, 0, 0.5, 13, 15, 15.5),
+            Block.box(2, 15, 3.5, 14, 16, 12.5),
+            Block.box(13, 4, 3.5, 14, 15, 12.5),
+            Block.box(14, 5.5, 5.5, 16, 10.5, 10.5),
+            Block.box(0, 5.5, 5.5, 2, 10.5, 10.5),
+            Block.box(2, 4, 3.5, 3, 15, 12.5)
+    ).reduce(Shapes::or).get();
+
+    public static final VoxelShape ROTATED_SHAPE = Stream.of(
+            Block.box(0.5, 0, 3, 15.5, 15, 13),
+            Block.box(3.5, 15, 2, 12.5, 16, 14),
+            Block.box(3.5, 4, 13, 12.5, 15, 14),
+            Block.box(5.5, 5.5, 13, 10.5, 10.5, 15),
+            Block.box(5.5, 5.5, 1, 10.5, 10.5, 3),
+            Block.box(3.5, 4, 2, 12.5, 15, 3)
+    ).reduce(Shapes::or).get();
+
     public static final IntegerProperty DISTANCE = IntegerProperty.create("distance", 0, 512);
     public static final BooleanProperty LIFT_DOWN = BooleanProperty.create("lift_down");
 
@@ -46,6 +70,15 @@ public class WinchBlock extends RotatableEntityBlock {
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockState state = super.getStateForPlacement(context);
         return state != null ? state.setValue(LIFT_DOWN, false).setValue(RotatableEntityBlock.FACING, context.getPlayer().getDirection().getOpposite().getClockWise()) : null;
+    }
+
+    @Override
+    protected VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return switch (pState.getValue(FACING)) {
+            case NORTH, SOUTH -> SHAPE;
+            case EAST, WEST -> ROTATED_SHAPE;
+            default -> null;
+        };
     }
 
     @Override

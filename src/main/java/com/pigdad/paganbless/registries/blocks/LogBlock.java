@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
 import org.jetbrains.annotations.NotNull;
 
 public class LogBlock extends FlammableRotatedPillarBlock {
@@ -23,7 +23,7 @@ public class LogBlock extends FlammableRotatedPillarBlock {
 
     @Override
     protected @NotNull ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
-        if (pStack.canPerformAction(ToolActions.AXE_STRIP))  {
+        if (pStack.canPerformAction(ItemAbilities.AXE_STRIP))  {
             pLevel.setBlockAndUpdate(pPos, strippedBlock.defaultBlockState());
             pPlayer.playSound(SoundEvents.AXE_STRIP);
             return ItemInteractionResult.SUCCESS;

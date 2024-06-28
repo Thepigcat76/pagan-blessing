@@ -1,8 +1,11 @@
 package com.pigdad.paganbless.utils;
 
+import com.mojang.datafixers.util.Pair;
+import com.pigdad.paganbless.api.io.IOActions;
 import com.pigdad.paganbless.data.saved_data.RunicCoreSavedData;
 import com.pigdad.paganbless.data.saved_data.WicanWardSavedData;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -17,6 +20,10 @@ import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.wrapper.PlayerMainInvWrapper;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import static net.neoforged.neoforge.items.ItemHandlerHelper.insertItemStacked;
 
@@ -73,5 +80,24 @@ public final class Utils {
             }
 
         }
+    }
+
+    public static Map<Direction, Pair<IOActions, int[]>> getBottomExtractOtherInsertSingleSlot() {
+        return Map.of(
+                Direction.UP, Pair.of(IOActions.INSERT, new int[]{0}),
+                Direction.NORTH, Pair.of(IOActions.INSERT, new int[]{0}),
+                Direction.EAST, Pair.of(IOActions.INSERT, new int[]{0}),
+                Direction.SOUTH, Pair.of(IOActions.INSERT, new int[]{0}),
+                Direction.WEST, Pair.of(IOActions.INSERT, new int[]{0}),
+                Direction.DOWN, Pair.of(IOActions.EXTRACT, new int[]{0})
+        );
+    }
+
+    public static List<Integer> fillList(int from, int to) {
+        List<Integer> numList = new ArrayList<>(Math.abs(from) + Math.abs(to));
+        for (int i = from; i < to; i++) {
+            numList.add(i);
+        }
+        return numList;
     }
 }
