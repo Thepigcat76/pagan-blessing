@@ -73,17 +73,17 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
     protected VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         if (pState.getValue(BENCH_PART) == BenchVariant.LEFT) {
             return switch (pState.getValue(FACING)) {
-                case NORTH -> NORTH_SHAPE;
+                case NORTH -> SOUTH_SHAPE;
                 case EAST -> EAST_SHAPE;
-                case SOUTH -> SOUTH_SHAPE;
+                case SOUTH -> NORTH_SHAPE;
                 case WEST -> WEST_SHAPE;
                 default -> null;
             };
         } else {
             return switch (pState.getValue(FACING)) {
-                case NORTH -> SOUTH_SHAPE;
+                case NORTH -> NORTH_SHAPE;
                 case EAST -> WEST_SHAPE;
-                case SOUTH -> NORTH_SHAPE;
+                case SOUTH -> SOUTH_SHAPE;
                 case WEST -> EAST_SHAPE;
                 default -> null;
             };
@@ -113,17 +113,18 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        BlockState blockState = defaultBlockState().setValue(FACING, context.getPlayer().getDirection().getOpposite());
-        BlockPos relativePos = context.getClickedPos().relative(blockState.getValue(FACING).getOpposite().getClockWise());
-        if (!context.getLevel().getBlockState(relativePos).canBeReplaced()) {
+        Direction direction = context.getPlayer().getDirection();
+        BlockState blockState = defaultBlockState().setValue(FACING, direction.getOpposite());
+        BlockPos relativePos = context.getClickedPos().relative(blockState.getValue(FACING).getClockWise());
+        if (!context.getLevel().getBlockState(relativePos).canBeReplaced())
             return null;
-        }
         return blockState;
     }
 
     @Override
     public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
-        BlockPos pPos = pos.relative(state.getValue(FACING).getCounterClockWise());
+        Direction direction = state.getValue(FACING);
+        BlockPos pPos = pos.relative(state.getValue(BENCH_PART) == BenchVariant.LEFT ? direction.getClockWise() : direction.getCounterClockWise());
         if (level.getBlockState(pPos).is(this)) {
             level.removeBlock(pPos, false);
         }
