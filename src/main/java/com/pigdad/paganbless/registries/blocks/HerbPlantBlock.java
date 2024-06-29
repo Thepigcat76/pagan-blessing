@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -51,13 +52,15 @@ public class HerbPlantBlock extends BushBlock implements BonemealableBlock {
         return simpleCodec(CropBlock::new);
     }
 
+    @Override
     protected @NotNull VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         Vec3 vec3 = pState.getOffset(pLevel, pPos);
         return SHAPE.move(vec3.x, vec3.y, vec3.z);
     }
 
+    @Override
     protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-        return pState.is(Blocks.FARMLAND);
+        return pState.is(BlockTags.DIRT) || pState.is(BlockTags.SAND);
     }
 
     protected IntegerProperty getAgeProperty() {
@@ -180,14 +183,6 @@ public class HerbPlantBlock extends BushBlock implements BonemealableBlock {
         }
 
         super.entityInside(pState, pLevel, pPos, pEntity);
-    }
-
-    protected ItemLike getBaseSeedId() {
-        return Items.WHEAT_SEEDS;
-    }
-
-    public ItemStack getCloneItemStack(LevelReader pLevel, BlockPos pPos, BlockState pState) {
-        return new ItemStack(this.getBaseSeedId());
     }
 
     public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState) {

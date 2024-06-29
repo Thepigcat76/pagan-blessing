@@ -8,7 +8,10 @@
           "to_place": {
             "type": "minecraft:simple_state_provider",
             "state": {
-              "Name": "paganbless:hags_taper_plant"
+              "Name": "paganbless:hags_taper_plant",
+              "Properties": {
+                "age": "5"
+              }
             }
           }
         }
@@ -23,8 +26,8 @@
         }
       ]
     },
-    "tries": 16,
-    "xz_spread": 3,
+    "tries": 100,
+    "xz_spread": 5,
     "y_spread": 2
   }
 }

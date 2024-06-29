@@ -8,7 +8,10 @@
           "to_place": {
             "type": "minecraft:simple_state_provider",
             "state": {
-              "Name": "paganbless:belladonna_plant"
+              "Name": "paganbless:belladonna_plant",
+              "Properties": {
+                "age": "3"
+              }
             }
           }
         }
@@ -23,7 +26,7 @@
         }
       ]
     },
-    "tries": 32,
+    "tries": 100,
     "xz_spread": 6,
     "y_spread": 2
   }
