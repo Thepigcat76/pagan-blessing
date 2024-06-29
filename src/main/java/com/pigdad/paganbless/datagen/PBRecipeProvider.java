@@ -232,7 +232,7 @@ public class PBRecipeProvider extends RecipeProvider {
                 .group("planks")
                 .unlockedBy("has_log", has(PBBlocks.BLACK_THORN_LOG.get()))
                 .save(recipeOutput);
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, PBBlocks.BLACK_THORN_SLAB.get(), 3)
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, PBBlocks.BLACK_THORN_SLAB.get(), 6)
                 .pattern("###")
                 .define('#', PBBlocks.BLACK_THORN_PLANKS.get())
                 .group("slabs")

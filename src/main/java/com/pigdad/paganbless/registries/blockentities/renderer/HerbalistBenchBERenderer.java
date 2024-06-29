@@ -31,19 +31,19 @@ public class HerbalistBenchBERenderer implements BlockEntityRenderer<HerbalistBe
         ItemStack toolStack = blockEntity.getItemHandler().getStackInSlot(1);
 
         Vector3f toolPos = switch (facing) {
-            case NORTH -> new Vector3f(1.35f, 1f, 0.6f);
-            case EAST -> new Vector3f(0.4f, 1f, 1.35f);
-            case SOUTH -> new Vector3f(-0.3f, 1f, 0.4f);
-            case WEST -> new Vector3f(0.6f, 1f, -0.3f);
+            case NORTH -> new Vector3f(-0.3f, 1f, 0.4f);
+            case EAST -> new Vector3f(0.6f, 1f, -0.3f);
+            case SOUTH -> new Vector3f(1.35f, 1f, 0.6f);
+            case WEST -> new Vector3f(0.4f, 1f, 1.35f);
             // Default branch is unreachable
             default -> null;
         };
 
         Vector3f boardItemPos = switch (facing) {
-            case NORTH -> new Vector3f(0.5f, 1.075f, 0.6f);
-            case EAST -> new Vector3f(0.4f, 1.075f, 0.5f);
-            case SOUTH -> new Vector3f(0.5f, 1.075f, 0.4f);
-            case WEST -> new Vector3f(0.6f, 1.075f, 0.5f);
+            case NORTH -> new Vector3f(0.5f, 1.075f, 0.4f);
+            case EAST -> new Vector3f(0.6f, 1.075f, 0.5f);
+            case SOUTH -> new Vector3f(0.5f, 1.075f, 0.6f);
+            case WEST -> new Vector3f(0.4f, 1.075f, 0.5f);
             default -> null;
         };
 
@@ -58,7 +58,7 @@ public class HerbalistBenchBERenderer implements BlockEntityRenderer<HerbalistBe
             poseStack.translate(x, y, z);
             poseStack.scale(0.65f, 0.65f, 0.65f);
             poseStack.mulPose(Axis.YN.rotationDegrees(facing.getOpposite().toYRot()));
-            poseStack.mulPose(Axis.XP.rotationDegrees(270));
+            poseStack.mulPose(Axis.XP.rotationDegrees(90));
             renderer.renderStatic(itemStack, ItemDisplayContext.FIXED, getLightLevel(blockEntity.getLevel(),
                     blockEntity.getBlockPos()), OverlayTexture.NO_OVERLAY, poseStack, multiBufferSource, blockEntity.getLevel(), 1);
             poseStack.popPose();

@@ -6,19 +6,24 @@ import com.pigdad.paganbless.registries.PBItems;
 import com.pigdad.paganbless.registries.PBTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
@@ -30,7 +35,7 @@ public class PBTagProvider {
 
         @Override
         protected void addTags(HolderLookup.Provider provider) {
-            tag(PBTags.ItemTags.PAGAN_TOOLS, PBItems.BLACK_THORN_STAFF.get(), PBItems.BOLINE.get());
+            tag(PBTags.ItemTags.PAGAN_TOOLS, PBItems.BLACK_THORN_STAFF.get(), PBItems.BOLINE.get())/*.addTag(ItemTags.AXES)*/;
             tag(PBTags.ItemTags.FIRE_LIGHTER, Items.FLINT_AND_STEEL, Items.FIRE_CHARGE);
             tag(PBTags.ItemTags.GEMS_CINNABAR, PBItems.CINNABAR.get());
             tag(Tags.Items.RODS_WOODEN, PBItems.BLACK_THORN_STICK.get());
@@ -60,13 +65,33 @@ public class PBTagProvider {
                     PBItems.WINTER_BERRIES.get()
             );
 
+            tag(ItemTags.LOGS_THAT_BURN,
+                    PBBlocks.BLACK_THORN_LOG.get(),
+                    PBBlocks.STRIPPED_BLACK_THORN_LOG.get(),
+                    PBBlocks.STRIPPED_BLACK_THORN_LOG.get(),
+                    PBBlocks.BLACK_THORN_WOOD.get(),
+                    PBBlocks.STRIPPED_BLACK_THORN_WOOD.get()
+            );
+
+            tag(ItemTags.WOODEN_BUTTONS, PBBlocks.BLACK_THORN_BUTTON.get());
+            tag(ItemTags.WOODEN_DOORS, PBBlocks.BLACK_THORN_DOOR.get());
+            tag(ItemTags.WOODEN_FENCES, PBBlocks.BLACK_THORN_FENCE.get());
+            tag(ItemTags.FENCE_GATES, PBBlocks.BLACK_THORN_FENCE_GATE.get());
+            tag(ItemTags.WOODEN_SLABS, PBBlocks.BLACK_THORN_SLAB.get());
+            tag(ItemTags.WOODEN_STAIRS, PBBlocks.BLACK_THORN_STAIRS.get());
+            tag(ItemTags.WOODEN_TRAPDOORS, PBBlocks.BLACK_THORN_TRAPDOOR.get());
+
             if (PBItems.PAGAN_GUIDE != null) {
                 tag(ItemTags.BOOKSHELF_BOOKS, PBItems.PAGAN_GUIDE.get());
             }
         }
 
-        private @NotNull IntrinsicTagAppender<Item> tag(TagKey<Item> itemTagKey, Item... items) {
-            return tag(itemTagKey).add(items);
+        private @NotNull IntrinsicTagAppender<Item> tag(TagKey<Item> itemTagKey, ItemLike... items) {
+            IntrinsicTagAppender<Item> tag = tag(itemTagKey);
+            for (ItemLike item : items) {
+                tag.add(item.asItem());
+            }
+            return tag;
         }
     }
 
@@ -78,21 +103,6 @@ public class PBTagProvider {
         @Override
         protected void addTags(HolderLookup.Provider provider) {
             tag(BlockTags.LEAVES, PBBlocks.BLACK_THORN_LEAVES.get());
-            tag(BlockTags.LOGS_THAT_BURN,
-                    PBBlocks.BLACK_THORN_LOG.get(),
-                    PBBlocks.STRIPPED_BLACK_THORN_LOG.get(),
-                    PBBlocks.STRIPPED_BLACK_THORN_LOG.get(),
-                    PBBlocks.BLACK_THORN_WOOD.get(),
-                    PBBlocks.STRIPPED_BLACK_THORN_WOOD.get()
-            );
-
-            tag(BlockTags.WOODEN_BUTTONS, PBBlocks.BLACK_THORN_BUTTON.get());
-            tag(BlockTags.WOODEN_DOORS, PBBlocks.BLACK_THORN_DOOR.get());
-            tag(BlockTags.WOODEN_FENCES, PBBlocks.BLACK_THORN_FENCE.get());
-            tag(BlockTags.FENCE_GATES, PBBlocks.BLACK_THORN_FENCE_GATE.get());
-            tag(BlockTags.WOODEN_SLABS, PBBlocks.BLACK_THORN_SLAB.get());
-            tag(BlockTags.WOODEN_STAIRS, PBBlocks.BLACK_THORN_STAIRS.get());
-            tag(BlockTags.WOODEN_TRAPDOORS, PBBlocks.BLACK_THORN_TRAPDOOR.get());
 
             tag(BlockTags.MINEABLE_WITH_PICKAXE,
                     PBBlocks.IMBUING_CAULDRON.get(),

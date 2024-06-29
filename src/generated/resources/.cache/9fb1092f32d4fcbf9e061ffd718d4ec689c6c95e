@@ -1,4 +1,4 @@
-// 1.21	2024-06-26T21:21:22.308324424	Recipes
+// 1.21	2024-06-29T14:01:42.714872993	Recipes
 27f81e325c94e576ca60319ce332ad42e5c8bb76 data/minecraft/recipe/redstone.json
 8d6b4019881392215dd1e5550ca4bbce4b3e5f0a data/paganbless/advancement/recipes/building_blocks/black_thorn_door.json
 e8d6aafcdc567f0396782a3204b5cc5f62269062 data/paganbless/advancement/recipes/building_blocks/black_thorn_fence.json
@@ -29,7 +29,7 @@ ccfcb21753fe26eeddf162c6646a3e771fb525cf data/paganbless/recipe/black_thorn_door
 15aff228b626160b4a9e4edaa1ba8012147f62c0 data/paganbless/recipe/black_thorn_fence_gate.json
 1af068077de2b0902849c1219450ceb2d13828f6 data/paganbless/recipe/black_thorn_planks.json
 32145b41b2fa92b54703ee5d7bac0c015df11a2f data/paganbless/recipe/black_thorn_pressure_plate.json
-387b5bb4658bfa5f0b87b9ef237e780750ec0c26 data/paganbless/recipe/black_thorn_slab.json
+f5d6d34efae846150ad714911aebfb538aa8c69c data/paganbless/recipe/black_thorn_slab.json
 e9858c79664e5fb80e7f234525e21f68a240e202 data/paganbless/recipe/black_thorn_staff.json
 4b24df1132ee6a08cebf5d8464ce7c1a28391627 data/paganbless/recipe/black_thorn_stairs.json
 db1810a6495904dd0637c86b1e057074fdca7ad3 data/paganbless/recipe/black_thorn_stick.json

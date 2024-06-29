@@ -1,12 +1,4 @@
-// 1.21	2024-06-25T19:39:34.895474791	Tags for minecraft:block mod id paganbless
-ab8a9e86059d7573f5f4b93fcf911b016af44955 data/minecraft/tags/block/fence_gates.json
+// 1.21	2024-06-29T13:45:01.707063183	Tags for minecraft:block mod id paganbless
 f1d33919d5fe4377f5dfb8db85d32e7b9b4ceea2 data/minecraft/tags/block/leaves.json
-e97c9961388f6d6c7dd1ee14e48e426097841035 data/minecraft/tags/block/logs_that_burn.json
 7aaa73e5441be85c9e9390d985f07ad0496e2999 data/minecraft/tags/block/mineable/axe.json
 7ed01f35f34b1d70a2d69ad8f6c6bc8ed804d343 data/minecraft/tags/block/mineable/pickaxe.json
-c0f357d498be3b99c87d697329d5ae861338ceb2 data/minecraft/tags/block/wooden_buttons.json
-c773dcd8558f22eec751e6fd200ea43220df7bb2 data/minecraft/tags/block/wooden_doors.json
-a21ff228a2882ecdf87d7d7818efdcfa9b0bfad3 data/minecraft/tags/block/wooden_fences.json
-ecc32b663ff83807a4f36643ba138c2e77143706 data/minecraft/tags/block/wooden_slabs.json
-89792b60a3e3d05b46f156b6dc149c1fd4e47c06 data/minecraft/tags/block/wooden_stairs.json
-32ef8ccb7f75a96ac22be39e4c80b2e2fa7314db data/minecraft/tags/block/wooden_trapdoors.json

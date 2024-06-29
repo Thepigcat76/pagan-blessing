@@ -1,6 +1,7 @@
 package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.serialization.MapCodec;
+import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.api.blocks.RotatableEntityBlock;
 import com.pigdad.paganbless.api.blocks.TranslucentHighlightFix;
 import com.pigdad.paganbless.registries.PBTags;
@@ -33,6 +34,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
+import org.checkerframework.checker.units.qual.N;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -69,20 +71,30 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
 
     @Override
     protected VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return switch (pState.getValue(FACING)) {
-            case NORTH -> NORTH_SHAPE;
-            case EAST -> WEST_SHAPE;
-            case SOUTH -> SOUTH_SHAPE;
-            case WEST -> EAST_SHAPE;
-            default -> null;
-        };
+        if (pState.getValue(BENCH_PART) == BenchVariant.LEFT) {
+            return switch (pState.getValue(FACING)) {
+                case NORTH -> NORTH_SHAPE;
+                case EAST -> EAST_SHAPE;
+                case SOUTH -> SOUTH_SHAPE;
+                case WEST -> WEST_SHAPE;
+                default -> null;
+            };
+        } else {
+            return switch (pState.getValue(FACING)) {
+                case NORTH -> SOUTH_SHAPE;
+                case EAST -> WEST_SHAPE;
+                case SOUTH -> NORTH_SHAPE;
+                case WEST -> EAST_SHAPE;
+                default -> null;
+            };
+        }
     }
 
     @Override
     protected RenderShape getRenderShape(BlockState pState) {
         return switch (pState.getValue(BENCH_PART)) {
-            case RIGHT -> RenderShape.INVISIBLE;
-            case LEFT -> RenderShape.MODEL;
+            case RIGHT -> RenderShape.MODEL;
+            case LEFT -> RenderShape.INVISIBLE;
         };
     }
 
@@ -93,7 +105,7 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
 
     @Override
     public void setPlacedBy(Level level, BlockPos blockPos, BlockState state, @Nullable LivingEntity p_49850_, ItemStack p_49851_) {
-        Direction value = state.getValue(FACING).getOpposite();
+        Direction value = state.getValue(FACING);
         level.setBlockAndUpdate(blockPos.relative(value.getClockWise()), this.defaultBlockState()
                 .setValue(BENCH_PART, BenchVariant.RIGHT)
                 .setValue(FACING, value));
@@ -121,10 +133,11 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
     @Override
     protected @NotNull ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
         BlockEntity blockEntity = pLevel.getBlockEntity(getMainBlock(pState, pPos));
-        int slot = pState.getValue(BENCH_PART) == BenchVariant.LEFT ? 0 : 1;
+        int slot = pState.getValue(BENCH_PART) == BenchVariant.LEFT ? 1 : 0;
         if (blockEntity instanceof HerbalistBenchBlockEntity herbalistBenchBlockEntity) {
             ItemStack stackInSlot = herbalistBenchBlockEntity.getItemHandler().getStackInSlot(slot);
             if (pStack.isEmpty()) {
+                PaganBless.LOGGER.debug("Extract");
                 ItemStack stack = herbalistBenchBlockEntity.getItemHandler().extractItem(slot, stackInSlot.getCount(), false);
                 if (!stack.isEmpty()) {
                     ItemHandlerHelper.giveItemToPlayer(pPlayer, stack);
@@ -132,8 +145,10 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
                     return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
                 }
             } else if (slot == 0 && pStack.is(PBTags.ItemTags.PAGAN_TOOLS)) {
+                PaganBless.LOGGER.debug("Cut");
                 cutItem(pLevel, pPlayer, herbalistBenchBlockEntity, pHand, stackInSlot, pStack);
             } else {
+                PaganBless.LOGGER.debug("Insert");
                 int oldCount = pStack.getCount();
                 int count = herbalistBenchBlockEntity.getItemHandler().insertItem(slot, pStack.copy(), false).getCount();
                 if (oldCount != count) {
@@ -148,8 +163,8 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
 
     public static BlockPos getMainBlock(BlockState state, BlockPos pos) {
         return switch (state.getValue(BENCH_PART)) {
-            case RIGHT -> pos.relative(state.getValue(FACING).getCounterClockWise());
-            case LEFT -> pos;
+            case RIGHT -> pos;
+            case LEFT -> pos.relative(state.getValue(FACING).getClockWise());
         };
     }
 
@@ -162,8 +177,8 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
         return switch (blockState.getValue(BENCH_PART)) {
-            case LEFT -> new HerbalistBenchBlockEntity(blockPos, blockState);
-            case RIGHT -> null;
+            case RIGHT -> new HerbalistBenchBlockEntity(blockPos, blockState);
+            case LEFT -> null;
         };
     }
 

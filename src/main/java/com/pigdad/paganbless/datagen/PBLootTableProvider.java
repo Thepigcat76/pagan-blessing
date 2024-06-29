@@ -96,7 +96,7 @@ public class PBLootTableProvider extends BlockLootSubProvider {
 
     private void dropHerbPlant(Block block, ItemLike item) {
         add(block, this.createShearsDispatchTable(block, this.applyExplosionDecay(block, (LootItem.lootTableItem(item)
-                .when(LootItemRandomChanceCondition.randomChance(0.125F)))
+                .when(LootItemRandomChanceCondition.randomChance(0.5F)))
                 .apply(ApplyBonusCount.addUniformBonusCount(this.registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE), 2))))
         );
     }
