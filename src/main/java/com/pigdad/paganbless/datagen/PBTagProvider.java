@@ -73,6 +73,7 @@ public class PBTagProvider {
                     PBBlocks.STRIPPED_BLACK_THORN_WOOD.get()
             );
 
+            tag(ItemTags.PLANKS, PBBlocks.BLACK_THORN_PLANKS.get());
             tag(ItemTags.WOODEN_BUTTONS, PBBlocks.BLACK_THORN_BUTTON.get());
             tag(ItemTags.WOODEN_DOORS, PBBlocks.BLACK_THORN_DOOR.get());
             tag(ItemTags.WOODEN_FENCES, PBBlocks.BLACK_THORN_FENCE.get());
