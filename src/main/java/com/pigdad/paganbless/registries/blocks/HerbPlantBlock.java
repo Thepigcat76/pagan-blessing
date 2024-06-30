@@ -44,7 +44,7 @@ public class HerbPlantBlock extends BushBlock implements BonemealableBlock {
                 .offsetType(BlockBehaviour.OffsetType.XZ)
                 .pushReaction(PushReaction.DESTROY)
                 .randomTicks());
-        registerDefaultState(this.defaultBlockState().setValue(AGE, 5));
+        registerDefaultState(this.defaultBlockState().setValue(AGE, 0));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.pigdad.paganbless.registries.blockentities;
 
 import com.pigdad.paganbless.registries.PBBlockEntities;
+import com.pigdad.paganbless.utils.PBSpawner;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -16,14 +17,13 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 
 public class PentacleBlockEntity extends BlockEntity {
-    @Nullable
-    private CompoundTag entityTag;
-    private int timer = 0;
-    public BaseSpawner spawner = new BaseSpawner() {
+    public BaseSpawner spawner = new PBSpawner() {
+        @Override
         public void broadcastEvent(Level p_155767_, BlockPos p_155768_, int p_155769_) {
             p_155767_.blockEvent(p_155768_, Blocks.SPAWNER, p_155769_, 0);
         }
 
+        @Override
         public void setNextSpawnData(@Nullable Level p_155771_, BlockPos p_155772_, SpawnData p_155773_) {
             super.setNextSpawnData(p_155771_, p_155772_, p_155773_);
             if (p_155771_ != null) {
@@ -31,10 +31,6 @@ public class PentacleBlockEntity extends BlockEntity {
                 p_155771_.sendBlockUpdated(p_155772_, blockstate, blockstate, 4);
             }
 
-        }
-
-        public @NotNull BlockEntity getSpawnerBlockEntity() {
-            return PentacleBlockEntity.this;
         }
     };
 

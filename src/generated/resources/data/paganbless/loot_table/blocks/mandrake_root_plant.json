@@ -21,12 +21,6 @@
             },
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "chance": 0.5,
-                  "condition": "minecraft:random_chance"
-                }
-              ],
               "functions": [
                 {
                   "enchantment": "minecraft:fortune",

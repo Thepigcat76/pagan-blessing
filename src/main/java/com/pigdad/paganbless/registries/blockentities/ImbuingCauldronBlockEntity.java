@@ -17,6 +17,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.joml.Vector3f;
@@ -97,7 +98,7 @@ public class ImbuingCauldronBlockEntity extends ContainerBlockEntity {
 
         if (inUse > 0) {
             inUse--;
-            if (getFluidTank().getFluidAmount() >= 1000) {
+            if (getFluidTank().getFluidAmount() >= 1000 && getFluidTank().getFluid().is(Fluids.WATER)) {
                 Utils.spawnParticles(level, new Vector3f(worldPosition.getX(), worldPosition.getY() + .35f, worldPosition.getZ()),
                         1, 0.07f, 0, true, ParticleTypes.BUBBLE);
             }

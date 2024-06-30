@@ -1,0 +1,10 @@
+{
+  "type": "gizmos:loot_table_inject",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:blocks/deepslate_redstone_ore"
+    }
+  ],
+  "item": "paganbless:cinnabar"
+}

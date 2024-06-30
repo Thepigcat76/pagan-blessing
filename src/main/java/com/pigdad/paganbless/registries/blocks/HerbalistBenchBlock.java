@@ -6,6 +6,7 @@ import com.pigdad.paganbless.api.blocks.RotatableEntityBlock;
 import com.pigdad.paganbless.api.blocks.TranslucentHighlightFix;
 import com.pigdad.paganbless.registries.PBTags;
 import com.pigdad.paganbless.registries.blockentities.HerbalistBenchBlockEntity;
+import com.pigdad.paganbless.registries.blockentities.ImbuingCauldronBlockEntity;
 import com.pigdad.paganbless.registries.recipes.BenchCuttingRecipe;
 import com.pigdad.paganbless.utils.recipes.PBRecipeInput;
 import net.minecraft.core.BlockPos;
@@ -148,14 +149,17 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
             } else if (slot == 0 && pStack.is(PBTags.ItemTags.PAGAN_TOOLS)) {
                 PaganBless.LOGGER.debug("Cut");
                 cutItem(pLevel, pPlayer, herbalistBenchBlockEntity, pHand, stackInSlot, pStack);
-            } else {
-                PaganBless.LOGGER.debug("Insert");
-                int oldCount = pStack.getCount();
-                int count = herbalistBenchBlockEntity.getItemHandler().insertItem(slot, pStack.copy(), false).getCount();
-                if (oldCount != count) {
-                    pStack.setCount(count);
+            } else if (!pStack.isEmpty()) {
+                if (stackInSlot.isEmpty() || (stackInSlot.is(pStack.getItem()) && stackInSlot.getCount() + pStack.getCount() <= pStack.getMaxStackSize())) {
+                    int oldCount = pStack.getCount();
+                    int count = herbalistBenchBlockEntity.getItemHandler().insertItem(slot, pStack.copy(), false).getCount();
+                    if (oldCount != count) {
+                        pStack.setCount(count);
+                    } else {
+                        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                    }
                 } else {
-                    return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+
                 }
             }
         }
@@ -181,6 +185,18 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
             case RIGHT -> new HerbalistBenchBlockEntity(blockPos, blockState);
             case LEFT -> null;
         };
+    }
+
+    @Override
+    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
+        if (pState.getBlock() != pNewState.getBlock()) {
+            BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+            if (blockEntity instanceof HerbalistBenchBlockEntity blockEntity1) {
+                blockEntity1.drops();
+            }
+        }
+
+        super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
     }
 
     public static void cutItem(Level level, Player player, HerbalistBenchBlockEntity blockEntity, InteractionHand hand, ItemStack itemStack, ItemStack tool) {

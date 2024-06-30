@@ -44,7 +44,7 @@ public record AdvancedBundleContents(List<ItemStack> items, Fraction weight) imp
     }
 
     private static Fraction getWeight(ItemStack pStack) {
-        BundleContents bundlecontents = (BundleContents)pStack.get(DataComponents.BUNDLE_CONTENTS);
+        BundleContents bundlecontents = pStack.get(DataComponents.BUNDLE_CONTENTS);
         if (bundlecontents != null) {
             return BUNDLE_IN_BUNDLE_WEIGHT.add(bundlecontents.weight());
         } else {
@@ -146,7 +146,11 @@ public record AdvancedBundleContents(List<ItemStack> items, Fraction weight) imp
         }
 
         public boolean isValid(ItemStack itemStack) {
-            return itemStack.is(PBTags.ItemTags.HERBS);
+            return itemStack.is(PBTags.ItemTags.HERBS)
+                    || itemStack.is(PBTags.ItemTags.HERB_PLANTS)
+                    || itemStack.is(PBTags.ItemTags.CHOPPED_HERBS)
+                    || itemStack.is(PBTags.ItemTags.DRIED_HERBS)
+                    || itemStack.is(PBTags.ItemTags.HANGING_HERBS);
         }
 
         public int tryTransfer(Slot p_330834_, Player p_331924_) {

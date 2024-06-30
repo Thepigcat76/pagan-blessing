@@ -31,7 +31,7 @@ public class BolineItem extends SwordItem {
 
     @Override
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
-        if (pAttacker instanceof Player player) {
+        if (pAttacker instanceof Player) {
             if (pTarget instanceof Skeleton && pTarget.getHealth() == 0) {
                 RandomSource randomSource = pTarget.getRandom();
                 int i = randomSource.nextInt(0, 100 / PBConfig.skeletonSkullFromBolineChance);
@@ -59,18 +59,21 @@ public class BolineItem extends SwordItem {
             if (cropBlock.isMaxAge(blockState)) {
                 dropCropDrops(level, player, blockPos, blockState);
                 level.setBlockAndUpdate(blockPos, cropBlock.getStateForAge(0));
+                pContext.getItemInHand().hurtAndBreak(1, player, LivingEntity.getSlotForHand(pContext.getHand()));
                 return InteractionResult.SUCCESS;
             }
         } else if (blockState.getBlock() instanceof NetherWartBlock wartBlock) {
             if (blockState.getValue(NetherWartBlock.AGE) >= 3) {
                 dropCropDrops(level, player, blockPos, blockState);
                 level.setBlockAndUpdate(blockPos, wartBlock.defaultBlockState());
+                pContext.getItemInHand().hurtAndBreak(1, player, LivingEntity.getSlotForHand(pContext.getHand()));
                 return InteractionResult.SUCCESS;
             }
         } else if (blockState.getBlock() instanceof HerbPlantBlock herbPlantBlock) {
             if (blockState.getValue(HerbPlantBlock.AGE) >= 5) {
                 dropCropDrops(level, player, blockPos, blockState);
                 level.setBlockAndUpdate(blockPos, herbPlantBlock.defaultBlockState().setValue(HerbPlantBlock.AGE, 0));
+                pContext.getItemInHand().hurtAndBreak(1, player, LivingEntity.getSlotForHand(pContext.getHand()));
                 return InteractionResult.SUCCESS;
             }
         }

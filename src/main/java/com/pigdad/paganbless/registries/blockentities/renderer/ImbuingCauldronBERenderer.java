@@ -48,7 +48,7 @@ public class ImbuingCauldronBERenderer implements BlockEntityRenderer<ImbuingCau
         // Items
         for (int i : itemStacks.keySet()) {
             if (i == 5) {
-                RenderUtils.renderFloatingItem(blockEntity.getItemHandler().getStackInSlot(5), poseStack, pBufferSource, combinedLight, combinedOverlay);
+                RenderUtils.renderFloatingItem(blockEntity.getItemHandler().getStackInSlot(5), poseStack, pBufferSource, combinedLight, combinedOverlay, 0.6F);
                 continue;
             }
             ItemStack itemStack = itemStacks.get(i);

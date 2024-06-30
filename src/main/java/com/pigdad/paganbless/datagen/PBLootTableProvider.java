@@ -16,11 +16,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.NotNull;
@@ -49,6 +47,7 @@ public class PBLootTableProvider extends BlockLootSubProvider {
         dropSelf(PBBlocks.HERBALIST_BENCH.get());
         dropSelf(PBBlocks.WINCH.get());
         dropSelf(PBBlocks.CRANK.get());
+        dropSelf(PBBlocks.ROPE.get());
         dropSelf(PBBlocks.RUNIC_CORE.get());
 
         dropSelf(PBBlocks.WICAN_WARD.get());
@@ -84,8 +83,13 @@ public class PBLootTableProvider extends BlockLootSubProvider {
         add(PBBlocks.BLACK_THORN_LEAVES.get(), createLeavesDrops(PBBlocks.BLACK_THORN_LEAVES.get(), PBBlocks.BLACK_THORN_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
         dropSelf(PBBlocks.BLACK_THORN_SAPLING.get());
 
+        dropCinnabarFromRedstone(Blocks.REDSTONE_ORE);
+        dropCinnabarFromRedstone(Blocks.DEEPSLATE_REDSTONE_ORE);
+    }
+
+    private void dropCinnabarFromRedstone(Block redstoneOre) {
         HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
-        add(Blocks.REDSTONE_ORE, this.createSilkTouchDispatchTable(Blocks.REDSTONE_ORE, this.applyExplosionDecay(Blocks.REDSTONE_ORE, LootItem.lootTableItem(Items.REDSTONE)
+        add(redstoneOre, this.createSilkTouchDispatchTable(redstoneOre, this.applyExplosionDecay(redstoneOre, LootItem.lootTableItem(Items.REDSTONE)
                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(4.0F, 5.0F)))
                 .apply(ApplyBonusCount.addUniformBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))
         )).withPool(LootPool.lootPool()
@@ -96,9 +100,8 @@ public class PBLootTableProvider extends BlockLootSubProvider {
 
     private void dropHerbPlant(Block block, ItemLike item) {
         add(block, this.createShearsDispatchTable(block, this.applyExplosionDecay(block, (LootItem.lootTableItem(item)
-                .when(LootItemRandomChanceCondition.randomChance(0.5F)))
-                .apply(ApplyBonusCount.addUniformBonusCount(this.registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE), 2))))
-        );
+                .apply(ApplyBonusCount.addUniformBonusCount(this.registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE), 2))
+        ))));
     }
 
     @Override

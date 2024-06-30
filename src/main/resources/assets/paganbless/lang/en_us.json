@@ -83,5 +83,6 @@
   "ritual_feedback.paganbless.unlit": "Runic core is not lit. To light it, right-click with a flint and steel",
   "ritual_feedback.paganbless.incomplete": "Ritual is incomplete",
   "ritual_feedback.paganbless.no_rune_slabs": "Neither the block at %d, %d, %d nor block at %d, %d, %d are rune slabs",
-  "ritual_feedback.paganbless.no_runeslab_at_pos": "Block at %d, %d, %d is not a rune slab but a %s"
+  "ritual_feedback.paganbless.no_runeslab_at_pos": "Block at %d, %d, %d is not a rune slab but a %s",
+  "jei_info.paganbless.cinnabar": "Cinnabar can be obtained when mining redstone ore"
 }

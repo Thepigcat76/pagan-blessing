@@ -43,6 +43,18 @@ public final class PBConfig {
     private static final ModConfigSpec.IntValue SKELETON_SKULL_FROM_BOLINE_CHANCE = BUILDER
             .comment("The chance in percent that a skeleton killed with a boline drops a skull")
             .defineInRange("skeleton_skull_from_boline_chance", 15, 0, 100);
+    private static final ModConfigSpec.IntValue WAND_PROJECTILE_DAMAGE = BUILDER
+            .comment("The amount of damage the wand's projectile deals")
+            .defineInRange("wand_projectile_damage", 3, 0, 100);
+    private static final ModConfigSpec.IntValue PENTACLE_MINIMUM_DELAY = BUILDER
+            .comment("The minimum amount of time it takes for a mob to spawn from the pentacle in ticks (20 ticks = 1 second)")
+            .defineInRange("pentacle_minimum_delay", 200, 0, 10_000);
+    private static final ModConfigSpec.IntValue PENTACLE_MAXIMUM_DELAY = BUILDER
+            .comment("he maximum amount of time it takes for a mob to spawn from the pentacle in ticks (20 ticks = 1 second)")
+            .defineInRange("pentacle_maximum_delay", 800, 0, 10_000);
+    private static final ModConfigSpec.IntValue PENTACLE_SPAWN_AMOUNT = BUILDER
+            .comment("The amount of mobs that are spawned by the pentacle")
+            .defineInRange("pentacle_spawn_amount", 4, 0, 64);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 
@@ -54,6 +66,10 @@ public final class PBConfig {
     public static int lavenderIncenseRange;
     public static int dryingTime;
     public static int skeletonSkullFromBolineChance;
+    public static int wandProjectileDamage;
+    public static int pentacleMinDelay;
+    public static int pentacleMaxDelay;
+    public static int pentacleSpawnAmount;
 
     private static boolean validateEntityName(final Object obj) {
         return obj instanceof final String itemName && BuiltInRegistries.ENTITY_TYPE.containsKey(ResourceLocation.parse(itemName));
@@ -71,5 +87,9 @@ public final class PBConfig {
         rueIncenseRange = RUE_INCENSE_RANGE.getAsInt();
         dryingTime = DRYING_TIME.getAsInt();
         skeletonSkullFromBolineChance = SKELETON_SKULL_FROM_BOLINE_CHANCE.getAsInt();
+        wandProjectileDamage = WAND_PROJECTILE_DAMAGE.getAsInt();
+        pentacleMinDelay = PENTACLE_MINIMUM_DELAY.getAsInt();
+        pentacleMaxDelay = PENTACLE_MAXIMUM_DELAY.getAsInt();
+        pentacleSpawnAmount = PENTACLE_SPAWN_AMOUNT.getAsInt();
     }
 }

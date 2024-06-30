@@ -76,6 +76,7 @@ public class PBJeiPlugin implements IModPlugin {
 
         registration.addIngredientInfo(gatherHangingHerbs(), VanillaTypes.ITEM_STACK, Component.translatable("jei_info.paganbless.dried_herbs_info"));
         registration.addIngredientInfo(new ItemStack(Items.SKELETON_SKULL), VanillaTypes.ITEM_STACK, Component.translatable("jei_info.paganbless.skeleton_skull"));
+        registration.addIngredientInfo(new ItemStack(PBItems.CINNABAR.get()), VanillaTypes.ITEM_STACK, Component.translatable("jei_info.paganbless.cinnabar"));
     }
 
     @Override

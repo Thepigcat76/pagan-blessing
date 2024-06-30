@@ -13,7 +13,7 @@ public class RunicCoreBERenderer implements BlockEntityRenderer<RunicCoreBlockEn
 
     @Override
     public void render(RunicCoreBlockEntity runicCoreBlockEntity, float v, PoseStack poseStack, MultiBufferSource multiBufferSource, int combinedLight, int combinedOverlay) {
-        RenderUtils.renderFloatingItem(runicCoreBlockEntity.getItemHandler().getStackInSlot(0), poseStack, multiBufferSource, combinedLight, combinedOverlay);
+        RenderUtils.renderFloatingItem(runicCoreBlockEntity.getItemHandler().getStackInSlot(0), poseStack, multiBufferSource, combinedLight, combinedOverlay, 1F);
     }
 
 

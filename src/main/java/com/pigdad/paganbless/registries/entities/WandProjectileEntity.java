@@ -1,11 +1,13 @@
 package com.pigdad.paganbless.registries.entities;
 
+import com.pigdad.paganbless.PBConfig;
 import com.pigdad.paganbless.registries.PBItems;
 import com.pigdad.paganbless.registries.items.WandItem;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
@@ -34,6 +36,7 @@ public class WandProjectileEntity extends Snowball {
         if (entity instanceof Animal animal && animal.isBaby()) {
             animal.ageUp(getSpeedUpSecondsWhenFeeding(-animal.getAge()), true);
         }
+        entity.hurt(this.damageSources().thrown(this, this.getOwner()), PBConfig.wandProjectileDamage);
     }
 
     @Override

@@ -70,7 +70,6 @@ public final class PBBlocks {
             () -> new RopeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(0.4F).noOcclusion().sound(SoundType.WOOL)));
     public static final Supplier<Block> PENTACLE = registerBlock("pentacle",
             () -> new PentacleBlock(BlockBehaviour.Properties.of()
-                    .noCollission()
                     .noOcclusion()
                     .instabreak()));
     public static final Supplier<Block> WICAN_WARD = registerBlock("wican_ward",

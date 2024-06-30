@@ -111,6 +111,23 @@ public class PBTagProvider {
                     PBBlocks.LAVENDER_INCENSE.get()
             );
 
+            tag(BlockTags.LOGS_THAT_BURN,
+                    PBBlocks.BLACK_THORN_LOG.get(),
+                    PBBlocks.STRIPPED_BLACK_THORN_LOG.get(),
+                    PBBlocks.STRIPPED_BLACK_THORN_LOG.get(),
+                    PBBlocks.BLACK_THORN_WOOD.get(),
+                    PBBlocks.STRIPPED_BLACK_THORN_WOOD.get()
+            );
+
+            tag(BlockTags.PLANKS, PBBlocks.BLACK_THORN_PLANKS.get());
+            tag(BlockTags.WOODEN_BUTTONS, PBBlocks.BLACK_THORN_BUTTON.get());
+            tag(BlockTags.WOODEN_DOORS, PBBlocks.BLACK_THORN_DOOR.get());
+            tag(BlockTags.WOODEN_FENCES, PBBlocks.BLACK_THORN_FENCE.get());
+            tag(BlockTags.FENCE_GATES, PBBlocks.BLACK_THORN_FENCE_GATE.get());
+            tag(BlockTags.WOODEN_SLABS, PBBlocks.BLACK_THORN_SLAB.get());
+            tag(BlockTags.WOODEN_STAIRS, PBBlocks.BLACK_THORN_STAIRS.get());
+            tag(BlockTags.WOODEN_TRAPDOORS, PBBlocks.BLACK_THORN_TRAPDOOR.get());
+
             tag(BlockTags.MINEABLE_WITH_AXE, PBBlocks.RUNIC_CORE.get(), PBBlocks.CRANK.get());
             for (Supplier<Block> block : PBBlocks.WOOD_BLOCKS) {
                 tag(BlockTags.MINEABLE_WITH_AXE, block.get());
