@@ -18,7 +18,6 @@ public class AnvilBlockMixin {
             at = @At("TAIL")
     )
     public void anvilLanding(Level level, BlockPos blockPos, BlockState blockState, BlockState oldBlockState, FallingBlockEntity fallingBlockEntity, CallbackInfo callbackInfoLevel) {
-        // FIXME: when dropping anvil from too small distance, it has wrong recipe
         AnvilRecipeUtils.onAnvilLand(level, blockPos);
     }
 

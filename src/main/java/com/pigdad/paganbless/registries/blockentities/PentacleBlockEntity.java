@@ -1,7 +1,7 @@
 package com.pigdad.paganbless.registries.blockentities;
 
 import com.pigdad.paganbless.registries.PBBlockEntities;
-import com.pigdad.paganbless.utils.PBSpawner;
+import com.pigdad.paganbless.api.PBSpawner;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -12,12 +12,11 @@ import net.minecraft.world.level.SpawnData;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
 public class PentacleBlockEntity extends BlockEntity {
-    public BaseSpawner spawner = new PBSpawner() {
+    public PBSpawner spawner = new PBSpawner() {
         @Override
         public void broadcastEvent(Level p_155767_, BlockPos p_155768_, int p_155769_) {
             p_155767_.blockEvent(p_155768_, Blocks.SPAWNER, p_155769_, 0);

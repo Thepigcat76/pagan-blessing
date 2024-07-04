@@ -6,7 +6,6 @@ import com.pigdad.paganbless.registries.items.PentacleItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public final class PBTabs {
@@ -15,7 +14,6 @@ public final class PBTabs {
     static {
         CREATIVE_MODE_TABS.register("main", () -> CreativeModeTab.builder()
                 .title(Component.translatable("tab.paganbless.main"))
-                .withTabsBefore(CreativeModeTabs.COMBAT)
                 .icon(() -> PBBlocks.IMBUING_CAULDRON.get().asItem().getDefaultInstance())
                 .displayItems((parameters, output) -> {
 

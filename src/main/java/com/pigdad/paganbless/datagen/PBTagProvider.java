@@ -32,7 +32,7 @@ public class PBTagProvider {
         @Override
         protected void addTags(HolderLookup.Provider provider) {
             tag(PBTags.ItemTags.PAGAN_TOOLS, PBItems.BLACK_THORN_STAFF.get(), PBItems.BOLINE.get())/*.addTag(ItemTags.AXES)*/;
-            tag(PBTags.ItemTags.FIRE_LIGHTER, Items.FLINT_AND_STEEL, Items.FIRE_CHARGE);
+            tag(PBTags.ItemTags.FIRE_LIGHTER, Items.FLINT_AND_STEEL);
             tag(PBTags.ItemTags.GEMS_CINNABAR, PBItems.CINNABAR.get());
             tag(Tags.Items.RODS_WOODEN, PBItems.BLACK_THORN_STICK.get());
 

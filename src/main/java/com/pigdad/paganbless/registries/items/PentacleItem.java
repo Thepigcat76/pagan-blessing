@@ -21,6 +21,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Optional;
 
 public class PentacleItem extends Item implements CaptureSacrificeItem {
     public PentacleItem(Properties properties) {
@@ -43,10 +44,12 @@ public class PentacleItem extends Item implements CaptureSacrificeItem {
             useOnContext.getItemInHand().shrink(1);
         }
 
-        EntityType<?> pType = EntityType.by(tag).get();
-        if (!PBConfig.entityTypes.contains(pType)) {
-            blockEntity.spawner.setEntityId(pType, level, level.getRandom(), blockPos);
-        }
+        Optional<EntityType<?>> pType = EntityType.by(tag);
+        pType.ifPresent(entityType -> {
+            if (!PBConfig.entityTypes.contains(entityType)) {
+                blockEntity.spawner.setEntityId(entityType, level, level.getRandom(), blockPos);
+            }
+        });
         return InteractionResult.SUCCESS;
     }
 

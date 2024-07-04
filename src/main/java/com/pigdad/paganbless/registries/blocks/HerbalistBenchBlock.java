@@ -6,11 +6,15 @@ import com.pigdad.paganbless.api.blocks.RotatableEntityBlock;
 import com.pigdad.paganbless.api.blocks.TranslucentHighlightFix;
 import com.pigdad.paganbless.registries.PBTags;
 import com.pigdad.paganbless.registries.blockentities.HerbalistBenchBlockEntity;
-import com.pigdad.paganbless.registries.blockentities.ImbuingCauldronBlockEntity;
 import com.pigdad.paganbless.registries.recipes.BenchCuttingRecipe;
 import com.pigdad.paganbless.utils.recipes.PBRecipeInput;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.TerrainParticle;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -24,6 +28,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -35,7 +40,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
-import org.checkerframework.checker.units.qual.N;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -139,27 +143,16 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
         if (blockEntity instanceof HerbalistBenchBlockEntity herbalistBenchBlockEntity) {
             ItemStack stackInSlot = herbalistBenchBlockEntity.getItemHandler().getStackInSlot(slot);
             if (pStack.isEmpty()) {
-                PaganBless.LOGGER.debug("Extract");
-                ItemStack stack = herbalistBenchBlockEntity.getItemHandler().extractItem(slot, stackInSlot.getCount(), false);
-                if (!stack.isEmpty()) {
-                    ItemHandlerHelper.giveItemToPlayer(pPlayer, stack);
-                } else {
-                    return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-                }
+                ItemStack remainder = herbalistBenchBlockEntity.getItemHandler().extractItem(slot, stackInSlot.getCount(), false);
+                ItemHandlerHelper.giveItemToPlayer(pPlayer, remainder);
             } else if (slot == 0 && pStack.is(PBTags.ItemTags.PAGAN_TOOLS)) {
-                PaganBless.LOGGER.debug("Cut");
                 cutItem(pLevel, pPlayer, herbalistBenchBlockEntity, pHand, stackInSlot, pStack);
             } else if (!pStack.isEmpty()) {
                 if (stackInSlot.isEmpty() || (stackInSlot.is(pStack.getItem()) && stackInSlot.getCount() + pStack.getCount() <= pStack.getMaxStackSize())) {
-                    int oldCount = pStack.getCount();
-                    int count = herbalistBenchBlockEntity.getItemHandler().insertItem(slot, pStack.copy(), false).getCount();
-                    if (oldCount != count) {
-                        pStack.setCount(count);
-                    } else {
-                        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-                    }
+                    ItemStack remainder = herbalistBenchBlockEntity.getItemHandler().insertItem(slot, pStack.copy(), false);
+                    pPlayer.setItemInHand(pHand, remainder);
                 } else {
-
+                    // TODO: Switch items
                 }
             }
         }
@@ -206,6 +199,18 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
                 .map(RecipeHolder::value);
         recipeOptional.ifPresent(recipe -> {
             if (recipe.tryDamage() && tool.isDamageableItem()) {
+                Block block = Block.byItem(recipe.ingredient().ingredient().getItems()[0].getItem());
+                if (block != Blocks.AIR) {
+                    if (level.isClientSide()) {
+                        BlockPos pos = blockEntity.getBlockPos();
+                        spawnBreakParticle(pos, block, 5);
+                        if (recipe.toolItem().getItems()[0].is(ItemTags.AXES)) {
+                            level.playSound(player, pos.above(), SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        } else {
+                            level.playSound(player, pos.above(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        }
+                    }
+                }
                 tool.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
             }
 
@@ -220,6 +225,13 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
                 performRecipeAction(level, blockEntity, itemStack, recipe);
             }
         });
+    }
+
+    private static void spawnBreakParticle(BlockPos pos, Block block, int count) {
+        for (int i = 0; i < count; i++) {
+            Minecraft.getInstance().particleEngine.add(new TerrainParticle(Minecraft.getInstance().level, pos.getX() + 0.5f, pos.above().getY(), pos.getZ() + 0.5f,
+                    0 + ((double) i / 10), 0 + ((double) i / 10), 0 + ((double) i / 10), block.defaultBlockState()));
+        }
     }
 
     private static void performRecipeAction(Level level, HerbalistBenchBlockEntity blockEntity, ItemStack itemStack, BenchCuttingRecipe recipe) {

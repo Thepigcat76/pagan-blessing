@@ -1,21 +1,29 @@
 package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.serialization.MapCodec;
+import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.PBItems;
 import com.pigdad.paganbless.registries.blockentities.RuneSlabBlockEntity;
 import com.pigdad.paganbless.registries.items.RunicChargeItem;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.TerrainParticle;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,7 +31,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -38,25 +45,35 @@ public class RuneSlabBlock extends BaseEntityBlock {
     public static final EnumProperty<RuneState> RUNE_STATE = EnumProperty.create("rune_state", RuneState.class);
 
     private final int color;
+    private final boolean inert;
 
-    public RuneSlabBlock(Properties properties, int color) {
+    public RuneSlabBlock(Properties properties, int color, boolean inert) {
         super(properties);
-        registerDefaultState(this.defaultBlockState().setValue(IS_TOP, false));
+        registerDefaultState(this.defaultBlockState()
+                .setValue(IS_TOP, false)
+                .setValue(RUNE_STATE, RuneState.VARIANT0));
         this.color = color;
+        this.inert = inert;
     }
 
     public int getColor() {
         return color;
     }
 
+    public boolean isInert() {
+        return this.inert;
+    }
+
     @Override
     protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
-        return simpleCodec((properties1) -> new RuneSlabBlock(properties1, 0));
+        return simpleCodec((properties1) -> new RuneSlabBlock(properties1, 0, false));
     }
 
     @Override
     public void setPlacedBy(Level level, BlockPos blockPos, BlockState p_49849_, @Nullable LivingEntity p_49850_, ItemStack p_49851_) {
-        level.setBlockAndUpdate(blockPos.above(), this.defaultBlockState().setValue(IS_TOP, true));
+        level.setBlockAndUpdate(blockPos.above(), this.defaultBlockState()
+                .setValue(IS_TOP, true)
+                .setValue(RUNE_STATE, p_49849_.getValue(RUNE_STATE)));
     }
 
     @Override
@@ -99,47 +116,68 @@ public class RuneSlabBlock extends BaseEntityBlock {
         }
     }
 
+    @Nullable
     @Override
-    protected @NotNull ItemInteractionResult useItemOn(ItemStack p_316304_, BlockState p_316362_, Level level, BlockPos blockPos, Player player, InteractionHand p_316595_, BlockHitResult p_316140_) {
-        if (!level.isClientSide) {
-            if ((p_316304_.getItem() instanceof RunicChargeItem))
-                return ItemInteractionResult.FAIL;
-            if (p_316304_.is(PBItems.BLACK_THORN_STAFF.get()))
-                incrementRuneState(level, blockPos);
-            player.sendSystemMessage(Component.literal("Rune State: " + p_316362_.getValue(RUNE_STATE).ordinal()));
-
-        }
-        return ItemInteractionResult.sidedSuccess(level.isClientSide);
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        RandomSource randomSource = context.getLevel().random;
+        int i = randomSource.nextInt(0, RuneState.values().length);
+        return super.getStateForPlacement(context).setValue(RUNE_STATE, RuneState.values()[i]);
     }
 
-    public static void incrementRuneState(Level level, BlockPos blockPos) {
-        BlockState blockState = level.getBlockState(blockPos);
+    @Override
+    protected @NotNull ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand p_316595_, BlockHitResult p_316140_) {
+        if ((itemStack.getItem() instanceof RunicChargeItem))
+            return ItemInteractionResult.FAIL;
+
+        if (itemStack.is(PBItems.BLACK_THORN_STAFF.get()))
+            incrementRuneState(level, blockState, blockPos);
+
+        player.displayClientMessage(Component.literal("Rune State: " + blockState.getValue(RUNE_STATE).ordinal()), true);
+
+        return ItemInteractionResult.SUCCESS;
+    }
+
+    public static void incrementRuneState(Level level, BlockState blockState, BlockPos blockPos) {
         // Check if player is interacting with top or bottom part of the block
         if (blockState.getValue(IS_TOP)) {
+            onIncrementSlab(level, blockPos, false);
             if (blockState.getValue(RUNE_STATE).equals(RuneState.VARIANT5)) {
                 level.setBlockAndUpdate(blockPos, blockState.setValue(RUNE_STATE, RuneState.VARIANT0));
                 // always update bottom and top blocks
-                level.setBlockAndUpdate(blockPos.offset(0, -1, 0),
-                        level.getBlockState(blockPos.offset(0, -1, 0))
-                                .setValue(RUNE_STATE, RuneState.VARIANT0));
+                updateBottomSlabFromTop(level, blockPos, RuneState.VARIANT0);
                 return;
             }
             level.setBlockAndUpdate(blockPos, blockState.setValue(RUNE_STATE, RuneState.getByIndex(blockState.getValue(RUNE_STATE).ordinal() + 1)));
-            level.setBlockAndUpdate(blockPos.offset(0, -1, 0),
-                    level.getBlockState(blockPos.offset(0, -1, 0))
-                            .setValue(RUNE_STATE, RuneState.getByIndex(blockState.getValue(RUNE_STATE).ordinal() + 1)));
+            updateBottomSlabFromTop(level, blockPos, RuneState.getByIndex(blockState.getValue(RUNE_STATE).ordinal() + 1));
         } else {
+            onIncrementSlab(level, blockPos.above(), true);
             if (blockState.getValue(RUNE_STATE).equals(RuneState.VARIANT5)) {
                 level.setBlockAndUpdate(blockPos, blockState.setValue(RUNE_STATE, RuneState.VARIANT0));
-                level.setBlockAndUpdate(blockPos.offset(0, 1, 0),
-                        level.getBlockState(blockPos.offset(0, 1, 0))
-                                .setValue(RUNE_STATE, RuneState.VARIANT0));
+                updateTopSlabFromBottom(level, blockPos, RuneState.VARIANT0);
                 return;
             }
             level.setBlockAndUpdate(blockPos, blockState.setValue(RUNE_STATE, RuneState.getByIndex(blockState.getValue(RUNE_STATE).ordinal() + 1)));
-            level.setBlockAndUpdate(blockPos.offset(0, 1, 0),
-                    level.getBlockState(blockPos.offset(0, 1, 0))
-                            .setValue(RUNE_STATE, RuneState.getByIndex(blockState.getValue(RUNE_STATE).ordinal() + 1)));
+            updateTopSlabFromBottom(level, blockPos, RuneState.getByIndex(blockState.getValue(RUNE_STATE).ordinal() + 1));
+        }
+    }
+
+    private static void updateBottomSlabFromTop(Level level, BlockPos blockPos, RuneState state) {
+        level.setBlockAndUpdate(blockPos.below(),
+                level.getBlockState(blockPos.below()).setValue(RUNE_STATE, state));
+    }
+
+    private static void updateTopSlabFromBottom(Level level, BlockPos blockPos, RuneState state) {
+        level.setBlockAndUpdate(blockPos.above(),
+                level.getBlockState(blockPos.above()).setValue(RUNE_STATE, state));
+    }
+
+    private static void onIncrementSlab(Level level, BlockPos blockPos, boolean isBottom) {
+        level.playSound(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEvents.DEEPSLATE_PLACE, SoundSource.BLOCKS);
+        int count = 3;
+        for (int i = 0; i < count; i++) {
+            int rand = level.random.nextInt(-3, 3);
+            Minecraft.getInstance().particleEngine.add(new TerrainParticle(Minecraft.getInstance().level, blockPos.getX() + 0.5f, blockPos.getY(), blockPos.getZ() + 0.5f,
+                    ((double) i / 10) * rand, ((double) i / 10), ((double) i / 10) * rand, PBBlocks.RUNE_SLAB_INERT.get().defaultBlockState()));
         }
     }
 

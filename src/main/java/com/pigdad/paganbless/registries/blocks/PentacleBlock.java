@@ -3,8 +3,12 @@ package com.pigdad.paganbless.registries.blocks;
 import com.mojang.serialization.MapCodec;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBItems;
+import com.pigdad.paganbless.registries.blockentities.JarBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.PentacleBlockEntity;
+import com.pigdad.paganbless.registries.items.CaptureSacrificeItem;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -17,11 +21,15 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 @SuppressWarnings("deprecation")
 public class PentacleBlock extends BaseEntityBlock {
@@ -31,7 +39,7 @@ public class PentacleBlock extends BaseEntityBlock {
 
     @Override
     protected @NotNull VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return Block.box(0, 0, 0, 1, 1, 1);
+        return Block.box(0, 0, 0, 16, 1, 16);
     }
 
     @Override

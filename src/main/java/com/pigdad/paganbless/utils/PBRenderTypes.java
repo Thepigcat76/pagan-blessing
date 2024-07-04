@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.RenderType;
 import java.util.OptionalDouble;
 
 // From Immersive Engineering. Thank you blu, for figuring out this fix <3
-public class PBRenderTypes extends RenderStateShard {
+public final class PBRenderTypes extends RenderStateShard {
     public static final RenderType LINES_NONTRANSLUCENT = createDefault(
             PaganBless.MODID+":nontranslucent_lines", DefaultVertexFormat.POSITION_COLOR_NORMAL, VertexFormat.Mode.LINES,
             RenderType.CompositeState.builder()

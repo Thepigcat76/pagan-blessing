@@ -2,7 +2,9 @@ package com.pigdad.paganbless.registries.blockentities.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.api.blocks.RotatableEntityBlock;
+import com.pigdad.paganbless.registries.PBTags;
 import com.pigdad.paganbless.registries.blockentities.HerbalistBenchBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
@@ -47,17 +49,18 @@ public class HerbalistBenchBERenderer implements BlockEntityRenderer<HerbalistBe
             default -> null;
         };
 
-        renderItem(blockEntity, poseStack, multiBufferSource, facing, renderer, boardStack, boardItemPos.x, boardItemPos.y, boardItemPos.z);
-        renderItem(blockEntity, poseStack, multiBufferSource, facing, renderer, toolStack, toolPos.x, toolPos.y, toolPos.z);
+        renderItem(blockEntity, poseStack, multiBufferSource, facing, renderer, boardStack, boardItemPos.x, boardItemPos.y, boardItemPos.z, boardStack.is(PBTags.ItemTags.DRIED_HERBS));
+        renderItem(blockEntity, poseStack, multiBufferSource, facing, renderer, toolStack, toolPos.x, toolPos.y, toolPos.z, false);
     }
 
     private static void renderItem(HerbalistBenchBlockEntity blockEntity, PoseStack poseStack, MultiBufferSource multiBufferSource,
-                                   Direction facing, ItemRenderer renderer, ItemStack itemStack, float x, float y, float z) {
+                                   Direction facing, ItemRenderer renderer, ItemStack itemStack, float x, float y, float z, boolean useHangingHerbRotation) {
         if (itemStack != null && !itemStack.isEmpty()) {
             poseStack.pushPose();
             poseStack.translate(x, y, z);
             poseStack.scale(0.65f, 0.65f, 0.65f);
-            poseStack.mulPose(Axis.YN.rotationDegrees(facing.getOpposite().toYRot()));
+            float yRot = facing.getOpposite().toYRot() + (useHangingHerbRotation ? 90 : 0);
+            poseStack.mulPose(Axis.YN.rotationDegrees(yRot));
             poseStack.mulPose(Axis.XP.rotationDegrees(90));
             renderer.renderStatic(itemStack, ItemDisplayContext.FIXED, getLightLevel(blockEntity.getLevel(),
                     blockEntity.getBlockPos()), OverlayTexture.NO_OVERLAY, poseStack, multiBufferSource, blockEntity.getLevel(), 1);

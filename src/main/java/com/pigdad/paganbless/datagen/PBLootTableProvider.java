@@ -51,6 +51,7 @@ public class PBLootTableProvider extends BlockLootSubProvider {
         dropSelf(PBBlocks.RUNIC_CORE.get());
 
         dropSelf(PBBlocks.WICAN_WARD.get());
+        dropSelf(PBBlocks.PENTACLE.get());
 
         dropSelf(PBBlocks.EMPTY_INCENSE.get());
         dropOther(PBBlocks.LAVENDER_INCENSE.get(), PBBlocks.EMPTY_INCENSE.get());

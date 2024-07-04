@@ -4,6 +4,7 @@
   "desc.paganbless.decorative": "Decorative",
 
   "item.paganbless.athame": "Athame",
+  "item.paganbless.pentacle": "Pentacle",
   "item.paganbless.chalice": "Chalice",
   "item.paganbless.eternal_snowball": "Eternal Snowball",
   "item.paganbless.black_thorn_staff": "Black Thorn Staff",
@@ -78,11 +79,13 @@
 
   "jei_info.paganbless.dried_herbs_info": "Hanging Dried Herbs can be obtained by placing a Hanging Herb on the bottom side of a block and waiting for it to turn into a Dried Hanging Herb",
   "jei_info.paganbless.skeleton_skull": "Skeleton Skulls can be obtained by killing Skeletons with a boline",
+  "jei_info.paganbless.cinnabar": "Cinnabar can be obtained when mining redstone ore",
+  "jei_category.paganbless.bench_cutting.cuts": "Cuts: %d",
 
   "ritual_feedback.paganbless.valid": "Ritual is valid",
+  "ritual_feedback.paganbless.inert_slab": "The rune slab at %d, %d, %d is inert",
   "ritual_feedback.paganbless.unlit": "Runic core is not lit. To light it, right-click with a flint and steel",
   "ritual_feedback.paganbless.incomplete": "Ritual is incomplete",
   "ritual_feedback.paganbless.no_rune_slabs": "Neither the block at %d, %d, %d nor block at %d, %d, %d are rune slabs",
-  "ritual_feedback.paganbless.no_runeslab_at_pos": "Block at %d, %d, %d is not a rune slab but a %s",
-  "jei_info.paganbless.cinnabar": "Cinnabar can be obtained when mining redstone ore"
+  "ritual_feedback.paganbless.no_runeslab_at_pos": "Block at %d, %d, %d is not a rune slab but a %s"
 }

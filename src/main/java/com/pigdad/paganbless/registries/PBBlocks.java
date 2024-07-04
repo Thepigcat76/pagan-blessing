@@ -70,6 +70,7 @@ public final class PBBlocks {
             () -> new RopeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(0.4F).noOcclusion().sound(SoundType.WOOL)));
     public static final Supplier<Block> PENTACLE = registerBlock("pentacle",
             () -> new PentacleBlock(BlockBehaviour.Properties.of()
+                    .noCollission()
                     .noOcclusion()
                     .instabreak()));
     public static final Supplier<Block> WICAN_WARD = registerBlock("wican_ward",
@@ -136,11 +137,15 @@ public final class PBBlocks {
     }
 
     private static Supplier<Block> registerRuneSlab(String name, int color) {
+        return registerRuneSlab(name, color, false);
+    }
+
+    private static Supplier<Block> registerRuneSlab(String name, int color, boolean inert) {
         Supplier<Block> toReturn = BLOCKS.register(name, () -> new RuneSlabBlock(BlockBehaviour.Properties.of()
                 .mapColor(MapColor.DEEPSLATE)
                 .strength(2f, 600f)
                 .noOcclusion()
-                .requiresCorrectToolForDrops(), color));
+                .requiresCorrectToolForDrops(), color, inert));
         PBItems.ITEMS.register(name, () -> new RuneSlabItem(toReturn.get(), new Item.Properties()));
         return toReturn;
     }

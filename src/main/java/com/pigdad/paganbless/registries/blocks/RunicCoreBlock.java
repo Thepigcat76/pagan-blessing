@@ -11,6 +11,9 @@ import com.pigdad.paganbless.utils.Utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -87,7 +90,14 @@ public class RunicCoreBlock extends BaseEntityBlock {
     protected @NotNull ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand hand, BlockHitResult p_316140_) {
         if (itemStack.is(PBTags.ItemTags.FIRE_LIGHTER) && !blockState.getValue(ACTIVE)) {
             level.setBlockAndUpdate(blockPos, blockState.setValue(ACTIVE, true));
+            level.playSound(player, blockPos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1f, 1f);
             itemStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+            return ItemInteractionResult.SUCCESS;
+        } else if (itemStack.is(ItemTags.SHOVELS) && blockState.getValue(ACTIVE)) {
+            level.setBlockAndUpdate(blockPos, blockState.setValue(ACTIVE, false));
+            level.playSound(player, blockPos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1f, 1f);
+            itemStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+            return ItemInteractionResult.SUCCESS;
         }
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);

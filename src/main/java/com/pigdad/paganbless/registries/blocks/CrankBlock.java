@@ -112,6 +112,8 @@ public class CrankBlock extends BaseEntityBlock {
     @Override
     protected @NotNull InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
         if (!player.isShiftKeyDown()) {
+            CrankBlockEntity blockEntity = (CrankBlockEntity) level.getBlockEntity(blockPos);
+            blockEntity.turn();
             level.setBlockAndUpdate(blockPos, incrRotationState(blockState));
             BlockPos winchPos = getWinchPos(blockState, blockPos);
             BlockState winchBlock = level.getBlockState(winchPos);
@@ -120,8 +122,6 @@ public class CrankBlock extends BaseEntityBlock {
                 int distance = winchBlock.getValue(WinchBlock.DISTANCE);
                 ItemStackHandler itemHandler = winchBlockEntity.getItemHandler();
                 if (winchBlock.getBlock() instanceof WinchBlock && distance > 1 && itemHandler.getStackInSlot(0).getCount() < itemHandler.getSlotLimit(0)) {
-                    CrankBlockEntity blockEntity = (CrankBlockEntity) level.getBlockEntity(blockPos);
-                    blockEntity.turn();
                     WinchBlock.liftUp(level, winchPos, winchBlock);
                     itemHandler.insertItem(0, PBBlocks.ROPE.get().asItem().getDefaultInstance(), false);
                     return InteractionResult.SUCCESS;

@@ -1,14 +1,17 @@
 package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.serialization.MapCodec;
+import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.blockentities.ImbuingCauldronBlockEntity;
 import com.pigdad.paganbless.utils.Utils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
@@ -17,6 +20,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -26,6 +30,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec2;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -38,6 +44,8 @@ import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.stream.Stream;
 
 @SuppressWarnings("deprecation")
@@ -124,56 +132,67 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
         }
 
         if (!player.isShiftKeyDown()) {
-            return insertAndExtract(player, level, interactionHand, itemHandler, fluidHandler, fluidHandlerItem);
+            OptionalInt slot = getHitSlot(p_316140_);
+            return insertAndExtract(player, level, interactionHand, itemHandler, fluidHandler, fluidHandlerItem, slot);
         }
         return ItemInteractionResult.FAIL;
     }
 
-    private static ItemInteractionResult insertAndExtract(Player player, Level level, InteractionHand interactionHand, IItemHandler itemHandler, IFluidHandler fluidHandler, IFluidHandler fluidHandlerItem) {
+    private OptionalInt getHitSlot(BlockHitResult hitResult) {
+        OptionalInt optionalInt = getRelativeHitCoordinatesForBlockFace(hitResult).map((pos) -> {
+            int i = pos.y >= 0.5F ? 0 : 1;
+            if (i == 0 && pos.x > 0.5f) {
+                return OptionalInt.of(3);
+            }
+            int j = getSection(pos.x);
+            return OptionalInt.of(5 - (j + i * 3));
+        }).orElseGet(OptionalInt::empty);
+        if (optionalInt.isPresent() && optionalInt.getAsInt() == 5) {
+            return OptionalInt.of(4);
+        }
+        return optionalInt;
+    }
+
+    private static Optional<Vec2> getRelativeHitCoordinatesForBlockFace(BlockHitResult hitResult) {
+        Direction direction = hitResult.getDirection();
+        PaganBless.LOGGER.debug("Direction: {}", direction);
+        if (direction != Direction.UP) {
+            return Optional.empty();
+        } else {
+            BlockPos blockpos = hitResult.getBlockPos().relative(direction);
+            Vec3 vec3 = hitResult.getLocation().subtract(blockpos.getX(), blockpos.getY(), blockpos.getZ());
+            float x = (float) vec3.x();
+            float z = (float) vec3.z();
+
+            PaganBless.LOGGER.debug("Posx: {}, Posy: {}", x, z);
+
+            return Optional.of(new Vec2(z, x));
+        }
+    }
+
+    private static int getSection(float x) {
+        if (x < 0.375F) {
+            return 0;
+        } else {
+            return x < 0.6875F ? 1 : 2;
+        }
+    }
+
+    private static ItemInteractionResult insertAndExtract(Player player, Level level, InteractionHand interactionHand, IItemHandler itemHandler, IFluidHandler fluidHandler, IFluidHandler fluidHandlerItem, OptionalInt slot) {
         if (!player.getItemInHand(interactionHand).isEmpty() && fluidHandlerItem == null) {
-            int insertIndex = getFirstForInsert(itemHandler, player.getItemInHand(interactionHand));
-            if (insertIndex != -1) {
-                itemHandler.insertItem(insertIndex, player.getItemInHand(interactionHand).copy(), false);
-                player.getItemInHand(interactionHand).setCount(0);
-            }
+            insert(player, interactionHand, itemHandler, slot);
         } else if (player.getItemInHand(interactionHand).isEmpty()) {
-            int extractIndex = getFirstForExtract(itemHandler);
-            if (extractIndex != -1) {
-                ItemHandlerHelper.giveItemToPlayer(player, itemHandler.getStackInSlot(extractIndex).copy());
-                itemHandler.extractItem(extractIndex, itemHandler.getStackInSlot(extractIndex).getCount(), false);
-            }
+            extract(player, itemHandler, slot);
         }
 
         FluidStack fluidInTank = fluidHandler.getFluidInTank(0);
 
         if (fluidHandlerItem != null && fluidHandlerItem.getFluidInTank(0).getAmount() > 0) {
-            int filled = fluidHandler.fill(fluidHandlerItem.getFluidInTank(0).copy(), IFluidHandler.FluidAction.EXECUTE);
-            fluidHandlerItem.drain(filled, IFluidHandler.FluidAction.EXECUTE);
-            if (player.getItemInHand(interactionHand).getItem() instanceof BucketItem bucketItem) {
-                player.getItemInHand(interactionHand).shrink(1);
-                Utils.giveItemToPlayerNoSound(player, Items.BUCKET.getDefaultInstance(), -1);
-                if (bucketItem.content.isSame(Fluids.WATER)) {
-                    level.playSound(null, player.getX(), player.getY() + 0.5, player.getZ(), SoundEvents.BUCKET_EMPTY, SoundSource.PLAYERS, 0.8F, 1.0F);
-                } else if (bucketItem.content.isSame(Fluids.LAVA)) {
-                    level.playSound(null, player.getX(), player.getY() + 0.5, player.getZ(), SoundEvents.BUCKET_EMPTY_LAVA, SoundSource.PLAYERS, 0.8F, 1.0F);
-                }
-            }
+            insertFluid(player, level, interactionHand, fluidHandler, fluidHandlerItem);
             return ItemInteractionResult.SUCCESS;
         } else {
             if (fluidHandlerItem != null && fluidHandlerItem.getFluidInTank(0).getAmount() == 0 && !fluidInTank.isEmpty()) {
-                if (player.getItemInHand(interactionHand).is(Items.BUCKET)) {
-                    player.getItemInHand(interactionHand).shrink(1);
-                    Utils.giveItemToPlayerNoSound(player, fluidInTank.getFluid().getBucket().getDefaultInstance(), -1);
-                    if (fluidInTank.is(Fluids.WATER)) {
-                        level.playSound(null, player.getX(), player.getY() + 0.5, player.getZ(), SoundEvents.BUCKET_FILL, SoundSource.PLAYERS, 0.8F, 1.0F);
-                    } else if (fluidInTank.is(Fluids.LAVA)) {
-                        level.playSound(null, player.getX(), player.getY() + 0.5, player.getZ(), SoundEvents.BUCKET_FILL_LAVA, SoundSource.PLAYERS, 0.8F, 1.0F);
-                    }
-                    fluidHandler.drain(1000, IFluidHandler.FluidAction.EXECUTE);
-                } else {
-                    FluidStack fluidStack = fluidHandler.drain(1000, IFluidHandler.FluidAction.EXECUTE);
-                    fluidHandlerItem.fill(fluidStack, IFluidHandler.FluidAction.EXECUTE);
-                }
+                extractFluid(player, level, interactionHand, fluidHandler, fluidHandlerItem, fluidInTank);
                 return ItemInteractionResult.SUCCESS;
             }
         }
@@ -181,21 +200,55 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
         return ItemInteractionResult.sidedSuccess(level.isClientSide());
     }
 
-    private static int getFirstForInsert(IItemHandler itemHandler, ItemStack toInsert) {
-        for (int i = 0; i < itemHandler.getSlots() - 1; i++) {
-            if (itemHandler.getStackInSlot(i).isEmpty() || (itemHandler.getStackInSlot(i).is(toInsert.getItem()) && itemHandler.getStackInSlot(i).getCount() + toInsert.getCount() <= toInsert.getMaxStackSize())) {
-                return i;
+    private static void insertFluid(Player player, Level level, InteractionHand interactionHand, IFluidHandler fluidHandler, IFluidHandler fluidHandlerItem) {
+        int filled = fluidHandler.fill(fluidHandlerItem.getFluidInTank(0).copy(), IFluidHandler.FluidAction.EXECUTE);
+        fluidHandlerItem.drain(filled, IFluidHandler.FluidAction.EXECUTE);
+        if (player.getItemInHand(interactionHand).getItem() instanceof BucketItem bucketItem) {
+            player.getItemInHand(interactionHand).shrink(1);
+            Utils.giveItemToPlayerNoSound(player, Items.BUCKET.getDefaultInstance(), -1);
+            if (bucketItem.content.isSame(Fluids.WATER)) {
+                level.playSound(null, player.getX(), player.getY() + 0.5, player.getZ(), SoundEvents.BUCKET_EMPTY, SoundSource.PLAYERS, 0.8F, 1.0F);
+            } else if (bucketItem.content.isSame(Fluids.LAVA)) {
+                level.playSound(null, player.getX(), player.getY() + 0.5, player.getZ(), SoundEvents.BUCKET_EMPTY_LAVA, SoundSource.PLAYERS, 0.8F, 1.0F);
             }
         }
-        return -1;
     }
 
-    private static int getFirstForExtract(IItemHandler itemHandler) {
-        for (int i = itemHandler.getSlots() - 1; i >= 0; i--) {
-            if (!itemHandler.getStackInSlot(i).isEmpty()) {
-                return i;
+    private static void extractFluid(Player player, Level level, InteractionHand interactionHand, IFluidHandler fluidHandler, IFluidHandler fluidHandlerItem, FluidStack fluidInTank) {
+        if (player.getItemInHand(interactionHand).is(Items.BUCKET)) {
+            player.getItemInHand(interactionHand).shrink(1);
+            Utils.giveItemToPlayerNoSound(player, fluidInTank.getFluid().getBucket().getDefaultInstance(), -1);
+            // FIXME: Better fluid extraction that works with amounts other than 1000
+            if (fluidInTank.is(Fluids.WATER)) {
+                level.playSound(null, player.getX(), player.getY() + 0.5, player.getZ(), SoundEvents.BUCKET_FILL, SoundSource.PLAYERS, 0.8F, 1.0F);
+            } else if (fluidInTank.is(Fluids.LAVA)) {
+                level.playSound(null, player.getX(), player.getY() + 0.5, player.getZ(), SoundEvents.BUCKET_FILL_LAVA, SoundSource.PLAYERS, 0.8F, 1.0F);
             }
+            fluidHandler.drain(1000, IFluidHandler.FluidAction.EXECUTE);
+        } else {
+            FluidStack fluidStack = fluidHandler.drain(1000, IFluidHandler.FluidAction.EXECUTE);
+            fluidHandlerItem.fill(fluidStack, IFluidHandler.FluidAction.EXECUTE);
         }
-        return -1;
+    }
+
+    private static void insert(Player player, InteractionHand interactionHand, IItemHandler itemHandler, OptionalInt slot) {
+        if (slot.isPresent()) {
+            int slot1 = slot.getAsInt();
+            ItemStack remainder = itemHandler.insertItem(slot1, player.getItemInHand(interactionHand).copy(), false);
+            player.setItemInHand(interactionHand, remainder);
+            PaganBless.LOGGER.debug("iSlot: {}", slot1);
+        }
+    }
+
+    private static void extract(Player player, IItemHandler itemHandler, OptionalInt slot) {
+        if (slot.isPresent()) {
+            int slot1 = slot.getAsInt();
+            if (!itemHandler.getStackInSlot(5).isEmpty()) {
+                slot1 = 5;
+            }
+            ItemStack remainder = itemHandler.extractItem(slot1, itemHandler.getStackInSlot(slot1).getCount(), false);
+            // TODO: Set main hand slot to preffered slot
+            ItemHandlerHelper.giveItemToPlayer(player, remainder);
+        }
     }
 }

@@ -45,56 +45,18 @@ public class ImbuingCauldronBERenderer implements BlockEntityRenderer<ImbuingCau
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         Map<Integer, ItemStack> itemStacks = blockEntity.getRenderStack();
 
-        // Items
-        for (int i : itemStacks.keySet()) {
-            if (i == 5) {
-                RenderUtils.renderFloatingItem(blockEntity.getItemHandler().getStackInSlot(5), poseStack, pBufferSource, combinedLight, combinedOverlay, 0.6F);
-                continue;
-            }
-            ItemStack itemStack = itemStacks.get(i);
-            poseStack.pushPose();
-            switch (i) {
-                // inputs
-                case 0 -> {
-                    poseStack.translate(0.34f, 0.49f, 0.62f);
-                    poseStack.mulPose(Axis.YN.rotationDegrees(120));
-                }
-                case 1 -> {
-                    poseStack.translate(0.4f, 0.47f, 0.30f);
-                    poseStack.mulPose(Axis.YN.rotationDegrees(240));
-                }
-                case 2 -> {
-                    poseStack.translate(0.53f, 0.48f, 0.66f);
-                    poseStack.mulPose(Axis.YN.rotationDegrees(7));
-                }
-                case 3 -> {
-                    poseStack.translate(0.6f, 0.45f, 0.3f);
-                    poseStack.mulPose(Axis.YN.rotationDegrees(30));
-                }
-                case 4 -> {
-                    poseStack.translate(0.66f, 0.5f, 0.5f);
-                    poseStack.mulPose(Axis.YN.rotationDegrees(353));
-                }
-            }
-            poseStack.scale(0.25f, 0.25f, 0.25f);
-            itemRenderer.renderStatic(itemStack, ItemDisplayContext.FIXED,
-                    getLightLevel(blockEntity.getLevel(), blockEntity.getBlockPos()), OverlayTexture.NO_OVERLAY,
-                    poseStack, pBufferSource, blockEntity.getLevel(), 1);
-            poseStack.popPose();
-        }
+        float ingredientYPos = 0.275f;
 
-        // Stirring stick
-        {
-            poseStack.pushPose();
-            poseStack.translate(0.5, 0.4, 0.5);
-            poseStack.mulPose(Axis.YP.rotationDegrees(blockEntity.getIndependentAngle(pPartialTicks)));
-            itemRenderer.renderStatic(PBItems.STIRRING_STICK.get().getDefaultInstance(), ItemDisplayContext.FIXED,
-                    getLightLevel(blockEntity.getLevel(), blockEntity.getBlockPos()), OverlayTexture.NO_OVERLAY,
-                    poseStack, pBufferSource, blockEntity.getLevel(), 1);
-            poseStack.popPose();
-        }
+        float fluidPercentage = (float) blockEntity.getFluidTank().getFluidAmount() / blockEntity.getFluidTank().getCapacity();
 
-        // Fluids
+        renderItems(blockEntity, poseStack, pBufferSource, combinedLight, combinedOverlay, itemStacks, itemRenderer, ingredientYPos + (fluidPercentage / 3.5f));
+
+        renderStirringStick(blockEntity, pPartialTicks, poseStack, pBufferSource, itemRenderer);
+
+        renderFluid(blockEntity, poseStack, pBufferSource, combinedLight);
+    }
+
+    private static void renderFluid(ImbuingCauldronBlockEntity blockEntity, PoseStack poseStack, MultiBufferSource pBufferSource, int combinedLight) {
         try {
             IFluidHandler fluidHandler = Utils.getCapability(Capabilities.FluidHandler.BLOCK, blockEntity);
             FluidStack fluidStack = fluidHandler.getFluidInTank(0);
@@ -108,6 +70,56 @@ public class ImbuingCauldronBERenderer implements BlockEntityRenderer<ImbuingCau
             else
                 renderFluid(poseStack, pBufferSource, fluidStack, 1, fillPercentage, combinedLight);
         } catch (Exception ignored) {
+        }
+    }
+
+    private void renderStirringStick(ImbuingCauldronBlockEntity blockEntity, float pPartialTicks, PoseStack poseStack, MultiBufferSource pBufferSource, ItemRenderer itemRenderer) {
+        poseStack.pushPose();
+        poseStack.translate(0.5, 0.4, 0.5);
+        poseStack.mulPose(Axis.YP.rotationDegrees(blockEntity.getIndependentAngle(pPartialTicks)));
+        itemRenderer.renderStatic(PBItems.STIRRING_STICK.get().getDefaultInstance(), ItemDisplayContext.FIXED,
+                getLightLevel(blockEntity.getLevel(), blockEntity.getBlockPos()), OverlayTexture.NO_OVERLAY,
+                poseStack, pBufferSource, blockEntity.getLevel(), 1);
+        poseStack.popPose();
+    }
+
+    private void renderItems(ImbuingCauldronBlockEntity blockEntity, PoseStack poseStack, MultiBufferSource pBufferSource, int combinedLight, int combinedOverlay,
+                             Map<Integer, ItemStack> itemStacks, ItemRenderer itemRenderer, float yPos) {
+        for (int i : itemStacks.keySet()) {
+            if (i == 5) {
+                RenderUtils.renderFloatingItem(blockEntity.getItemHandler().getStackInSlot(5), poseStack, pBufferSource, combinedLight, combinedOverlay, 0.6F);
+                continue;
+            }
+            ItemStack itemStack = itemStacks.get(i);
+            poseStack.pushPose();
+            switch (i) {
+                // inputs
+                case 0 -> {
+                    poseStack.translate(0.45f, yPos, 0.66f);
+                    poseStack.mulPose(Axis.YN.rotationDegrees(7));
+                }
+                case 1 -> {
+                    poseStack.translate(0.34f, yPos, 0.56f);
+                    poseStack.mulPose(Axis.YN.rotationDegrees(120));
+                }
+                case 2 -> {
+                    poseStack.translate(0.4f, yPos, 0.30f);
+                    poseStack.mulPose(Axis.YN.rotationDegrees(240));
+                }
+                case 3 -> {
+                    poseStack.translate(0.66f, yPos, 0.65f);
+                    poseStack.mulPose(Axis.YN.rotationDegrees(313));
+                }
+                case 4 -> {
+                    poseStack.translate(0.6f, yPos, 0.3f);
+                    poseStack.mulPose(Axis.YN.rotationDegrees(30));
+                }
+            }
+            poseStack.scale(0.25f, 0.25f, 0.25f);
+            itemRenderer.renderStatic(itemStack, ItemDisplayContext.FIXED,
+                    getLightLevel(blockEntity.getLevel(), blockEntity.getBlockPos()), OverlayTexture.NO_OVERLAY,
+                    poseStack, pBufferSource, blockEntity.getLevel(), 1);
+            poseStack.popPose();
         }
     }
 

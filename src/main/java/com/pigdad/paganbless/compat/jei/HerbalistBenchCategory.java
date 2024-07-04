@@ -7,13 +7,18 @@ import com.pigdad.paganbless.utils.recipes.RecipeUtils;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -59,5 +64,14 @@ public class HerbalistBenchCategory implements IRecipeCategory<BenchCuttingRecip
         builder.addSlot(RecipeIngredientRole.INPUT, 79, 56).addIngredients(recipe.toolItem());
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 125, 33).addItemStack(recipe.getResultItem(null));
+    }
+
+    @Override
+    public void draw(BenchCuttingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        Component experienceString = Component.translatable("jei_category.paganbless.bench_cutting.cuts", recipe.cuts());
+        Minecraft minecraft = Minecraft.getInstance();
+        Font fontRenderer = minecraft.font;
+        int stringWidth = fontRenderer.width(experienceString);
+        guiGraphics.drawString(fontRenderer, experienceString, this.getWidth() - stringWidth - 10, this.getHeight() - 20, 0xFFFFFF, false);
     }
 }

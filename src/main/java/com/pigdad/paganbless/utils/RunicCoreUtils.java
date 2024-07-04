@@ -84,40 +84,18 @@ public final class RunicCoreUtils {
             );
         }
 
-        List<RuneSlabBlock.RuneState> expectedStates = Stream.of(
-                RuneSlabBlock.RuneState.VARIANT0,
-                RuneSlabBlock.RuneState.VARIANT1,
-                RuneSlabBlock.RuneState.VARIANT2,
-                RuneSlabBlock.RuneState.VARIANT3,
-                RuneSlabBlock.RuneState.VARIANT4,
-                RuneSlabBlock.RuneState.VARIANT5
-        ).sorted().toList();
-
-        List<RuneSlabBlock.RuneState> runeStates = new ArrayList<>();
-
-        for (BlockPos blockPos : finalPositions) {
-            runeStates.add(level.getBlockState(blockPos).getValue(RuneSlabBlock.RUNE_STATE));
-        }
-
-        runeStates = runeStates.stream().sorted().toList();
-
-        // check if all blockstates are correct
-        if (!runeStates.equals(expectedStates)) {
-            return errorFromString("A rune state is not correct. When performing the runic ritual, every block needs a different state. States can be changed with a blackthorn staff");
-        }
-
         Block runeType = level.getBlockState(finalPositions.stream().toList().get(0)).getBlock();
 
         // check if all blocks have the same rune state
         for (BlockPos blockPos : finalPositions) {
             BlockState testBlock = level.getBlockState(blockPos);
 
-            if (testBlock.is(PBBlocks.RUNE_SLAB_INERT.get())) {
-                return errorFromString(String.format("The rune slab at %d, %d, %d is inert", blockPos.getX(), blockPos.getY(), blockPos.getZ()));
-            }
-
-            if (!testBlock.is(runeType)) {
-                return errorFromString(String.format("The block at %d, %d, %d is not a %s", blockPos.getX(), blockPos.getY(), blockPos.getZ(), runeType.getName()));
+            if (testBlock.getBlock() instanceof RuneSlabBlock block) {
+                if (block.isInert()) {
+                    return errorFromString("ritual_feedback.paganbless.inert_slab", blockPos.getX(), blockPos.getY(), blockPos.getZ());
+                }
+            } else {
+                return errorFromString("The block at %d, %d, %d is not a %s", blockPos.getX(), blockPos.getY(), blockPos.getZ(), runeType.getName());
             }
         }
 

@@ -12,6 +12,7 @@ import com.pigdad.paganbless.utils.recipes.IngredientWithCount;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -59,10 +60,6 @@ public class PBRecipeProvider extends RecipeProvider {
     private void anvilSmashingRecipes(RecipeOutput recipeOutput) {
         AnvilSmashingRecipeBuilder.newRecipe(new ItemStack(Items.REDSTONE, 15),
                         IngredientWithCount.fromItemTag(PBTags.ItemTags.GEMS_CINNABAR, 4))
-                .save(recipeOutput);
-        AnvilSmashingRecipeBuilder.newRecipe(PBItems.JAR.get().getDefaultInstance(),
-                        IngredientWithCount.fromItemLike(PBBlocks.BLACK_THORN_LOG.get()),
-                        IngredientWithCount.fromItemTag(Tags.Items.GLASS_PANES, 5))
                 .save(recipeOutput);
         AnvilSmashingRecipeBuilder.newRecipe(PBBlocks.RUNIC_CORE.get().asItem().getDefaultInstance(),
                         IngredientWithCount.fromItemLike(PBBlocks.BLACK_THORN_LOG.get()),
@@ -123,10 +120,8 @@ public class PBRecipeProvider extends RecipeProvider {
 
     private void otherRecipes(RecipeOutput recipeOutput) {
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, PBBlocks.IMBUING_CAULDRON.get())
-                .pattern("H H")
                 .pattern("#S#")
                 .pattern("###")
-                .define('H', PBTags.ItemTags.HERBS)
                 .define('S', PBItems.BLACK_THORN_STICK.get())
                 .define('#', Tags.Items.INGOTS_IRON)
                 .unlockedBy("has_iron_ingot", has(Tags.Items.INGOTS_IRON))
@@ -160,6 +155,15 @@ public class PBRecipeProvider extends RecipeProvider {
                 .define('S', PBItems.BLACK_THORN_STICK.get())
                 .define('#', PBBlocks.BLACK_THORN_PLANKS.get())
                 .unlockedBy("has_black_thorn_stick", has(PBItems.BLACK_THORN_STICK.get()))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, PBBlocks.JAR.get())
+                .pattern("#L#")
+                .pattern("# #")
+                .pattern("###")
+                .define('L', PBBlocks.BLACK_THORN_LOG.get())
+                .define('#', Tags.Items.GLASS_PANES)
+                .unlockedBy("has_black_thorn_log", has(PBBlocks.BLACK_THORN_LOG.get()))
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, PBItems.BLACK_THORN_STAFF.get())

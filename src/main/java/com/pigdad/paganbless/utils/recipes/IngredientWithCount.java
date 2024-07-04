@@ -13,7 +13,6 @@ import net.minecraft.world.level.ItemLike;
 
 import java.util.function.Supplier;
 
-// TODO: Move this to a record codec builder if something breaks
 public record IngredientWithCount(Ingredient ingredient, int count) {
     public static final IngredientWithCount EMPTY = new IngredientWithCount(Ingredient.EMPTY, -1);
     // Note: for implementation reasons count has to be above ingredient, otherwise we will get a JSON Null issue thingy

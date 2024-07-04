@@ -60,8 +60,7 @@ public class JarBlock extends RotatableEntityBlock implements TranslucentHighlig
     }
 
     @Override
-    protected void spawnDestroyParticles(Level pLevel, Player pPlayer, BlockPos pPos, BlockState pState) {
-    }
+    protected void spawnDestroyParticles(Level pLevel, Player pPlayer, BlockPos pPos, BlockState pState) {    }
 
     @Override
     protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
