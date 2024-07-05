@@ -1,6 +1,7 @@
 package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.serialization.MapCodec;
+import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.api.blocks.RotatableEntityBlock;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBBlocks;
@@ -30,6 +31,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -54,9 +56,6 @@ public class WinchBlock extends RotatableEntityBlock {
             Block.box(3.5, 4, 2, 12.5, 15, 3)
     ).reduce(Shapes::or).get();
 
-    public static final IntegerProperty DISTANCE = IntegerProperty.create("distance", 0, 512);
-    public static final BooleanProperty LIFT_DOWN = BooleanProperty.create("lift_down");
-
     public WinchBlock(Properties p_49795_) {
         super(p_49795_);
     }
@@ -69,7 +68,7 @@ public class WinchBlock extends RotatableEntityBlock {
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockState state = super.getStateForPlacement(context);
-        return state != null ? state.setValue(LIFT_DOWN, false).setValue(RotatableEntityBlock.FACING, context.getPlayer().getDirection().getOpposite().getClockWise()) : null;
+        return state != null ? state.setValue(RotatableEntityBlock.FACING, context.getPlayer().getDirection().getOpposite().getClockWise()) : null;
     }
 
     @Override
@@ -91,14 +90,20 @@ public class WinchBlock extends RotatableEntityBlock {
     @Override
     protected void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
         if (pState != pOldState) {
-            pLevel.setBlockAndUpdate(pPos, pState.setValue(DISTANCE, recheckConnections(pLevel, pPos, null)));
+            WinchBlockEntity blockEntity = (WinchBlockEntity) pLevel.getBlockEntity(pPos);
+            int newDistance = recheckConnections(pLevel, pPos, null);
+            blockEntity.setDistance(newDistance);
         }
         super.onPlace(pState, pLevel, pPos, pOldState, pMovedByPiston);
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        super.createBlockStateDefinition(builder.add(DISTANCE, LIFT_DOWN));
+    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        if (!state.is(newState.getBlock())) {
+            WinchBlockEntity blockEntity = (WinchBlockEntity) level.getBlockEntity(pos);
+            blockEntity.drop();
+        }
+        super.onRemove(state, level, pos, newState, movedByPiston);
     }
 
     @Nullable
@@ -117,8 +122,10 @@ public class WinchBlock extends RotatableEntityBlock {
     }
 
     public static void liftUp(Level level, BlockPos winchPos, BlockState winchBlock) {
+        WinchBlockEntity blockEntity = (WinchBlockEntity) level.getBlockEntity(winchPos);
+
         // BlockPos of the block being lifted
-        int distance = winchBlock.getValue(DISTANCE);
+        int distance = blockEntity.getDistance();
         BlockPos liftedBlockPos = winchPos.below(distance + 1);
         BlockState blockState = level.getBlockState(liftedBlockPos);
 
@@ -127,28 +134,32 @@ public class WinchBlock extends RotatableEntityBlock {
         level.removeBlock(liftedBlockPos, true);
         level.setBlock(liftedBlockPos.above(), blockState, 64);
         level.sendBlockUpdated(liftedBlockPos.above(), blockState, Blocks.AIR.defaultBlockState(), 3);
-        level.setBlockAndUpdate(winchPos, winchBlock.setValue(DISTANCE, distance - 1));
+        blockEntity.setDistance(distance - 1);
     }
 
     // Will return true as long as the winch can lift down
     public static boolean liftDown(Level level, BlockPos winchPos, BlockState winchBlock) {
         if (!(winchBlock.getBlock() instanceof WinchBlock)) return false;
 
+        WinchBlockEntity blockEntity = (WinchBlockEntity) level.getBlockEntity(winchPos);
+
         // BlockPos of the block being lifted
-        int distance = winchBlock.getValue(DISTANCE);
+        int distance = blockEntity.getDistance();
         BlockPos liftedBlockPos = winchPos.below(distance + 1);
         BlockState blockState = level.getBlockState(liftedBlockPos);
 
         if (blockState.hasBlockEntity() || distance <= 0) return false;
 
-        if (!level.getBlockState(liftedBlockPos.below()).canBeReplaced()) {
+        BlockState belowLiftedState = level.getBlockState(liftedBlockPos.below());
+        PaganBless.LOGGER.debug("Block: {}, Pos: {}", belowLiftedState, liftedBlockPos.below());
+        if (!belowLiftedState.canBeReplaced()) {
             if (blockState.getBlock() instanceof AnvilBlock) {
-                AnvilRecipeUtils.onAnvilLand(level, liftedBlockPos);
+                AnvilRecipeUtils.onAnvilLand(level, liftedBlockPos.below());
             }
             return false;
         }
 
-        level.setBlockAndUpdate(winchPos, winchBlock.setValue(DISTANCE, distance + 1));
+        blockEntity.setDistance(distance + 1);
         level.setBlockAndUpdate(liftedBlockPos, PBBlocks.ROPE.get().defaultBlockState().setValue(RopeBlock.FACING, Direction.DOWN));
         level.setBlockAndUpdate(liftedBlockPos.below(), blockState);
         return true;

@@ -19,15 +19,12 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
-import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public abstract class ContainerBlockEntity extends BlockEntity {
     private ItemStackHandler itemHandler;
@@ -37,7 +34,7 @@ public abstract class ContainerBlockEntity extends BlockEntity {
         super(p_155228_, p_155229_, p_155230_);
     }
 
-    public void drops() {
+    public void drop() {
         SimpleContainer inventory = new SimpleContainer(getItemHandlerStacks());
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }

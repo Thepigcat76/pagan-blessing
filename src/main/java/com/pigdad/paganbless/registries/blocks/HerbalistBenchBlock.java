@@ -1,7 +1,6 @@
 package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.serialization.MapCodec;
-import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.api.blocks.RotatableEntityBlock;
 import com.pigdad.paganbless.api.blocks.TranslucentHighlightFix;
 import com.pigdad.paganbless.registries.PBTags;
@@ -185,7 +184,7 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
         if (pState.getBlock() != pNewState.getBlock()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
             if (blockEntity instanceof HerbalistBenchBlockEntity blockEntity1) {
-                blockEntity1.drops();
+                blockEntity1.drop();
             }
         }
 

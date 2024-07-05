@@ -24,11 +24,28 @@ import java.util.List;
 import java.util.Map;
 
 public class WinchBlockEntity extends ContainerBlockEntity implements MenuProvider {
-    private int timer;
+    private int distance;
+    private boolean liftDown;
 
     public WinchBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
         super(PBBlockEntities.WINCH.get(), p_155229_, p_155230_);
         addItemHandler(1, (slot, itemStack) -> Block.byItem(itemStack.getItem()) instanceof RopeBlock);
+    }
+
+    public boolean isLiftDown() {
+        return liftDown;
+    }
+
+    public void setLiftDown(boolean liftDown) {
+        this.liftDown = liftDown;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
     }
 
     @Override
@@ -42,11 +59,7 @@ public class WinchBlockEntity extends ContainerBlockEntity implements MenuProvid
         } else {
             level.setBlockAndUpdate(worldPosition, blockState.setValue(WinchBlock.LIFT_DOWN, false));
         }
-    }
 
-    @Override
-    protected void saveData(CompoundTag tag) {
-        tag.putInt("timer", this.timer);
     }
 
     @Override
@@ -63,13 +76,20 @@ public class WinchBlockEntity extends ContainerBlockEntity implements MenuProvid
     }
 
     @Override
-    protected void loadData(CompoundTag tag) {
-        this.timer = tag.getInt("timer");
+    public @NotNull Component getDisplayName() {
+        return Component.literal("Winch");
     }
 
     @Override
-    public @NotNull Component getDisplayName() {
-        return Component.literal("Winch");
+    protected void saveData(CompoundTag tag) {
+        tag.putInt("distance", distance);
+        tag.putBoolean("lift_down", liftDown);
+    }
+
+    @Override
+    protected void loadData(CompoundTag tag) {
+        this.distance = tag.getInt("distance");
+        this.liftDown = tag.getBoolean("lift_down");
     }
 
     @Nullable

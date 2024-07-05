@@ -8,6 +8,8 @@ import com.pigdad.paganbless.registries.blockentities.CrankBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.WinchBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -16,6 +18,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SupportType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -65,7 +68,7 @@ public class CrankBlock extends BaseEntityBlock {
 
     public CrankBlock(Properties properties) {
         super(properties);
-        registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH));
+        registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH).setValue(ROTATION, CRANK_MIN_ROTATION));
     }
 
     @Override
@@ -95,7 +98,9 @@ public class CrankBlock extends BaseEntityBlock {
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         BlockState blockState = super.getStateForPlacement(pContext);
-        return blockState != null ? blockState.setValue(ROTATION, CRANK_MIN_ROTATION).setValue(FACING, pContext.getNearestLookingDirection()) : null;
+        return blockState != null
+                ? blockState.setValue(FACING, pContext.getNearestLookingDirection())
+                : null;
     }
 
     @SuppressWarnings("deprecation")
@@ -114,21 +119,20 @@ public class CrankBlock extends BaseEntityBlock {
         if (!player.isShiftKeyDown()) {
             CrankBlockEntity blockEntity = (CrankBlockEntity) level.getBlockEntity(blockPos);
             blockEntity.turn();
+            level.playSound(null, player.getX(), player.getY() + 0.5, player.getZ(), SoundEvents.GRINDSTONE_USE, SoundSource.PLAYERS, 0.03F, 1F);
             level.setBlockAndUpdate(blockPos, incrRotationState(blockState));
             BlockPos winchPos = getWinchPos(blockState, blockPos);
             BlockState winchBlock = level.getBlockState(winchPos);
-            WinchBlockEntity winchBlockEntity = (WinchBlockEntity) level.getBlockEntity(winchPos);
-            if (winchBlock.getBlock() instanceof WinchBlock) {
+            if (level.getBlockEntity(winchPos) instanceof WinchBlockEntity winchBlockEntity) {
                 int distance = winchBlock.getValue(WinchBlock.DISTANCE);
                 ItemStackHandler itemHandler = winchBlockEntity.getItemHandler();
-                if (winchBlock.getBlock() instanceof WinchBlock && distance > 1 && itemHandler.getStackInSlot(0).getCount() < itemHandler.getSlotLimit(0)) {
+                if (distance > 1 && itemHandler.getStackInSlot(0).getCount() < itemHandler.getSlotLimit(0)) {
                     WinchBlock.liftUp(level, winchPos, winchBlock);
                     itemHandler.insertItem(0, PBBlocks.ROPE.get().asItem().getDefaultInstance(), false);
-                    return InteractionResult.SUCCESS;
                 }
             }
         }
-        return InteractionResult.FAIL;
+        return InteractionResult.SUCCESS;
     }
 
     public static @NotNull BlockPos getWinchPos(BlockState blockState, BlockPos blockPos) {
