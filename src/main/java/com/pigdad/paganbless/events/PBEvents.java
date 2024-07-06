@@ -126,29 +126,6 @@ public class PBEvents {
                 }
             }
         }
-
-        @SubscribeEvent
-        public static void onBlockInteract(PlayerInteractEvent.RightClickBlock event) {
-            Level level = event.getLevel();
-            BlockPos pos = event.getPos();
-            BlockState blockState = level.getBlockState(pos);
-            Player player = event.getEntity();
-            if (blockState.getBlock() instanceof CrankBlock && player.isShiftKeyDown()) {
-                BlockPos winchPos = CrankBlock.getWinchPos(blockState, pos);
-                BlockState winchBlock = level.getBlockState(winchPos);
-                CrankBlockEntity blockEntity = (CrankBlockEntity) level.getBlockEntity(pos);
-                WinchBlockEntity winchBlockEntity = ((WinchBlockEntity) level.getBlockEntity(winchPos));
-                level.setBlockAndUpdate(pos, CrankBlock.decrRotationState(blockState));
-                if (winchBlockEntity.getItemHandler().getStackInSlot(0).getCount() > 0) {
-                    if (WinchBlock.liftDown(level, winchPos, winchBlock)) {
-                        winchBlockEntity.getItemHandler().extractItem(0, 1, false);
-                        level.setBlockAndUpdate(winchPos, winchBlock.setValue(WinchBlock.LIFT_DOWN, true));
-                        blockEntity.drop();
-                        player.swing(InteractionHand.MAIN_HAND);
-                    }
-                }
-            }
-        }
         
         @SubscribeEvent
         public static void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {

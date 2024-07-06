@@ -2,6 +2,7 @@ package com.pigdad.paganbless.networking;
 
 import com.pigdad.paganbless.registries.blockentities.IncenseBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.RunicCoreBlockEntity;
+import com.pigdad.paganbless.registries.blockentities.WinchBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
@@ -32,6 +33,16 @@ public class PayloadActions {
         if (blockEntity instanceof IncenseBlockEntity incenseBlockEntity) {
             incenseBlockEntity.setBurning(payload.burning());
             incenseBlockEntity.setBurningProgress(payload.burningProgress());
+        }
+    }
+
+    public static void winchSync(WinchPayload payload, IPayloadContext ctx) {
+        ClientLevel level = Minecraft.getInstance().level;
+        BlockPos blockPos = payload.blockPos();
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if (blockEntity instanceof WinchBlockEntity winchBlockEntity) {
+            winchBlockEntity.setLiftDown(payload.liftDown());
+            winchBlockEntity.setDistance(payload.distance());
         }
     }
 }

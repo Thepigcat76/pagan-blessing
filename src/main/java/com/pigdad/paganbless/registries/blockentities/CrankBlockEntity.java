@@ -43,7 +43,9 @@ public class CrankBlockEntity extends BlockEntity {
                 this.speed = 0;
             }
         } else if (dropping) {
-            if (!level.getBlockState(CrankBlock.getWinchPos(getBlockState(), getBlockPos())).getValue(WinchBlock.LIFT_DOWN)) {
+            BlockPos winchPos = CrankBlock.getWinchPos(getBlockState(), getBlockPos());
+            WinchBlockEntity blockEntity = (WinchBlockEntity) level.getBlockEntity(winchPos);
+            if (!blockEntity.isLiftDown()){
                 this.speed = 0;
                 this.dropping = false;
             }

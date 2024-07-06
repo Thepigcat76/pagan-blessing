@@ -1,5 +1,7 @@
 package com.pigdad.paganbless.registries.blocks;
 
+import com.pigdad.paganbless.registries.blockentities.WinchBlockEntity;
+import com.pigdad.paganbless.utils.WinchUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
@@ -83,8 +85,9 @@ public class RopeBlock extends WaterloggedTransparentBlock implements SimpleWate
         if (hasWinch) {
             BlockPos winchPos = level.getBlockState(aboveRopePos).getBlock() instanceof WinchBlock ? aboveRopePos : getWinchPos(level, aboveRopePos);
             if (winchPos != null) {
-                BlockState newWinchState = level.getBlockState(winchPos).setValue(WinchBlock.DISTANCE, WinchBlock.recheckConnections(level, winchPos, clickedPos));
-                level.setBlockAndUpdate(winchPos, newWinchState);
+                WinchBlockEntity blockEntity = (WinchBlockEntity) level.getBlockEntity(winchPos);
+                int newDistance = WinchUtils.recheckConnections(level, winchPos, clickedPos);
+                blockEntity.setDistance(newDistance);
             }
         }
         return super.getStateForPlacement(ctx)
@@ -100,7 +103,7 @@ public class RopeBlock extends WaterloggedTransparentBlock implements SimpleWate
             if (pState.getValue(HAS_WINCH) || aboveBlock.getBlock() instanceof WinchBlock) {
                 invalidateDownwards(pLevel, pPos);
                 BlockPos winchPos = aboveBlock.getBlock() instanceof WinchBlock ? pPos.above() : getWinchPos(pLevel, pPos.above());
-                WinchBlock.recheckConnections(pLevel, winchPos, null);
+                WinchUtils.recheckConnections(pLevel, winchPos, null);
             }
         }
         super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);

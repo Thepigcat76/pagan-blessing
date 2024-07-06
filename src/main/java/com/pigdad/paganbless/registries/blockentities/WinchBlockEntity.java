@@ -1,6 +1,7 @@
 package com.pigdad.paganbless.registries.blockentities;
 
 import com.mojang.datafixers.util.Pair;
+import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.api.blocks.ContainerBlockEntity;
 import com.pigdad.paganbless.api.io.IOActions;
 import com.pigdad.paganbless.registries.PBBlockEntities;
@@ -50,15 +51,6 @@ public class WinchBlockEntity extends ContainerBlockEntity implements MenuProvid
 
     @Override
     public void tick() {
-        BlockState blockState = getBlockState();
-        if (blockState.getValue(WinchBlock.LIFT_DOWN) && this.getItemHandler().getStackInSlot(0).getCount() > 0) {
-            boolean liftDown = WinchBlock.liftDown(level, worldPosition, blockState);
-            if (liftDown)
-                this.getItemHandler().extractItem(0, 1, false);
-            level.setBlockAndUpdate(worldPosition, blockState.setValue(WinchBlock.LIFT_DOWN, liftDown));
-        } else {
-            level.setBlockAndUpdate(worldPosition, blockState.setValue(WinchBlock.LIFT_DOWN, false));
-        }
 
     }
 

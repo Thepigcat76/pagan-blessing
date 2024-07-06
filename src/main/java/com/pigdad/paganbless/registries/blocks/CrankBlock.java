@@ -1,11 +1,13 @@
 package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.serialization.MapCodec;
+import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.PBItems;
 import com.pigdad.paganbless.registries.blockentities.CrankBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.WinchBlockEntity;
+import com.pigdad.paganbless.utils.WinchUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -114,30 +116,37 @@ public class CrankBlock extends BaseEntityBlock {
         super.createBlockStateDefinition(pBuilder.add(ROTATION, FACING));
     }
 
+
     @Override
     protected @NotNull InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
-        if (!player.isShiftKeyDown()) {
-            CrankBlockEntity blockEntity = (CrankBlockEntity) level.getBlockEntity(blockPos);
-            blockEntity.turn();
-            level.playSound(null, player.getX(), player.getY() + 0.5, player.getZ(), SoundEvents.GRINDSTONE_USE, SoundSource.PLAYERS, 0.03F, 1F);
-            level.setBlockAndUpdate(blockPos, incrRotationState(blockState));
+        if (level.getBlockEntity(blockPos) instanceof CrankBlockEntity crankBlockEntity) {
             BlockPos winchPos = getWinchPos(blockState, blockPos);
-            BlockState winchBlock = level.getBlockState(winchPos);
             if (level.getBlockEntity(winchPos) instanceof WinchBlockEntity winchBlockEntity) {
-                int distance = winchBlock.getValue(WinchBlock.DISTANCE);
-                ItemStackHandler itemHandler = winchBlockEntity.getItemHandler();
-                if (distance > 1 && itemHandler.getStackInSlot(0).getCount() < itemHandler.getSlotLimit(0)) {
-                    WinchBlock.liftUp(level, winchPos, winchBlock);
-                    itemHandler.insertItem(0, PBBlocks.ROPE.get().asItem().getDefaultInstance(), false);
+                if (player.isShiftKeyDown()) {
+                    dropCrank(level, blockPos, blockState, crankBlockEntity, winchBlockEntity);
+                } else {
+                    liftCrank(level, blockPos, blockState, crankBlockEntity, winchBlockEntity);
                 }
             }
         }
         return InteractionResult.SUCCESS;
     }
 
-    public static @NotNull BlockPos getWinchPos(BlockState blockState, BlockPos blockPos) {
-        Direction direction = blockState.getValue(FACING);
-        return blockPos.relative(direction);
+    private void liftCrank(Level level, BlockPos blockPos, BlockState blockState, CrankBlockEntity crankBlockEntity, WinchBlockEntity winchBlockEntity) {
+        PaganBless.LOGGER.debug("Lifting Crank");
+        WinchUtils.liftUp(winchBlockEntity);
+        crankBlockEntity.turn();
+    }
+
+    private void dropCrank(Level level, BlockPos blockPos, BlockState blockState, CrankBlockEntity crankBlockEntity, WinchBlockEntity winchBlockEntity) {
+        PaganBless.LOGGER.debug("Dropping Crank");
+        WinchUtils.liftDown(winchBlockEntity);
+        crankBlockEntity.drop();
+    }
+
+    public static @NotNull BlockPos getWinchPos(BlockState crankState, BlockPos crankPos) {
+        Direction direction = crankState.getValue(FACING);
+        return crankPos.relative(direction);
     }
 
     public static BlockState incrRotationState(BlockState blockState) {

@@ -6,6 +6,7 @@ import com.pigdad.paganbless.api.blocks.RotatableEntityBlock;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.blockentities.WinchBlockEntity;
+import com.pigdad.paganbless.utils.WinchUtils;
 import com.pigdad.paganbless.utils.recipes.AnvilRecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -91,7 +92,7 @@ public class WinchBlock extends RotatableEntityBlock {
     protected void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
         if (pState != pOldState) {
             WinchBlockEntity blockEntity = (WinchBlockEntity) pLevel.getBlockEntity(pPos);
-            int newDistance = recheckConnections(pLevel, pPos, null);
+            int newDistance = WinchUtils.recheckConnections(pLevel, pPos, null);
             blockEntity.setDistance(newDistance);
         }
         super.onPlace(pState, pLevel, pPos, pOldState, pMovedByPiston);
@@ -110,74 +111,5 @@ public class WinchBlock extends RotatableEntityBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
         return new WinchBlockEntity(blockPos, blockState);
-    }
-
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState pState, BlockEntityType<T> blockEntityType) {
-        if (level.isClientSide()) return null;
-
-        return createTickerHelper(blockEntityType, PBBlockEntities.WINCH.get(),
-                (pLevel1, pPos, pState1, pBlockEntity) -> pBlockEntity.tick());
-    }
-
-    public static void liftUp(Level level, BlockPos winchPos, BlockState winchBlock) {
-        WinchBlockEntity blockEntity = (WinchBlockEntity) level.getBlockEntity(winchPos);
-
-        // BlockPos of the block being lifted
-        int distance = blockEntity.getDistance();
-        BlockPos liftedBlockPos = winchPos.below(distance + 1);
-        BlockState blockState = level.getBlockState(liftedBlockPos);
-
-        if (blockState.hasBlockEntity() || distance <= 0) return;
-
-        level.removeBlock(liftedBlockPos, true);
-        level.setBlock(liftedBlockPos.above(), blockState, 64);
-        level.sendBlockUpdated(liftedBlockPos.above(), blockState, Blocks.AIR.defaultBlockState(), 3);
-        blockEntity.setDistance(distance - 1);
-    }
-
-    // Will return true as long as the winch can lift down
-    public static boolean liftDown(Level level, BlockPos winchPos, BlockState winchBlock) {
-        if (!(winchBlock.getBlock() instanceof WinchBlock)) return false;
-
-        WinchBlockEntity blockEntity = (WinchBlockEntity) level.getBlockEntity(winchPos);
-
-        // BlockPos of the block being lifted
-        int distance = blockEntity.getDistance();
-        BlockPos liftedBlockPos = winchPos.below(distance + 1);
-        BlockState blockState = level.getBlockState(liftedBlockPos);
-
-        if (blockState.hasBlockEntity() || distance <= 0) return false;
-
-        BlockState belowLiftedState = level.getBlockState(liftedBlockPos.below());
-        PaganBless.LOGGER.debug("Block: {}, Pos: {}", belowLiftedState, liftedBlockPos.below());
-        if (!belowLiftedState.canBeReplaced()) {
-            if (blockState.getBlock() instanceof AnvilBlock) {
-                AnvilRecipeUtils.onAnvilLand(level, liftedBlockPos.below());
-            }
-            return false;
-        }
-
-        blockEntity.setDistance(distance + 1);
-        level.setBlockAndUpdate(liftedBlockPos, PBBlocks.ROPE.get().defaultBlockState().setValue(RopeBlock.FACING, Direction.DOWN));
-        level.setBlockAndUpdate(liftedBlockPos.below(), blockState);
-        return true;
-    }
-
-    // Will return length of the connection
-    public static int recheckConnections(Level level, BlockPos winchPos, @Nullable BlockPos excludedPosition) {
-        int length = 0;
-
-        BlockPos blockPos = winchPos.below();
-        while ((level.getBlockState(blockPos).getBlock() instanceof RopeBlock && RopeBlock.facingUpOrDown(level.getBlockState(blockPos).getValue(RopeBlock.FACING))) || blockPos.equals(excludedPosition)) {
-            BlockState ropeBlock = level.getBlockState(blockPos);
-            if (!blockPos.equals(excludedPosition)) {
-                level.setBlockAndUpdate(blockPos, ropeBlock.setValue(RopeBlock.HAS_WINCH, true));
-            }
-            blockPos = blockPos.below();
-            length++;
-        }
-        return length;
     }
 }
