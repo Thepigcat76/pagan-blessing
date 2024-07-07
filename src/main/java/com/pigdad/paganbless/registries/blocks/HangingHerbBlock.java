@@ -7,27 +7,58 @@ import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.blockentities.HangingHerbBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.FastColor;
+import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class HangingHerbBlock extends BaseHangingHerbBlock implements TickingBlock<HangingHerbBlockEntity> {
     private final Block driedHerbBlock;
+    private final Block waxedHerbBlock;
 
-    public HangingHerbBlock(Properties properties, Block driedHerbBlock) {
+    public HangingHerbBlock(Properties properties, Block driedHerbBlock, Block waxedHerbBlock) {
         super(properties);
         this.driedHerbBlock = driedHerbBlock;
+        this.waxedHerbBlock = waxedHerbBlock;
     }
 
     public Block getDriedHerbBlock() {
         return driedHerbBlock;
+    }
+
+    public Block getWaxedHerbBlock() {
+        return waxedHerbBlock;
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (stack.is(Items.HONEYCOMB)) {
+            ParticleUtils.spawnParticlesOnBlockFaces(level, pos, ParticleTypes.WAX_ON, UniformInt.of(3, 5));
+            level.playLocalSound(pos, SoundEvents.HONEYCOMB_WAX_ON, SoundSource.BLOCKS, 1.0F, 1.0F, false);
+            level.setBlockAndUpdate(pos, getWaxedHerbBlock().defaultBlockState());
+            if (!player.hasInfiniteMaterials()) {
+                stack.shrink(1);
+            }
+            return ItemInteractionResult.SUCCESS;
+        }
+        return ItemInteractionResult.FAIL;
     }
 
     @Nullable
@@ -38,7 +69,7 @@ public class HangingHerbBlock extends BaseHangingHerbBlock implements TickingBlo
 
     @Override
     protected @NotNull MapCodec<? extends Block> codec() {
-        return simpleCodec(props -> new HangingHerbBlock(props, driedHerbBlock));
+        return simpleCodec(props -> new HangingHerbBlock(props, driedHerbBlock, waxedHerbBlock));
     }
 
     @Override

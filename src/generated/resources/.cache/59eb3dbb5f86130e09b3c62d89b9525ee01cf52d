@@ -1,4 +1,4 @@
-// 1.21	2024-07-07T01:26:00.085811401	Loot Tables
+// 1.21	2024-07-07T16:54:22.52018502	Loot Tables
 db584797d40043f81bdefbb4ed9662293f6ad5e8 data/minecraft/loot_table/blocks/deepslate_redstone_ore.json
 a427bb4820648b8077268bda48763f595c6613cc data/minecraft/loot_table/blocks/redstone_ore.json
 77277e027559dba69989114e3a73c8d3626e8725 data/paganbless/loot_table/blocks/belladonna_plant.json
@@ -41,5 +41,7 @@ c4756716eb71d7ae58e5e2a61d59d91e9a1eeb3e data/paganbless/loot_table/blocks/rune_
 489c1dff3b56782749ce3fcc8fbc8277a84883ac data/paganbless/loot_table/blocks/runic_core.json
 45396fef2e80f2c4564bec60cb54ba46027e8ac4 data/paganbless/loot_table/blocks/stripped_black_thorn_log.json
 8ab184616ac74023608dde2a2b2b314a5b606889 data/paganbless/loot_table/blocks/stripped_black_thorn_wood.json
+3137ae41d77f1af5b0d81a05b52dbb99a3ebad1d data/paganbless/loot_table/blocks/waxed_hanging_lavender.json
+4bc988d06ce5ff15405801589720645ed665e973 data/paganbless/loot_table/blocks/waxed_hanging_rue.json
 8eb24265695984b9493ac3c3323c65964c3ce15b data/paganbless/loot_table/blocks/wican_ward.json
 3abaf4581d1884f19600e937e4b827dc6df2c902 data/paganbless/loot_table/blocks/winch.json

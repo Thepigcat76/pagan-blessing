@@ -3,9 +3,10 @@ package com.pigdad.paganbless.compat.jei;
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.PBItems;
-import com.pigdad.paganbless.registries.PBTags;
 import com.pigdad.paganbless.registries.blocks.BaseHangingHerbBlock;
+import com.pigdad.paganbless.registries.blocks.HangingHerbBlock;
 import com.pigdad.paganbless.registries.blocks.RuneSlabBlock;
+import com.pigdad.paganbless.registries.blocks.WaxedHangingHerbBlock;
 import com.pigdad.paganbless.registries.recipes.AnvilSmashingRecipe;
 import com.pigdad.paganbless.registries.recipes.BenchCuttingRecipe;
 import com.pigdad.paganbless.registries.recipes.ImbuingCauldronRecipe;
@@ -29,13 +30,11 @@ import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 @JeiPlugin
 public class PBJeiPlugin implements IModPlugin {
     @Override
     public @NotNull ResourceLocation getPluginUid() {
-        PaganBless.LOGGER.debug("Loaded!!");
         return ResourceLocation.fromNamespaceAndPath(PaganBless.MODID, "jei_plugin");
     }
 
@@ -74,7 +73,8 @@ public class PBJeiPlugin implements IModPlugin {
                 .stream().map(RecipeHolder::value).toList();
         registration.addRecipes(HerbalistBenchCategory.RECIPE_TYPE, herbalistBenchRecipes);
 
-        registration.addIngredientInfo(gatherHangingHerbs(), VanillaTypes.ITEM_STACK, Component.translatable("jei_info.paganbless.dried_herbs_info"));
+        registration.addIngredientInfo(gatherHangingAndDriedHerbs(), VanillaTypes.ITEM_STACK, Component.translatable("jei_info.paganbless.dried_herbs_info"));
+        registration.addIngredientInfo(gatherHangingAndWaxedHerbs(), VanillaTypes.ITEM_STACK, Component.translatable("jei_info.paganbless.waxed_herbs_info"));
         registration.addIngredientInfo(new ItemStack(Items.SKELETON_SKULL), VanillaTypes.ITEM_STACK, Component.translatable("jei_info.paganbless.skeleton_skull"));
         registration.addIngredientInfo(new ItemStack(PBItems.CINNABAR.get()), VanillaTypes.ITEM_STACK, Component.translatable("jei_info.paganbless.cinnabar"));
     }
@@ -97,7 +97,11 @@ public class PBJeiPlugin implements IModPlugin {
         }
     }
 
-    private static List<ItemStack> gatherHangingHerbs() {
-        return BuiltInRegistries.BLOCK.stream().filter(block -> block instanceof BaseHangingHerbBlock).map(block -> block.asItem().getDefaultInstance()).toList();
+    private static List<ItemStack> gatherHangingAndDriedHerbs() {
+        return BuiltInRegistries.BLOCK.stream().filter(block -> block instanceof BaseHangingHerbBlock && !(block instanceof WaxedHangingHerbBlock)).map(block -> block.asItem().getDefaultInstance()).toList();
+    }
+
+    private static List<ItemStack> gatherHangingAndWaxedHerbs() {
+        return BuiltInRegistries.BLOCK.stream().filter(block -> block instanceof HangingHerbBlock || block instanceof WaxedHangingHerbBlock).map(block -> block.asItem().getDefaultInstance()).toList();
     }
 }

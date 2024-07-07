@@ -1,6 +1,5 @@
 package com.pigdad.paganbless.utils;
 
-import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.blockentities.WinchBlockEntity;
 import com.pigdad.paganbless.registries.blocks.RopeBlock;
 import com.pigdad.paganbless.utils.recipes.AnvilRecipeUtils;
@@ -52,11 +51,11 @@ public final class WinchUtils {
 
         ItemStackHandler itemHandler = winchBlockEntity.getItemHandler();
         ItemStack stackInSlot = itemHandler.getStackInSlot(0);
+        // TODO: If there is a block two blocks below the winch then it cannot lift down
         if (!stackInSlot.isEmpty()) {
             BlockState newRopeState = Block.byItem(stackInSlot.getItem()).defaultBlockState();
             if (!newRopeState.isEmpty()) {
-                 if (belowLiftedState.canBeReplaced()
-                         || /* If the rope is not out yet and there is air below the winch */ (distance == 0 && liftedState.canBeReplaced())) {
+                 if (belowLiftedState.canBeReplaced()) {
                      if (!(liftedState.getBlock() instanceof RopeBlock)) {
                          level.setBlockAndUpdate(belowLiftedPos, liftedState);
                      }

@@ -1,10 +1,8 @@
 package com.pigdad.paganbless.registries.screens;
 
 import com.pigdad.paganbless.PaganBless;
-import com.pigdad.paganbless.api.screen.PBAbstractContainerMenu;
 import com.pigdad.paganbless.api.screen.PBAbstractContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;

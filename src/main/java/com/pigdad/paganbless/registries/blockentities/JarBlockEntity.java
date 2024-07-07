@@ -11,7 +11,6 @@ import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.Map;
 
 public class JarBlockEntity extends ContainerBlockEntity {

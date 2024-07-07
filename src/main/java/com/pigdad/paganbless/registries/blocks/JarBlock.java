@@ -4,7 +4,6 @@ import com.mojang.serialization.MapCodec;
 import com.pigdad.paganbless.api.blocks.RotatableEntityBlock;
 import com.pigdad.paganbless.api.blocks.TranslucentHighlightFix;
 import com.pigdad.paganbless.registries.blockentities.JarBlockEntity;
-import com.pigdad.paganbless.utils.SoundUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -92,7 +91,7 @@ public class JarBlock extends RotatableEntityBlock implements TranslucentHighlig
             itemInHand.setCount(pPlayer.hasInfiniteMaterials() ? itemInHand.getCount() : stack.getCount());
             jarBlockEntity.wobble(DecoratedPotBlockEntity.WobbleStyle.POSITIVE);
             if (!stack.isEmpty()) {
-                SoundUtils.playSound(pLevel, pPos, SoundEvents.GLASS_PLACE, SoundSource.BLOCKS);
+                pLevel.playSound(null, pPos, SoundEvents.GLASS_PLACE, SoundSource.BLOCKS);
             }
         }
 

@@ -1,7 +1,6 @@
 package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.serialization.MapCodec;
-import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.blockentities.ImbuingCauldronBlockEntity;
 import com.pigdad.paganbless.utils.Utils;
@@ -37,8 +36,10 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -46,7 +47,7 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.stream.Stream;
 
-@SuppressWarnings("deprecation")
+@SuppressWarnings({"deprecation", "OptionalUsedAsFieldOrParameterType"})
 public class ImbuingCauldronBlock extends BaseEntityBlock {
     public static final BooleanProperty ACTIVE = com.pigdad.paganbless.utils.BlockStateProperties.ACTIVE;
     public static final VoxelShape SHAPE = Stream.of(
@@ -114,8 +115,8 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
     protected @NotNull ItemInteractionResult useItemOn(ItemStack p_316304_, BlockState p_316362_, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult p_316140_) {
         ImbuingCauldronBlockEntity blockEntity = (ImbuingCauldronBlockEntity) level.getBlockEntity(blockPos);
         IFluidHandlerItem fluidHandlerItem = player.getItemInHand(interactionHand).getCapability(Capabilities.FluidHandler.ITEM);
-        IItemHandler itemHandler = Utils.getCapability(Capabilities.ItemHandler.BLOCK, blockEntity);
-        IFluidHandler fluidHandler = Utils.getCapability(Capabilities.FluidHandler.BLOCK, blockEntity);
+        ItemStackHandler itemHandler = blockEntity.getItemHandler();
+        FluidTank fluidHandler = blockEntity.getFluidTank();
         if (player.isShiftKeyDown()) {
             blockEntity.turn();
             if (blockEntity.getFluidTank().getFluidAmount() >= 800) {
@@ -153,7 +154,6 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
 
     private static Optional<Vec2> getRelativeHitCoordinatesForBlockFace(BlockHitResult hitResult) {
         Direction direction = hitResult.getDirection();
-        PaganBless.LOGGER.debug("Direction: {}", direction);
         if (direction != Direction.UP) {
             return Optional.empty();
         } else {
@@ -161,8 +161,6 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
             Vec3 vec3 = hitResult.getLocation().subtract(blockpos.getX(), blockpos.getY(), blockpos.getZ());
             float x = (float) vec3.x();
             float z = (float) vec3.z();
-
-            PaganBless.LOGGER.debug("Posx: {}, Posy: {}", x, z);
 
             return Optional.of(new Vec2(z, x));
         }
@@ -176,7 +174,7 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
         }
     }
 
-    private static ItemInteractionResult insertAndExtract(Player player, Level level, InteractionHand interactionHand, IItemHandler itemHandler, IFluidHandler fluidHandler, IFluidHandler fluidHandlerItem, OptionalInt slot) {
+    private static ItemInteractionResult insertAndExtract(Player player, Level level, InteractionHand interactionHand, IItemHandler itemHandler, FluidTank fluidHandler, IFluidHandler fluidHandlerItem, OptionalInt slot) {
         if (!player.getItemInHand(interactionHand).isEmpty() && fluidHandlerItem == null) {
             insert(player, interactionHand, itemHandler, slot);
         } else if (player.getItemInHand(interactionHand).isEmpty()) {
@@ -212,7 +210,7 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
         }
     }
 
-    private static void extractFluid(Player player, Level level, InteractionHand interactionHand, IFluidHandler fluidHandler, IFluidHandler fluidHandlerItem, FluidStack fluidInTank) {
+    private static void extractFluid(Player player, Level level, InteractionHand interactionHand, FluidTank fluidHandler, IFluidHandler fluidHandlerItem, FluidStack fluidInTank) {
         if (player.getItemInHand(interactionHand).is(Items.BUCKET)) {
             player.getItemInHand(interactionHand).shrink(1);
             Utils.giveItemToPlayerNoSound(player, fluidInTank.getFluid().getBucket().getDefaultInstance(), -1);
@@ -224,8 +222,11 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
             }
             fluidHandler.drain(1000, IFluidHandler.FluidAction.EXECUTE);
         } else {
-            FluidStack fluidStack = fluidHandler.drain(1000, IFluidHandler.FluidAction.EXECUTE);
-            fluidHandlerItem.fill(fluidStack, IFluidHandler.FluidAction.EXECUTE);
+            FluidStack fluidStack = fluidHandler.drain(fluidHandler.getFluidInTank(0).getAmount(), IFluidHandler.FluidAction.EXECUTE);
+            int remainderAmount = fluidHandlerItem.fill(fluidStack, IFluidHandler.FluidAction.EXECUTE);
+            FluidStack newFluidStack = fluidStack.copy();
+            newFluidStack.setAmount(remainderAmount);
+            fluidHandler.setFluid(newFluidStack);
         }
     }
 
@@ -234,7 +235,6 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
             int slot1 = slot.getAsInt();
             ItemStack remainder = itemHandler.insertItem(slot1, player.getItemInHand(interactionHand).copy(), false);
             player.setItemInHand(interactionHand, remainder);
-            PaganBless.LOGGER.debug("iSlot: {}", slot1);
         }
     }
 
@@ -245,8 +245,7 @@ public class ImbuingCauldronBlock extends BaseEntityBlock {
                 slot1 = 5;
             }
             ItemStack remainder = itemHandler.extractItem(slot1, itemHandler.getStackInSlot(slot1).getCount(), false);
-            // TODO: Set main hand slot to preffered slot
-            ItemHandlerHelper.giveItemToPlayer(player, remainder);
+            ItemHandlerHelper.giveItemToPlayer(player, remainder, player.getInventory().selected);
         }
     }
 }

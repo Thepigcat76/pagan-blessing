@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "hanging_amount=1": {
+      "model": "paganbless:block/incenses/waxed/hanging_lavender_waxed"
+    },
+    "hanging_amount=2": {
+      "model": "paganbless:block/incenses/waxed/hanging_lavender_waxed_two"
+    },
+    "hanging_amount=3": {
+      "model": "paganbless:block/incenses/waxed/hanging_lavender_waxed_three"
+    },
+    "hanging_amount=4": {
+      "model": "paganbless:block/incenses/waxed/hanging_lavender_waxed_four"
+    }
+  }
+}

@@ -1,12 +1,13 @@
 package com.pigdad.paganbless.registries.items;
 
-import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBItems;
 import com.pigdad.paganbless.registries.entities.WandProjectileEntity;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
@@ -27,6 +29,8 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 public class WandItem extends Item {
     public WandItem(Properties properties) {
         super(properties);
@@ -34,7 +38,6 @@ public class WandItem extends Item {
 
     @Override
     public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity, int pTimeCharged) {
-        PaganBless.LOGGER.debug("time: {}", pTimeCharged);
         if (!pLevel.isClientSide() && pTimeCharged <= getUseDuration(pStack, pLivingEntity) - 15) {
             WandProjectileEntity wandProjectile = new WandProjectileEntity(pLevel, pLivingEntity);
             wandProjectile.setItem(PBItems.WAND_PROJECTILE.get().getDefaultInstance());
@@ -46,6 +49,11 @@ public class WandItem extends Item {
     @Override
     public int getUseDuration(ItemStack pStack, LivingEntity p_344979_) {
         return 72000;
+    }
+
+    @Override
+    public void onUseTick(Level level, LivingEntity livingEntity, ItemStack stack, int remainingUseDuration) {
+        super.onUseTick(level, livingEntity, stack, remainingUseDuration);
     }
 
     @Override
@@ -76,15 +84,14 @@ public class WandItem extends Item {
         }
     }
 
-    private static boolean applyBonemeal(Level p_40629_, BlockPos p_40630_) {
-        BlockState blockstate = p_40629_.getBlockState(p_40630_);
+    private static boolean applyBonemeal(Level level, BlockPos p_40630_) {
+        BlockState blockstate = level.getBlockState(p_40630_);
         Block var7 = blockstate.getBlock();
-        if (var7 instanceof BonemealableBlock) {
-            BonemealableBlock bonemealableblock = (BonemealableBlock) var7;
-            if (bonemealableblock.isValidBonemealTarget(p_40629_, p_40630_, blockstate)) {
-                if (p_40629_ instanceof ServerLevel) {
-                    if (bonemealableblock.isBonemealSuccess(p_40629_, p_40629_.random, p_40630_, blockstate)) {
-                        bonemealableblock.performBonemeal((ServerLevel) p_40629_, p_40629_.random, p_40630_, blockstate);
+        if (var7 instanceof BonemealableBlock bonemealableblock) {
+            if (bonemealableblock.isValidBonemealTarget(level, p_40630_, blockstate)) {
+                if (level instanceof ServerLevel) {
+                    if (bonemealableblock.isBonemealSuccess(level, level.random, p_40630_, blockstate)) {
+                        bonemealableblock.performBonemeal((ServerLevel) level, level.random, p_40630_, blockstate);
                     }
                 }
 
@@ -152,5 +159,10 @@ public class WandItem extends Item {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        tooltipComponents.add(Component.translatable("wand.desc.0").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
     }
 }

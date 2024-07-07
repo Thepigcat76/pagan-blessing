@@ -11,7 +11,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.List;
 import java.util.Map;
 
 public class HerbalistBenchBlockEntity extends ContainerBlockEntity {

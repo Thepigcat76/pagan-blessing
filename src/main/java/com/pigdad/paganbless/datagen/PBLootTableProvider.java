@@ -2,7 +2,9 @@ package com.pigdad.paganbless.datagen;
 
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.PBItems;
+import com.pigdad.paganbless.registries.blocks.WaxedHangingHerbBlock;
 import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -18,12 +20,14 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -69,6 +73,8 @@ public class PBLootTableProvider extends BlockLootSubProvider {
         dropSelf(PBBlocks.HANGING_RUE.get());
         dropSelf(PBBlocks.DRIED_HANGING_LAVENDER.get());
         dropSelf(PBBlocks.DRIED_HANGING_RUE.get());
+        dropWaxedHangingHerb(PBBlocks.WAXED_HANGING_LAVENDER.get());
+        dropWaxedHangingHerb(PBBlocks.WAXED_HANGING_RUE.get());
 
         dropHerbPlant(PBBlocks.BELLADONNA_PLANT.get(), PBItems.BELLADONNA.get());
         dropHerbPlant(PBBlocks.RUE_PLANT.get(), PBItems.RUE.get());
@@ -88,7 +94,7 @@ public class PBLootTableProvider extends BlockLootSubProvider {
         dropCinnabarFromRedstone(Blocks.DEEPSLATE_REDSTONE_ORE);
     }
 
-    private void dropCinnabarFromRedstone(Block redstoneOre) {
+    protected void dropCinnabarFromRedstone(Block redstoneOre) {
         HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
         add(redstoneOre, this.createSilkTouchDispatchTable(redstoneOre, this.applyExplosionDecay(redstoneOre, LootItem.lootTableItem(Items.REDSTONE)
                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(4.0F, 5.0F)))
@@ -99,10 +105,22 @@ public class PBLootTableProvider extends BlockLootSubProvider {
                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))));
     }
 
-    private void dropHerbPlant(Block block, ItemLike item) {
+    protected void dropHerbPlant(Block block, ItemLike item) {
         add(block, this.createShearsDispatchTable(block, this.applyExplosionDecay(block, (LootItem.lootTableItem(item)
                 .apply(ApplyBonusCount.addUniformBonusCount(this.registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE), 2))
         ))));
+    }
+
+    protected void dropWaxedHangingHerb(Block waxedHangingHerbBlock) {
+        add(waxedHangingHerbBlock, LootTable.lootTable().withPool(LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1.0F))
+                .add(this.applyExplosionDecay(waxedHangingHerbBlock,
+                        LootItem.lootTableItem(waxedHangingHerbBlock)
+                                .apply(List.of(1, 2, 3, 4), (i) -> SetItemCountFunction.setCount(ConstantValue.exactly((float) i))
+                                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(waxedHangingHerbBlock)
+                                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WaxedHangingHerbBlock.HANGING_AMOUNT, i)))))
+                ))
+        );
     }
 
     @Override

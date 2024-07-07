@@ -39,6 +39,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,24 +49,40 @@ import java.util.stream.Stream;
 public class HerbalistBenchBlock extends RotatableEntityBlock implements TranslucentHighlightFix {
     public static final EnumProperty<BenchVariant> BENCH_PART = EnumProperty.create("bench_part", BenchVariant.class);
     public static final VoxelShape NORTH_SHAPE = Stream.of(
-            Block.box(0, 3, 4, 12, 11, 12),
-            Block.box(0, 11, 0, 16, 16, 16),
-            Block.box(0, 0, 0, 16, 3, 16)
+            Block.box(9.75, 0, 0, 14.75, 1, 16),
+            Block.box(10.75, 1, 1, 13.75, 4, 15),
+            Block.box(11.25, 2, 2.5, 13.25, 6, 13.5),
+            Block.box(11.25, 6, 5.5, 13.25, 9.5, 10.5),
+            Block.box(11.25, 9.5, 2.5, 13.25, 13.5, 13.5),
+            Block.box(0, 13, 0, 16, 16, 16),
+            Block.box(-0.25, 8, 6, 11.75, 13, 10)
     ).reduce(Shapes::or).get();
     public static final VoxelShape EAST_SHAPE = Stream.of(
-            Block.box(0, 11, 0, 16, 16, 16),
-            Block.box(0, 0, 0, 16, 3, 16),
-            Block.box(4, 3, 4, 12, 11, 16)
+            Block.box(1.25, 0, 0, 6.25, 1, 16),
+            Block.box(2.25, 1, 1, 5.25, 4, 15),
+            Block.box(2.75, 2, 2.5, 4.75, 6, 13.5),
+            Block.box(2.75, 6, 5.5, 4.75, 9.5, 10.5),
+            Block.box(2.75, 9.5, 2.5, 4.75, 13.5, 13.5),
+            Block.box(0, 13, 0, 16, 16, 16),
+            Block.box(0.25, 8, 6, 11.75, 13, 10)
     ).reduce(Shapes::or).get();
     public static final VoxelShape SOUTH_SHAPE = Stream.of(
-            Block.box(0, 11, 0, 16, 16, 16),
-            Block.box(0, 0, 0, 16, 3, 16),
-            Block.box(4, 3, 4, 16, 11, 12)
+            Block.box(-16, 13, 0, 0, 16, 16),
+            Block.box(-12.25, 8, 6, -0.25, 13, 10),
+            Block.box(-13.25, 9.5, 2.5, -11.25, 13.5, 13.5),
+            Block.box(-13.25, 6, 5.5, -11.25, 9.5, 10.5),
+            Block.box(-13.25, 2, 2.5, -11.25, 6, 13.5),
+            Block.box(-13.75, 1, 1, -10.75, 4, 15),
+            Block.box(-14.75, 0, 0, -9.75, 1, 16)
     ).reduce(Shapes::or).get();
     public static final VoxelShape WEST_SHAPE = Stream.of(
-            Block.box(0, 11, 0, 16, 16, 16),
-            Block.box(0, 0, 0, 16, 3, 16),
-            Block.box(4, 3, 0, 12, 11, 12)
+            Block.box(9.75, 0, 0, 14.75, 1, 16),
+            Block.box(10.75, 1, 1, 13.75, 4, 15),
+            Block.box(11.25, 2, 2.5, 13.25, 6, 13.5),
+            Block.box(11.25, 6, 5.5, 13.25, 9.5, 10.5),
+            Block.box(11.25, 9.5, 2.5, 13.25, 13.5, 13.5),
+            Block.box(0, 13, 0, 16, 16, 16),
+            Block.box(4.25, 8, 6, 15.75, 13, 10)
     ).reduce(Shapes::or).get();
 
     public HerbalistBenchBlock(Properties properties) {
@@ -140,18 +157,22 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
         BlockEntity blockEntity = pLevel.getBlockEntity(getMainBlock(pState, pPos));
         int slot = pState.getValue(BENCH_PART) == BenchVariant.LEFT ? 1 : 0;
         if (blockEntity instanceof HerbalistBenchBlockEntity herbalistBenchBlockEntity) {
-            ItemStack stackInSlot = herbalistBenchBlockEntity.getItemHandler().getStackInSlot(slot);
+            ItemStackHandler itemHandler = herbalistBenchBlockEntity.getItemHandler();
+            ItemStack stackInSlot = itemHandler.getStackInSlot(slot);
             if (pStack.isEmpty()) {
-                ItemStack remainder = herbalistBenchBlockEntity.getItemHandler().extractItem(slot, stackInSlot.getCount(), false);
+                ItemStack remainder = itemHandler.extractItem(slot, stackInSlot.getCount(), false);
                 ItemHandlerHelper.giveItemToPlayer(pPlayer, remainder);
             } else if (slot == 0 && pStack.is(PBTags.ItemTags.PAGAN_TOOLS)) {
                 cutItem(pLevel, pPlayer, herbalistBenchBlockEntity, pHand, stackInSlot, pStack);
             } else if (!pStack.isEmpty()) {
                 if (stackInSlot.isEmpty() || (stackInSlot.is(pStack.getItem()) && stackInSlot.getCount() + pStack.getCount() <= pStack.getMaxStackSize())) {
-                    ItemStack remainder = herbalistBenchBlockEntity.getItemHandler().insertItem(slot, pStack.copy(), false);
+                    ItemStack remainder = itemHandler.insertItem(slot, pStack.copy(), false);
                     pPlayer.setItemInHand(pHand, remainder);
                 } else {
-                    // TODO: Switch items
+                    ItemStack extractedItem = itemHandler.extractItem(slot, stackInSlot.getCount(), false);
+                    ItemStack insertedItemRemainder = itemHandler.insertItem(slot, pStack, false);
+                    ItemHandlerHelper.giveItemToPlayer(pPlayer, extractedItem, pPlayer.getInventory().selected);
+                    pPlayer.setItemInHand(pHand, insertedItemRemainder);
                 }
             }
         }

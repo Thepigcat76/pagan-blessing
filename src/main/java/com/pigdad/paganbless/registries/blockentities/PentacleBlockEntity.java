@@ -1,12 +1,11 @@
 package com.pigdad.paganbless.registries.blockentities;
 
-import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.api.PBSpawner;
+import com.pigdad.paganbless.registries.PBBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.BaseSpawner;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.SpawnData;
 import net.minecraft.world.level.block.Blocks;

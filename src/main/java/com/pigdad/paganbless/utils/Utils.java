@@ -24,7 +24,6 @@ import org.joml.Vector3f;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import static net.neoforged.neoforge.items.ItemHandlerHelper.insertItemStacked;
 

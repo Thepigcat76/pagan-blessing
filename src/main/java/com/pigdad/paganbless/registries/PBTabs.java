@@ -16,7 +16,6 @@ public final class PBTabs {
                 .title(Component.translatable("tab.paganbless.main"))
                 .icon(() -> PBBlocks.IMBUING_CAULDRON.get().asItem().getDefaultInstance())
                 .displayItems((parameters, output) -> {
-
                     // Blocks
                     output.accept(PBBlocks.IMBUING_CAULDRON.get());
                     output.accept(PBBlocks.HERBALIST_BENCH.get());
@@ -42,6 +41,8 @@ public final class PBTabs {
                     output.accept(PBBlocks.HANGING_RUE.get());
                     output.accept(PBBlocks.DRIED_HANGING_LAVENDER.get());
                     output.accept(PBBlocks.DRIED_HANGING_RUE.get());
+                    output.accept(PBBlocks.WAXED_HANGING_LAVENDER.get());
+                    output.accept(PBBlocks.WAXED_HANGING_RUE.get());
 
                     // Items
                     output.accept(PBItems.BELLADONNA.get());
@@ -60,7 +61,7 @@ public final class PBTabs {
                     addBook(output);
                     output.accept(PBItems.CINNABAR.get());
                     output.accept(PBItems.HERB_POUCH.get());
-                    output.accept(PBBlocks.ROPE.get());
+                    output.accept(PBItems.ROPE.get());
                     output.accept(PBItems.BOLINE.get());
                     output.accept(PBItems.WAND.get());
                     output.accept(PBItems.CHALICE.get());

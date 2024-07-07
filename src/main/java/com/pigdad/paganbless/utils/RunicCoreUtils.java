@@ -2,6 +2,7 @@ package com.pigdad.paganbless.utils;
 
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
+import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.blockentities.RuneSlabBlockEntity;
 import com.pigdad.paganbless.registries.blocks.RuneSlabBlock;
@@ -15,11 +16,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Stream;
 
 public final class RunicCoreUtils {
     /**
@@ -91,8 +90,11 @@ public final class RunicCoreUtils {
             BlockState testBlock = level.getBlockState(blockPos);
 
             if (testBlock.getBlock() instanceof RuneSlabBlock block) {
+                PaganBless.LOGGER.debug("Block: {}", block);
                 if (block.isInert()) {
                     return errorFromString("ritual_feedback.paganbless.inert_slab", blockPos.getX(), blockPos.getY(), blockPos.getZ());
+                } else if (block != runeType) {
+                    return errorFromString("ritual_feedback.paganbless.wrong_slab", blockPos.getX(), blockPos.getY(), blockPos.getZ());
                 }
             } else {
                 return errorFromString("The block at %d, %d, %d is not a %s", blockPos.getX(), blockPos.getY(), blockPos.getZ(), runeType.getName());

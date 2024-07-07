@@ -59,14 +59,38 @@ public final class PBBlocks {
             () -> new LavenderIncenseBlock(BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).strength(0.4F).noOcclusion()));
 
     public static final Supplier<Block> DRIED_HANGING_LAVENDER = registerBlockAndItem("dried_hanging_lavender",
-            () -> new BaseHangingHerbBlock(BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).strength(0.4F).noOcclusion()));
+            () -> new BaseHangingHerbBlock(BlockBehaviour.Properties.of()
+                    .strength(0.4F)
+                    .noOcclusion()
+                    .sound(SoundType.BAMBOO_SAPLING)));
     public static final Supplier<Block> DRIED_HANGING_RUE = registerBlockAndItem("dried_hanging_rue",
-            () -> new BaseHangingHerbBlock(BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).strength(0.4F).noOcclusion()));
+            () -> new BaseHangingHerbBlock(BlockBehaviour.Properties.of()
+                    .strength(0.4F)
+                    .noOcclusion()
+                    .sound(SoundType.BAMBOO_SAPLING)));
+    public static final Supplier<Block> WAXED_HANGING_LAVENDER = registerBlockAndItem("waxed_hanging_lavender",
+            () -> new WaxedHangingHerbBlock(BlockBehaviour.Properties.of()
+                    .strength(0.4F)
+                    .noOcclusion()
+                    .sound(SoundType.BAMBOO_SAPLING)));
+    public static final Supplier<Block> WAXED_HANGING_RUE = registerBlockAndItem("waxed_hanging_rue",
+            () -> new WaxedHangingHerbBlock(BlockBehaviour.Properties.of()
+                    .strength(0.4F)
+                    .noOcclusion()
+                    .sound(SoundType.BAMBOO_SAPLING)));
     public static final Supplier<Block> HANGING_LAVENDER = registerBlockAndItem("hanging_lavender",
-            () -> new HangingHerbBlock(BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).strength(0.4F).noOcclusion(), DRIED_HANGING_LAVENDER.get()));
+            () -> new HangingHerbBlock(BlockBehaviour.Properties.of()
+                    .strength(0.4F)
+                    .noOcclusion()
+                    .sound(SoundType.BAMBOO_SAPLING),
+                    DRIED_HANGING_LAVENDER.get(), WAXED_HANGING_LAVENDER.get()));
     public static final Supplier<Block> HANGING_RUE = registerBlockAndItem("hanging_rue",
-            () -> new HangingHerbBlock(BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).strength(0.2F).noOcclusion(), DRIED_HANGING_RUE.get()));
-    public static final Supplier<Block> ROPE = registerBlockAndItem("rope",
+            () -> new HangingHerbBlock(BlockBehaviour.Properties.of()
+                    .strength(0.4F)
+                    .noOcclusion()
+                    .sound(SoundType.BAMBOO_SAPLING),
+                    DRIED_HANGING_RUE.get(), WAXED_HANGING_RUE.get()));
+    public static final Supplier<Block> ROPE = registerBlock("rope",
             () -> new RopeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(0.4F).noOcclusion().sound(SoundType.WOOL)));
     public static final Supplier<Block> PENTACLE = registerBlock("pentacle",
             () -> new PentacleBlock(BlockBehaviour.Properties.of()
@@ -82,7 +106,7 @@ public final class PBBlocks {
     public static final Supplier<Block> RUNE_SLAB_EMERALD = registerRuneSlab("rune_slab_emerald", 0x21a833);
     public static final Supplier<Block> RUNE_SLAB_QUARTZ = registerRuneSlab("rune_slab_quartz", 0xc7b7ab);
     public static final Supplier<Block> RUNE_SLAB_LAPIS = registerRuneSlab("rune_slab_lapis", 0x2123a8);
-    public static final Supplier<Block> RUNE_SLAB_INERT = registerRuneSlab("rune_slab_inert", 0);
+    public static final Supplier<Block> RUNE_SLAB_INERT = registerRuneSlab("rune_slab_inert", 0, true);
     // Plants
     public static final Supplier<Block> RUE_PLANT = registerHerbPlant("rue_plant");
     public static final Supplier<Block> BELLADONNA_PLANT = registerHerbPlant("belladonna_plant");

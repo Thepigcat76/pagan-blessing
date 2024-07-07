@@ -32,6 +32,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -99,6 +100,7 @@ public class RunicCoreBlockEntity extends ContainerBlockEntity {
             for (BlockPos blockPos : runeSlabs) {
                 renderRuneSlabParticles(blockPos);
             }
+            renderCenterParticles();
         }
     }
 
@@ -189,6 +191,16 @@ public class RunicCoreBlockEntity extends ContainerBlockEntity {
     }
 
     @Override
+    protected void loadData(CompoundTag tag) {
+        super.loadData(tag);
+        Optional<EntityType<?>> entityType = EntityType.byString(tag.getString("entity_type"));
+        entityType.ifPresent(type -> this.entityType = type);
+        this.runRecipe = tag.getBoolean("run_recipe");
+        this.runeSlabs = NbtUtils.loadBlockPosSet(tag, "rune_slabs");
+        this.timer = tag.getInt("timer");
+    }
+
+    @Override
     public Map<Direction, Pair<IOActions, int[]>> getItemIO() {
         return Map.of(
                 Direction.DOWN, Pair.of(IOActions.EXTRACT, new int[]{0})
@@ -200,13 +212,6 @@ public class RunicCoreBlockEntity extends ContainerBlockEntity {
         return Map.of();
     }
 
-    @Override
-    protected void loadData(CompoundTag tag) {
-        super.loadData(tag);
-        Optional<EntityType<?>> entityType = EntityType.byString(tag.getString("entity_type"));
-        entityType.ifPresent(type -> this.entityType = type);
-        this.runRecipe = tag.getBoolean("run_recipe");
-        this.runeSlabs = NbtUtils.loadBlockPosSet(tag, "rune_slabs");
-        this.timer = tag.getInt("timer");
+    private void renderCenterParticles() {
     }
 }
