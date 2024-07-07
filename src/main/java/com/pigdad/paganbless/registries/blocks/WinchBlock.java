@@ -107,6 +107,14 @@ public class WinchBlock extends RotatableEntityBlock {
         super.onRemove(state, level, pos, newState, movedByPiston);
     }
 
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState pState, BlockEntityType<T> blockEntityType) {
+        return createTickerHelper(blockEntityType, PBBlockEntities.WINCH.get(),
+                (pLevel1, pPos, pState1, pBlockEntity) -> pBlockEntity.tick());
+    }
+
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {

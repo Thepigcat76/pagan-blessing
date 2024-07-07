@@ -1,5 +1,6 @@
 package com.pigdad.paganbless.registries.blocks;
 
+import com.pigdad.paganbless.networking.WinchPayload;
 import com.pigdad.paganbless.registries.blockentities.WinchBlockEntity;
 import com.pigdad.paganbless.utils.WinchUtils;
 import net.minecraft.core.BlockPos;
@@ -24,6 +25,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -85,9 +87,10 @@ public class RopeBlock extends WaterloggedTransparentBlock implements SimpleWate
         if (hasWinch) {
             BlockPos winchPos = level.getBlockState(aboveRopePos).getBlock() instanceof WinchBlock ? aboveRopePos : getWinchPos(level, aboveRopePos);
             if (winchPos != null) {
-                WinchBlockEntity blockEntity = (WinchBlockEntity) level.getBlockEntity(winchPos);
-                int newDistance = WinchUtils.recheckConnections(level, winchPos, clickedPos);
-                blockEntity.setDistance(newDistance);
+                if (level.getBlockEntity(winchPos) instanceof WinchBlockEntity winchBlockEntity) {
+                    int newDistance = WinchUtils.recheckConnections(level, winchPos, clickedPos);
+                    winchBlockEntity.setDistance(newDistance);
+                }
             }
         }
         return super.getStateForPlacement(ctx)
@@ -103,7 +106,13 @@ public class RopeBlock extends WaterloggedTransparentBlock implements SimpleWate
             if (pState.getValue(HAS_WINCH) || aboveBlock.getBlock() instanceof WinchBlock) {
                 invalidateDownwards(pLevel, pPos);
                 BlockPos winchPos = aboveBlock.getBlock() instanceof WinchBlock ? pPos.above() : getWinchPos(pLevel, pPos.above());
-                WinchUtils.recheckConnections(pLevel, winchPos, null);
+                if (winchPos != null) {
+                    if (pLevel.getBlockEntity(winchPos) instanceof WinchBlockEntity winchBlockEntity) {
+                        int distance = WinchUtils.recheckConnections(pLevel, winchPos, null);
+                        winchBlockEntity.setDistance(distance);
+                        PacketDistributor.sendToAllPlayers(new WinchPayload(winchPos, distance, winchBlockEntity.isLiftDown()));
+                    }
+                }
             }
         }
         super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);

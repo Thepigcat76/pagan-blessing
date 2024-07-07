@@ -1,13 +1,18 @@
 {
-  "type": "paganbless:anvil_smashing",
-  "ingredients": [
-    {
-      "item": "paganbless:black_thorn_log"
-    },
-    {
-      "count": 5,
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
       "tag": "c:glass_panes"
+    },
+    "L": {
+      "item": "paganbless:black_thorn_log"
     }
+  },
+  "pattern": [
+    "#L#",
+    "# #",
+    "###"
   ],
   "result": {
     "count": 1,

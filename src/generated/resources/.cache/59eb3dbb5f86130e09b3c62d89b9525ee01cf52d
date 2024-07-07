@@ -1,4 +1,6 @@
-// 1.21	2024-06-30T10:38:32.733926685	Loot Tables
+// 1.21	2024-07-07T01:26:00.085811401	Loot Tables
+db584797d40043f81bdefbb4ed9662293f6ad5e8 data/minecraft/loot_table/blocks/deepslate_redstone_ore.json
+a427bb4820648b8077268bda48763f595c6613cc data/minecraft/loot_table/blocks/redstone_ore.json
 77277e027559dba69989114e3a73c8d3626e8725 data/paganbless/loot_table/blocks/belladonna_plant.json
 4ce72931f0c9a6c92c7c627ba5b3a8350b6989e7 data/paganbless/loot_table/blocks/black_thorn_button.json
 29c3d3915f62c1b8eb23ea819c6d2e8391af5ea8 data/paganbless/loot_table/blocks/black_thorn_door.json
@@ -26,6 +28,7 @@ acc5218a2801db828486be6398ee0a55a30beb73 data/paganbless/loot_table/blocks/crank
 9c135c754574c0cddc5c4a930c1a7c9a96265feb data/paganbless/loot_table/blocks/lavender_plant.json
 1ce4294db556633eec0f127f7873ff4765ea4d9b data/paganbless/loot_table/blocks/mandrake_root_plant.json
 c47da8c9c7d95e5f435e255f35de9f4ae99f631d data/paganbless/loot_table/blocks/mugwort_plant.json
+60a822725531b4e52326387b7175f746d4bf875c data/paganbless/loot_table/blocks/pentacle.json
 7e59b33b39131cbe9d6997ac171b67052c527297 data/paganbless/loot_table/blocks/rope.json
 58fe114c93a1f6d0c2f611a77846892149596fcc data/paganbless/loot_table/blocks/rue_incense.json
 664844f2d1a2d771ea5ad89b0f54d7f9dbe87ff5 data/paganbless/loot_table/blocks/rue_plant.json

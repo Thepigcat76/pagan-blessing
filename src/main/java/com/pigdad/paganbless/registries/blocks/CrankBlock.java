@@ -38,9 +38,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class CrankBlock extends BaseEntityBlock {
-    public static final int CRANK_MIN_ROTATION = 1;
-    public static final int CRANK_MAX_ROTATION = 3;
-    public static final IntegerProperty ROTATION = IntegerProperty.create("rotation", CRANK_MIN_ROTATION, CRANK_MAX_ROTATION);
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
     public static final VoxelShape SHAPE_NORTH = Shapes.or(
@@ -70,7 +67,7 @@ public class CrankBlock extends BaseEntityBlock {
 
     public CrankBlock(Properties properties) {
         super(properties);
-        registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH).setValue(ROTATION, CRANK_MIN_ROTATION));
+        registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH));
     }
 
     @Override
@@ -113,7 +110,7 @@ public class CrankBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        super.createBlockStateDefinition(pBuilder.add(ROTATION, FACING));
+        super.createBlockStateDefinition(pBuilder.add(FACING));
     }
 
 
@@ -123,23 +120,21 @@ public class CrankBlock extends BaseEntityBlock {
             BlockPos winchPos = getWinchPos(blockState, blockPos);
             if (level.getBlockEntity(winchPos) instanceof WinchBlockEntity winchBlockEntity) {
                 if (player.isShiftKeyDown()) {
-                    dropCrank(level, blockPos, blockState, crankBlockEntity, winchBlockEntity);
+                    dropCrank(crankBlockEntity, winchBlockEntity);
                 } else {
-                    liftCrank(level, blockPos, blockState, crankBlockEntity, winchBlockEntity);
+                    liftCrank(crankBlockEntity, winchBlockEntity);
                 }
             }
         }
         return InteractionResult.SUCCESS;
     }
 
-    private void liftCrank(Level level, BlockPos blockPos, BlockState blockState, CrankBlockEntity crankBlockEntity, WinchBlockEntity winchBlockEntity) {
-        PaganBless.LOGGER.debug("Lifting Crank");
+    private void liftCrank(CrankBlockEntity crankBlockEntity, WinchBlockEntity winchBlockEntity) {
         WinchUtils.liftUp(winchBlockEntity);
         crankBlockEntity.turn();
     }
 
-    private void dropCrank(Level level, BlockPos blockPos, BlockState blockState, CrankBlockEntity crankBlockEntity, WinchBlockEntity winchBlockEntity) {
-        PaganBless.LOGGER.debug("Dropping Crank");
+    private void dropCrank(CrankBlockEntity crankBlockEntity, WinchBlockEntity winchBlockEntity) {
         WinchUtils.liftDown(winchBlockEntity);
         crankBlockEntity.drop();
     }
@@ -147,20 +142,6 @@ public class CrankBlock extends BaseEntityBlock {
     public static @NotNull BlockPos getWinchPos(BlockState crankState, BlockPos crankPos) {
         Direction direction = crankState.getValue(FACING);
         return crankPos.relative(direction);
-    }
-
-    public static BlockState incrRotationState(BlockState blockState) {
-        int oldRotation = blockState.getValue(ROTATION);
-        return oldRotation == CRANK_MAX_ROTATION
-                ? blockState.setValue(ROTATION, CRANK_MIN_ROTATION)
-                : blockState.setValue(ROTATION, oldRotation + 1);
-    }
-
-    public static BlockState decrRotationState(BlockState blockState) {
-        int oldRotation = blockState.getValue(ROTATION);
-        return oldRotation == CRANK_MIN_ROTATION
-                ? blockState.setValue(ROTATION, CRANK_MAX_ROTATION)
-                : blockState.setValue(ROTATION, oldRotation - 1);
     }
 
     @Nullable

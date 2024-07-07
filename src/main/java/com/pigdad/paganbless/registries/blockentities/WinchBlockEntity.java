@@ -1,13 +1,12 @@
 package com.pigdad.paganbless.registries.blockentities;
 
 import com.mojang.datafixers.util.Pair;
-import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.api.blocks.ContainerBlockEntity;
 import com.pigdad.paganbless.api.io.IOActions;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.blocks.RopeBlock;
-import com.pigdad.paganbless.registries.blocks.WinchBlock;
 import com.pigdad.paganbless.registries.screens.WinchMenu;
+import com.pigdad.paganbless.utils.WinchUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -21,7 +20,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.Map;
 
 public class WinchBlockEntity extends ContainerBlockEntity implements MenuProvider {
@@ -51,7 +49,9 @@ public class WinchBlockEntity extends ContainerBlockEntity implements MenuProvid
 
     @Override
     public void tick() {
-
+        if (isLiftDown()) {
+            WinchUtils.liftDown(this);
+        }
     }
 
     @Override
@@ -86,7 +86,7 @@ public class WinchBlockEntity extends ContainerBlockEntity implements MenuProvid
 
     @Nullable
     @Override
-    public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
+    public AbstractContainerMenu createMenu(int i, @NotNull Inventory inventory, @NotNull Player player) {
         return new WinchMenu(i, inventory, this);
     }
 }

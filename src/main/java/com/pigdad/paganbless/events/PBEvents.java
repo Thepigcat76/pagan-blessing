@@ -7,10 +7,7 @@ import com.pigdad.paganbless.compat.modonomicon.ModonomiconCompat;
 import com.pigdad.paganbless.data.PBAttachmentTypes;
 import com.pigdad.paganbless.data.saved_data.RunicCoreSavedData;
 import com.pigdad.paganbless.mixins.LevelRendererAccess;
-import com.pigdad.paganbless.networking.IncenseBurningPayload;
-import com.pigdad.paganbless.networking.PayloadActions;
-import com.pigdad.paganbless.networking.RunicCoreExplodePayload;
-import com.pigdad.paganbless.networking.RunicCoreRecipePayload;
+import com.pigdad.paganbless.networking.*;
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBEntities;
 import com.pigdad.paganbless.registries.PBMenuTypes;
@@ -158,6 +155,7 @@ public class PBEvents {
             registrar.playToClient(RunicCoreRecipePayload.TYPE, RunicCoreRecipePayload.STREAM_CODEC, PayloadActions::runicCoreRecipeSync);
             registrar.playToClient(RunicCoreExplodePayload.TYPE, RunicCoreExplodePayload.STREAM_CODEC, PayloadActions::runicCoreExplodeSync);
             registrar.playToClient(IncenseBurningPayload.TYPE, IncenseBurningPayload.STREAM_CODEC, PayloadActions::incenseBurningSync);
+            registrar.playToClient(WinchPayload.TYPE, WinchPayload.STREAM_CODEC, PayloadActions::winchSync);
         }
     }
 }

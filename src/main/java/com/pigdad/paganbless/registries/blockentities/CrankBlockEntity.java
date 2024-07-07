@@ -2,7 +2,6 @@ package com.pigdad.paganbless.registries.blockentities;
 
 import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.blocks.CrankBlock;
-import com.pigdad.paganbless.registries.blocks.WinchBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -44,10 +43,12 @@ public class CrankBlockEntity extends BlockEntity {
             }
         } else if (dropping) {
             BlockPos winchPos = CrankBlock.getWinchPos(getBlockState(), getBlockPos());
-            WinchBlockEntity blockEntity = (WinchBlockEntity) level.getBlockEntity(winchPos);
-            if (!blockEntity.isLiftDown()){
-                this.speed = 0;
-                this.dropping = false;
+            assert level != null;
+            if (level.getBlockEntity(winchPos) instanceof WinchBlockEntity winchBlockEntity) {
+                if (!winchBlockEntity.isLiftDown()) {
+                    this.speed = 0;
+                    this.dropping = false;
+                }
             }
         }
     }
