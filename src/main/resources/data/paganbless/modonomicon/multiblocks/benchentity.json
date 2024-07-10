@@ -1,0 +1,23 @@
+{
+  "type": "modonomicon:dense",
+  "pattern": [
+    [
+      "0 ",
+      "  "
+    ],
+    [
+      "DD",
+      "DD"
+    ]
+  ],
+  "mapping": {
+    "D": {
+      "type": "modonomicon:display",
+      "display": "minecraft:stone"
+    },
+    "0": {
+      "type": "modonomicon:block",
+      "block": "paganbless:herbalist_bench[bench_part=left]"
+    }
+  }
+}

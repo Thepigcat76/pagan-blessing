@@ -13,9 +13,10 @@
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
-      "text": "The Imbuing Cauldron is a key tool you will need to make your Runic Pillars   \\
-	\\
-	3x cobbled deepslate and 2x Pagan's Blessings plants mixed with lava will give you the Inert Runic Pillar, check JEI for other/future recipes.",
+      "text": "The Imbuing Cauldron is a core element of your pagan adventure and will be used for various things inlcuding the creation of your first rune slabs   \\
+	  \\
+      For these, you need to mix 3x cobbled deepslate and 2x Herbs with lava. \\
+      For further recipes you shoul check JEI.",
       "title": "Imbuing Cauldron",
       "use_markdown_in_title": false
     },
@@ -24,8 +25,9 @@
       "anchor": "",
       "multiblock_id": "paganbless:imbuingentity",
       "multiblock_name": "Brewing Time!",
-      "show_visualize_button": true,
-      "text": "Don't spill it"
+      "show_visualize_button": false,
+      "text": "Don't spill it!    \\
+      The cauldron is a single block and does not require a multiblock structure."
     }
   ],
   "x": -8,

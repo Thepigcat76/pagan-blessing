@@ -1,0 +1,33 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "paganbless:features",
+  "description": "Hang on!",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "paganbless:hanging_lavender"
+  },
+  "name": "Herb Processing",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "Hanging herbs are a way to store and process your collected Herbs.   \\
+	\\
+	After placing them it will take a short amount of time until they are fully dried and turn into Dried Herbs. You are also able to prevent them from drying by right-clicking them with a honey comb. This will turn them into Waxed Hanging Herbs. As a bonus you are also able to stack multiple of them in a single block.",
+      "title": "Hanging Herbs",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "multiblock_id": "paganbless:hangingherbsentity",
+      "multiblock_name": "Waiting game...",
+      "show_visualize_button": false,
+      "text": "After they are dried, they can be processed into chopped herbs on the Herbalist Bench."
+    }
+  ],
+  "x": -8,
+  "y": -1
+}

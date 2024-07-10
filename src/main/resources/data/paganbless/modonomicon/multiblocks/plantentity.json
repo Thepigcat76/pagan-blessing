@@ -20,39 +20,39 @@
 
     "N": {
       "type": "modonomicon:blockstate",
-      "block": "paganbless:mugwort_plant"
+      "block": "paganbless:mugwort_plant[age=5]"
     },
     "S": {
       "type": "modonomicon:blockstate",
-      "block": "paganbless:rue_plant"
+      "block": "paganbless:rue_plant[age=5]"
     },
     "G": {
-      "type": "modonomicon:block",
-      "block": "paganbless:lavender_plant"
+      "type": "modonomicon:blockstate",
+      "block": "paganbless:lavender_plant[age=5]"
     },
     "D": {
       "type": "modonomicon:display",
       "display": "minecraft:grass_block"
     },
     "0": {
-      "type": "modonomicon:block",
-      "block": "paganbless:belladonna_plant"
+      "type": "modonomicon:blockstate",
+      "block": "paganbless:belladonna_plant[age=5]"
     },
     "H": {
-      "type": "modonomicon:block",
-      "block": "paganbless:hags_taper_plant"
+      "type": "modonomicon:blockstate",
+      "block": "paganbless:hags_taper_plant[age=5]"
     },
     "A": {
-      "type": "modonomicon:block",
+      "type": "modonomicon:blockstate",
       "block": "minecraft:air"
     },
     "F": {
-      "type": "modonomicon:block",
-      "block": "paganbless:winter_berry_bush"
+      "type": "modonomicon:blockstate",
+      "block": "paganbless:winter_berry_bush[age=3]"
     },
     "C": {
-      "type": "modonomicon:blockstateproperty",
-      "block": "paganbless:mandrake_root_plant"
+      "type": "modonomicon:blockstate",
+      "block": "paganbless:mandrake_root_plant[age=5]"
     }
   }
 }

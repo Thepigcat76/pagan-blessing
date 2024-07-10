@@ -1,0 +1,45 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "paganbless:features",
+  "description": "Watch your fingers!",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "paganbless:herbalist_bench"
+  },
+  "name": "Herbalist Bench",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "item": {
+        "item": "paganbless:herbalist_bench"
+      },
+      "anchor": "",
+      "text": "The Herbalist Bench is used for cutting and slicing various items.   \\
+	  \\
+      You will need it for creating the imbuing cauldron along with various other blocks further down the line.",
+      "title": "Herbalist Bench",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "use_markdown_in_title": false,
+      "text": "\\
+      \\
+      To start cutting your items, put them on the cutting board on the left side of the bench by right-clicking with the item.   \\
+      \\
+      Once it is placed, you can start cutting by right-clicking the board with the required tool for cutting. You can see what tool is required for cutting as well as the amount of cuts you need in JEI."
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "use_markdown_in_title": false,
+      "text": "\\
+      \\
+      Once you are done with cutting, you can place the tool on the right side of the bench by right-clicking the tool on it."
+    }
+  ],
+  "x": -7,
+  "y": -1
+}

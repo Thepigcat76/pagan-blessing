@@ -1,0 +1,47 @@
+{
+  "name": "Essential Items",
+  "description": "Items that will accompany you on your journey",
+  "icon": "paganbless:boline",
+  "x": -8,
+  "y": -3,
+  "hide_while_locked": false,
+  "category": "paganbless:features",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "item": {
+        "item": "paganbless:boline"
+      },
+      "title": "Boline",
+      "use_markdown_title": true,
+      "text": "The **Boline** is a multi purpose tool with many different unique abilities.\\
+      \\
+      **1.** It is used to cut various items on the Herbalist Bench \\
+      **2.** It can harvest crops when right-clicking them but wont destroy the crop block \\
+      **3.** It can cut herbs similar to crops \\
+      **4.** When a skeleton is killed with a boline it has a small chance of dropping a skull \\"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "item": {
+        "item": "paganbless:herb_pouch"
+      },
+      "title": "Herb Pouch",
+      "use_markdown_title": true,
+      "text": "The **Herb Pouch** is a simple item that can hold all of your herbs.\\
+      \\
+      It can even store chopped and hanging herbs!"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "item": {
+        "item": "paganbless:black_thorn_staff"
+      },
+      "title": "Black Thorn Staff",
+      "use_markdown_title": true,
+      "text": "The **Black Thorn Staff** is a powerful utility item that acts simillarly to a wrench from tech mods.\\
+      \\
+      It allows you to display information on blocks like an incense's range or change a Rune Slab's state"
+    }
+  ]
+}

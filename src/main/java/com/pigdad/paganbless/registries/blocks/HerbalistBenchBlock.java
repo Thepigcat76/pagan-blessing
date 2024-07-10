@@ -54,7 +54,7 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
             Block.box(10.75, 1, 1, 13.75, 13, 15)
     ).reduce(Shapes::or).get();
     public static final VoxelShape EAST_SHAPE = Stream.of(
-            Block.box(0.25, 13, 1.25, 16.25, 16, 17.25),
+            Block.box(0, 13, 0, 16, 16, 16),
             Block.box(0, 0, 1.25, 16, 1, 6.25),
             Block.box(1, 1, 2.25, 15, 13, 5.25)
     ).reduce(Shapes::or).get();

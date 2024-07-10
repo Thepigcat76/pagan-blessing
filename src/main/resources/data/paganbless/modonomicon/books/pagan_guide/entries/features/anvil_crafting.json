@@ -24,7 +24,7 @@ Just drop the items on the ground, place an anvil a few blocks above and let gra
       "anchor": "",
       "multiblock_id": "paganbless:anvilentity",
       "multiblock_name": "Steve Smash!",
-      "show_visualize_button": true,
+      "show_visualize_button": false,
       "text": "Mind your head."
     }
   ],

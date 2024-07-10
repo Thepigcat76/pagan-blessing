@@ -25,7 +25,7 @@ The plants can be picked up with shears to transport them home and bonemealed.
       "anchor": "",
       "multiblock_id": "paganbless:plantentity",
       "multiblock_name": "Plants to Discover",
-      "show_visualize_button": true,
+      "show_visualize_button": false,
       "text": "Collect all the plants!"
     }
   ],
