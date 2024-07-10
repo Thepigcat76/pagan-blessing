@@ -77,9 +77,6 @@ public final class PBConfig {
 
     @SubscribeEvent
     public static void onLoad(final ModConfigEvent event) {
-        entityTypes = ENTITY_TYPES.get().stream()
-                .map(itemName -> BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(itemName)))
-                .collect(Collectors.toSet());
         wwRange = WICAN_WARD_RANGE.getAsInt();
         ritualTime = RITUAL_TIME.getAsInt();
         incenseTime = INCENSE_TIME.getAsInt();
@@ -91,5 +88,8 @@ public final class PBConfig {
         pentacleMinDelay = PENTACLE_MINIMUM_DELAY.getAsInt();
         pentacleMaxDelay = PENTACLE_MAXIMUM_DELAY.getAsInt();
         pentacleSpawnAmount = PENTACLE_SPAWN_AMOUNT.getAsInt();
+        entityTypes = ENTITY_TYPES.get().stream()
+                .map(itemName -> BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(itemName)))
+                .collect(Collectors.toSet());
     }
 }

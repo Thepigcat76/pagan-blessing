@@ -22,6 +22,6 @@ public class RopeItem extends BlockItem {
             context.getPlayer().setItemInHand(context.getHand(), remainder);
             return InteractionResult.SUCCESS;
         }
-        return InteractionResult.FAIL;
+        return super.useOn(context);
     }
 }

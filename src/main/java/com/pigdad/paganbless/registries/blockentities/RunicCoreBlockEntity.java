@@ -23,6 +23,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.FastColor;
+import net.minecraft.util.ParticleUtils;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -32,7 +33,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -54,7 +54,7 @@ public class RunicCoreBlockEntity extends ContainerBlockEntity {
         this.runeSlabs = new HashSet<>();
     }
 
-    public void serverTick() {
+    public void commonTick() {
         if (this.runRecipe) {
             if (RITUAL_TIME == 0) {
                 performRecipe();
@@ -87,9 +87,9 @@ public class RunicCoreBlockEntity extends ContainerBlockEntity {
             Vec3 westPos = new Vec3(worldPosition.getX() + 0.23, worldPosition.getY() + 0.65, worldPosition.getZ() + 0.23);
             Vec3 pos = switch (getBlockState().getValue(RunicCoreBlock.FACING)) {
                 case NORTH -> northPos;
+                case EAST -> eastPos;
                 case SOUTH -> southPos;
                 case WEST -> westPos;
-                case EAST -> eastPos;
                 default -> null;
             };
             level.addParticle(ParticleTypes.SMOKE, pos.x, pos.y, pos.z, 0.0f, 0.0f, 0.0f);
@@ -116,6 +116,13 @@ public class RunicCoreBlockEntity extends ContainerBlockEntity {
         }
     }
 
+    private void renderCenterParticles() {
+        int count = timer / PBConfig.ritualTime;
+        if (count > 0.5) {
+            ParticleUtils.spawnParticles(level, worldPosition.above(), 10, 0.35, 0.35, true, ParticleTypes.LARGE_SMOKE);
+        }
+    }
+
     public void craftItem(Entity sacrificedEntity) {
         Player player = Minecraft.getInstance().player;
         Optional<Set<BlockPos>> runes = RunicCoreUtils.tryGetRunePositions(level, getBlockPos()).left();
@@ -125,9 +132,9 @@ public class RunicCoreBlockEntity extends ContainerBlockEntity {
             this.entityType = sacrificedEntity.getType();
             PacketDistributor.sendToAllPlayers(new RunicCoreRecipePayload(worldPosition, true, runeSlabs.stream().toList()));
             level.playSound(null, (double) worldPosition.getX() + 0.5, (double) worldPosition.getY() + 0.5, (double) worldPosition.getZ() + 0.5,
-                    SoundEvents.AMBIENT_CAVE.value(), SoundSource.BLOCKS, 1F, 1F);
+                    SoundEvents.AMBIENT_CAVE, SoundSource.BLOCKS, 1F, 1F);
             level.playSound(null, (double) worldPosition.getX() + 0.5, (double) worldPosition.getY() + 0.5, (double) worldPosition.getZ() + 0.5,
-                    SoundEvents.AMBIENT_CAVE.value(), SoundSource.BLOCKS, 1F, 1F);
+                    SoundEvents.AMBIENT_CAVE, SoundSource.BLOCKS, 1F, 1F);
         } else {
             player.sendSystemMessage(RunicCoreUtils.tryGetRunePositions(level, getBlockPos()).right().get());
         }
@@ -210,8 +217,5 @@ public class RunicCoreBlockEntity extends ContainerBlockEntity {
     @Override
     public Map<Direction, Pair<IOActions, int[]>> getFluidIO() {
         return Map.of();
-    }
-
-    private void renderCenterParticles() {
     }
 }

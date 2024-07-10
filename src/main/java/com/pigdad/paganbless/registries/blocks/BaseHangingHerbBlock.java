@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class BaseHangingHerbBlock extends Block {
-    private static final VoxelShape SHAPE = Block.box(6, 2, 6, 10, 16, 10);
+    public static final VoxelShape SHAPE = Block.box(6, 2, 6, 10, 16, 10);
     private static final VoxelShape COLLISION_SHAPE = Block.box(6, 11, 6, 10, 16, 10);
 
     public BaseHangingHerbBlock(Properties p_49795_) {

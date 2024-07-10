@@ -1,6 +1,7 @@
 package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.serialization.MapCodec;
+import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.PBItems;
 import com.pigdad.paganbless.registries.blockentities.RuneSlabBlockEntity;
@@ -8,9 +9,11 @@ import com.pigdad.paganbless.registries.items.RunicChargeItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.TerrainParticle;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
@@ -25,6 +28,8 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -134,6 +139,14 @@ public class RuneSlabBlock extends BaseEntityBlock {
         player.displayClientMessage(Component.literal("Rune State: " + blockState.getValue(RUNE_STATE).ordinal()), true);
 
         return ItemInteractionResult.SUCCESS;
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        super.animateTick(state, level, pos, random);
+        if (state.getValue(IS_TOP) && isInert()) {
+            ParticleUtils.spawnParticles(level, pos, 2, 0.4, 0.4, false, ParticleTypes.ASH);
+        }
     }
 
     public static void incrementRuneState(Level level, BlockState blockState, BlockPos blockPos) {

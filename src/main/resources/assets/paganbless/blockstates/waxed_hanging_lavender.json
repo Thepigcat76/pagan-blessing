@@ -3,14 +3,47 @@
     "hanging_amount=1": {
       "model": "paganbless:block/incenses/waxed/hanging_lavender_waxed"
     },
-    "hanging_amount=2": {
+    "hanging_amount=2,facing=north": {
       "model": "paganbless:block/incenses/waxed/hanging_lavender_waxed_two"
     },
-    "hanging_amount=3": {
+    "hanging_amount=3,facing=north": {
       "model": "paganbless:block/incenses/waxed/hanging_lavender_waxed_three"
     },
-    "hanging_amount=4": {
+    "hanging_amount=4,facing=north": {
       "model": "paganbless:block/incenses/waxed/hanging_lavender_waxed_four"
+    },
+    "hanging_amount=2,facing=south": {
+      "model": "paganbless:block/incenses/waxed/hanging_lavender_waxed_two"
+    },
+    "hanging_amount=3,facing=south": {
+      "model": "paganbless:block/incenses/waxed/hanging_lavender_waxed_three"
+    },
+    "hanging_amount=4,facing=south": {
+      "model": "paganbless:block/incenses/waxed/hanging_lavender_waxed_four"
+    },
+    "hanging_amount=2,facing=east": {
+      "model": "paganbless:block/incenses/waxed/hanging_lavender_waxed_two",
+      "y": 90
+    },
+    "hanging_amount=3,facing=east": {
+      "model": "paganbless:block/incenses/waxed/hanging_lavender_waxed_three",
+      "y": 90
+    },
+    "hanging_amount=4,facing=east": {
+      "model": "paganbless:block/incenses/waxed/hanging_lavender_waxed_four",
+      "y": 90
+    },
+    "hanging_amount=2,facing=west": {
+      "model": "paganbless:block/incenses/waxed/hanging_lavender_waxed_two",
+      "y": 90
+    },
+    "hanging_amount=3,facing=west": {
+      "model": "paganbless:block/incenses/waxed/hanging_lavender_waxed_three",
+      "y": 90
+    },
+    "hanging_amount=4,facing=west": {
+      "model": "paganbless:block/incenses/waxed/hanging_lavender_waxed_four",
+      "y": 90
     }
   }
 }

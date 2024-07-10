@@ -33,6 +33,9 @@ public class RopeBlock extends WaterloggedTransparentBlock implements SimpleWate
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty HAS_WINCH = BooleanProperty.create("has_winch");
+    public static final VoxelShape SHAPE_UD = Block.box(6, 0, 6, 10, 16, 10);
+    public static final VoxelShape SHAPE_NS = Block.box(6, 6, 0, 10, 10, 16);
+    public static final VoxelShape SHAPE_EW = Block.box(0, 6, 6, 16, 10, 10);
 
     public RopeBlock(Properties properties) {
         super(properties);
@@ -55,7 +58,11 @@ public class RopeBlock extends WaterloggedTransparentBlock implements SimpleWate
 
     @Override
     public @NotNull VoxelShape getShape(BlockState p_60555_, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
-        return Block.box(6, 6, 6, 10, 10, 10);
+        return switch (p_60555_.getValue(FACING)) {
+            case UP, DOWN -> SHAPE_UD;
+            case NORTH, SOUTH -> SHAPE_NS;
+            case EAST, WEST -> SHAPE_EW;
+        };
     }
 
     @Override
@@ -93,7 +100,8 @@ public class RopeBlock extends WaterloggedTransparentBlock implements SimpleWate
                 }
             }
         }
-        return super.getStateForPlacement(ctx)
+        BlockState state = super.getStateForPlacement(ctx);
+        return state
                 .setValue(WATERLOGGED, fluidstate.is(Fluids.WATER))
                 .setValue(FACING, facing)
                 .setValue(HAS_WINCH, hasWinch);

@@ -49,40 +49,24 @@ import java.util.stream.Stream;
 public class HerbalistBenchBlock extends RotatableEntityBlock implements TranslucentHighlightFix {
     public static final EnumProperty<BenchVariant> BENCH_PART = EnumProperty.create("bench_part", BenchVariant.class);
     public static final VoxelShape NORTH_SHAPE = Stream.of(
-            Block.box(9.75, 0, 0, 14.75, 1, 16),
-            Block.box(10.75, 1, 1, 13.75, 4, 15),
-            Block.box(11.25, 2, 2.5, 13.25, 6, 13.5),
-            Block.box(11.25, 6, 5.5, 13.25, 9.5, 10.5),
-            Block.box(11.25, 9.5, 2.5, 13.25, 13.5, 13.5),
             Block.box(0, 13, 0, 16, 16, 16),
-            Block.box(-0.25, 8, 6, 11.75, 13, 10)
+            Block.box(9.75, 0, 0, 14.75, 1, 16),
+            Block.box(10.75, 1, 1, 13.75, 13, 15)
     ).reduce(Shapes::or).get();
     public static final VoxelShape EAST_SHAPE = Stream.of(
-            Block.box(1.25, 0, 0, 6.25, 1, 16),
-            Block.box(2.25, 1, 1, 5.25, 4, 15),
-            Block.box(2.75, 2, 2.5, 4.75, 6, 13.5),
-            Block.box(2.75, 6, 5.5, 4.75, 9.5, 10.5),
-            Block.box(2.75, 9.5, 2.5, 4.75, 13.5, 13.5),
-            Block.box(0, 13, 0, 16, 16, 16),
-            Block.box(0.25, 8, 6, 11.75, 13, 10)
+            Block.box(0.25, 13, 1.25, 16.25, 16, 17.25),
+            Block.box(0, 0, 1.25, 16, 1, 6.25),
+            Block.box(1, 1, 2.25, 15, 13, 5.25)
     ).reduce(Shapes::or).get();
     public static final VoxelShape SOUTH_SHAPE = Stream.of(
-            Block.box(-16, 13, 0, 0, 16, 16),
-            Block.box(-12.25, 8, 6, -0.25, 13, 10),
-            Block.box(-13.25, 9.5, 2.5, -11.25, 13.5, 13.5),
-            Block.box(-13.25, 6, 5.5, -11.25, 9.5, 10.5),
-            Block.box(-13.25, 2, 2.5, -11.25, 6, 13.5),
-            Block.box(-13.75, 1, 1, -10.75, 4, 15),
-            Block.box(-14.75, 0, 0, -9.75, 1, 16)
+            Block.box(0, 13, 0, 16, 16, 16),
+            Block.box(1.75, 0, 0, 6.75, 1, 16),
+            Block.box(2.75, 1, 1, 5.75, 13, 15)
     ).reduce(Shapes::or).get();
     public static final VoxelShape WEST_SHAPE = Stream.of(
-            Block.box(9.75, 0, 0, 14.75, 1, 16),
-            Block.box(10.75, 1, 1, 13.75, 4, 15),
-            Block.box(11.25, 2, 2.5, 13.25, 6, 13.5),
-            Block.box(11.25, 6, 5.5, 13.25, 9.5, 10.5),
-            Block.box(11.25, 9.5, 2.5, 13.25, 13.5, 13.5),
             Block.box(0, 13, 0, 16, 16, 16),
-            Block.box(4.25, 8, 6, 15.75, 13, 10)
+            Block.box(0, 0, 9.75, 16, 1, 14.75),
+            Block.box(1, 1, 10.75, 15, 13, 13.75)
     ).reduce(Shapes::or).get();
 
     public HerbalistBenchBlock(Properties properties) {
