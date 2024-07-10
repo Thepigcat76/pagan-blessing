@@ -28,6 +28,14 @@
       "text": "After they are dried, they can be processed into chopped herbs on the Herbalist Bench."
     }
   ],
-  "x": -8,
-  "y": -1
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "paganbless:features/essential_tools",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 6,
+  "y": -3
 }

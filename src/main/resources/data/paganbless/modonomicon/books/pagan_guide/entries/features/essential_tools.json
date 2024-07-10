@@ -2,7 +2,7 @@
   "name": "Essential Items",
   "description": "Items that will accompany you on your journey",
   "icon": "paganbless:boline",
-  "x": -8,
+  "x": 4,
   "y": -3,
   "hide_while_locked": false,
   "category": "paganbless:features",
@@ -42,6 +42,14 @@
       "text": "The **Black Thorn Staff** is a powerful utility item that acts simillarly to a wrench from tech mods.\\
       \\
       It allows you to display information on blocks like an incense's range or change a Rune Slab's state"
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "paganbless:features/herbalist_bench",
+      "line_enabled": true,
+      "line_reversed": false
     }
   ]
 }

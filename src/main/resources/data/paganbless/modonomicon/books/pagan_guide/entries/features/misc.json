@@ -1,0 +1,29 @@
+{
+  "name": "Misc Items",
+  "description": "Items that might prove to be useful",
+  "icon": "paganbless:jar",
+  "x": 2,
+  "y": -1,
+  "hide_while_locked": false,
+  "category": "paganbless:features",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "item": {
+        "item": "paganbless:jar"
+      },
+      "title": "Jar",
+      "use_markdown_title": true,
+      "text": "The **Jar** is a relatively simple block that can store up to a stack of items. It will not drop its contents when broken. It also support rotation in 16 directions similar to the skull and incense"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "item": {
+        "item": "paganbless:runic_charge"
+      },
+      "title": "Runic Charge",
+      "use_markdown_title": true,
+      "text": "The **Runic Charge** provides an easy way to recharge your rune slabs after they are drained from a ritual"
+    }
+  ]
+}

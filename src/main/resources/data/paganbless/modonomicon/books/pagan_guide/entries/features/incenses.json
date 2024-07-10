@@ -1,0 +1,43 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "paganbless:features",
+  "description": "Keep the light on!",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "paganbless:empty_incense"
+  },
+  "name": "Incenses",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "Incenses are a neat block that spread herb-specific effects in a specific area.   \\
+	\\
+	First you need to place a chopped herb in them by right-clicking it. After that is done you can light it with a flint and steel
+      and it will begin spreading its effect. You can right-click the incense with a Black Thorn Staff to display its range.",
+      "title": "Incenses",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "multiblock_id": "paganbless:incenseentity",
+      "multiblock_name": "Waiting game...",
+      "show_visualize_button": false,
+      "text": "**Lavender**: Regeneration    \\
+      **Rue**: Increased crop growth speed"
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "paganbless:features/essential_tools",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 8,
+  "y": -3
+}

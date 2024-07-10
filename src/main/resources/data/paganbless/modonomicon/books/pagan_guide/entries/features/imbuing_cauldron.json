@@ -30,6 +30,14 @@
       The cauldron is a single block and does not require a multiblock structure."
     }
   ],
-  "x": -8,
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "paganbless:features/herbalist_bench",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 5,
   "y": -2
 }

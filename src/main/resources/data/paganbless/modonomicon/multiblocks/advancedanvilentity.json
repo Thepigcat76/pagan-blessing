@@ -1,0 +1,66 @@
+{
+  "type": "modonomicon:dense",
+  "pattern": [
+    [
+      "     ",
+      "  WC ",
+      "     ",
+      "     ",
+      "     "
+    ],
+    [
+      "     ",
+      "  R  ",
+      "     ",
+      "     ",
+      "     "
+    ],
+    [
+      "     ",
+      "  0  ",
+      "     ",
+      "     ",
+      "     "
+    ],
+    [
+      "     ",
+      "     ",
+      "     ",
+      "     ",
+      "     "
+    ],
+    [
+      "DDDDD",
+      "DDTDD",
+      "DDDDD",
+      "DDDDD",
+      "DDDDD"
+    ]
+  ],
+  "mapping": {
+    "0": {
+      "type": "modonomicon:blockstate",
+      "block": "minecraft:anvil"
+    },
+    "D": {
+      "type": "modonomicon:display",
+      "display": "minecraft:stone"
+    },
+    "T": {
+      "type": "modonomicon:display",
+      "display": "minecraft:red_wool"
+    },
+    "W": {
+      "type": "modonomicon:display",
+      "display": "paganbless:winch[facing=east]"
+    },
+    "C": {
+      "type": "modonomicon:display",
+      "display": "paganbless:crank"
+    },
+    "R": {
+      "type": "modonomicon:display",
+      "display": "paganbless:rope[facing=up]"
+    }
+  }
+}

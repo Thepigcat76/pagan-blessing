@@ -13,10 +13,7 @@
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
-      "text": "Examples of the plants you will find in the world.   \\
-They spawn in different biomes and climates and any of them can be used in the Imbuing Cauldron to make Inert Runic Pillars.   \\
-The plants can be picked up with shears to transport them home and bonemealed.
-",
+      "text": "On your journey through the world you will encounter lots of different plants and trees. All of these are exclusive to specific biomes and climates. Breaking these plants will drop the plant as an item. If you want to pick them up, you can use shears. Alternatively you can also right-click the herbs with the boline to drop the plant item and cut the herb.",
       "title": "Flora",
       "use_markdown_in_title": false
     },
@@ -29,6 +26,6 @@ The plants can be picked up with shears to transport them home and bonemealed.
       "text": "Collect all the plants!"
     }
   ],
-  "x": -9,
+  "x": 0,
   "y": -2
 }

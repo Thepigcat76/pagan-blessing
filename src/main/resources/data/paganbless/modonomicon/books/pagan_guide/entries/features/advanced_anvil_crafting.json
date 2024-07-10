@@ -1,0 +1,41 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "paganbless:features",
+  "description": "Be careful nonetheless!",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "paganbless:winch"
+  },
+  "name": "Improved Anvil Smashing",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "Tired of having to worry about your anvils constantly breaking? Then the improved anvil smashing setup is the right thing for you!   \\
+	\\
+	The setup consists of 4 main components. These are: **Winch**, **Crank**, **Ropes** and of course the **Anvil** itself. On the right page you can see, how to build it.",
+      "title": "Improved Anvil Smashing",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "multiblock_id": "paganbless:advancedanvilentity",
+      "multiblock_name": "Lifting the crank!",
+      "show_visualize_button": false,
+      "text": "Right-click the crank to lift the anvil up and shift-right-click to let it drop down. Just like the regular anvil smashing you need to throw the items directly below it."
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "paganbless:features/anvil_crafting",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 7,
+  "y": 0
+}

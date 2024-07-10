@@ -3,11 +3,23 @@
   "background_v_index": 0,
   "category": "paganbless:features",
   "description": "Watch your fingers!",
-  "hide_while_locked": false,
+  "hide_while_locked": true,
+  "condition": {
+    "type": "modonomicon:true"
+  },
+  "show_when_any_parent_unlocked": false,
   "icon": {
     "item": "paganbless:herbalist_bench"
   },
   "name": "Herbalist Bench",
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "paganbless:features/plants",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
   "pages": [
     {
       "type": "modonomicon:spotlight",
@@ -15,7 +27,7 @@
         "item": "paganbless:herbalist_bench"
       },
       "anchor": "",
-      "text": "The Herbalist Bench is used for cutting and slicing various items.   \\
+      "text": "The **Herbalist Bench** is used for cutting and slicing various items.   \\
 	  \\
       You will need it for creating the imbuing cauldron along with various other blocks further down the line.",
       "title": "Herbalist Bench",
@@ -40,6 +52,6 @@
       Once you are done with cutting, you can place the tool on the right side of the bench by right-clicking the tool on it."
     }
   ],
-  "x": -7,
-  "y": -1
+  "x": 2,
+  "y": -2
 }

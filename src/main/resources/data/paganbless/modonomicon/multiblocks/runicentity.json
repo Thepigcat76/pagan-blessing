@@ -44,8 +44,8 @@
       "display": "minecraft:stone"
     },
     "0": {
-      "type": "modonomicon:block",
-      "block": "paganbless:runic_core"
+      "type": "modonomicon:blockstate",
+      "block": "paganbless:runic_core[active=true]"
     }
   }
 }

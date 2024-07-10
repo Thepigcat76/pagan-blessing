@@ -1,0 +1,34 @@
+{
+  "type": "modonomicon:dense",
+  "pattern": [
+    [
+      "   ",
+      "   ",
+      "   "
+    ],
+    [
+      "   ",
+      " 0 ",
+      "   "
+    ],
+    [
+      "STS",
+      "TST",
+      "STS"
+    ]
+  ],
+  "mapping": {
+    "T": {
+      "type": "modonomicon:blockstate",
+      "block": "paganbless:black_thorn_log[axis=z]"
+    },
+    "S": {
+      "type": "modonomicon:blockstate",
+      "block": "paganbless:black_thorn_log[axis=x]"
+    },
+    "0": {
+      "type": "modonomicon:blockstate",
+      "block": "paganbless:lavender_incense[incense_state=one]"
+    }
+  }
+}

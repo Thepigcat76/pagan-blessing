@@ -13,10 +13,11 @@
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
-      "text": "The Pillars must be set out as pictured with all the same colours.\\
-\\
-The pillars must have a different runic pattern on each of them. 
-This can be achieved by right clicking with your Blackthorn Staff.",
+      "text": "The Slabs must be set out as pictured with all the same colours and cannot be inert! \\
+      \\
+      The rune slabs will have a random state after being placed, the player however is able to change the state
+      manually by right-clicking the slab with a block thorn staff.
+      Also make sure to light the runic core with a flint and steel or fire charge by right-clicking.",
       "title": "Runic Sacrifice",
       "use_markdown_in_title": false
     },
@@ -29,6 +30,20 @@ This can be achieved by right clicking with your Blackthorn Staff.",
       "text": "Killing a hostile mob on top of the runic core will complete the ritual."
     }
   ],
-  "x": -6,
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "paganbless:features/imbuing_cauldron",
+      "line_enabled": true,
+      "line_reversed": false
+    },
+    {
+      "draw_arrow": true,
+      "entry": "paganbless:features/anvil_crafting",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 7,
   "y": -2
 }
