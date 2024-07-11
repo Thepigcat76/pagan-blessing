@@ -1,5 +1,6 @@
 package com.pigdad.paganbless.utils;
 
+import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.blockentities.WinchBlockEntity;
 import com.pigdad.paganbless.registries.blocks.RopeBlock;
 import com.pigdad.paganbless.utils.recipes.AnvilRecipeUtils;
@@ -55,10 +56,15 @@ public final class WinchUtils {
         if (!stackInSlot.isEmpty()) {
             BlockState newRopeState = Block.byItem(stackInSlot.getItem()).defaultBlockState();
             if (!newRopeState.isEmpty()) {
-                 if (belowLiftedState.canBeReplaced()) {
-                     if (!(liftedState.getBlock() instanceof RopeBlock)) {
-                         level.setBlockAndUpdate(belowLiftedPos, liftedState);
-                     }
+                if (liftedState.isAir()) {
+                    level.setBlockAndUpdate(liftedPos, newRopeState.setValue(RopeBlock.FACING, Direction.DOWN));
+                    winchBlockEntity.setDistance(distance + 1);
+                    winchBlockEntity.setLiftDown(true);
+                    itemHandler.extractItem(0, 1, false);
+                } else if (belowLiftedState.canBeReplaced()) {
+                    if (!(liftedState.getBlock() instanceof RopeBlock)) {
+                        level.setBlockAndUpdate(belowLiftedPos, liftedState);
+                    }
                     level.setBlockAndUpdate(liftedPos, newRopeState.setValue(RopeBlock.FACING, Direction.DOWN));
                     winchBlockEntity.setDistance(distance + 1);
                     winchBlockEntity.setLiftDown(true);
