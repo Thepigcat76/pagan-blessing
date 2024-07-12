@@ -150,6 +150,7 @@ public record AdvancedBundleContents(List<ItemStack> items, Fraction weight) imp
                     || itemStack.is(PBTags.ItemTags.HERB_PLANTS)
                     || itemStack.is(PBTags.ItemTags.CHOPPED_HERBS)
                     || itemStack.is(PBTags.ItemTags.DRIED_HERBS)
+                    || itemStack.is(PBTags.ItemTags.WAXED_HERBS)
                     || itemStack.is(PBTags.ItemTags.HANGING_HERBS);
         }
 

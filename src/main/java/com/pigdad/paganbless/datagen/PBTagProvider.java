@@ -38,6 +38,7 @@ public class PBTagProvider {
 
             tag(PBTags.ItemTags.HANGING_HERBS, PBBlocks.HANGING_RUE.get().asItem(), PBBlocks.HANGING_LAVENDER.get().asItem());
             tag(PBTags.ItemTags.DRIED_HERBS, PBBlocks.DRIED_HANGING_RUE.get().asItem(), PBBlocks.DRIED_HANGING_LAVENDER.get().asItem());
+            tag(PBTags.ItemTags.WAXED_HERBS, PBBlocks.WAXED_HANGING_RUE.get().asItem(), PBBlocks.WAXED_HANGING_LAVENDER.get().asItem());
             tag(PBTags.ItemTags.CHOPPED_HERBS, PBItems.CHOPPED_RUE.get().asItem(), PBItems.CHOPPED_LAVENDER.get().asItem());
             tag(PBTags.ItemTags.ROPE_HERBS, PBItems.RUE.get(), PBItems.LAVENDER.get());
 

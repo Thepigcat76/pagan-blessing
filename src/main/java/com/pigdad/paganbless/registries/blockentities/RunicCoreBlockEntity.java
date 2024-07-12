@@ -1,13 +1,18 @@
 package com.pigdad.paganbless.registries.blockentities;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import com.pigdad.paganbless.PBConfig;
+import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.api.blocks.ContainerBlockEntity;
 import com.pigdad.paganbless.api.io.IOActions;
 import com.pigdad.paganbless.networking.RunicCoreRecipePayload;
+import com.pigdad.paganbless.registries.PBActivities;
 import com.pigdad.paganbless.registries.PBBlockEntities;
+import com.pigdad.paganbless.registries.PBMemoryModuleTypes;
 import com.pigdad.paganbless.registries.blocks.RuneSlabBlock;
 import com.pigdad.paganbless.registries.blocks.RunicCoreBlock;
+import com.pigdad.paganbless.registries.entities.GoToRunicCoreActivity;
 import com.pigdad.paganbless.registries.items.CaptureSacrificeItem;
 import com.pigdad.paganbless.registries.recipes.RunicRitualRecipe;
 import com.pigdad.paganbless.utils.NbtUtils;
@@ -20,14 +25,22 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.FastColor;
+import net.minecraft.util.Mth;
 import net.minecraft.util.ParticleUtils;
+import net.minecraft.util.Unit;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.behavior.Behavior;
+import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -35,6 +48,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -68,6 +82,22 @@ public class RunicCoreBlockEntity extends ContainerBlockEntity {
                 performRecipe();
                 this.timer = 0;
             }
+        }
+
+        makeEntitiesAttracted();
+    }
+
+    private void makeEntitiesAttracted() {
+        List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, new AABB(worldPosition).inflate(3));
+        for (LivingEntity entity : entities) {
+            Brain<?> brain = entity.getBrain();
+            // Register activity and memory
+            brain.addActivity(PBActivities.GO_TO_RUNIC_CORE_ACTIVITY.get(), 5, ImmutableList.of(new GoToRunicCoreActivity()));
+            brain.getMemories().put(PBMemoryModuleTypes.IS_GOING_TO_RC.get(), Optional.empty());
+
+            // Activate activitiy and memory
+            brain.setMemory(PBMemoryModuleTypes.IS_GOING_TO_RC.get(), Unit.INSTANCE);
+            brain.setActiveActivityIfPossible(PBActivities.GO_TO_RUNIC_CORE_ACTIVITY.get());
         }
     }
 

@@ -13,6 +13,7 @@ public final class PBTags {
         public static final TagKey<Item> ROPE_HERBS = bind("rope_herbs");
         public static final TagKey<Item> HANGING_HERBS = bind("hanging_herbs");
         public static final TagKey<Item> DRIED_HERBS = bind("dried_herbs");
+        public static final TagKey<Item> WAXED_HERBS = bind("waxed_herbs");
         public static final TagKey<Item> CHOPPED_HERBS = bind("chopped_herbs");
         public static final TagKey<Item> HERB_PLANTS = bind("herb_plants");
         public static final TagKey<Item> GEMS_CINNABAR = create(ResourceLocation.fromNamespaceAndPath("c", "gems/cinnabar"));
