@@ -84,7 +84,7 @@ public class RunicCoreBlockEntity extends ContainerBlockEntity {
             }
         }
 
-        makeEntitiesAttracted();
+        //makeEntitiesAttracted();
     }
 
     private void makeEntitiesAttracted() {
