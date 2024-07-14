@@ -52,7 +52,6 @@ public final class WinchUtils {
 
         ItemStackHandler itemHandler = winchBlockEntity.getItemHandler();
         ItemStack stackInSlot = itemHandler.getStackInSlot(0);
-        // TODO: If there is a block two blocks below the winch then it cannot lift down
         if (!stackInSlot.isEmpty()) {
             BlockState newRopeState = Block.byItem(stackInSlot.getItem()).defaultBlockState();
             if (!newRopeState.isEmpty()) {

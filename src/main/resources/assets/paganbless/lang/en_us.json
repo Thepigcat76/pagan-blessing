@@ -86,6 +86,7 @@
   "jei_category.paganbless.bench_cutting.cuts": "Cuts: %d",
 
   "ritual_feedback.paganbless.valid": "Ritual is valid",
+  "ritual_feedback.paganbless.invalid_block": "The block at %d, %d, %d is not a %s",
   "ritual_feedback.paganbless.inert_slab": "The rune slab at %d, %d, %d is inert",
   "ritual_feedback.paganbless.wrong_slab": "The rune slab at %d, %d, %d is inconsistent with the other rune slabs",
   "ritual_feedback.paganbless.unlit": "Runic core is not lit. To light it, right-click with a flint and steel",

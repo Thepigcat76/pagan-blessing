@@ -59,10 +59,8 @@ public class WinchMenu extends PBAbstractContainerMenu<WinchBlockEntity> {
 
             // Check if the slot clicked is one of the vanilla container slots
             int endIndex = TE_INVENTORY_FIRST_SLOT_INDEX + this.slotAmount - VANILLA_SLOT_COUNT;
-            PaganBless.LOGGER.debug("End index: {}", endIndex);
             if (pIndex < VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT) {
                 // This is a vanilla container slot so merge the stack into the tile inventory
-                PaganBless.LOGGER.debug("inv slot: {}", TE_INVENTORY_FIRST_SLOT_INDEX);
                 if (!moveItemStackTo(sourceStack, TE_INVENTORY_FIRST_SLOT_INDEX, endIndex, false)) {
                     return ItemStack.EMPTY;  // EMPTY_ITEM
                 }
@@ -72,7 +70,7 @@ public class WinchMenu extends PBAbstractContainerMenu<WinchBlockEntity> {
                     return ItemStack.EMPTY;
                 }
             } else {
-                System.out.println("Invalid slotIndex:" + pIndex);
+                PaganBless.LOGGER.error("Invalid slotIndex for quickinsert: {}", pIndex);
                 return ItemStack.EMPTY;
             }
             // If stack size == 0 (the entire stack was moved) set slot contents to null

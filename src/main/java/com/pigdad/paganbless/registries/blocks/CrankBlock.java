@@ -2,11 +2,14 @@ package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.serialization.MapCodec;
 import com.pigdad.paganbless.registries.PBBlockEntities;
+import com.pigdad.paganbless.registries.PBSoundEvents;
 import com.pigdad.paganbless.registries.blockentities.CrankBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.WinchBlockEntity;
 import com.pigdad.paganbless.utils.WinchUtils;
+import net.minecraft.client.resources.sounds.Sound;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -124,6 +127,7 @@ public class CrankBlock extends BaseEntityBlock {
     private void liftCrank(CrankBlockEntity crankBlockEntity, WinchBlockEntity winchBlockEntity) {
         WinchUtils.liftUp(winchBlockEntity);
         crankBlockEntity.turn();
+        crankBlockEntity.getLevel().playSound(null, crankBlockEntity.getBlockPos(), PBSoundEvents.CRANK_CLICK.get(), SoundSource.BLOCKS);
     }
 
     private void dropCrank(CrankBlockEntity crankBlockEntity, WinchBlockEntity winchBlockEntity) {

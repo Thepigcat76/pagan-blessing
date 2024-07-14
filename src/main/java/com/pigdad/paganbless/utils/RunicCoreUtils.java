@@ -74,12 +74,12 @@ public final class RunicCoreUtils {
             if (offSetPos != null) return offSetPos;
         } else {
             return errorFromString("ritual_feedback.paganbless.no_rune_slabs",
-                    corePos.offset(firstPos1).getX(),
-                    corePos.offset(firstPos1).getY(),
-                    corePos.offset(firstPos1).getZ(),
-                    corePos.offset(secPos1).getX(),
-                    corePos.offset(secPos1).getY(),
-                    corePos.offset(secPos1).getZ()
+                    firstPos1.getX(),
+                    firstPos1.getY(),
+                    firstPos1.getZ(),
+                    secPos1.getX(),
+                    secPos1.getY(),
+                    secPos1.getZ()
             );
         }
 
@@ -90,14 +90,13 @@ public final class RunicCoreUtils {
             BlockState testBlock = level.getBlockState(blockPos);
 
             if (testBlock.getBlock() instanceof RuneSlabBlock block) {
-                PaganBless.LOGGER.debug("Block: {}", block);
                 if (block.isInert()) {
                     return errorFromString("ritual_feedback.paganbless.inert_slab", blockPos.getX(), blockPos.getY(), blockPos.getZ());
                 } else if (block != runeType) {
                     return errorFromString("ritual_feedback.paganbless.wrong_slab", blockPos.getX(), blockPos.getY(), blockPos.getZ());
                 }
             } else {
-                return errorFromString("The block at %d, %d, %d is not a %s", blockPos.getX(), blockPos.getY(), blockPos.getZ(), runeType.getName());
+                return errorFromString("ritual_feedback.paganbless.invalid_block", blockPos.getX(), blockPos.getY(), blockPos.getZ(), runeType.getName());
             }
         }
 

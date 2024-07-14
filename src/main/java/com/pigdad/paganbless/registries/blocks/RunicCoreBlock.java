@@ -66,8 +66,7 @@ public class RunicCoreBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        Player player = context.getPlayer();
-        return defaultBlockState().setValue(FACING, player.getDirection());
+        return defaultBlockState().setValue(FACING, context.getPlayer().getDirection());
     }
 
     @Override
