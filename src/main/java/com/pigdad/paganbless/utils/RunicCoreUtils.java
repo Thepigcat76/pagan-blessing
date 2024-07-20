@@ -2,7 +2,6 @@ package com.pigdad.paganbless.utils;
 
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
-import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.blockentities.RuneSlabBlockEntity;
 import com.pigdad.paganbless.registries.blocks.RuneSlabBlock;

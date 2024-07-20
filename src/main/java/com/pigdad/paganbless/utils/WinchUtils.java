@@ -1,6 +1,5 @@
 package com.pigdad.paganbless.utils;
 
-import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.blockentities.WinchBlockEntity;
 import com.pigdad.paganbless.registries.blocks.RopeBlock;
 import com.pigdad.paganbless.utils.recipes.AnvilRecipeUtils;

@@ -6,7 +6,6 @@ import com.pigdad.paganbless.registries.PBSoundEvents;
 import com.pigdad.paganbless.registries.blockentities.CrankBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.WinchBlockEntity;
 import com.pigdad.paganbless.utils.WinchUtils;
-import net.minecraft.client.resources.sounds.Sound;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
