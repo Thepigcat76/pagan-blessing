@@ -10,19 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Consumer;
 
 public class JarItem extends BlockItem {
-    public static final JarItemRenderer RENDERER = new JarItemRenderer();
-
     public JarItem(Properties pProperties) {
         super(PBBlocks.JAR.get(), pProperties);
-    }
-
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
-            @Override
-            public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return RENDERER;
-            }
-        });
     }
 }

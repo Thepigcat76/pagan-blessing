@@ -1,5 +1,6 @@
 package com.pigdad.paganbless.events;
 
+import com.pigdad.paganbless.PBConfig;
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.api.blocks.ContainerBlockEntity;
 import com.pigdad.paganbless.api.blocks.TranslucentHighlightFix;
@@ -14,16 +15,22 @@ import com.pigdad.paganbless.registries.PBMenuTypes;
 import com.pigdad.paganbless.registries.blockentities.RunicCoreBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.renderer.*;
 import com.pigdad.paganbless.registries.blocks.JarBlock;
+import com.pigdad.paganbless.registries.items.JarItem;
+import com.pigdad.paganbless.registries.items.renderer.JarItemRenderer;
 import com.pigdad.paganbless.registries.screens.WinchScreen;
 import com.pigdad.paganbless.utils.PBRenderTypes;
 import com.pigdad.paganbless.utils.Utils;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -37,15 +44,22 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RenderHighlightEvent;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public class PBEvents {
     @EventBusSubscriber(modid = PaganBless.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
     public static class ClientModBus {
+        public static final JarItemRenderer RENDERER = new JarItemRenderer();
+
         @SubscribeEvent
         public static void registerBERenderer(EntityRenderersEvent.RegisterRenderers event) {
             event.registerBlockEntityRenderer(PBBlockEntities.IMBUING_CAULDRON.get(),
@@ -66,6 +80,22 @@ public class PBEvents {
         public static void onClientSetup(FMLClientSetupEvent event) {
             event.enqueueWork(() -> EntityRenderers.register(PBEntities.ETERNAL_SNOWBALL.get(), pContext -> new ThrownItemRenderer<>(pContext, 1, false)));
             event.enqueueWork(() -> EntityRenderers.register(PBEntities.WAND_PROJECTILE.get(), pContext -> new ThrownItemRenderer<>(pContext, 1, false)));
+        }
+
+        @SubscribeEvent
+        public static void onClientSetup(RegisterClientExtensionsEvent event) {
+            event.registerItem(new IClientItemExtensions() {
+                @Override
+                public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                    return RENDERER;
+                }
+            }, getInheritedBlocks(JarItem.class));
+        }
+
+        private static Item[] getInheritedBlocks(Class<? extends Item> itemClass) {
+            List<Item> items = BuiltInRegistries.ITEM.stream().filter(itemClass::isInstance).toList();
+            Item[] itemArray = new Item[items.size()];
+            return items.toArray(itemArray);
         }
 
         @SubscribeEvent
@@ -120,7 +150,7 @@ public class PBEvents {
         public static void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
             if (ModList.get().isLoaded("modonomicon")) {
                 Player player = event.getEntity();
-                if (!player.getData(PBAttachmentTypes.HAS_PAGAN_GUIDE.get())) {
+                if (PBConfig.giveBookOnFirstJoin && !player.getData(PBAttachmentTypes.HAS_PAGAN_GUIDE.get())) {
                     ItemHandlerHelper.giveItemToPlayer(player, ModonomiconCompat.getItemStack());
                     player.setData(PBAttachmentTypes.HAS_PAGAN_GUIDE.get(), true);
                 }

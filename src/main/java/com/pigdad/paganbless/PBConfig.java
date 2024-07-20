@@ -21,7 +21,7 @@ public final class PBConfig {
     // a list of strings that are treated as resource locations for items
     private static final ModConfigSpec.ConfigValue<List<? extends String>> ENTITY_TYPES = BUILDER
             .comment("A blacklist for mobs that should not be captured by the pentacle on sacrifice")
-            .defineListAllowEmpty("pentacle_blacklisted", List.of("minecraft:wither", "minecraft:warden", "minecraft:ender_dragon"), PBConfig::validateEntityName);
+            .defineListAllowEmpty("pentacle_blacklisted", List.of("minecraft:wither", "minecraft:warden", "minecraft:ender_dragon"), () -> "", PBConfig::validateEntityName);
     private static final ModConfigSpec.IntValue WICAN_WARD_RANGE = BUILDER
             .comment("The range that the wican ward will prevent mob spawning in. This area is cubic")
             .defineInRange("wican_ward_range", 10, 0, 128);
@@ -50,11 +50,14 @@ public final class PBConfig {
             .comment("The minimum amount of time it takes for a mob to spawn from the pentacle in ticks (20 ticks = 1 second)")
             .defineInRange("pentacle_minimum_delay", 200, 0, 10_000);
     private static final ModConfigSpec.IntValue PENTACLE_MAXIMUM_DELAY = BUILDER
-            .comment("he maximum amount of time it takes for a mob to spawn from the pentacle in ticks (20 ticks = 1 second)")
+            .comment("The maximum amount of time it takes for a mob to spawn from the pentacle in ticks (20 ticks = 1 second)")
             .defineInRange("pentacle_maximum_delay", 800, 0, 10_000);
     private static final ModConfigSpec.IntValue PENTACLE_SPAWN_AMOUNT = BUILDER
             .comment("The amount of mobs that are spawned by the pentacle")
             .defineInRange("pentacle_spawn_amount", 4, 0, 64);
+    private static final ModConfigSpec.BooleanValue GIVE_BOOK_ON_FIRST_JOIN = BUILDER
+            .comment("Whether a pagan's guide book should be given to the player when they first join the world")
+            .define("give_book_on_first_join", true);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 
@@ -70,6 +73,7 @@ public final class PBConfig {
     public static int pentacleMinDelay;
     public static int pentacleMaxDelay;
     public static int pentacleSpawnAmount;
+    public static boolean giveBookOnFirstJoin;
 
     private static boolean validateEntityName(final Object obj) {
         return obj instanceof final String itemName && BuiltInRegistries.ENTITY_TYPE.containsKey(ResourceLocation.parse(itemName));
@@ -88,6 +92,7 @@ public final class PBConfig {
         pentacleMinDelay = PENTACLE_MINIMUM_DELAY.getAsInt();
         pentacleMaxDelay = PENTACLE_MAXIMUM_DELAY.getAsInt();
         pentacleSpawnAmount = PENTACLE_SPAWN_AMOUNT.getAsInt();
+        giveBookOnFirstJoin = GIVE_BOOK_ON_FIRST_JOIN.getAsBoolean();
         entityTypes = ENTITY_TYPES.get().stream()
                 .map(itemName -> BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(itemName)))
                 .collect(Collectors.toSet());
