@@ -16,7 +16,6 @@ import com.pigdad.paganbless.registries.items.CaptureSacrificeItem;
 import com.pigdad.paganbless.registries.recipes.RunicRitualRecipe;
 import com.pigdad.paganbless.utils.NbtUtils;
 import com.pigdad.paganbless.utils.RunicCoreUtils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ColorParticleOption;
@@ -34,6 +33,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -44,6 +44,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.event.level.NoteBlockEvent;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -148,7 +149,7 @@ public class RunicCoreBlockEntity extends ContainerBlockEntity {
     }
 
     public void craftItem(Entity sacrificedEntity) {
-        Player player = Minecraft.getInstance().player;
+        List<Player> players = level.getNearbyPlayers(TargetingConditions.forNonCombat(), null, new AABB(worldPosition).inflate(5));
         Optional<Set<BlockPos>> runes = RunicCoreUtils.tryGetRunePositions(level, getBlockPos()).left();
         if (runes.isPresent()) {
             this.runeSlabs = runes.get();
@@ -160,12 +161,14 @@ public class RunicCoreBlockEntity extends ContainerBlockEntity {
             level.playSound(null, (double) worldPosition.getX() + 0.5, (double) worldPosition.getY() + 0.5, (double) worldPosition.getZ() + 0.5,
                     SoundEvents.AMBIENT_CAVE, SoundSource.BLOCKS, 1F, 1F);
         } else {
-            player.sendSystemMessage(RunicCoreUtils.tryGetRunePositions(level, getBlockPos()).right().get());
+            for (Player player : players) {
+                player.sendSystemMessage(RunicCoreUtils.tryGetRunePositions(level, getBlockPos()).right().get());
+            }
         }
     }
 
     private void performRecipe() {
-        Player player = Minecraft.getInstance().player;
+        List<Player> players = level.getNearbyPlayers(TargetingConditions.forNonCombat(), null, new AABB(worldPosition).inflate(5));
         Item runeBlock = level.getBlockState(runeSlabs.stream().toList().get(0)).getBlock().asItem();
 
         Optional<RunicRitualRecipe> recipe = Optional.empty();
@@ -197,10 +200,14 @@ public class RunicCoreBlockEntity extends ContainerBlockEntity {
 
                     RunicCoreUtils.resetPillars(level, runeSlabs);
                 } else {
-                    player.sendSystemMessage(Component.literal("Runic core is not activated, do so with a black thorn staff"));
+                    for (Player player : players) {
+                        player.sendSystemMessage(Component.literal("Runic core is not activated, do so with a black thorn staff"));
+                    }
                 }
             } else {
-                player.sendSystemMessage(Component.literal("Rune layout does not match any recipes"));
+                for (Player player : players) {
+                    player.sendSystemMessage(Component.literal("Rune layout does not match any recipes"));
+                }
             }
         }
         this.runRecipe = false;

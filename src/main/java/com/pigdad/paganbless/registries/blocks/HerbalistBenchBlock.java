@@ -6,6 +6,8 @@ import com.pigdad.paganbless.api.blocks.TranslucentHighlightFix;
 import com.pigdad.paganbless.registries.PBTags;
 import com.pigdad.paganbless.registries.blockentities.HerbalistBenchBlockEntity;
 import com.pigdad.paganbless.registries.recipes.BenchCuttingRecipe;
+import com.pigdad.paganbless.utils.PBParticleUtils;
+import com.pigdad.paganbless.utils.Utils;
 import com.pigdad.paganbless.utils.recipes.PBRecipeInput;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.TerrainParticle;
@@ -205,14 +207,14 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
             if (recipe.tryDamage() && tool.isDamageableItem()) {
                 Block block = Block.byItem(recipe.ingredient().ingredient().getItems()[0].getItem());
                 if (block != Blocks.AIR) {
+                    BlockPos pos = blockEntity.getBlockPos();
                     if (level.isClientSide()) {
-                        BlockPos pos = blockEntity.getBlockPos();
-                        spawnBreakParticle(pos, block, 5);
-                        if (recipe.toolItem().getItems()[0].is(ItemTags.AXES)) {
-                            level.playSound(player, pos.above(), SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
-                        } else {
-                            level.playSound(player, pos.above(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
-                        }
+                        PBParticleUtils.spawnBreakParticle(pos, block, 5);
+                    }
+                    if (recipe.toolItem().getItems()[0].is(ItemTags.AXES)) {
+                        level.playSound(player, pos.above(), SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    } else {
+                        level.playSound(player, pos.above(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
                     }
                 }
                 tool.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
@@ -229,13 +231,6 @@ public class HerbalistBenchBlock extends RotatableEntityBlock implements Translu
                 performRecipeAction(level, blockEntity, itemStack, recipe);
             }
         });
-    }
-
-    private static void spawnBreakParticle(BlockPos pos, Block block, int count) {
-        for (int i = 0; i < count; i++) {
-            Minecraft.getInstance().particleEngine.add(new TerrainParticle(Minecraft.getInstance().level, pos.getX() + 0.5f, pos.above().getY(), pos.getZ() + 0.5f,
-                    0 + ((double) i / 10), 0 + ((double) i / 10), 0 + ((double) i / 10), block.defaultBlockState()));
-        }
     }
 
     private static void performRecipeAction(Level level, HerbalistBenchBlockEntity blockEntity, ItemStack itemStack, BenchCuttingRecipe recipe) {

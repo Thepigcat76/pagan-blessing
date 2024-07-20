@@ -45,7 +45,6 @@ public final class PaganBless {
         NeoForge.EVENT_BUS.register(this);
 
         container.registerConfig(ModConfig.Type.COMMON, PBConfig.SPEC);
-        container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
     }
 
     @SubscribeEvent

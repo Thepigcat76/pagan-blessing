@@ -5,8 +5,7 @@ import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.PBItems;
 import com.pigdad.paganbless.registries.blockentities.RuneSlabBlockEntity;
 import com.pigdad.paganbless.registries.items.RunicChargeItem;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.TerrainParticle;
+import com.pigdad.paganbless.utils.PBParticleUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -93,7 +92,7 @@ public class RuneSlabBlock extends BaseEntityBlock {
     }
 
     @Override
-    public VoxelShape getShape(BlockState p_60555_, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
+    public @NotNull VoxelShape getShape(BlockState p_60555_, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
         if (p_60555_.getValue(IS_TOP)) {
             return Stream.of(
                     Block.box(3, -16, 3, 13, -14, 13),
@@ -182,11 +181,12 @@ public class RuneSlabBlock extends BaseEntityBlock {
 
     private static void onIncrementSlab(Level level, BlockPos blockPos, boolean isBottom) {
         level.playSound(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEvents.DEEPSLATE_PLACE, SoundSource.BLOCKS);
-        int count = 3;
-        for (int i = 0; i < count; i++) {
-            int rand = level.random.nextInt(-3, 3);
-            Minecraft.getInstance().particleEngine.add(new TerrainParticle(Minecraft.getInstance().level, blockPos.getX() + 0.5f, blockPos.getY(), blockPos.getZ() + 0.5f,
-                    ((double) i / 10) * rand, ((double) i / 10), ((double) i / 10) * rand, PBBlocks.RUNE_SLAB_INERT.get().defaultBlockState()));
+        if (level.isClientSide()) {
+            int count = 3;
+            for (int i = 0; i < count; i++) {
+                int rand = level.random.nextInt(-3, 3);
+                PBParticleUtils.spawnBreakParticleForRuneSlab(blockPos, rand, i);
+            }
         }
     }
 

@@ -30,7 +30,7 @@ public final class PBConfig {
             .defineInRange("ritual_time", 120, 0, 20_000);
     private static final ModConfigSpec.IntValue INCENSE_TIME = BUILDER
             .comment("The time incenses burn in ticks. 20 ticks are one second")
-            .defineInRange("incense_time", 20_000, 0, 20_000);
+            .defineInRange("incense_time", 20_000, 0, 200_000);
     private static final ModConfigSpec.IntValue RUE_INCENSE_RANGE = BUILDER
             .comment("Range of the rue incense, responsible for growing crops")
             .defineInRange("rue_incense_range", 4, 1, 100);

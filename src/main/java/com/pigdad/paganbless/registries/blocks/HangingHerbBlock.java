@@ -50,7 +50,9 @@ public class HangingHerbBlock extends BaseHangingHerbBlock implements TickingBlo
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (stack.is(Items.HONEYCOMB)) {
-            ParticleUtils.spawnParticlesOnBlockFaces(level, pos, ParticleTypes.WAX_ON, UniformInt.of(3, 5));
+            if (level.isClientSide()) {
+                ParticleUtils.spawnParticlesOnBlockFaces(level, pos, ParticleTypes.WAX_ON, UniformInt.of(3, 5));
+            }
             level.playLocalSound(pos, SoundEvents.HONEYCOMB_WAX_ON, SoundSource.BLOCKS, 1.0F, 1.0F, false);
             level.setBlockAndUpdate(pos, getWaxedHerbBlock().defaultBlockState());
             if (!player.hasInfiniteMaterials()) {
