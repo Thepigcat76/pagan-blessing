@@ -1,6 +1,7 @@
 package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.datafixers.util.Pair;
+import com.pigdad.paganbless.data.RunicCoreSavedData;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.PBItems;
 import com.pigdad.paganbless.registries.blockentities.RuneSlabBlockEntity;
@@ -10,6 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -98,6 +100,24 @@ public class RunicCoreBlock extends BaseEntityBlock {
     }
 
     @Override
+    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
+        super.onPlace(pState, pLevel, pPos, pOldState, pMovedByPiston);
+        if (pLevel instanceof ServerLevel serverLevel) {
+            RunicCoreSavedData savedData = serverLevel.getDataStorage().computeIfAbsent();
+            savedData.addBlockPos(pPos);
+        }
+    }
+
+    @Override
+    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
+        super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
+        if (pLevel instanceof ServerLevel serverLevel) {
+            RunicCoreSavedData savedData = Utils.getRCData(serverLevel);
+            savedData.removeBlockPos(pPos);
+        }
+    }
+
+    @Override
     public void animateTick(BlockState p_220827_, Level level, BlockPos pos, RandomSource p_220830_) {
         double d0 = (double)pos.getX() + 0.5f;
         double d1 = (double)pos.getY() + 1.0f;
@@ -183,12 +203,12 @@ public class RunicCoreBlock extends BaseEntityBlock {
             finalPositions.add(secPos2);
         } else {
             return errorFromString(String.format("Neither the block at %d, %d, %d nor block at %d, %d, %d are rune slabs",
-                    corePos.offset(firstPos1).getX(),
-                    corePos.offset(firstPos1).getY(),
-                    corePos.offset(firstPos1).getZ(),
-                    corePos.offset(secPos1).getX(),
-                    corePos.offset(secPos1).getY(),
-                    corePos.offset(secPos1).getZ()));
+                    firstPos1.getX(),
+                    firstPos1.getY(),
+                    firstPos1.getZ(),
+                    secPos1.getX(),
+                    secPos1.getY(),
+                    secPos1.getZ()));
         }
 
         List<RuneSlabBlock.RuneState> expectedStates = Stream.of(

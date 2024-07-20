@@ -61,8 +61,7 @@ public class WandItem extends BoneMealItem {
         BlockState blockstate = p_40629_.getBlockState(p_40630_);
         int hook = net.minecraftforge.event.ForgeEventFactory.onApplyBonemeal(player, p_40629_, p_40630_, blockstate, p_40628_);
         if (hook != 0) return hook > 0;
-        if (blockstate.getBlock() instanceof BonemealableBlock) {
-            BonemealableBlock bonemealableblock = (BonemealableBlock)blockstate.getBlock();
+        if (blockstate.getBlock() instanceof BonemealableBlock bonemealableblock) {
             if (bonemealableblock.isValidBonemealTarget(p_40629_, p_40630_, blockstate, p_40629_.isClientSide)) {
                 if (p_40629_ instanceof ServerLevel) {
                     if (bonemealableblock.isBonemealSuccess(p_40629_, p_40629_.random, p_40630_, blockstate)) {
@@ -70,7 +69,6 @@ public class WandItem extends BoneMealItem {
                     }
 
                 }
-
                 return true;
             }
         }
