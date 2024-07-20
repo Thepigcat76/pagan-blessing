@@ -4,11 +4,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.saveddata.SavedData;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public abstract class LocationsSavedData extends SavedData {
     protected Set<BlockPos> blocks;
@@ -69,5 +73,29 @@ public abstract class LocationsSavedData extends SavedData {
                 "blocks=" + blocks +
                 ", tickCounter=" + tickCounter +
                 '}';
+    }
+
+    public record Factory<T extends SavedData>(Supplier<T> constructor, Function<CompoundTag, T> deserializer, @Nullable DataFixTypes type) {
+        public Factory(Supplier<T> constructor, Function<CompoundTag, T> deserializer) {
+            this(constructor, deserializer, null);
+        }
+
+        public Factory(Supplier<T> constructor, Function<CompoundTag, T> deserializer, @Nullable DataFixTypes type) {
+            this.constructor = constructor;
+            this.deserializer = deserializer;
+            this.type = type;
+        }
+
+        public Supplier<T> constructor() {
+            return this.constructor;
+        }
+
+        public Function<CompoundTag, T> deserializer() {
+            return this.deserializer;
+        }
+
+        public @Nullable DataFixTypes type() {
+            return this.type;
+        }
     }
 }

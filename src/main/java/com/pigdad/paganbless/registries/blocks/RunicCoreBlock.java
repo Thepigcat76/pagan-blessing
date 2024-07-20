@@ -1,6 +1,7 @@
 package com.pigdad.paganbless.registries.blocks;
 
 import com.mojang.datafixers.util.Pair;
+import com.pigdad.paganbless.data.LocationsSavedData;
 import com.pigdad.paganbless.data.RunicCoreSavedData;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.PBItems;
@@ -35,6 +36,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -103,7 +105,7 @@ public class RunicCoreBlock extends BaseEntityBlock {
     public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
         super.onPlace(pState, pLevel, pPos, pOldState, pMovedByPiston);
         if (pLevel instanceof ServerLevel serverLevel) {
-            RunicCoreSavedData savedData = serverLevel.getDataStorage().computeIfAbsent();
+            RunicCoreSavedData savedData = getSavedData(serverLevel, RunicCoreSavedData.factory(serverLevel));
             savedData.addBlockPos(pPos);
         }
     }
@@ -112,9 +114,13 @@ public class RunicCoreBlock extends BaseEntityBlock {
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
         super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
         if (pLevel instanceof ServerLevel serverLevel) {
-            RunicCoreSavedData savedData = Utils.getRCData(serverLevel);
+            RunicCoreSavedData savedData = getSavedData(serverLevel, RunicCoreSavedData.factory(serverLevel));
             savedData.removeBlockPos(pPos);
         }
+    }
+
+    private static @NotNull RunicCoreSavedData getSavedData(ServerLevel serverLevel, LocationsSavedData.Factory<RunicCoreSavedData> factory) {
+        return serverLevel.getDataStorage().computeIfAbsent(factory.deserializer(), factory.constructor(), RunicCoreSavedData.DATA_ID);
     }
 
     @Override

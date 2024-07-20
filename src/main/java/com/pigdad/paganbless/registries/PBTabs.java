@@ -19,7 +19,6 @@ public class PBTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, PaganBless.MODID);
     public static final RegistryObject<CreativeModeTab> MAIN_TAB = CREATIVE_MODE_TABS.register("main", () -> CreativeModeTab.builder()
             .title(Component.translatable("tab.paganbless.main"))
-            .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> PBBlocks.IMBUING_CAULDRON.get().asItem().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.accept(PBBlocks.IMBUING_CAULDRON.get());

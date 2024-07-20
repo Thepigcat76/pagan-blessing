@@ -33,42 +33,16 @@ public class AnvilSmashingRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public boolean matches(SimpleContainer container, Level level) {
+    public boolean matches(@NotNull SimpleContainer recipeInput, Level level) {
         if (level.isClientSide()) return false;
 
-        List<ItemStack> containerItems = new ArrayList<>();
+        List<ItemStack> inputItems = new ArrayList<>();
 
-        for (int i = 0; i < container.getContainerSize(); i++) {
-            containerItems.add(container.getItem(i));
+        for (int i = 0; i < recipeInput.getContainerSize(); i++) {
+            inputItems.add(recipeInput.getItem(i));
         }
 
-        List<Ingredient> expected = inputItems.stream().toList();
-
-        List<ItemStack> items = containerItems.stream()
-                .filter(item -> !item.isEmpty())
-                .filter(itemStack -> {
-                    for (Ingredient ingredient : inputItems) {
-                        if (ingredient.test(itemStack)) return true;
-                    }
-                    return false;
-                }).toList();
-
-        if (items.size() < inputItems.size()) return false;
-
-        PaganBless.LOGGER.debug("Items: {}, expected: {}", items, expected);
-
-        mainCheck:
-        for (ItemStack item : items) {
-            for (Ingredient expectedItem : expected) {
-                if (expectedItem.test(item)) {
-                    continue mainCheck;
-                }
-            }
-            // else branch, if none of the expected items match
-            return false;
-        }
-
-        return true;
+        return RecipeUtils.compareItems(inputItems, this.inputItems);
     }
 
     @Override

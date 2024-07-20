@@ -45,10 +45,8 @@ public class AnvilBlockMixin {
         for (int i = 0; i < itemEntities.size(); i++) {
             container.setItem(i, itemEntities.get(i).getItem());
         }
-        PaganBless.LOGGER.debug("Container: {}", container);
         Optional<AnvilSmashingRecipe> optionalRecipe = getCurrentRecipe(level, container);
         optionalRecipe.ifPresent(anvilSmashingRecipe -> {
-            PaganBless.LOGGER.debug("Has recipe!");
             ItemStack resultItem = anvilSmashingRecipe.getResultItem(level.registryAccess());
             for (ItemEntity itemEntity : itemEntities) {
                 for (Ingredient ingredient : anvilSmashingRecipe.getIngredients()) {
@@ -60,10 +58,6 @@ public class AnvilBlockMixin {
             }
             level.addFreshEntity(new ItemEntity(level, blockPos.getX(), blockPos.getY(), blockPos.getZ(), resultItem));
         });
-        for (int i = 0; i < container.getContainerSize(); i++) {
-            PaganBless.LOGGER.info("Ingredients: " + container.getItem(i));
-        }
-        PaganBless.LOGGER.info("Recipe: " + optionalRecipe);
     }
 
     private static Optional<AnvilSmashingRecipe> getCurrentRecipe(Level level, SimpleContainer container) {

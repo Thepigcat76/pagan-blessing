@@ -5,7 +5,6 @@ import com.pigdad.paganbless.registries.blockentities.RuneSlabBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -13,7 +12,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -97,12 +95,16 @@ public class RuneSlabBlock extends BaseEntityBlock {
 
     @Override
     public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
-        if (player.getItemInHand(interactionHand).is(PBItems.BLACK_THORN_STAFF.get())) {
-            incrementRuneState(level, blockPos);
-        } else {
-            player.displayClientMessage(Component.literal("Variant: "+blockState.getValue(RUNE_STATE).ordinal()), true);
+        ItemStack itemInHand = player.getItemInHand(interactionHand);
+        if (!itemInHand.is(PBItems.RUNIC_CHARGE.get())) {
+            if (itemInHand.is(PBItems.BLACK_THORN_STAFF.get())) {
+                incrementRuneState(level, blockPos);
+            } else {
+                player.displayClientMessage(Component.literal("Variant: " + blockState.getValue(RUNE_STATE).ordinal()), true);
+            }
+            return InteractionResult.SUCCESS;
         }
-        return InteractionResult.SUCCESS;
+        return super.use(blockState, level, blockPos, player, interactionHand, blockHitResult);
     }
 
     public static void incrementRuneState(Level level, BlockPos blockPos) {

@@ -100,7 +100,6 @@ public class ImbuingCauldronBERenderer implements BlockEntityRenderer<ImbuingCau
             else
                 renderFluid(poseStack, pBufferSource, fluidStack, 1, fillPercentage, combinedLight);
         } catch (Exception ignored) {
-            PaganBless.LOGGER.info("AMOGUS");
         }
     }
 

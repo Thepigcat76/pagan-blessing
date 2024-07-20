@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class RunicChargeItem extends Item {
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext ctx) {
+    public @NotNull InteractionResult useOn(UseOnContext ctx) {
         BlockPos blockPos = ctx.getClickedPos();
         Level level = ctx.getLevel();
         BlockState blockState = level.getBlockState(blockPos);
@@ -43,9 +44,7 @@ public class RunicChargeItem extends Item {
                 blockEntity = level.getBlockEntity(blockPos);
             }
             RuneSlabBlockEntity runeSlabBlockEntity = (RuneSlabBlockEntity) blockEntity;
-            PaganBless.LOGGER.info("Blockentity: {}", runeSlabBlockEntity);
             String prevBlock = runeSlabBlockEntity.getPrevBlock();
-            PaganBless.LOGGER.info("Prev block: {}", prevBlock);
             if (prevBlock != null) {
                 ResourceLocation defaultStateLocation = new ResourceLocation(prevBlock);
                 BlockState defaultState = ForgeRegistries.BLOCKS.getValue(defaultStateLocation).defaultBlockState();

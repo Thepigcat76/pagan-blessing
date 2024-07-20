@@ -36,7 +36,7 @@ public class RunicCoreSavedData extends LocationsSavedData {
         return new RunicCoreSavedData(LocationsSavedData.load(tag, DATA_ID, level));
     }
 
-    public static SavedData.Factory<RunicCoreSavedData> factory(ServerLevel pLevel) {
-        return new SavedData.Factory<>(RunicCoreSavedData::new, (tag, provider) -> load(tag, pLevel));
+    public static LocationsSavedData.Factory<RunicCoreSavedData> factory(ServerLevel pLevel) {
+        return new LocationsSavedData.Factory<>(RunicCoreSavedData::new, (tag) -> load(tag, pLevel));
     }
 }
