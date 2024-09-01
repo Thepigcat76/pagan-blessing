@@ -1,5 +1,6 @@
 package com.pigdad.paganbless.events;
 
+import com.klikli_dev.modonomicon.data.BookDataManager;
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.data.LocationsSavedData;
 import com.pigdad.paganbless.data.RunicCoreSavedData;
@@ -7,15 +8,17 @@ import com.pigdad.paganbless.registries.PBBlockEntities;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.blockentities.RunicCoreBlockEntity;
 import com.pigdad.paganbless.registries.blockentities.renderer.ImbuingCauldronBERenderer;
+import com.pigdad.paganbless.registries.items.PaganGuideItem;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.jetbrains.annotations.NotNull;
@@ -46,6 +49,15 @@ public class ModEvents {
 
         private static @NotNull RunicCoreSavedData getSavedData(ServerLevel serverLevel, LocationsSavedData.Factory<RunicCoreSavedData> factory) {
             return serverLevel.getDataStorage().computeIfAbsent(factory.deserializer(), factory.constructor(), RunicCoreSavedData.DATA_ID);
+        }
+
+        @SubscribeEvent
+        public static void onCrafted(PlayerEvent.ItemCraftedEvent event) {
+            ItemStack crafting = event.getCrafting();
+            if (crafting.getItem() instanceof PaganGuideItem) {
+                ResourceLocation id = BookDataManager.get().getBook(new ResourceLocation("paganbless:pagan_guide")).getId();
+                crafting.getOrCreateTag().putString("modonomicon:book_id", id.toString());
+            }
         }
     }
 }

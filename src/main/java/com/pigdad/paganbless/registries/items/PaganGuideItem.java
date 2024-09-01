@@ -22,10 +22,4 @@ public class PaganGuideItem extends ModonomiconItem {
             return InteractionResultHolder.fail(pPlayer.getItemInHand(pUsedHand));
         }
     }
-
-    @Override
-    public void onCraftedBy(ItemStack itemStack, Level p_41448_, Player p_41449_) {
-        ResourceLocation id = BookDataManager.get().getBook(new ResourceLocation("paganbless:pagan_guide")).getId();
-        itemStack.getOrCreateTag().putString("modonomicon:book_id", id.toString());
-    }
 }
