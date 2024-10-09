@@ -60,7 +60,7 @@ public final class PBTabs {
                     output.accept(PBItems.BLACK_THORN_STAFF.get());
                     addBook(output);
                     output.accept(PBItems.CINNABAR.get());
-                    output.accept(PBItems.HERB_POUCH.get());
+//                    output.accept(PBItems.HERB_POUCH.get());
                     output.accept(PBItems.ROPE.get());
                     output.accept(PBItems.BOLINE.get());
                     output.accept(PBItems.WAND.get());
