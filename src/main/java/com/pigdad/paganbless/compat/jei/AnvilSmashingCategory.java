@@ -1,7 +1,7 @@
 package com.pigdad.paganbless.compat.jei;
 
 import com.pigdad.paganbless.PaganBless;
-import com.pigdad.paganbless.registries.recipes.AnvilSmashingRecipe;
+import com.pigdad.paganbless.content.recipes.AnvilSmashingRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;

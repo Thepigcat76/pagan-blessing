@@ -4,20 +4,22 @@ import com.pigdad.paganbless.PBConfig;
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.api.blocks.ContainerBlockEntity;
 import com.pigdad.paganbless.api.blocks.TranslucentHighlightFix;
+import com.pigdad.paganbless.api.capabilities.InfiniteFluidHandler;
 import com.pigdad.paganbless.compat.modonomicon.ModonomiconCompat;
+import com.pigdad.paganbless.content.blockentities.renderer.*;
 import com.pigdad.paganbless.data.PBAttachmentTypes;
 import com.pigdad.paganbless.data.saved_data.RunicCoreSavedData;
 import com.pigdad.paganbless.mixins.LevelRendererAccess;
 import com.pigdad.paganbless.networking.*;
 import com.pigdad.paganbless.registries.PBBlockEntities;
+import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.PBEntities;
 import com.pigdad.paganbless.registries.PBMenuTypes;
-import com.pigdad.paganbless.registries.blockentities.RunicCoreBlockEntity;
-import com.pigdad.paganbless.registries.blockentities.renderer.*;
-import com.pigdad.paganbless.registries.blocks.JarBlock;
-import com.pigdad.paganbless.registries.items.JarItem;
-import com.pigdad.paganbless.registries.items.renderer.JarItemRenderer;
-import com.pigdad.paganbless.registries.screens.WinchScreen;
+import com.pigdad.paganbless.content.blockentities.RunicCoreBlockEntity;
+import com.pigdad.paganbless.content.blocks.JarBlock;
+import com.pigdad.paganbless.content.items.JarItem;
+import com.pigdad.paganbless.content.items.renderer.JarItemRenderer;
+import com.pigdad.paganbless.content.screens.WinchScreen;
 import com.pigdad.paganbless.utils.PBRenderTypes;
 import com.pigdad.paganbless.utils.Utils;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -30,8 +32,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -46,8 +48,11 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RenderHighlightEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
@@ -169,6 +174,9 @@ public class PBEvents {
             event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PBBlockEntities.HERBALIST_BENCH.get(), ContainerBlockEntity::getItemHandlerOnSide);
 
             event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, PBBlockEntities.IMBUING_CAULDRON.get(), (be, ctx) -> be.getFluidTank());
+
+            event.registerBlock(Capabilities.FluidHandler.BLOCK,
+                    ((level, blockPos, blockState, blockEntity, direction) -> new InfiniteFluidHandler(NeoForgeMod.MILK.get())), PBBlocks.CHALICE.get());
         }
 
         @SubscribeEvent

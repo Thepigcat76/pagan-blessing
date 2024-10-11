@@ -2,9 +2,9 @@ package com.pigdad.paganbless.registries;
 
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.api.blocks.IncenseBlock;
-import com.pigdad.paganbless.registries.blockentities.*;
-import com.pigdad.paganbless.registries.blocks.HangingHerbBlock;
-import com.pigdad.paganbless.registries.blocks.RuneSlabBlock;
+import com.pigdad.paganbless.content.blockentities.*;
+import com.pigdad.paganbless.content.blocks.HangingHerbBlock;
+import com.pigdad.paganbless.content.blocks.RuneSlabBlock;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;

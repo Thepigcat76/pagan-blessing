@@ -1,6 +1,6 @@
 package com.pigdad.paganbless.mixins;
 
-import com.pigdad.paganbless.registries.blocks.RopeBlock;
+import com.pigdad.paganbless.content.blocks.RopeBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;

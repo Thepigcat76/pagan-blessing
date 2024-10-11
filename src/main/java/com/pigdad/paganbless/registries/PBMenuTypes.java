@@ -2,7 +2,7 @@ package com.pigdad.paganbless.registries;
 
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.api.screen.PBAbstractContainerMenu;
-import com.pigdad.paganbless.registries.screens.WinchMenu;
+import com.pigdad.paganbless.content.screens.WinchMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;

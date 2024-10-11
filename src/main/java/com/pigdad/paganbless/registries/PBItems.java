@@ -2,9 +2,9 @@ package com.pigdad.paganbless.registries;
 
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.compat.modonomicon.ModonomiconCompat;
+import com.pigdad.paganbless.content.items.*;
 import com.pigdad.paganbless.data.PBDataComponents;
 import com.pigdad.paganbless.data.components.AdvancedBundleContents;
-import com.pigdad.paganbless.registries.items.*;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffectInstance;

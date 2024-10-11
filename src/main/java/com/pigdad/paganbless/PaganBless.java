@@ -14,6 +14,7 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
@@ -45,6 +46,8 @@ public final class PaganBless {
         NeoForge.EVENT_BUS.register(this);
 
         container.registerConfig(ModConfig.Type.COMMON, PBConfig.SPEC);
+
+        NeoForgeMod.enableMilkFluid();
     }
 
     @SubscribeEvent

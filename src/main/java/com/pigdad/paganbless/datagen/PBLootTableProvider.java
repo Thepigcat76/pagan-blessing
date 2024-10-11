@@ -2,7 +2,7 @@ package com.pigdad.paganbless.datagen;
 
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.PBItems;
-import com.pigdad.paganbless.registries.blocks.WaxedHangingHerbBlock;
+import com.pigdad.paganbless.content.blocks.WaxedHangingHerbBlock;
 import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;

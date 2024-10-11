@@ -1,8 +1,8 @@
 package com.pigdad.paganbless.registries;
 
 import com.pigdad.paganbless.PaganBless;
-import com.pigdad.paganbless.registries.worldgen.BlackThornFoliagePlacer;
-import com.pigdad.paganbless.registries.worldgen.BlackThornTrunkPlacer;
+import com.pigdad.paganbless.content.worldgen.BlackThornFoliagePlacer;
+import com.pigdad.paganbless.content.worldgen.BlackThornTrunkPlacer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;

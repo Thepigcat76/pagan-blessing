@@ -1,8 +1,8 @@
 package com.pigdad.paganbless.registries;
 
 import com.pigdad.paganbless.PaganBless;
-import com.pigdad.paganbless.registries.entities.EternalSnowballEntity;
-import com.pigdad.paganbless.registries.entities.WandProjectileEntity;
+import com.pigdad.paganbless.content.entities.EternalSnowballEntity;
+import com.pigdad.paganbless.content.entities.WandProjectileEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;

@@ -1,6 +1,6 @@
 package com.pigdad.paganbless.datagen.recipe_builder;
 
-import com.pigdad.paganbless.registries.recipes.ImbuingCauldronRecipe;
+import com.pigdad.paganbless.content.recipes.ImbuingCauldronRecipe;
 import com.pigdad.paganbless.utils.recipes.IngredientWithCount;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.data.recipes.RecipeBuilder;

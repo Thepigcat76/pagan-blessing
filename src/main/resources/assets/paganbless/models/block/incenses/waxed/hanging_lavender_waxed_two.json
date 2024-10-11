@@ -2,9 +2,9 @@
 	"credit": "Made with Blockbench",
 	"render_type": "cutout",
 	"textures": {
-		"0": "paganbless:block/black_thorn_bench",
+		"0": "paganbless:block/incenses/waxed_herb_wood",
 		"1": "paganbless:block/plants/lavender_plant",
-		"particle": "paganbless:block/black_thorn_bench"
+		"particle": "paganbless:block/incenses/waxed_herb_wood"
 	},
 	"elements": [
 		{

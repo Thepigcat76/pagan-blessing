@@ -2,7 +2,7 @@ package com.pigdad.paganbless.registries;
 
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.compat.modonomicon.ModonomiconCompat;
-import com.pigdad.paganbless.registries.items.PentacleItem;
+import com.pigdad.paganbless.content.items.PentacleItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -16,14 +16,22 @@ public final class PBTabs {
                 .title(Component.translatable("tab.paganbless.main"))
                 .icon(() -> PBBlocks.IMBUING_CAULDRON.get().asItem().getDefaultInstance())
                 .displayItems((parameters, output) -> {
+                    output.accept(PBItems.BLACK_THORN_STAFF.get());
+                    output.accept(PBItems.BOLINE.get());
+                    output.accept(PBItems.RUNIC_CHARGE.get());
+                    addBook(output);
+                    output.accept(PBItems.BLACK_THORN_STICK.get());
+                    output.accept(PBItems.ROPE.get());
+                    output.accept(PBItems.CINNABAR.get());
+                    output.accept(PBItems.MECHANICAL_COMPONENT.get());
                     // Blocks
                     output.accept(PBBlocks.IMBUING_CAULDRON.get());
                     output.accept(PBBlocks.HERBALIST_BENCH.get());
                     output.accept(PBBlocks.WINCH.get());
                     output.accept(PBBlocks.CRANK.get());
-                    output.accept(PBBlocks.RUNIC_CORE.get());
                     output.accept(PBBlocks.EMPTY_INCENSE.get());
                     output.accept(PBItems.JAR.get());
+                    output.accept(PBBlocks.RUNIC_CORE.get());
                     output.accept(PBBlocks.RUNE_SLAB_INERT.get());
                     output.accept(PBBlocks.RUNE_SLAB_AMETHYST.get());
                     output.accept(PBBlocks.RUNE_SLAB_CINNABAR.get());
@@ -55,21 +63,13 @@ public final class PBTabs {
                     output.accept(PBItems.GLAZED_BERRIES.get());
                     output.accept(PBItems.CHOPPED_LAVENDER.get());
                     output.accept(PBItems.CHOPPED_RUE.get());
-                    output.accept(PBItems.RUNIC_CHARGE.get());
-                    output.accept(PBItems.BLACK_THORN_STICK.get());
-                    output.accept(PBItems.BLACK_THORN_STAFF.get());
-                    addBook(output);
-                    output.accept(PBItems.CINNABAR.get());
-//                    output.accept(PBItems.HERB_POUCH.get());
-                    output.accept(PBItems.ROPE.get());
-                    output.accept(PBItems.BOLINE.get());
+                    // Artifacts
                     output.accept(PBItems.WAND.get());
                     output.accept(PBItems.CHALICE.get());
                     output.accept(PBItems.ETERNAL_SNOWBALL.get());
                     output.accept(PentacleItem.getPentacleDefaultStack());
                     output.accept(PBItems.ATHAME.get());
                     output.accept(PBItems.WICAN_WARD.get());
-                    output.accept(PBItems.MECHANICAL_COMPONENT.get());
 
                     // Wood blocks
                     output.accept(PBBlocks.BLACK_THORN_LEAVES.get());

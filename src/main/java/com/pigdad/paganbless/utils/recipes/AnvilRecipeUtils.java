@@ -1,6 +1,6 @@
 package com.pigdad.paganbless.utils.recipes;
 
-import com.pigdad.paganbless.registries.recipes.AnvilSmashingRecipe;
+import com.pigdad.paganbless.content.recipes.AnvilSmashingRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.Entity;

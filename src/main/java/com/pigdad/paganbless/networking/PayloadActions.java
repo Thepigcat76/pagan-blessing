@@ -1,8 +1,8 @@
 package com.pigdad.paganbless.networking;
 
-import com.pigdad.paganbless.registries.blockentities.IncenseBlockEntity;
-import com.pigdad.paganbless.registries.blockentities.RunicCoreBlockEntity;
-import com.pigdad.paganbless.registries.blockentities.WinchBlockEntity;
+import com.pigdad.paganbless.content.blockentities.IncenseBlockEntity;
+import com.pigdad.paganbless.content.blockentities.RunicCoreBlockEntity;
+import com.pigdad.paganbless.content.blockentities.WinchBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;

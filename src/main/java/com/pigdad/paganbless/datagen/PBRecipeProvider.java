@@ -7,7 +7,7 @@ import com.pigdad.paganbless.datagen.recipe_builder.RunicRitualRecipeBuilder;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.PBItems;
 import com.pigdad.paganbless.registries.PBTags;
-import com.pigdad.paganbless.registries.items.PentacleItem;
+import com.pigdad.paganbless.content.items.PentacleItem;
 import com.pigdad.paganbless.utils.recipes.IngredientWithCount;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;

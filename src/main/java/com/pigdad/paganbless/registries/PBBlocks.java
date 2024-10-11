@@ -1,8 +1,8 @@
 package com.pigdad.paganbless.registries;
 
 import com.pigdad.paganbless.PaganBless;
-import com.pigdad.paganbless.registries.blocks.*;
-import com.pigdad.paganbless.registries.items.RuneSlabItem;
+import com.pigdad.paganbless.content.blocks.*;
+import com.pigdad.paganbless.content.items.RuneSlabItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -48,6 +48,9 @@ public final class PBBlocks {
                     .requiresCorrectToolForDrops()
                     .strength(2.0F, 600.0F)
                     .noOcclusion()));
+    public static final Supplier<Block> CHALICE = registerBlock("chalice",
+            () -> new ChaliceBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GOLD)
+                    .strength(0.75F, 300.0F)));
     public static final Supplier<Block> RUNIC_CORE = registerBlockAndItem("runic_core",
             () -> new RunicCoreBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(1.4f, 300f).noOcclusion()));
 

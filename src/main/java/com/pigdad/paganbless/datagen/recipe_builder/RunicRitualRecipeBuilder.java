@@ -1,6 +1,6 @@
 package com.pigdad.paganbless.datagen.recipe_builder;
 
-import com.pigdad.paganbless.registries.recipes.RunicRitualRecipe;
+import com.pigdad.paganbless.content.recipes.RunicRitualRecipe;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;

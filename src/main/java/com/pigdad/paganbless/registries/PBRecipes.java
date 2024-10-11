@@ -1,10 +1,10 @@
 package com.pigdad.paganbless.registries;
 
 import com.pigdad.paganbless.PaganBless;
-import com.pigdad.paganbless.registries.recipes.AnvilSmashingRecipe;
-import com.pigdad.paganbless.registries.recipes.BenchCuttingRecipe;
-import com.pigdad.paganbless.registries.recipes.ImbuingCauldronRecipe;
-import com.pigdad.paganbless.registries.recipes.RunicRitualRecipe;
+import com.pigdad.paganbless.content.recipes.AnvilSmashingRecipe;
+import com.pigdad.paganbless.content.recipes.BenchCuttingRecipe;
+import com.pigdad.paganbless.content.recipes.ImbuingCauldronRecipe;
+import com.pigdad.paganbless.content.recipes.RunicRitualRecipe;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.neoforged.neoforge.registries.DeferredRegister;

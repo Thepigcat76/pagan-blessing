@@ -1,7 +1,7 @@
 package com.pigdad.paganbless.utils;
 
-import com.pigdad.paganbless.registries.blockentities.WinchBlockEntity;
-import com.pigdad.paganbless.registries.blocks.RopeBlock;
+import com.pigdad.paganbless.content.blockentities.WinchBlockEntity;
+import com.pigdad.paganbless.content.blocks.RopeBlock;
 import com.pigdad.paganbless.utils.recipes.AnvilRecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

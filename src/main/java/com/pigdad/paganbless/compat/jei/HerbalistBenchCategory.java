@@ -2,7 +2,7 @@ package com.pigdad.paganbless.compat.jei;
 
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlocks;
-import com.pigdad.paganbless.registries.recipes.BenchCuttingRecipe;
+import com.pigdad.paganbless.content.recipes.BenchCuttingRecipe;
 import com.pigdad.paganbless.utils.recipes.RecipeUtils;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;

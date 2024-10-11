@@ -1,7 +1,7 @@
 package com.pigdad.paganbless.data.saved_data;
 
 import com.pigdad.paganbless.api.data.LocationsSavedData;
-import com.pigdad.paganbless.registries.blocks.WicanWardBlock;
+import com.pigdad.paganbless.content.blocks.WicanWardBlock;
 import com.pigdad.paganbless.utils.DistanceUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

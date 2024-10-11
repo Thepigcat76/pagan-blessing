@@ -2,7 +2,7 @@ package com.pigdad.paganbless.compat.jei;
 
 import com.pigdad.paganbless.PaganBless;
 import com.pigdad.paganbless.registries.PBBlocks;
-import com.pigdad.paganbless.registries.recipes.RunicRitualRecipe;
+import com.pigdad.paganbless.content.recipes.RunicRitualRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
