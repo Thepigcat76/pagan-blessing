@@ -14,8 +14,9 @@
   "item.paganbless.black_thorn_stick": "Black Thorn Stick",
   "block.paganbless.rope": "Rope",
   "item.paganbless.mechanical_component": "Mechanical Component",
-  "item.paganbless.winter_berries": "Winter berries",
+  "item.paganbless.winter_berries": "Winter Berries",
   "item.paganbless.rue": "Rue",
+  "item.paganbless.essence_of_the_forest": "Essence Of The Forest",
   "item.paganbless.mugwort": "Mugwort",
   "item.paganbless.mandrake_root": "Mandrake root",
   "item.paganbless.lavender": "Lavender",
@@ -65,6 +66,7 @@
   "item.paganbless.chopped_lavender": "Chopped Lavender",
 
   "block.paganbless.black_thorn_log": "Black Thorn Log",
+  "block.paganbless.essence_black_thorn_log": "Essence Black Thorn Log",
   "block.paganbless.stripped_black_thorn_log": "Stripped Black Thorn Log",
   "block.paganbless.black_thorn_wood": "Black Thorn Wood",
   "block.paganbless.stripped_black_thorn_wood": "Stripped Black Thorn Wood",
@@ -81,8 +83,10 @@
   "block.paganbless.black_thorn_stairs": "Black Thorn Stairs",
 
   "jei_info.paganbless.dried_herbs_info": "Hanging Dried Herbs can be obtained by placing a Hanging Herb on the bottom side of a block and waiting for it to turn into a Dried Hanging Herb",
+  "jei_info.paganbless.waxed_herbs_info": "Hanging Herbs can be waxed before they are fully dried, in order to stop them from drying. Waxed Herbs can also be stacked on a block.",
   "jei_info.paganbless.skeleton_skull": "Skeleton Skulls can be obtained by killing Skeletons with a Boline",
   "jei_info.paganbless.cinnabar": "Cinnabar can be obtained when mining redstone ore",
+  "jei_info.paganbless.essence_of_the_forest": "Essence Of The Forest can be found in Black Thorn Logs that have a green spot on them. It can be harvested using the Boline",
   "jei_category.paganbless.bench_cutting.cuts": "Cuts: %d",
 
   "ritual_feedback.paganbless.valid": "Ritual is valid",
@@ -92,6 +96,5 @@
   "ritual_feedback.paganbless.unlit": "Runic core is not lit. To light it, right-click with a flint and steel",
   "ritual_feedback.paganbless.incomplete": "Ritual is incomplete",
   "ritual_feedback.paganbless.no_rune_slabs": "Neither the block at %d, %d, %d nor block at %d, %d, %d are rune slabs",
-  "ritual_feedback.paganbless.no_runeslab_at_pos": "Block at %d, %d, %d is not a rune slab but a %s",
-  "jei_info.paganbless.waxed_herbs_info": "Hanging Herbs can be waxed before they are fully dried, in order to stop them from drying. Waxed Herbs can als be stacked on a block."
+  "ritual_feedback.paganbless.no_runeslab_at_pos": "Block at %d, %d, %d is not a rune slab but a %s"
 }

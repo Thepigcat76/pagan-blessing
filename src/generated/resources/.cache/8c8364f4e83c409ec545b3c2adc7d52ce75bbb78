@@ -1,9 +1,9 @@
-// 1.21	2024-07-11T14:18:28.04686493	Tags for minecraft:item mod id vanilla
+// 1.21.1	2024-10-13T22:25:01.686483618	Tags for minecraft:item mod id vanilla
 68d314cad5b9f109a5a0ad6d390b881c3b00d043 data/c/tags/item/gems/cinnabar.json
 d95c3d912dccf67eaffd33938f1e9ab0aeff7c06 data/c/tags/item/rods/wooden.json
 db9f03f5aa069f7dad825aeee9e1c36981e2fa0e data/minecraft/tags/item/bookshelf_books.json
 ab8a9e86059d7573f5f4b93fcf911b016af44955 data/minecraft/tags/item/fence_gates.json
-e97c9961388f6d6c7dd1ee14e48e426097841035 data/minecraft/tags/item/logs_that_burn.json
+dea13f72a0854ab775123bfc457c9eb7ba2ccb91 data/minecraft/tags/item/logs_that_burn.json
 2c428d97c0f9edf741411fa10524ec8e2c99cf98 data/minecraft/tags/item/planks.json
 c0f357d498be3b99c87d697329d5ae861338ceb2 data/minecraft/tags/item/wooden_buttons.json
 c773dcd8558f22eec751e6fd200ea43220df7bb2 data/minecraft/tags/item/wooden_doors.json

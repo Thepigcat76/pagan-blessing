@@ -1,9 +1,14 @@
 package com.pigdad.paganbless.content.items;
 
 import com.pigdad.paganbless.PBConfig;
+import com.pigdad.paganbless.content.blocks.EssenceLogBlock;
 import com.pigdad.paganbless.content.blocks.HerbPlantBlock;
+import com.pigdad.paganbless.registries.PBItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
@@ -20,6 +25,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.NetherWartBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -76,6 +82,11 @@ public class BolineItem extends SwordItem {
                 pContext.getItemInHand().hurtAndBreak(1, player, LivingEntity.getSlotForHand(pContext.getHand()));
                 return InteractionResult.SUCCESS;
             }
+        } else if (blockState.getBlock() instanceof EssenceLogBlock && blockState.getValue(EssenceLogBlock.ESSENCE)) {
+            level.setBlockAndUpdate(blockPos, blockState.setValue(EssenceLogBlock.ESSENCE, false));
+            level.playSound(null, blockPos, SoundEvents.BEEHIVE_SHEAR, SoundSource.BLOCKS, 1, 1.5f);
+            ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(PBItems.ESSENCE_OF_THE_FOREST.get(), level.random.nextInt(1, 3)));
+            return InteractionResult.SUCCESS;
         }
 
         return InteractionResult.PASS;

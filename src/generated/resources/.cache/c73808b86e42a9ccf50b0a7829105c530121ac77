@@ -1,8 +1,8 @@
-// 1.21	2024-06-29T22:50:58.964998913	Tags for minecraft:block mod id paganbless
+// 1.21.1	2024-10-13T22:32:54.762744689	Tags for minecraft:block mod id paganbless
 ab8a9e86059d7573f5f4b93fcf911b016af44955 data/minecraft/tags/block/fence_gates.json
 f1d33919d5fe4377f5dfb8db85d32e7b9b4ceea2 data/minecraft/tags/block/leaves.json
 e97c9961388f6d6c7dd1ee14e48e426097841035 data/minecraft/tags/block/logs_that_burn.json
-7aaa73e5441be85c9e9390d985f07ad0496e2999 data/minecraft/tags/block/mineable/axe.json
+378445605853091dc0401f6421b3f75414e20bd5 data/minecraft/tags/block/mineable/axe.json
 7ed01f35f34b1d70a2d69ad8f6c6bc8ed804d343 data/minecraft/tags/block/mineable/pickaxe.json
 2c428d97c0f9edf741411fa10524ec8e2c99cf98 data/minecraft/tags/block/planks.json
 c0f357d498be3b99c87d697329d5ae861338ceb2 data/minecraft/tags/block/wooden_buttons.json

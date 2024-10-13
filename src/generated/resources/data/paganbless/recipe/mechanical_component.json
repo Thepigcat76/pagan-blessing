@@ -2,10 +2,10 @@
   "type": "paganbless:anvil_smashing",
   "ingredients": [
     {
-      "item": "paganbless:black_thorn_log"
+      "item": "paganbless:essence_of_the_forest"
     },
     {
-      "count": 3,
+      "count": 2,
       "tag": "c:ingots/iron"
     },
     {

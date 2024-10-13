@@ -94,6 +94,13 @@ public final class PBItems {
             () -> new RopeItem(PBBlocks.ROPE.get(), new Item.Properties()));
     public static final Supplier<Item> BOLINE = registerItem("boline",
             () -> new BolineItem(new Item.Properties().stacksTo(1)));
+    public static final Supplier<Item> ESSENCE_OF_THE_FOREST = registerItem("essence_of_the_forest",
+            () -> new Item(new Item.Properties().food(new FoodProperties.Builder()
+                    .alwaysEdible()
+                    .nutrition(4)
+                    .saturationModifier(1.2f)
+                    .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 50), 0.4f)
+                    .build())));
 
     static {
         if (ModList.get().isLoaded("modonomicon")) {

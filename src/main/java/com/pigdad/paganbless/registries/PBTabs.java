@@ -16,14 +16,6 @@ public final class PBTabs {
                 .title(Component.translatable("tab.paganbless.main"))
                 .icon(() -> PBBlocks.IMBUING_CAULDRON.get().asItem().getDefaultInstance())
                 .displayItems((parameters, output) -> {
-                    output.accept(PBItems.BLACK_THORN_STAFF.get());
-                    output.accept(PBItems.BOLINE.get());
-                    output.accept(PBItems.RUNIC_CHARGE.get());
-                    addBook(output);
-                    output.accept(PBItems.BLACK_THORN_STICK.get());
-                    output.accept(PBItems.ROPE.get());
-                    output.accept(PBItems.CINNABAR.get());
-                    output.accept(PBItems.MECHANICAL_COMPONENT.get());
                     // Blocks
                     output.accept(PBBlocks.IMBUING_CAULDRON.get());
                     output.accept(PBBlocks.HERBALIST_BENCH.get());
@@ -63,6 +55,17 @@ public final class PBTabs {
                     output.accept(PBItems.GLAZED_BERRIES.get());
                     output.accept(PBItems.CHOPPED_LAVENDER.get());
                     output.accept(PBItems.CHOPPED_RUE.get());
+
+                    output.accept(PBItems.BLACK_THORN_STAFF.get());
+                    output.accept(PBItems.BOLINE.get());
+                    output.accept(PBItems.RUNIC_CHARGE.get());
+                    addBook(output);
+                    output.accept(PBItems.BLACK_THORN_STICK.get());
+                    output.accept(PBItems.ROPE.get());
+                    output.accept(PBItems.CINNABAR.get());
+                    output.accept(PBItems.ESSENCE_OF_THE_FOREST.get());
+                    output.accept(PBItems.MECHANICAL_COMPONENT.get());
+
                     // Artifacts
                     output.accept(PBItems.WAND.get());
                     output.accept(PBItems.CHALICE.get());

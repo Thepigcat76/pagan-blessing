@@ -1,4 +1,4 @@
-// 1.21	2024-07-07T16:54:22.52018502	Loot Tables
+// 1.21.1	2024-10-13T22:32:54.764592008	Loot Tables
 db584797d40043f81bdefbb4ed9662293f6ad5e8 data/minecraft/loot_table/blocks/deepslate_redstone_ore.json
 a427bb4820648b8077268bda48763f595c6613cc data/minecraft/loot_table/blocks/redstone_ore.json
 77277e027559dba69989114e3a73c8d3626e8725 data/paganbless/loot_table/blocks/belladonna_plant.json
@@ -19,6 +19,7 @@ acc5218a2801db828486be6398ee0a55a30beb73 data/paganbless/loot_table/blocks/crank
 2e8f5bc12de8e9a7bf99ed201bf9d6648966ccbd data/paganbless/loot_table/blocks/dried_hanging_lavender.json
 427feafbb912782b42b8d01f60ba43545e6793cb data/paganbless/loot_table/blocks/dried_hanging_rue.json
 8a5159c6edb55df6ee6f6da67cf85a947632ba7a data/paganbless/loot_table/blocks/empty_incense.json
+8ce87b2acd922ba3413d5aa573465666256ae668 data/paganbless/loot_table/blocks/essence_black_thorn_log.json
 25bdb243fd0d1e7d0962b591d7be7d2ee981ddd8 data/paganbless/loot_table/blocks/hags_taper_plant.json
 7301f679400cadea449665fb6115527f4fee3982 data/paganbless/loot_table/blocks/hanging_lavender.json
 5cd91a7270e48359770249e27a49e06916fe6539 data/paganbless/loot_table/blocks/hanging_rue.json

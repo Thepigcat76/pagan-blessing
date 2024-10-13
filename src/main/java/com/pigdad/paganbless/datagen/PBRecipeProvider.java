@@ -66,8 +66,8 @@ public class PBRecipeProvider extends RecipeProvider {
                         IngredientWithCount.fromItemTag(ItemTags.CANDLES, 3))
                 .save(recipeOutput);
         AnvilSmashingRecipeBuilder.newRecipe(PBItems.MECHANICAL_COMPONENT.get().getDefaultInstance(),
-                        IngredientWithCount.fromItemLike(PBBlocks.BLACK_THORN_LOG.get()),
-                        IngredientWithCount.fromItemTag(Tags.Items.INGOTS_IRON, 3),
+                        IngredientWithCount.fromItemLike(PBItems.ESSENCE_OF_THE_FOREST.get()),
+                        IngredientWithCount.fromItemTag(Tags.Items.INGOTS_IRON, 2),
                         IngredientWithCount.fromItemLike(PBItems.BLACK_THORN_STICK.get(), 2))
                 .save(recipeOutput);
 
@@ -113,7 +113,8 @@ public class PBRecipeProvider extends RecipeProvider {
                 .ingredients(Items.GLASS_BOTTLE)
                 .ingredients(new IngredientWithCount(Ingredient.of(PBTags.ItemTags.HERBS), 2))
                 .ingredients(new IngredientWithCount(Ingredient.of(Tags.Items.GEMS_AMETHYST), 1))
-                .ingredients(new IngredientWithCount(Ingredient.of(Tags.Items.DUSTS_GLOWSTONE), 2))
+                .ingredients(new IngredientWithCount(Ingredient.of(PBItems.CINNABAR.get()), 1))
+                .ingredients(new IngredientWithCount(Ingredient.of(PBItems.ESSENCE_OF_THE_FOREST.get()), 2))
                 .save(recipeOutput);
     }
 
@@ -170,7 +171,7 @@ public class PBRecipeProvider extends RecipeProvider {
                 .pattern(" S ")
                 .pattern("S  ")
                 .define('S', PBItems.BLACK_THORN_STICK.get())
-                .define('#', PBTags.ItemTags.HERBS)
+                .define('#', PBItems.ESSENCE_OF_THE_FOREST.get())
                 .unlockedBy("has_black_thorn_stick", has(PBItems.BLACK_THORN_STICK.get()))
                 .save(recipeOutput);
 

@@ -67,6 +67,7 @@ public class PBTagProvider {
                     PBBlocks.STRIPPED_BLACK_THORN_LOG.get(),
                     PBBlocks.STRIPPED_BLACK_THORN_LOG.get(),
                     PBBlocks.BLACK_THORN_WOOD.get(),
+                    PBBlocks.ESSENCE_BLACK_THORN_LOG.get(),
                     PBBlocks.STRIPPED_BLACK_THORN_WOOD.get()
             );
 

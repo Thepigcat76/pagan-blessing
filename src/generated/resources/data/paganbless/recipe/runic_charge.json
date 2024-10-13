@@ -16,8 +16,11 @@
       "tag": "c:gems/amethyst"
     },
     {
+      "item": "paganbless:cinnabar"
+    },
+    {
       "count": 2,
-      "tag": "c:dusts/glowstone"
+      "item": "paganbless:essence_of_the_forest"
     }
   ],
   "result": {

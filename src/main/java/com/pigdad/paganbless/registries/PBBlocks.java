@@ -124,6 +124,8 @@ public final class PBBlocks {
             () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG)));
     public static final Supplier<Block> BLACK_THORN_LOG = registerWoodBlock("black_thorn_log",
             () -> new LogBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG), STRIPPED_BLACK_THORN_LOG.get()));
+    public static final Supplier<Block> ESSENCE_BLACK_THORN_LOG = registerWoodBlock("essence_black_thorn_log",
+            () -> new EssenceLogBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).randomTicks()));
     public static final Supplier<Block> STRIPPED_BLACK_THORN_WOOD = registerWoodBlock("stripped_black_thorn_wood",
             () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
     public static final Supplier<Block> BLACK_THORN_WOOD = registerWoodBlock("black_thorn_wood",
@@ -149,8 +151,8 @@ public final class PBBlocks {
     public static final Supplier<Block> BLACK_THORN_SAPLING = registerBlockAndItem("black_thorn_sapling",
             () -> new SaplingBlock(PBTreeGrowers.BLACK_THORN, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
 
-    private static Supplier<Block> registerBlockAndItem(String name, Supplier<Block> block) {
-        Supplier<Block> toReturn = BLOCKS.register(name, block);
+    private static <T extends Block> Supplier<T> registerBlockAndItem(String name, Supplier<T> block) {
+        Supplier<T> toReturn = BLOCKS.register(name, block);
         registerItemFromBlock(name, toReturn);
         return toReturn;
     }
