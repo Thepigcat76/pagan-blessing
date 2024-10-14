@@ -19,18 +19,8 @@
       **1.** It is used to cut various items on the Herbalist Bench \\
       **2.** It can harvest crops when right-clicking them but wont destroy the crop block \\
       **3.** It can cut herbs similar to crops \\
-      **4.** When a skeleton is killed with a boline it has a small chance of dropping a skull \\"
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "item": {
-        "item": "paganbless:herb_pouch"
-      },
-      "title": "Herb Pouch",
-      "use_markdown_title": true,
-      "text": "The **Herb Pouch** is a simple item that can hold all of your herbs.\\
-      \\
-      It can even store chopped and hanging herbs!"
+      **4.** When a skeleton is killed with a boline it has a small chance of dropping a skull \\
+      **5.** Harvest essence of the forest from a  \\"
     },
     {
       "type": "modonomicon:spotlight",

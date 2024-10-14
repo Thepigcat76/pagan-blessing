@@ -7,6 +7,7 @@ import com.pigdad.paganbless.content.recipes.ImbuingCauldronRecipe;
 import com.pigdad.paganbless.utils.recipes.RecipeUtils;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
@@ -18,6 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.phys.Vec2;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -70,12 +72,15 @@ public class ImbuingCauldronCategory  implements IRecipeCategory<ImbuingCauldron
         );
 
         float scale = 34f / ImbuingCauldronBlockEntity.getCapacity();
-        int scaledAmount = (int) (recipe.fluidStack().getAmount() * scale);
 
-        if (!recipe.fluidStack().isEmpty()) {
-            builder.addSlot(RecipeIngredientRole.INPUT, 148, 34 + (34 - scaledAmount))
-                    .addFluidStack(recipe.fluidStack().getFluid(), recipe.fluidStack().getAmount())
-                    .setFluidRenderer(recipe.fluidStack().getAmount(), true, 16, scaledAmount);
+        if (recipe.fluidIngredient().isPresent()) {
+            int scaledAmount = (int) (recipe.fluidIngredient().get().amount() * scale);
+            IRecipeSlotBuilder iRecipeSlotBuilder = builder.addSlot(RecipeIngredientRole.INPUT, 148, 34 + (34 - scaledAmount));
+            for (FluidStack fluidStack : recipe.fluidIngredient().get().getFluids()) {
+                iRecipeSlotBuilder.addFluidStack(fluidStack.getFluid(), recipe.fluidIngredient().get().amount());
+            }
+            iRecipeSlotBuilder
+                    .setFluidRenderer(recipe.fluidIngredient().get().amount(), true, 16, scaledAmount);
         }
 
         for (int i = 0; i < 5; i++) {

@@ -2,6 +2,7 @@
   "type": "paganbless:bench_cutting",
   "cuts": 3,
   "ingredient": {
+    "count": 1,
     "item": "paganbless:dried_hanging_rue"
   },
   "result": {

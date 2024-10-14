@@ -1,5 +1,6 @@
 package com.pigdad.paganbless.datagen;
 
+import com.pigdad.paganbless.content.blocks.EssenceLogBlock;
 import com.pigdad.paganbless.registries.PBBlocks;
 import com.pigdad.paganbless.registries.PBItems;
 import com.pigdad.paganbless.content.blocks.WaxedHangingHerbBlock;
@@ -84,7 +85,11 @@ public class PBLootTableProvider extends BlockLootSubProvider {
         dropHerbPlant(PBBlocks.HAGS_TAPER_PLANT.get(), PBItems.HAG_TAPER.get());
 
         for (Supplier<Block> block : PBBlocks.WOOD_BLOCKS) {
-            dropSelf(block.get());
+            if (block.get() instanceof EssenceLogBlock) {
+                dropOther(block.get(), PBBlocks.BLACK_THORN_LOG.get());
+            } else {
+                dropSelf(block.get());
+            }
         }
 
         add(PBBlocks.BLACK_THORN_LEAVES.get(), createLeavesDrops(PBBlocks.BLACK_THORN_LEAVES.get(), PBBlocks.BLACK_THORN_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));

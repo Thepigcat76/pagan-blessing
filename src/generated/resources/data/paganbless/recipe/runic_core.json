@@ -2,9 +2,11 @@
   "type": "paganbless:anvil_smashing",
   "ingredients": [
     {
+      "count": 1,
       "item": "paganbless:black_thorn_log"
     },
     {
+      "count": 1,
       "item": "minecraft:skeleton_skull"
     },
     {

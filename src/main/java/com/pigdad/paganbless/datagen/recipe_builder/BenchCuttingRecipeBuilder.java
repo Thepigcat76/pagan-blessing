@@ -9,11 +9,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public record BenchCuttingRecipeBuilder(IngredientWithCount ingredient, int cuts, boolean tryDamage, Ingredient toolItem, ItemStack result) implements RecipeBuilder {
-    public static BenchCuttingRecipeBuilder newRecipe(ItemStack result, IngredientWithCount ingredient, Ingredient toolItem, int cuts, boolean tryDamage) {
+public record BenchCuttingRecipeBuilder(SizedIngredient ingredient, int cuts, boolean tryDamage, Ingredient toolItem, ItemStack result) implements RecipeBuilder {
+    public static BenchCuttingRecipeBuilder newRecipe(ItemStack result, SizedIngredient ingredient, Ingredient toolItem, int cuts, boolean tryDamage) {
         return new BenchCuttingRecipeBuilder(ingredient, cuts, tryDamage, toolItem, result);
     }
 

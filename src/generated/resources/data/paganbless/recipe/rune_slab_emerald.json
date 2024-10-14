@@ -2,9 +2,11 @@
   "type": "paganbless:anvil_smashing",
   "ingredients": [
     {
+      "count": 1,
       "tag": "c:gems/emerald"
     },
     {
+      "count": 1,
       "item": "paganbless:rune_slab_inert"
     }
   ],

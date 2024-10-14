@@ -8,6 +8,7 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,14 +16,14 @@ import java.util.List;
 
 public class AnvilSmashingRecipeBuilder implements RecipeBuilder {
     private final ItemStack result;
-    private final List<IngredientWithCount> ingredients;
+    private final List<SizedIngredient> ingredients;
 
-    private AnvilSmashingRecipeBuilder(ItemStack result, List<IngredientWithCount> ingredients) {
+    private AnvilSmashingRecipeBuilder(ItemStack result, List<SizedIngredient> ingredients) {
         this.result = result;
         this.ingredients = ingredients;
     }
 
-    public static AnvilSmashingRecipeBuilder newRecipe(ItemStack result, IngredientWithCount... ingredients) {
+    public static AnvilSmashingRecipeBuilder newRecipe(ItemStack result, SizedIngredient... ingredients) {
         return new AnvilSmashingRecipeBuilder(result, List.of(ingredients));
     }
 

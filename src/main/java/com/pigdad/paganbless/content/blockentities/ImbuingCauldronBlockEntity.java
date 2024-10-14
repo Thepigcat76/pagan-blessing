@@ -18,7 +18,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
+import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.joml.Vector3f;
 
@@ -147,19 +150,20 @@ public class ImbuingCauldronBlockEntity extends ContainerBlockEntity {
         Optional<RecipeHolder<ImbuingCauldronRecipe>> recipe = getCurrentRecipe();
         ItemStack result = recipe.get().value().getResultItem(null);
 
-        for (IngredientWithCount ingredient : recipe.get().value().getIngredientsWithCount()) {
-            ItemStack itemStack = ingredient.ingredient().getItems()[0];
+        for (SizedIngredient ingredient : recipe.get().value().getIngredientsWithCount()) {
             for (int i = 0; i < itemHandler.getSlots(); i++) {
-                if (itemHandler.getStackInSlot(i).is(itemStack.getItem()) && itemHandler.getStackInSlot(i).getCount() >= itemStack.getCount()) {
-                    itemHandler.extractItem(i, ingredient.count(), false);
-                    break;
-                } else if (itemHandler.getStackInSlot(i).is(PBTags.ItemTags.HERBS) && itemHandler.getStackInSlot(i).getCount() >= itemStack.getCount()) {
+                ItemStack stack = itemHandler.getStackInSlot(i);
+                if (ingredient.test(stack)) {
                     itemHandler.extractItem(i, ingredient.count(), false);
                     break;
                 }
             }
         }
-        getFluidTank().drain(recipe.get().value().fluidStack().copy().getAmount(), IFluidHandler.FluidAction.EXECUTE);
+
+        Optional<SizedFluidIngredient> sizedFluidIngredient = recipe.get().value().fluidIngredient();
+        if (sizedFluidIngredient.isPresent()) {
+            getFluidTank().drain(sizedFluidIngredient.get().amount(), IFluidHandler.FluidAction.EXECUTE);
+        }
         itemHandler.setStackInSlot(OUTPUT, new ItemStack(result.getItem(), itemHandler.getStackInSlot(OUTPUT).getCount() + result.getCount()));
 
     }

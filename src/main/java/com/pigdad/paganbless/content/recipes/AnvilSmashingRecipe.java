@@ -16,14 +16,15 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public record AnvilSmashingRecipe(NonNullList<IngredientWithCount> ingredients, ItemStack result) implements Recipe<PBRecipeInput> {
+public record AnvilSmashingRecipe(NonNullList<SizedIngredient> ingredients, ItemStack result) implements Recipe<PBRecipeInput> {
     public static final String NAME = "anvil_smashing";
 
-    public AnvilSmashingRecipe(List<IngredientWithCount> ingredients, ItemStack result) {
+    public AnvilSmashingRecipe(List<SizedIngredient> ingredients, ItemStack result) {
         this(RecipeUtils.listToNonNullList(ingredients), result);
     }
 
@@ -38,23 +39,10 @@ public record AnvilSmashingRecipe(NonNullList<IngredientWithCount> ingredients, 
 
     @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
-        NonNullList<Ingredient> ingredients1 = NonNullList.create();
-        for (int i = 0; i < ingredients.size(); i++) {
-            IngredientWithCount ingredient = ingredients.get(i);
-
-            ingredients1.add(i, ingredient.ingredient());
-            ItemStack[] items = ingredient.ingredient().getItems();
-
-            for (int j = 0; j < items.length; j++) {
-                ItemStack itemStack = items[j];
-                itemStack.setCount(ingredient.count());
-                ingredients1.get(i).getItems()[j] = itemStack;
-            }
-        }
-        return ingredients1;
+        return RecipeUtils.listToNonNullList(RecipeUtils.iWCToIngredientsSaveCount(ingredients));
     }
 
-    public @NotNull NonNullList<IngredientWithCount> getIngredientsWithCount() {
+    public @NotNull NonNullList<SizedIngredient> getIngredientsWithCount() {
         return ingredients;
     }
 
@@ -86,11 +74,11 @@ public record AnvilSmashingRecipe(NonNullList<IngredientWithCount> ingredients, 
     public static class Serializer implements RecipeSerializer<AnvilSmashingRecipe> {
         public static final Serializer INSTANCE = new Serializer();
         private static final MapCodec<AnvilSmashingRecipe> MAP_CODEC = RecordCodecBuilder.mapCodec((builder) -> builder.group(
-                IngredientWithCount.CODEC.listOf().fieldOf("ingredients").forGetter(AnvilSmashingRecipe::ingredients),
+                SizedIngredient.FLAT_CODEC.listOf().fieldOf("ingredients").forGetter(AnvilSmashingRecipe::ingredients),
                 ItemStack.CODEC.fieldOf("result").forGetter(AnvilSmashingRecipe::result)
         ).apply(builder, AnvilSmashingRecipe::new));
         private static final StreamCodec<RegistryFriendlyByteBuf, AnvilSmashingRecipe> STREAM_CODEC = StreamCodec.composite(
-                IngredientWithCount.STREAM_CODEC.apply(ByteBufCodecs.list()),
+                SizedIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()),
                 AnvilSmashingRecipe::ingredients,
                 ItemStack.STREAM_CODEC,
                 AnvilSmashingRecipe::result,

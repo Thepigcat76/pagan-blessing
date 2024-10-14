@@ -16,13 +16,17 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Optional;
 
-public record ImbuingCauldronRecipe(List<IngredientWithCount> ingredients, ItemStack result, FluidStack fluidStack) implements Recipe<PBFluidRecipeInput> {
+public record ImbuingCauldronRecipe(List<SizedIngredient> ingredients, ItemStack result, Optional<SizedFluidIngredient> fluidIngredient) implements Recipe<PBFluidRecipeInput> {
     public static final String NAME = "cauldron_imbuing";
 
     @Override
@@ -31,7 +35,7 @@ public record ImbuingCauldronRecipe(List<IngredientWithCount> ingredients, ItemS
 
         List<ItemStack> inputItems = recipeInput.items().stream().filter(input -> !input.isEmpty()).toList();
 
-        boolean fluidMatches = recipeInput.fluidStack().getAmount() >= this.fluidStack.getAmount() && recipeInput.fluidStack().is(this.fluidStack.getFluid());
+        boolean fluidMatches = fluidIngredient.isEmpty() || fluidIngredient.get().test(recipeInput.fluidStack());
         boolean itemsMatches = RecipeUtils.compareItems(inputItems, ingredients);
         return itemsMatches && fluidMatches;
     }
@@ -41,7 +45,7 @@ public record ImbuingCauldronRecipe(List<IngredientWithCount> ingredients, ItemS
         return RecipeUtils.listToNonNullList(RecipeUtils.iWCToIngredientsSaveCount(ingredients));
     }
 
-    public @NotNull NonNullList<IngredientWithCount> getIngredientsWithCount() {
+    public @NotNull NonNullList<SizedIngredient> getIngredientsWithCount() {
         return RecipeUtils.listToNonNullList(ingredients);
     }
 
@@ -73,17 +77,17 @@ public record ImbuingCauldronRecipe(List<IngredientWithCount> ingredients, ItemS
     public static class Serializer implements RecipeSerializer<ImbuingCauldronRecipe> {
         public static final ImbuingCauldronRecipe.Serializer INSTANCE = new ImbuingCauldronRecipe.Serializer();
         private static final MapCodec<ImbuingCauldronRecipe> MAP_CODEC = RecordCodecBuilder.mapCodec((builder) -> builder.group(
-                IngredientWithCount.CODEC.listOf().fieldOf("ingredients").forGetter(ImbuingCauldronRecipe::ingredients),
+                SizedIngredient.FLAT_CODEC.listOf().fieldOf("ingredients").forGetter(ImbuingCauldronRecipe::ingredients),
                 ItemStack.OPTIONAL_CODEC.fieldOf("result").forGetter(ImbuingCauldronRecipe::result),
-                FluidStack.OPTIONAL_CODEC.fieldOf("fluid").orElse(FluidStack.EMPTY).forGetter(ImbuingCauldronRecipe::fluidStack)
+                SizedFluidIngredient.FLAT_CODEC.optionalFieldOf("fluid").forGetter(ImbuingCauldronRecipe::fluidIngredient)
         ).apply(builder, ImbuingCauldronRecipe::new));
         private static final StreamCodec<RegistryFriendlyByteBuf, ImbuingCauldronRecipe> STREAM_CODEC = StreamCodec.composite(
-                IngredientWithCount.STREAM_CODEC.apply(ByteBufCodecs.list()),
+                SizedIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()),
                 ImbuingCauldronRecipe::ingredients,
                 ItemStack.OPTIONAL_STREAM_CODEC,
                 ImbuingCauldronRecipe::result,
-                FluidStack.OPTIONAL_STREAM_CODEC,
-                ImbuingCauldronRecipe::fluidStack,
+                ByteBufCodecs.optional(SizedFluidIngredient.STREAM_CODEC),
+                ImbuingCauldronRecipe::fluidIngredient,
                 ImbuingCauldronRecipe::new
         );
 

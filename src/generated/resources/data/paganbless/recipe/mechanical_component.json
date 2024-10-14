@@ -2,6 +2,7 @@
   "type": "paganbless:anvil_smashing",
   "ingredients": [
     {
+      "count": 1,
       "item": "paganbless:essence_of_the_forest"
     },
     {

@@ -2,10 +2,11 @@
   "type": "paganbless:cauldron_imbuing",
   "fluid": {
     "amount": 500,
-    "id": "minecraft:water"
+    "tag": "minecraft:water"
   },
   "ingredients": [
     {
+      "count": 1,
       "item": "minecraft:glass_bottle"
     },
     {
@@ -13,9 +14,11 @@
       "tag": "paganbless:herbs"
     },
     {
+      "count": 1,
       "tag": "c:gems/amethyst"
     },
     {
+      "count": 1,
       "item": "paganbless:cinnabar"
     },
     {

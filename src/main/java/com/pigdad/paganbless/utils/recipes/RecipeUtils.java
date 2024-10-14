@@ -3,6 +3,11 @@ package com.pigdad.paganbless.utils.recipes;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -12,15 +17,15 @@ public final class RecipeUtils {
         return ingredients.stream().map(ingredient -> new IngredientWithCount(ingredient, 1)).toList();
     }
 
-    public static List<Ingredient> iWCToIngredients(List<IngredientWithCount> ingredientsWithCount) {
-        return ingredientsWithCount.stream().map(IngredientWithCount::ingredient).toList();
+    public static List<Ingredient> iWCToIngredients(List<SizedIngredient> ingredientsWithCount) {
+        return ingredientsWithCount.stream().map(SizedIngredient::ingredient).toList();
     }
 
-    public static List<Ingredient> iWCToIngredientsSaveCount(List<IngredientWithCount> ingredientsWithCount) {
+    public static List<Ingredient> iWCToIngredientsSaveCount(List<SizedIngredient> ingredientsWithCount) {
         return ingredientsWithCount.stream().map(RecipeUtils::iWCToIngredientSaveCount).toList();
     }
 
-    public static @NotNull Ingredient iWCToIngredientSaveCount(IngredientWithCount ingredientWithCount) {
+    public static @NotNull Ingredient iWCToIngredientSaveCount(SizedIngredient ingredientWithCount) {
         Ingredient ingredient = ingredientWithCount.ingredient();
         for (ItemStack itemStack : ingredient.getItems()) {
             itemStack.setCount(ingredientWithCount.count());
@@ -34,7 +39,7 @@ public final class RecipeUtils {
         return nnl;
     }
 
-    public static boolean compareItems(List<ItemStack> inputs, List<IngredientWithCount> ingredients) {
+    public static boolean compareItems(List<ItemStack> inputs, List<SizedIngredient> ingredients) {
         int elements = inputs.size();
         if (elements != ingredients.size()) {
             return false;
@@ -48,7 +53,7 @@ public final class RecipeUtils {
             for (int x = 0; x < elements; ++x) {
                 int matched = 0;
                 int offset = (x + 2) * elements;
-                IngredientWithCount test = ingredients.get(x);
+                SizedIngredient test = ingredients.get(x);
 
                 for (int y = 0; y < elements; ++y) {
                     if (!data.get(y) && test.test(inputs.get(y))) {

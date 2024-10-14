@@ -1,0 +1,28 @@
+{
+  "name": "Essential Items",
+  "description": "Items that will accompany you on your journey",
+  "icon": "paganbless:essence_of_the_forest",
+  "x": 4,
+  "y": -4,
+  "hide_while_locked": false,
+  "category": "paganbless:features",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "item": {
+        "item": "paganbless:essence_black_thorn_log"
+      },
+      "title": "Essence of the forest",
+      "use_markdown_title": true,
+      "text": "Essence Of The Forest is a fruit and crafting ingredient.\\\\It can be obtained by right-clicking with a Boline on a Black Thorn Log that has a green spot on it."
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "paganbless:features/essential_tools",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ]
+}

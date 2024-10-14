@@ -2,6 +2,7 @@
   "type": "paganbless:bench_cutting",
   "cuts": 5,
   "ingredient": {
+    "count": 1,
     "item": "paganbless:black_thorn_log"
   },
   "result": {

@@ -18,9 +18,10 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.NotNull;
 
-public record BenchCuttingRecipe(IngredientWithCount ingredient, int cuts, boolean tryDamage, Ingredient toolItem, ItemStack resultStack) implements Recipe<PBRecipeInput> {
+public record BenchCuttingRecipe(SizedIngredient ingredient, int cuts, boolean tryDamage, Ingredient toolItem, ItemStack resultStack) implements Recipe<PBRecipeInput> {
     public static final String NAME = "bench_cutting";
 
     @Override
@@ -61,14 +62,14 @@ public record BenchCuttingRecipe(IngredientWithCount ingredient, int cuts, boole
     public static class Serializer implements RecipeSerializer<BenchCuttingRecipe> {
         public static final BenchCuttingRecipe.Serializer INSTANCE = new BenchCuttingRecipe.Serializer();
         private static final MapCodec<BenchCuttingRecipe> MAP_CODEC = RecordCodecBuilder.mapCodec((builder) -> builder.group(
-                IngredientWithCount.CODEC.fieldOf("ingredient").forGetter(BenchCuttingRecipe::ingredient),
+                SizedIngredient.FLAT_CODEC.fieldOf("ingredient").forGetter(BenchCuttingRecipe::ingredient),
                 ExtraCodecs.POSITIVE_INT.fieldOf("cuts").forGetter(BenchCuttingRecipe::cuts),
                 Codec.BOOL.fieldOf("try_damage").forGetter(BenchCuttingRecipe::tryDamage),
                 Ingredient.CODEC_NONEMPTY.fieldOf("tool").forGetter(BenchCuttingRecipe::toolItem),
                 ItemStack.CODEC.fieldOf("result").forGetter(BenchCuttingRecipe::resultStack)
         ).apply(builder, BenchCuttingRecipe::new));
         private static final StreamCodec<RegistryFriendlyByteBuf, BenchCuttingRecipe> STREAM_CODEC = StreamCodec.composite(
-                IngredientWithCount.STREAM_CODEC,
+                SizedIngredient.STREAM_CODEC,
                 BenchCuttingRecipe::ingredient,
                 ByteBufCodecs.INT,
                 BenchCuttingRecipe::cuts,

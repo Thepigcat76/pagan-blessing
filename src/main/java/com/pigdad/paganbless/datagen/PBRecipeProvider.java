@@ -10,8 +10,11 @@ import com.pigdad.paganbless.registries.PBTags;
 import com.pigdad.paganbless.content.items.PentacleItem;
 import com.pigdad.paganbless.utils.recipes.IngredientWithCount;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.network.chat.Component;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -21,7 +24,10 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -42,33 +48,33 @@ public class PBRecipeProvider extends RecipeProvider {
     }
 
     private void benchCuttingRecipes(RecipeOutput recipeOutput) {
-        BenchCuttingRecipeBuilder.newRecipe(new ItemStack(PBItems.BLACK_THORN_STICK.get(), 3), IngredientWithCount.fromItemLike(PBBlocks.BLACK_THORN_LOG.get()),
+        BenchCuttingRecipeBuilder.newRecipe(new ItemStack(PBItems.BLACK_THORN_STICK.get(), 3), SizedIngredient.of(PBBlocks.BLACK_THORN_LOG.get(), 1),
                         Ingredient.of(ItemTags.AXES), 5, true)
                 .save(recipeOutput);
-        BenchCuttingRecipeBuilder.newRecipe(new ItemStack(PBItems.CHOPPED_RUE.get()), IngredientWithCount.fromItemLike(PBBlocks.DRIED_HANGING_RUE.get()),
+        BenchCuttingRecipeBuilder.newRecipe(new ItemStack(PBItems.CHOPPED_RUE.get()), SizedIngredient.of(PBBlocks.DRIED_HANGING_RUE.get(), 1),
                         Ingredient.of(PBItems.BOLINE.get()), 3, true)
                 .save(recipeOutput);
-        BenchCuttingRecipeBuilder.newRecipe(new ItemStack(PBItems.CHOPPED_LAVENDER.get()), IngredientWithCount.fromItemLike(PBBlocks.DRIED_HANGING_LAVENDER.get()),
+        BenchCuttingRecipeBuilder.newRecipe(new ItemStack(PBItems.CHOPPED_LAVENDER.get()), SizedIngredient.of(PBBlocks.DRIED_HANGING_LAVENDER.get(), 1),
                         Ingredient.of(PBItems.BOLINE.get()), 3, true)
                 .save(recipeOutput);
-        BenchCuttingRecipeBuilder.newRecipe(new ItemStack(PBBlocks.EMPTY_INCENSE.get()), IngredientWithCount.fromItemLike(Items.SKELETON_SKULL),
+        BenchCuttingRecipeBuilder.newRecipe(new ItemStack(PBBlocks.EMPTY_INCENSE.get()), SizedIngredient.of(Items.SKELETON_SKULL, 1),
                         Ingredient.of(PBItems.BOLINE.get()), 9, true)
                 .save(recipeOutput);
     }
 
     private void anvilSmashingRecipes(RecipeOutput recipeOutput) {
         AnvilSmashingRecipeBuilder.newRecipe(new ItemStack(Items.REDSTONE, 15),
-                        IngredientWithCount.fromItemTag(PBTags.ItemTags.GEMS_CINNABAR, 4))
+                        SizedIngredient.of(PBTags.ItemTags.GEMS_CINNABAR, 4))
                 .save(recipeOutput);
         AnvilSmashingRecipeBuilder.newRecipe(PBBlocks.RUNIC_CORE.get().asItem().getDefaultInstance(),
-                        IngredientWithCount.fromItemLike(PBBlocks.BLACK_THORN_LOG.get()),
-                        IngredientWithCount.fromItemLike(Items.SKELETON_SKULL),
-                        IngredientWithCount.fromItemTag(ItemTags.CANDLES, 3))
+                        SizedIngredient.of(PBBlocks.BLACK_THORN_LOG.get(), 1),
+                        SizedIngredient.of(Items.SKELETON_SKULL, 1),
+                        SizedIngredient.of(ItemTags.CANDLES, 3))
                 .save(recipeOutput);
         AnvilSmashingRecipeBuilder.newRecipe(PBItems.MECHANICAL_COMPONENT.get().getDefaultInstance(),
-                        IngredientWithCount.fromItemLike(PBItems.ESSENCE_OF_THE_FOREST.get()),
-                        IngredientWithCount.fromItemTag(Tags.Items.INGOTS_IRON, 2),
-                        IngredientWithCount.fromItemLike(PBItems.BLACK_THORN_STICK.get(), 2))
+                        SizedIngredient.of(PBItems.ESSENCE_OF_THE_FOREST.get(), 1),
+                        SizedIngredient.of(Tags.Items.INGOTS_IRON, 2),
+                        SizedIngredient.of(PBItems.BLACK_THORN_STICK.get(), 2))
                 .save(recipeOutput);
 
         runeSlabRecipe(recipeOutput, PBBlocks.RUNE_SLAB_CINNABAR.get(), PBTags.ItemTags.GEMS_CINNABAR, 2);
@@ -81,8 +87,8 @@ public class PBRecipeProvider extends RecipeProvider {
 
     private void runeSlabRecipe(RecipeOutput recipeOutput, Block runeSlabBlock, TagKey<Item> gemItem, int gemCount) {
         AnvilSmashingRecipeBuilder.newRecipe(runeSlabBlock.asItem().getDefaultInstance(),
-                        new IngredientWithCount(Ingredient.of(gemItem), gemCount),
-                        new IngredientWithCount(Ingredient.of(PBBlocks.RUNE_SLAB_INERT.get()), 1))
+                        SizedIngredient.of(gemItem, gemCount),
+                        SizedIngredient.of(PBBlocks.RUNE_SLAB_INERT.get(), 1))
                 .save(recipeOutput);
     }
 
@@ -102,19 +108,19 @@ public class PBRecipeProvider extends RecipeProvider {
     }
 
     private void imbuingCauldronRecipes(RecipeOutput recipeOutput) {
-        ImbuingCauldronRecipeBuilder.newRecipe(new ItemStack(PBItems.GLAZED_BERRIES.get(), 2), new FluidStack(Fluids.EMPTY, 0))
+        ImbuingCauldronRecipeBuilder.newRecipe(new ItemStack(PBItems.GLAZED_BERRIES.get(), 2))
                 .ingredients(new ItemStack(PBItems.WINTER_BERRIES.get(), 2), new ItemStack(Items.SUGAR, 3))
                 .save(recipeOutput);
-        ImbuingCauldronRecipeBuilder.newRecipe(new ItemStack(PBBlocks.RUNE_SLAB_INERT.get()), new FluidStack(Fluids.LAVA, 1000))
-                .ingredients(new IngredientWithCount(Ingredient.of(Tags.Items.COBBLESTONES_DEEPSLATE), 3))
-                .ingredients(new IngredientWithCount(Ingredient.of(PBTags.ItemTags.HERBS), 2))
+        ImbuingCauldronRecipeBuilder.newRecipe(new ItemStack(PBBlocks.RUNE_SLAB_INERT.get()), SizedFluidIngredient.of(FluidTags.LAVA, 1000))
+                .ingredients(SizedIngredient.of(Tags.Items.COBBLESTONES_DEEPSLATE, 3))
+                .ingredients(SizedIngredient.of(PBTags.ItemTags.HERBS, 2))
                 .save(recipeOutput);
-        ImbuingCauldronRecipeBuilder.newRecipe(new ItemStack(PBItems.RUNIC_CHARGE.get()), new FluidStack(Fluids.WATER, 500))
+        ImbuingCauldronRecipeBuilder.newRecipe(new ItemStack(PBItems.RUNIC_CHARGE.get()), SizedFluidIngredient.of(FluidTags.WATER, 500))
                 .ingredients(Items.GLASS_BOTTLE)
-                .ingredients(new IngredientWithCount(Ingredient.of(PBTags.ItemTags.HERBS), 2))
-                .ingredients(new IngredientWithCount(Ingredient.of(Tags.Items.GEMS_AMETHYST), 1))
-                .ingredients(new IngredientWithCount(Ingredient.of(PBItems.CINNABAR.get()), 1))
-                .ingredients(new IngredientWithCount(Ingredient.of(PBItems.ESSENCE_OF_THE_FOREST.get()), 2))
+                .ingredients(SizedIngredient.of(PBTags.ItemTags.HERBS, 2))
+                .ingredients(SizedIngredient.of(Tags.Items.GEMS_AMETHYST, 1))
+                .ingredients(SizedIngredient.of(PBItems.CINNABAR.get(), 1))
+                .ingredients(SizedIngredient.of(PBItems.ESSENCE_OF_THE_FOREST.get(), 2))
                 .save(recipeOutput);
     }
 
